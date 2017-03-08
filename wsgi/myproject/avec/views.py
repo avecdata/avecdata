@@ -1,0 +1,182 @@
+# -*- coding: utf-8 -*-
+from django.shortcuts import render, render_to_response
+from django.utils import timezone
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports
+from django.shortcuts import render, get_object_or_404
+from django.template import RequestContext
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect # Funcao para redirecionar o usuario
+from django.contrib.auth.forms import UserCreationForm # Formulario de criacao de usuarios
+from django.contrib.auth.forms import AuthenticationForm # Formulario de autenticacao de usuarios
+from django.contrib.auth import login # funcao que salva o usuario na sessao
+from django.views.generic import View, TemplateView, CreateView
+from django.core.urlresolvers import reverse_lazy
+
+import json
+
+
+# Create your views here.
+def page_not_found(request):
+    # Dict to pass to template, data could come from DB query
+    values_for_template = {}
+    return render(request,'avec/404.html',values_for_template,status=404)
+
+def server_error(request):
+    # Dict to pass to template, data could come from DB query
+    values_for_template = {}
+    return render(request,'avec/404.html',values_for_template,status=500)
+
+def bad_request(request):
+    # Dict to pass to template, data could come from DB query
+    values_for_template = {}
+    return render(request,'avec/400.html',values_for_template,status=400)
+
+def permission_denied(request):
+    # Dict to pass to template, data could come from DB query
+    values_for_template = {}
+    return render(request,'avec/403.html',values_for_template,status=403)
+
+def index(request):
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    subject_detail = Subject_detail.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'avec/index.html', {'subject': subject, 'themes': themes, 'subject_detail' : subject_detail, 'posts' : posts})
+
+def autocompleteModel(request):
+    search_qs = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    results = []
+    for r in search_qs:
+        results.append(r.name)
+    resp = request.REQUEST['callback'] + '(' + simplejson.dumps(result) + ');'
+    return HttpResponse(resp, content_type='application/json')
+
+def ciencia_tecnologia(request):
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'avec/ciencia_tecnologia.html', {'posts': posts})
+
+def registro_civil(request):
+    return render(request, 'avec/registro_civil.html')
+
+def retratos_municipais(request):
+    return render(request, 'avec/dashboards/retratosmunicipais.html')
+
+def educacao(request):
+    return render(request, 'avec/dashboards/educacao.html')
+
+def inovacao(request):
+	if request.user.is_authenticated():
+		return render(request, 'avec/dashboards/inovacao.html')
+	else:
+		return render(request,'avec/permissao.html')
+
+def nascidosvivos(request):
+	if request.user.is_authenticated():
+		return render(request, 'avec/dashboards/nascidosvivos.html')
+	else:
+		return render(request,'avec/permissao.html')
+
+def post_detail(request, pk):
+    post = Post.objects.get(pk=pk)
+    mykeywords = post.keywords.all()
+    myparent = post.subject.all()
+    related = Subject_detail.objects.filter(subject=myparent)
+    return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related})
+
+def reports_detail(request, pk):
+    report = Reports.objects.get(pk=pk)
+    myparent = report.subject.subject_detail_set.all()
+    return render(request, 'avec/reports_detail.html', {'report': report})
+
+def subject_detail(request, pk):
+    mysubject = Subject.objects.get(pk=pk)
+    mykeywords = mysubject.keywords.all()
+    mysubdetail = mysubject.subject_detail_set.all()
+    posts = Post.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date')
+    reports  = Reports.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date')
+    return render(request, 'avec/subjects_detail.html', {'posts': posts, 'mysubject': mysubject, 'mykeywords': mykeywords, 'mysubdetail': mysubdetail, 'reports': reports})
+
+def subsubject_detail(request, pk):
+    mysubject = Subject_detail.objects.get(pk=pk)
+    posts = Post.objects.filter(published_date__lte=timezone.now()).filter(subject_detail=mysubject).order_by('published_date')
+    myparent = mysubject.subject.subject_detail_set.all()
+    return render(request, 'avec/subsubjects_detail.html', {'mysubject': mysubject, 'posts': posts , 'myparent': myparent})
+
+def keywords_detail(request, pk):
+    mykeywords = Keywords.objects.get(pk=pk)
+    posts = Post.objects.filter(published_date__lte=timezone.now()).filter(keywords=mykeywords).order_by('published_date')
+    return render(request, 'avec/keywords.html', {'mykeywords': mykeywords, 'posts': posts})
+
+# pagina de cadastro de cliente
+def registrar(request):
+
+    # Se dados forem passados via POST
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid(): # se o formulario for valido
+            form.save() # cria um novo usuario a partir dos dados enviados
+            return render(request, "avec/logar.html", {"form": form})
+        else:
+            # mostra novamente o formulario de cadastro com os erros do formulario atual
+            return render(request, "registrar.html", {"form": form})
+
+    # se nenhuma informacao for passada, exibe a pagina de cadastro com o formulario
+    return render(request, "avec/registrar.html", {"form": UserCreationForm() })
+
+
+# pagina de login do jogador
+def logar(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST) # Veja a documentacao desta funcao
+
+        if form.is_valid():
+            #se o formulario for valido significa que o Django conseguiu encontrar o usuario no banco de dados
+            #agora, basta logar o usuario e ser feliz.
+            login(request, form.get_user())
+            return HttpResponseRedirect("/") # redireciona o usuario logado para a pagina inicial
+        else:
+            return render(request, "avec/logar.html", {"form": form})
+
+    #se nenhuma informacao for passada, exibe a pagina de login com o formulario
+    return render(request, "avec/logar.html", {"form": AuthenticationForm()})
+
+def logout(request):
+    request.session.items = []
+    request.session.modified = True
+    logout(request)
+
+def assuntos(request):
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'avec/assuntos.html', {'subject': subject, 'themes': themes})
+
+def servicos(request):
+    return render(request, 'avec/servicos.html')
+
+def quemsomos(request):
+    return render(request, 'avec/quemsomos.html')	
+
+def autocomplete(request):
+    return render(request, 'avec/autocomplete.html')
+	
+def lista(request):
+	if request.is_ajax:
+		palabra = request.GET.get('term','')
+		
+		themes = Subject.objects.filter(title__icontains=palabra).order_by('published_date')	
+		
+		results=[]
+		
+		for th in themes:
+			th_json=[]
+			th_json['label']=th.title
+			results.append(th_json)
+			
+		data_json=json.dumps(results)
+
+	else:
+		data_json='fail'
+	mimetype='application/json'
+	return HttpResponse(data_json.mimetype)
+	

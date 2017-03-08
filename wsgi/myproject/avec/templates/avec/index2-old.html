@@ -1,0 +1,17 @@
+{% extends 'avec/base.html' %}
+{% load staticfiles %}
+{% block content %}
+	{% for subj in subject %}
+					<div class="row" style="padding-top: 20px">
+						<div class="col-sm-2">
+						<a href="{{subj.link}}"><img src="{% static 'img/fs-line.png' %}" alt="" style="width:60%"/></a>
+						</div>
+						<div class="col-sm-10">
+						<div class="author_dec">
+							<a href="{% url 'subject_detail' pk=subj.pk %}">{{ subj.title }}</a>
+							<p>published: {{ subj.published_date }}</p>
+						</div>
+					   </div>
+					</div>
+	{% endfor %}
+{% endblock content %}

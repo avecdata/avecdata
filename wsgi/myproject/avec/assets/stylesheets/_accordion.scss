@@ -1,0 +1,120 @@
+// accordion toggle styling
+.accordion-toggle {
+	margin-bottom: 50px;
+	
+	input {
+		display: none;
+	}
+
+  a:focus,
+  a:hover,
+  a:active {
+    color: $topaz !important;
+    outline: 0;
+    text-decoration: none;
+  }
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		li {
+			// margin-bottom: 10px;
+			border: 1px solid $pale-grey;
+		}
+	}
+
+	label {
+    color: $blugrey;
+		display: block;
+		position: relative;
+		padding: 15px;
+		cursor: pointer;
+    margin-bottom: 0;
+
+    font-size: 16px;
+    font-weight: normal;
+
+    &:hover, {
+      color: $topaz !important;
+    }
+	}
+
+	.content {
+		max-height: 0px;
+		// transition: max-height 50ms;
+		overflow: hidden;
+	}
+
+	// icon
+	.icon {
+		position: absolute;
+		right: 40px;
+		top: 50%;
+		transform: translateY(-50%);
+		transition: all 300ms;
+		&:before,
+		&:after {
+			content: "";
+			display: block;
+			height: 12px;
+			width: 3px;
+			position: absolute;
+			top: 50%;
+			background-color: $topaz;
+		}
+		&:before {
+			right: 2px;
+			transform: translateY(-50%) rotate(-45deg);
+		}
+		&:after {
+			left: 2px;
+			transform: translateY(-50%) rotate(45deg);
+		}
+	}
+
+	// checked state
+	input:checked {
+    ~ .content {
+      background-color: $bluegrey-two;
+  		max-height: 1000px;
+      padding-left: 0;
+  		transition: max-height 1200ms;
+
+      li {
+        min-height: 54px;
+        border: 0;
+        padding-left: 40px;
+        display: flex;
+        align-items: center;
+        align-content: center;
+
+        a {
+          color: $white !important;
+          width: 100%;
+          padding: 18px 0;
+
+          background: url('../../img/arrow-forward.svg') no-repeat 97% center;
+
+					@include mobile(mobile) {
+						background: url('../../img/arrow-forward.svg') no-repeat 87% center;
+					}
+        }
+
+        &:hover {
+          background-color: $topaz;
+          cursor: pointer;
+        }
+      }
+    }
+
+    ~ label {
+      background-color: $denim;
+      color: $white;
+    }
+	}
+
+	input:checked + label .icon {
+		transform: translateY(-50%) rotate(180deg);
+	}
+}

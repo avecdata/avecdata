@@ -1,0 +1,414 @@
+.services-detail {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+  width: 100%;
+
+  figure,
+  img {
+    float: left;
+    min-height: 426px;
+    vertical-align: bottom;
+    width: 100% !important;
+  }
+
+  &__general {
+    float: left;
+    width: 100%;
+	position: relative;
+
+    @include mobile(small) {
+      width: 100%;
+    }
+  }
+  
+  &__absolute {
+    position: absolute;
+    top: 140px;
+    width: 200px;
+    height: 100px;
+    border: 3px solid #73AD21;
+	
+	}
+	
+	&__image-mackbook{
+	  width: 507px;
+	  height: 311px;
+	  object-fit: contain;	
+	}
+	
+  &__group {
+    float: left;
+    max-height: 338px;
+    width: 100%;
+
+    @include mobile(small) {
+      max-height: 100%;
+      width: 100%;
+    }
+  }
+
+  &__image {
+    float: left;
+    margin: 0;
+    width: 50%;
+
+    @include mobile(small) {
+      max-height: 213px;
+      width: 100%;
+    }
+
+    &--right {
+      float: right !important;
+    }
+
+  }
+
+   &__content {
+    background-color: $denim;
+    float: left;
+    height: 100%;
+    max-height: 338px;
+    min-height: 338px;
+    padding: 90px 90px;
+    width: 100%;
+	text-align: center;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0;
+
+    @include mobile(small) {
+      justify-content: space-around;
+      max-height: 100%;
+      min-height: auto;
+      padding: 60px 20px;
+      width: 100%;
+    }
+  } 
+
+  &__title {
+    color: $white;
+  	font-size: 36px;
+  	font-weight: bold;
+  	margin-bottom: 25px;
+
+    @include mobile(small) {
+      font-size: 28px;
+    }
+  }
+  
+
+  &__description {
+    color: $white;
+    font-size: 16px;
+  }
+
+  &__button {
+    color: $white;
+  	font-size: 16px;
+  	font-weight: 600;
+  	line-height: 1.25;
+  	letter-spacing: normal;
+    max-width: 220px;
+    padding: 12px 22px;
+    text-align: center;
+
+    @include mobile(small) {
+      margin-top: 20px;
+    }
+  }
+}
+
+.services-retrato {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+  width: 100%;
+
+  figure,
+  img {
+    float: left;
+    min-height: 426px;
+    vertical-align: bottom;
+    width: 100% !important;
+  }
+
+  &__general {
+    float: left;
+    width: 100%;
+
+    @include mobile(small) {
+      width: 100%;
+    }
+  }
+
+  &__group {
+    float: left;
+    max-height: 338px;
+    width: 100%;
+
+    @include mobile(small) {
+      max-height: 100%;
+      width: 100%;
+    }
+  }
+
+  &__image {
+    float: left;
+    margin: 0;
+    width: 50%;
+
+    @include mobile(small) {
+      max-height: 213px;
+      width: 100%;
+    }
+
+    &--right {
+      float: right !important;
+    }
+
+  }
+  
+  &__contentleft {
+    float: left;
+    height: 100%;
+    max-height: 338px;
+    min-height: 338px;
+    padding: 60px 50px;
+    width: 50%;
+
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0;
+
+    @include mobile(small) {
+      justify-content: space-around;
+      max-height: 100%;
+      min-height: auto;
+      padding: 60px 20px;
+      width: 100%;
+    }
+
+    &--right {
+      float: right !important;
+    }
+
+  }  
+
+  &__content {
+
+    float: left;
+    height: 100%;
+    max-height: 338px;
+    min-height: 338px;
+    padding: 60px 50px;
+    width: 50%;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0;
+
+    @include mobile(small) {
+      justify-content: space-around;
+      max-height: 100%;
+      min-height: auto;
+      padding: 60px 20px;
+      width: 100%;
+    }
+  }
+
+  &__title {
+	  width: 268px;
+	  height: 37px;
+	  font-family: PlayfairDisplay;
+	  font-size: 28px;
+	  font-weight: bold;
+	  font-style: normal;
+	  font-stretch: normal;
+	  line-height: normal;
+	  letter-spacing: normal;
+	  color: $dark2;
+	  text-align: left;	  
+	  padding: 60px 20px;
+	  
+    @include mobile(small) {
+      font-size: 28px;
+    }
+  }
+
+  &__description {
+	  width: 391px;
+	  height: 44px;
+	  font-family: OpenSans;
+	  font-size: 16px;
+	  font-weight: normal;
+	  font-style: normal;
+	  font-stretch: normal;
+	  line-height: normal;
+	  letter-spacing: normal;
+	  color: $dark2;
+  }
+
+  &__button {
+    color: $white;
+  	font-size: 16px;
+  	font-weight: 600;
+  	line-height: 1.25;
+  	letter-spacing: normal;
+    max-width: 220px;
+    padding: 12px 22px;
+    text-align: center;
+
+    @include mobile(small) {
+      margin-top: 20px;
+    }
+  }
+}
+
+.services-mensagem {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+  width: 100%;
+
+  figure,
+  img {
+    float: left;
+    min-height: 426px;
+    vertical-align: bottom;
+    width: 100% !important;
+  }
+
+  &__general {
+    float: left;
+    width: 100%;
+
+    @include mobile(small) {
+      width: 100%;
+    }
+  }
+
+  &__group {
+    float: left;
+    max-height: 338px;
+    width: 100%;
+
+    @include mobile(small) {
+      max-height: 100%;
+      width: 100%;
+    }
+  }
+
+  &__image {
+    float: left;
+    margin: 0;
+    width: 50%;
+
+    @include mobile(small) {
+      max-height: 213px;
+      width: 100%;
+    }
+
+    &--right {
+      float: right !important;
+    }
+
+  }
+  
+  &__content {
+    background-color: $dark2;
+    float: left;
+    height: 100%;
+    max-height: 338px;
+    min-height: 338px;
+    padding: 138px 311px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0;
+
+    @include mobile(small) {
+      justify-content: space-around;
+      max-height: 100%;
+      min-height: auto;
+      padding: 60px 20px;
+      width: 100%;
+    }
+  }
+  
+  
+
+  &__title {
+	  width: 268px;
+	  height: 37px;
+	  font-family: PlayfairDisplay;
+	  font-size: 28px;
+	  font-weight: bold;
+	  font-style: normal;
+	  font-stretch: normal;
+	  line-height: normal;
+	  letter-spacing: normal;
+	  color: $dark2;
+      text-align: center;	  
+	  
+	  
+
+    @include mobile(small) {
+      font-size: 28px;
+    }
+  }
+
+  &__description {
+      width: 650px;
+	  height: 88px;
+	  text-align: justify;
+	  font-family: OpenSans;
+	  font-size: 20px;
+	  font-weight: normal;
+	  font-style: normal;
+	  font-stretch: normal;
+	  line-height: normal;
+	  letter-spacing: normal;
+	  color: #ffffff;
+  }
+  
+  &__layer {
+	  width: 51px;
+	  height: 98px;
+	  font-family: PlayfairDisplay;
+	  font-size: 120px;
+	  font-weight: normal;
+	  font-style: normal;
+	  font-stretch: normal;
+	  line-height: 0.82;
+	  letter-spacing: normal;
+	  text-align: center;
+	  color: #3e5881;
+	}
+	
+  &__button {
+    color: $white;
+  	font-size: 16px;
+  	font-weight: 600;
+  	line-height: 1.25;
+  	letter-spacing: normal;
+    max-width: 220px;
+    padding: 12px 22px;
+    text-align: center;
+
+    @include mobile(small) {
+      margin-top: 20px;
+    }
+  }
+  
+}
