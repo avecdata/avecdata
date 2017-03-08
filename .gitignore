@@ -1,0 +1,13 @@
+*.py[co]
+*.sw[po]
+*.bak
+*.orig
+*~
+.project
+.pydevproject
+venv/
+wsgi/myproject/db.sqlite3
+node_modules/
+npm-debug.log
+bower_components/
+wsgi/myproject/avec/static/min/
