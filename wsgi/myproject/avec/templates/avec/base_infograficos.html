@@ -20,86 +20,17 @@
         <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'min/stylesheets/style.css' %}">		
 		
 	<!--	<link type="text/css" href="{% static 'css/player.css' %}" rel="stylesheet" />
 		<script src="{% static 'js/libs.js' %}"></script>-->
 		
     </head>
 <body >
-		 <!-- start preloader 
-        <div id="loader-wrapper">
-            <div class="logo"></div>
-            <div id="loader">
-            </div>
-        </div>
-		
-         end preloader -->
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-		
-		
-<!-- Start Header Section -->
-<header class="main_menu_sec navbar navbar-default navbar-fixed-top">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-12">
-				<div class="lft_hd">
-					<a href="{%url 'index'%}"><img src="{% static 'img/Flat_logo_on_transparent_249_69.png' %}" alt=""/></a>
-				</div>
-			</div>			
-			<div class="col-lg-9 col-md-9 col-sm-12">
-				<div class="rgt_hd">					
-					<div class="main_menu">
-						<nav id="nav_menu">
-							<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							</button>	
-						<div id="navbar">
-							<ul>
-								<li><a class="page-scroll" href="{%url 'index'%}">Home</a></li> 
-							<!--<li><a href="#">A OpenBigData <i class="fa fa-angle-down"></i></a>-->
-							<ul>
-								<!--<li><a class="page-scroll" href="#skill_sec">Nossas competências</a></li>-->
-							</ul>
-							</li> 	
-								<li><a class="page-scroll" href="../../#abt_sec">a AVEC</a></li>	
-								<li><a class="page-scroll" href="../../#pr_sec">Nossas Soluções</a></li>			
-								<li><a class="page-scroll" href="../../#protfolio_sec">Portfolio</a></li>					
-								<li><a class="page-scroll" href="../../#skill_sec">Infográficos</a></li>								
-								<li><a class="page-scroll" href="../../#tm_sec">Equipe</a></li>
-								<li><a class="page-scroll" href="../../#pricing_sec">Preços</a></li>														
-								<li><a class="page-scroll" href="../../#ctn_sec">Informe-se</a></li>								
-							</ul>
-						</div>		
-						</nav>	
-					
-					</div>					
-						
-				</div>
-				
-			</div>	
-				
-		</div>	
 
-	</div>	
-		{% if user.is_authenticated %}			
-			  <li class="dropdown" style="float:right;  padding-right: 20px;">
-				<a href="javascript:void(0)" class="dropbtn">Usuario: {{ user }}</a>
-				<div class="dropdown-content">
-				  <a href="{% url 'logout' %}">Logout</a>
-				  <a href="#">Meus dados</a>
-				  <a href="#">Alterar senha</a>
-				</div>
-			  </li>
-		{% else %}
-				<p style="float:right; padding-right: 20px;"> <a style="color: white;" href="">Registre-se</a></p>
-				<p style="float:right; padding-right: 20px;"> <a style="color: white;" href="/login">Login</a></p>				
-		{% endif%}
-</header>
-<!-- End Header Section -->
+    <!-- Start Header Section -->
+    {% include "avec/_header.html" with prefi="header__navbar--internal header__navbar--fixed" %}
+    <!-- End Header -->
 
 <!-- start blog Section -->
 <section id="blg_sec" style="padding-top: 150px;">
@@ -130,9 +61,9 @@
 <!-- start Blog Section -->
 
 
-
-
-
+    <!-- Start Header Section -->
+    {% include "avec/_footer.html" %}
+    <!-- End Header -->		
 
     </body>
 </html>
