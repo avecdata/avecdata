@@ -13,7 +13,7 @@ class Keywords(models.Model):
         return self.title	
 
 class Themes(models.Model):
-    author = models.ForeignKey('auth.User')
+    #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     image = models.ImageField( blank=True)
     created_date = models.DateTimeField(
@@ -29,7 +29,7 @@ class Themes(models.Model):
         return self.title
 		
 class Subject(models.Model):
-    author = models.ForeignKey('auth.User')
+    #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     text = models.TextField()
     image = models.ImageField( blank=True)
@@ -48,7 +48,7 @@ class Subject(models.Model):
         return self.title	
 
 class Subject_detail(models.Model):
-    author = models.ForeignKey('auth.User')
+    #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(
@@ -66,7 +66,7 @@ class Subject_detail(models.Model):
         return self.title			
 
 class Post(models.Model):
-    author = models.ForeignKey('auth.User')
+    #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     text = models.TextField()
     html = models.TextField(blank=True)
@@ -88,7 +88,7 @@ class Post(models.Model):
         return self.title
 
 class Reports(models.Model):
-    author = models.ForeignKey('auth.User')
+    #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     text = models.TextField()
     pdf = models.FileField(upload_to='pdf')
