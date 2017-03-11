@@ -1,0 +1,109 @@
+
+.footer {
+    bottom: 0;
+    width: 100%;
+    height: auto;
+}
+
+.avec-content {
+    min-height: calc(100vh - 144px);
+}
+
+.services-detail__content {
+	padding: 0px;
+}
+
+.services-detail h6,
+.services-detail p {
+    font-family: "Open Sans", sans-serif;
+    color: #fff;
+}
+
+.avec-services-title {
+	width: 359px;
+	line-height: 28px;
+    height: 27px;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.services-retrato h6 {
+	font-family: "Open Sans", sans-serif;
+    color: #000;
+}
+
+.services-retrato p {
+	font-family: "Open Sans", sans-serif;
+}
+
+.avec-services-messagem {
+	font-family: "Open Sans", sans-serif;
+}
+
+.avec-services-retrato {
+	width: 100%;
+	padding: 50px 50px !important;
+    max-height: 300px;
+    min-height: 300px;
+}
+
+.bg-danger {
+    background-color: #d9534f!important;
+    color: #f1f1f1;
+}
+
+.avec-quotes-content-message {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 10px;
+	font-size: 40px;
+}
+
+.services-detail__title {
+    font-size: 33px;
+}
+
+
+.services-retrato__title {
+	width: 100%;
+    font-size: 33px;
+}
+
+.avec-services-content-right {
+	text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+  
+  	.avec-services-retrato {
+	    padding: 50px 7px !important;
+	}
+	
+	.services-retrato p {
+	    width: 100%;
+	    text-align: justify;
+	}
+	
+	.services-retrato__group {
+	    display: none;
+	}
+	
+	.avec-services-title {
+		width: 100%;
+    	padding: 20px;
+    	line-height: 34px;
+	}
+	
+	.avec-services-content-right {
+		padding-bottom: 20px;
+	}
+	
+	.services-retrato__general {
+	    padding-bottom: 15px;
+	}
+	
+	.services-mensagem__description {
+	    width: 100%;
+	    font-size: 1.2em;
+	}
+}
