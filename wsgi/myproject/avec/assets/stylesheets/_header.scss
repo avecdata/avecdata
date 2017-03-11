@@ -24,6 +24,13 @@
         background-size: cover;
       }
     }
+	
+	@include mobile(small) {
+      background-color: $dark2;
+	  
+	  
+    }
+	
   }
 
   &__brand {

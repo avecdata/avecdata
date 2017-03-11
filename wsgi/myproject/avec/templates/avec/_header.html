@@ -1,38 +1,41 @@
 {% load staticfiles %}
 <header class="header">
   <nav class="header__navbar navbar navbar-default navbar-fixed-top {{ prefi }}">
-    <div class="container">
-      <div class="header__brand navbar-header">
-        <a href="{% url 'index' %}"><span class="header__logo"> <span/></a>
+	<div class="menu" style="padding-bottom : 9px; box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1);">
+		<div class="container">
 
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
+		  <div class="header__brand navbar-header">
+			<a href="{% url 'index' %}"><span class="header__logo"> <span/></a>
 
-      <div class="header__menu collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="header__nav nav navbar-nav">
-          <li><a class="header__menu-item" href="{% url 'quemsomos' %}">Quem somos?</a></li>
-          <li><a class="header__menu-item" href="{% url 'assuntos' %}">Assuntos</a></li>
-          <li><a class="header__menu-item" href="{% url 'servicos' %}">Soluções</a></li>
-          <li><a class="header__menu-item" href="#plans">Contatos</a></li>		  
-          <li><a class="header__menu-item btn btn--white" href="/#plans">Planos</a></li>
-          {% if user.is_authenticated %}
-            <li class="header__menu-item dropdown" style="float:right;  padding-right: 20px;">
-              <a href="javascript:void(0)" class="dropbtn">Usuario: {{ user }}</a>
-              <div class="dropdown-content">
-                <a href="{% url 'logout' %}">Logout</a>
-                <a href="#">Meus dados</a>
-                <a href="#">Alterar senha</a>
-              </div>
-            </li>
-          {% else %}
-            <li><a class="header__menu-item btn" href="#tm_sec">Entrar</a></li>
-          {% endif%}
-        </ul>
-      </div>
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			</button>
+		  </div>
+
+		  <div class="header__menu collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="header__nav nav navbar-nav">
+			  <li><a class="header__menu-item" href="{% url 'quemsomos' %}">Quem somos?</a></li>
+			  <li><a class="header__menu-item" href="{% url 'assuntos' %}">Assuntos</a></li>
+			  <li><a class="header__menu-item" href="{% url 'servicos' %}">Soluções</a></li>
+			  <li><a class="header__menu-item" href="#plans">Contatos</a></li>		  
+			  <li><a class="header__menu-item btn btn--white" href="/#plans">Planos</a></li>
+			  {% if user.is_authenticated %}
+				<li class="header__menu-item dropdown" style="float:right;  padding-right: 20px;">
+				  <a href="javascript:void(0)" class="dropbtn">Usuario: {{ user }}</a>
+				  <div class="dropdown-content">
+					<a href="{% url 'logout' %}">Logout</a>
+					<a href="#">Meus dados</a>
+					<a href="#">Alterar senha</a>
+				  </div>
+				</li>
+			  {% else %}
+				<li><a class="header__menu-item btn" href="{% url 'logar' %}">Entrar</a></li>
+			  {% endif%}
+			</ul>
+		  </div>
+		 </div> 
     </div>
   </nav>
 </header>
