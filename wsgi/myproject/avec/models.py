@@ -10,8 +10,9 @@ class Keywords(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title	
+        return self.title.encode('utf-8')
 
+		
 class Themes(models.Model):
     #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
@@ -26,7 +27,7 @@ class Themes(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8')
 		
 class Subject(models.Model):
     #author = models.ForeignKey('auth.User')
@@ -45,7 +46,7 @@ class Subject(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title	
+        return self.title.encode('utf-8')
 
 class Subject_detail(models.Model):
     #author = models.ForeignKey('auth.User')
@@ -63,7 +64,7 @@ class Subject_detail(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title			
+        return self.title.encode('utf-8')			
 
 class Post(models.Model):
     #author = models.ForeignKey('auth.User')
@@ -85,10 +86,9 @@ class Post(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8')
 
 class Reports(models.Model):
-    #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     text = models.TextField()
     pdf = models.FileField(upload_to='pdf')
@@ -106,5 +106,5 @@ class Reports(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8')
 

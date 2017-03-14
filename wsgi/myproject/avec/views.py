@@ -157,6 +157,9 @@ def servicos(request):
 def quemsomos(request):
     return render(request, 'avec/quemsomos.html')	
 
+def dashboard(request):
+    return render(request, 'avec/dashboards.html')		
+
 def autocomplete(request):
     return render(request, 'avec/autocomplete.html')
 	

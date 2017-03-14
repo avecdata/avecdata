@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^quemsomos/', views.quemsomos, name='quemsomos'),	
     url(r'^solo_url/$', views.lista),	
     url(r'^autocomplete/$', views.autocomplete, name='autocomplete'),		
+    url(r'^dashboard/', views.dashboard, name='dashboard'),	
 	]
