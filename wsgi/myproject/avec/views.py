@@ -4,16 +4,16 @@ from django.utils import timezone
 from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect # Funcao para redirecionar o usuario
 from django.contrib.auth.forms import UserCreationForm # Formulario de criacao de usuarios
 from django.contrib.auth.forms import AuthenticationForm # Formulario de autenticacao de usuarios
 from django.contrib.auth import login # funcao que salva o usuario na sessao
 from django.views.generic import View, TemplateView, CreateView
 from django.core.urlresolvers import reverse_lazy
-
-import json
-
+from django.conf import settings
+import requests, json
+from django.db.models import Q
 
 # Create your views here.
 def page_not_found(request):
@@ -65,16 +65,16 @@ def educacao(request):
     return render(request, 'avec/dashboards/educacao.html')
 
 def inovacao(request):
-	if request.user.is_authenticated():
-		return render(request, 'avec/dashboards/inovacao.html')
-	else:
-		return render(request,'avec/permissao.html')
+    if request.user.is_authenticated():
+        return render(request, 'avec/dashboards/inovacao.html')
+    else:
+        return render(request,'avec/permissao.html')
 
 def nascidosvivos(request):
-	if request.user.is_authenticated():
-		return render(request, 'avec/dashboards/nascidosvivos.html')
-	else:
-		return render(request,'avec/permissao.html')
+    if request.user.is_authenticated():
+        return render(request, 'avec/dashboards/nascidosvivos.html')
+    else:
+        return render(request,'avec/permissao.html')
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
@@ -147,6 +147,7 @@ def logout(request):
     logout(request)
 
 def assuntos(request):
+    
     themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'avec/assuntos.html', {'subject': subject, 'themes': themes})
@@ -159,24 +160,33 @@ def quemsomos(request):
 
 def autocomplete(request):
     return render(request, 'avec/autocomplete.html')
-	
-def lista(request):
-	if request.is_ajax:
-		palabra = request.GET.get('term','')
-		
-		themes = Subject.objects.filter(title__icontains=palabra).order_by('published_date')	
-		
-		results=[]
-		
-		for th in themes:
-			th_json=[]
-			th_json['label']=th.title
-			results.append(th_json)
-			
-		data_json=json.dumps(results)
 
-	else:
-		data_json='fail'
-	mimetype='application/json'
-	return HttpResponse(data_json.mimetype)
-	
+def lista(request):
+    
+    resultado_json = {}
+    
+    if request.method == 'POST':
+        
+        #print("accesskey "+str(request.POST.get('query')))
+        #posts = Post.objects.filter(Q(title__icontains=str(request.POST.get('query')))|Q(text__icontains=str(request.POST.get('query')))).order_by('published_date')
+        #subjects = Subject.objects.filter(Q(title__icontains=str(request.POST.get('query')))|Q(text__icontains=str(request.POST.get('query')))).order_by('published_date')
+        posts = Post.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
+        subjects = Subject.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
+        
+        posts_data = []
+        
+        for post in posts:
+            posts_data.append({ "value": post.title, "id" : post.id , "type": "post"})
+            
+        subjects_data = []
+        
+        for subject in subjects:
+            subjects_data.append({ "value": subject.title, "id" : subject.id , "type": "subject"})
+
+        result = posts_data+subjects_data
+        response = {"query": "Unit", "suggestions": result}
+        resultado_json = json.loads(json.dumps(response))    
+    
+    #print(json.dumps(resultado_json, indent=4, sort_keys=True))
+    
+    return JsonResponse(resultado_json, safe=False)

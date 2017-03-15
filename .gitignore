@@ -14,3 +14,4 @@ wsgi/myproject/avec/static/min/
 .settings/
 wsgi/myproject/myproject/settings.py
 wsgi/myproject/venv/
+wsgi/myproject/avec/static/js/avec.script_old.js

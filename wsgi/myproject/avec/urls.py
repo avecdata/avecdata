@@ -22,6 +22,6 @@ urlpatterns = [
     url(r'^assuntos/', views.assuntos, name='assuntos'),
     url(r'^servicos/', views.servicos, name='servicos'),
     url(r'^quemsomos/', views.quemsomos, name='quemsomos'),	
-    url(r'^solo_url/$', views.lista),	
+    url(r'^themes_list/$', views.lista),	
     url(r'^autocomplete/$', views.autocomplete, name='autocomplete'),		
 	]
