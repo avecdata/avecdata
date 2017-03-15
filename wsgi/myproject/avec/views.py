@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
 from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports
-from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect # Funcao para redirecionar o usuario
