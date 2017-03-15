@@ -13,6 +13,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
 import requests, json
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def page_not_found(request):
@@ -163,6 +164,7 @@ def dashboard(request):
 def autocomplete(request):
     return render(request, 'avec/autocomplete.html')
 
+@csrf_exempt
 def lista(request):
     
     resultado_json = {}

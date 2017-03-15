@@ -5,7 +5,7 @@
 $(document).ready(function () {
 	
 	//window.url_config = 'http://192.168.0.104:8080';
-	window.url_config = 'http://www.avecdata.com'
+	window.url_config = 'http://www.avecdata.com';
 	
 	$('li.moment-data__item').mouseover(function() {
 		var imgpath = $(this).find('a').attr('data-image');
