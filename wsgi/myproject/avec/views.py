@@ -13,12 +13,16 @@ from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
 import requests, json
 from django.db.models import Q
+<<<<<<< HEAD
 # adicionados para o formulario de contato c/ envio de email
 from forms import ContactForm
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 from django.template import Context
 from django.template.loader import get_template
+=======
+from django.views.decorators.csrf import csrf_exempt
+>>>>>>> origin/master
 
 # Create your views here.
 def page_not_found(request):
@@ -169,6 +173,7 @@ def dashboard(request):
 def autocomplete(request):
     return render(request, 'avec/autocomplete.html')
 
+@csrf_exempt
 def lista(request):
     
     resultado_json = {}
