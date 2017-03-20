@@ -14,6 +14,9 @@ from django.conf import settings
 import requests, json
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
+from .forms import ContactForm
+from django.contrib import messages
+from django.core.mail import send_mail
 
 # Create your views here.
 def page_not_found(request):
@@ -154,6 +157,25 @@ def assuntos(request):
 
 def servicos(request):
     return render(request, 'avec/servicos.html')
+
+def contatos(request):
+    
+    form = ContactForm(request.POST or None)
+
+    success = False
+
+    if form.is_valid():
+        form.send_mail()
+        success = True
+    elif request.method == 'POST':
+        messages.error(request, 'Formulário inválido')
+
+    context = {
+        'form': form,
+        'success': success
+    }
+
+    return render(request, 'avec/contatos.html', context)
 
 def quemsomos(request):
     return render(request, 'avec/quemsomos.html')	

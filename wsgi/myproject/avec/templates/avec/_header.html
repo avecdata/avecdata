@@ -19,7 +19,7 @@
 			  <li><a class="header__menu-item" href="{% url 'quemsomos' %}">Quem somos?</a></li>
 			  <li><a class="header__menu-item" href="{% url 'assuntos' %}">Assuntos</a></li>
 			  <li><a class="header__menu-item" href="{% url 'servicos' %}">Soluções</a></li>
-			  <li><a class="header__menu-item" href="#plans">Contatos</a></li>		  
+			  <li><a class="header__menu-item" href="{% url 'contatos' %}">Contatos</a></li>		  
 			  <li><a class="header__menu-item btn btn--white" href="/#plans">Planos</a></li>
 			  {% if user.is_authenticated %}
 				<li class="header__menu-item dropdown" style="float:right;  padding-right: 20px;">

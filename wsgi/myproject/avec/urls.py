@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^logout/$', logout, name='logout', kwargs={'next_page': '/'}),	 # novo - manter somente esse quando tiver ok a autenticacao e registro
     url(r'^assuntos/', views.assuntos, name='assuntos'),
     url(r'^servicos/', views.servicos, name='servicos'),
+    url(r'^contatos/', views.contatos, name='contatos'),
     url(r'^quemsomos/', views.quemsomos, name='quemsomos'),	
     url(r'^themes_list/$', views.lista),	
     url(r'^autocomplete/$', views.autocomplete, name='autocomplete'),		
