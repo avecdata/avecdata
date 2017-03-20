@@ -13,10 +13,16 @@ from django.core.urlresolvers import reverse_lazy
 from django.conf import settings
 import requests, json
 from django.db.models import Q
+<<<<<<< HEAD
+# adicionados para o formulario de contato c/ envio de email
+from forms import ContactForm
+from django.core.mail import EmailMessage
+from django.shortcuts import redirect
+from django.template import Context
+from django.template.loader import get_template
+=======
 from django.views.decorators.csrf import csrf_exempt
-from .forms import ContactForm
-from django.contrib import messages
-from django.core.mail import send_mail
+>>>>>>> origin/master
 
 # Create your views here.
 def page_not_found(request):
@@ -74,10 +80,10 @@ def inovacao(request):
         return render(request,'avec/permissao.html')
 
 def nascidosvivos(request):
-    if request.user.is_authenticated():
+   # if request.user.is_authenticated():
         return render(request, 'avec/dashboards/nascidosvivos.html')
-    else:
-        return render(request,'avec/permissao.html')
+   # else:
+   #     return render(request,'avec/permissao.html')
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
@@ -216,3 +222,44 @@ def lista(request):
     #print(json.dumps(resultado_json, indent=4, sort_keys=True))
     
     return JsonResponse(resultado_json, safe=False)
+	
+def contact(request):
+    form_class = ContactForm
+
+    # new logic!
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+            nome = request.POST.get(
+                'nome'
+            , '')
+            contact_email = request.POST.get(
+                'email'
+            , '')
+            form_content = request.POST.get('texto', '')
+
+            # Email the profile with the 
+            # contact information
+            template = get_template('avec/contact_template.txt')
+            context = Context({
+                'nome': contact_name,
+                'email': contact_email,
+                'texto': text,
+            })
+            content = template.render(context)
+
+            email = EmailMessage(
+                "New contact form submission",
+                content,
+                "Your website" +'',
+                ['viuaraujo@gmail.com'],
+                headers = {'Reply-To': contact_email }
+            )
+            email.send()
+            return redirect('contact')
+
+    return render(request, 'avec/contact.html', {
+        'form': form_class,
+    })
+	

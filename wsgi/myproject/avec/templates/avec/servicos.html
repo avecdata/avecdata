@@ -1,157 +1,369 @@
-{% extends "avec/layout_interno.html" %}
+{% extends 'avec/layout_interno.html' %}
+{% load staticfiles %}
 
-{% load staticfiles %} {% block content %}
-<div class="avec-content">
-	<div class="internal__row">
-		<h2 class="internal__title">Democratização, Análises e Integrações</h2>
-	</div>
-	<section class="services-detail">
-		<div class="services-detail__general">
-			<div class="services-detail__group">
-				<!--<div class="services-detail__image">
-				<figure>
-					<img src="{% static 'img/tmp/image-box-one.jpg' %}" alt="Serviço" />
-				</figure>-->
-			</div>
-			<div class="services-detail__content" style="padding-bottom: 20px;">
-				<div class="row" style="margin-top: 20px;">
-					<div class="col-md-1">
-					</div>
-					<div class="col-md-10">
-						<h2 class="services-detail__title">Acesso à nossa base de dados e análises especializadas</h2>
-						<p>Encontre rapidamente os dados mais importantes para suas pesquisas</p>
-					</div>
-					<div class="col-md-1">
-					</div>
-				</div>
-				<div class="row">
-					<p>&nbsp;</p>
-				</div>
-				<div class="row">
-					<div class="col-md-2">
-					</div>
-					<div class="col-md-3">
-						<img src="{% static 'img/image-mackbook.png' %}" style="min-height: 10px">
-					</div>
-					<div class="col-md-4">
-						<p class="services-detail__description">Informações
-						disponibilizadas em formatos que permitem sua fácil leitura e
-						interpretação, agrupadas por temas e relacionadas com suas causas
-						determinantes.</p>
-	
-						<a href="assuntos" class="btn services-detail__button">Ver lista de assuntos</a>
-					</div>
-					<div class="col-md-3">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="services-detail__content" style="background-color: #fff; max-height: 0px;
-    min-height: 0px;
-        padding: 0px 10px 48px 10px;">
-				</div>
-	</section>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+  <script>
+    /* <![CDATA[ */ /*!  loadCss [c]2014 @scottjehl, Filament Group, Inc.  Licensed MIT */
+    window.loadCSS = window.loadCss = function(e, n, t) {
+      var r, l = window.document,
+        a = l.createElement("link");
+      if (n) r = n;
+      else {
+        var i = (l.body || l.getElementsByTagName("head")[0]).childNodes;
+        r = i[i.length - 1]
+      }
+      var o = l.styleSheets;
+      a.rel = "stylesheet", a.href = e, a.media = "only x", r.parentNode.insertBefore(a, n ? r : r.nextSibling);
+      var d = function(e) {
+        for (var n = a.href, t = o.length; t--;)
+          if (o[t].href === n) return e.call(a);
+        setTimeout(function() {
+          d(e)
+        })
+      };
+      return a.onloadcssdefined = d, d(function() {
+        a.media = t || "all"
+      }), a
+    };
+    window.onloadCSS = function(n, o) {
+      n.onload = function() {
+        n.onload = null, o && o.call(n)
+      }, "isApplicationInstalled" in navigator && "onloadcssdefined" in n && n.onloadcssdefined(o)
+    } /* ]]> */
+  </script>
+  <script>
+    // <![CDATA[
+    onloadCSS(loadCss('web.css'), function() {
+      this.id = 'jimdo_web_css';
+    });
+    // ]]>
+  </script>
+  <link href="web.css" rel="preload" as="style" />
+  <noscript>
+    <link href="web.css" rel="stylesheet" />
+  </noscript>
+  <script src="https://assets.jimstatic.com/web.js.9f3f764b8b3493e63133.js" async="true"></script>
+</head>
 
-	<section class="services-retrato">
-		<div class="services-retrato__general">
-			<div class="services-retrato__group">
-				<div class="row">
-					<p>&nbsp;</p>
-				</div>
-				<div class="row">
-					<p>&nbsp;</p>
-				</div>
-			</div>
-			<div class="services-retrato__content avec-services-retrato">
-				<div class="row">
-					<div class="col-md-3">
-					</div>
-					<div class="col-md-3">
-						<h2 class="services-retrato__title avec-services-title">Retratos Setoriais</h2>
-						<h6>Encontre dados mais importantes para suas pesquisas</h6>
-					</div>
-					<div class="col-md-4">
-						<p class="services-retrato__description">Visão pontual sobre
-							assuntos específicos, localizados em espaços temporais e
-							geográficos.</p>
-							<br>
-							<br>
-						<a href="assuntos" class="btn services-retrato__button">Fale conosco</a>
-					</div>
-					<div class="col-md-2">
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</section>
-	<section class="services-detail">
-		<div class="services-detail__general">
-			<div class="services-detail__group">
-				<div class="row">
-					<p>&nbsp;</p>
-				</div>
-				<div class="row">
-					<p>&nbsp;</p>
-				</div>
-			</div>
-			<div class="services-detail__content">
-				<div class="row" style="margin-top: 7%;">
-					<div class="col-md-2">
-					</div>
-					<div class="col-md-4">
-						<h2 class="services-detail__title avec-services-title" style="margin-bottom: 10px;">Integração de base de dados</h2>
-						<h6>Encontre dados mais importantes para suas pesquisas</h6>
-					</div>
-					<div class="col-md-4 avec-services-content-right" style="text-align: left;">
-						<p class="services-detail__description">Integração do conteúdo
-							do nosso lago de dados (data lake) com bases proprietárias, com
-							agilidade, buscando uma visão comparativa e qualitativa sobre temas
-							e assuntos programados.</p>
+{% block content %}
 
-						<a href="assuntos" class="btn services-detail__button">Fale conosco</a>
+			<div class="title_sec">
+				    <div class="internal__row">
+						<h1 class="internal__title">Democratização, Análises e Integrações</h1>
+						<br/><br/>
 					</div>
-					<div class="col-md-2">
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+			</div>		
+            <div id="cc-matrix-3523608490" >
+              <div id="cc-m-12597563290" class="j-module n cabecalho " style="background-color:#3e5881;">
+                <h2 class="" id="cc-m-header-12597563290" style="text-align:center; color:#ffffff; font-family:PlayfairDisplay-Bold; font-weight: bold;">Acesso à nossa base de dados e análises especializadas</h2>
+              </div>
+              <div id="cc-m-12598541590" class="j-module n j-spacing " style="background-color:#3e5881;">
+                <div class="cc-m-spacer" style="height: 20px;">
 
-	<section class="services-retrato">
-		<div class="services-retrato__general">
-			<div class="services-retrato__group">
-				<div class="row">
-					<p>&nbsp;</p>
-				</div>
-				<div class="row">
-					<p>&nbsp;</p>
-				</div>
-			</div>
-			<div class="services-retrato__content avec-services-retrato">
-				<div class="row">
-					<div class="col-md-3">
-					</div>
-					<div class="col-md-3">
-						<div class="bg-danger" style="width: 80px; text-align: center;">EM BREVE!</div>
-						<h2 class="services-retrato__title avec-services-title">Análises e descobertas</h2>
-						<h6>Encontre dados mais importantes para suas pesquisas</h6>
-					</div>
-					<div class="col-md-4">
-						<p class="services-retrato__description">Estudos sobre setores
-							específicos, buscando correlações e tendências (data discoverer)
-							no espaço de tempo pré-definido.</p>
-							<br>
-							<br>
-						<a href="assuntos" class="btn services-retrato__button">Fale conosco</a>
-					</div>
-					<div class="col-md-2">
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+                </div>
 
+              </div>
+              <div id="cc-m-12597563490" class="solucao " style="background-color:#3e5881;">
+                <div class="cc-m-hgrid-column" style="width: 10.04%;">
+                  <div id="cc-matrix-3524047590"></div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column" style="width: 36.83%;">
+                  <div id="cc-matrix-3523611190">
+                    <div id="cc-m-12597567690" class="j-module n j-imageSubtitle ">
+                      <figure class="cc-imagewrapper cc-m-image-align-1">
+                        <img srcset="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=png/path/sd647728ff0ad7c01/image/i69ae865a9e67f413/version/1489633920/image.png 320w, https://image.jimcdn.com/app/cms/image/transf/none/path/sd647728ff0ad7c01/image/i69ae865a9e67f413/version/1489633920/image.png 507w" sizes="(min-width: 507px) 507px, 100vw" id="cc-m-imagesubtitle-image-12597567690" src="https://image.jimcdn.com/app/cms/image/transf/none/path/sd647728ff0ad7c01/image/i69ae865a9e67f413/version/1489633920/image.png" alt="" class="" data-src-width="507" data-src-height="291" data-src="https://image.jimcdn.com/app/cms/image/transf/none/path/sd647728ff0ad7c01/image/i69ae865a9e67f413/version/1489633920/image.png" data-image-id="8091259890" />
+
+                      </figure>
+
+
+                      <div class="cc-clear"></div>
+                      <script id="cc-m-reg-12597567690">
+                        // <![CDATA[
+
+                        window.regModule("module_imageSubtitle", {
+                          "data": {
+                            "imageExists": true,
+                            "hyperlink": "",
+                            "hyperlink_target": "",
+                            "hyperlinkAsString": "",
+                            "pinterest": "0",
+                            "id": 12597567690,
+                            "widthEqualsContent": "0",
+                            "resizeWidth": 507,
+                            "resizeHeight": 291
+                          },
+                          "id": 12597567690
+                        });
+                        // ]]>
+                      </script>
+                    </div>
+                  </div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column" style="width: 37.11%;">
+                  <div id="cc-matrix-3523608990">
+                    <div id="cc-m-12598557290" class="j-module n j-spacing ">
+                      <div class="cc-m-spacer" style="height: 25px;">
+
+                      </div>
+
+                    </div>
+                    <div id="cc-m-12597563690" class="descricao">
+                      <p style="color:#ffffff;">
+                        Informações disponibilizadas em formatos que permitem sua fácil leitura e interpretação, agrupadas por temas e relacionadas com suas causas determinantes.
+                      </p>
+                    </div>
+                    <div id="cc-m-12597563790" class="j-module n j-callToAction ">
+                      <div class="j-calltoaction-wrapper j-calltoaction-align-1">
+                        <a class="j-calltoaction-link j-calltoaction-link-style-1" data-action="button" href="{% url 'assuntos' %}" target="_blank" data-title="Ver lista de assuntos">
+        Ver lista de assuntos    </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column last" style="width: 10.01%;">
+                  <div id="cc-matrix-3524048190"></div>
+                </div>
+
+                <div class="cc-m-hgrid-overlay" data-display="cms-only"></div>
+
+                <br class="cc-clear" />
+
+              </div>
+              <div id="cc-m-12597563390" class="j-module n j-spacing ">
+                <div class="cc-m-spacer" style="height: 0px;">
+
+                </div>
+
+              </div>
+
+              <div id="cc-m-12597564090" class="solucao ">
+                <div class="cc-m-hgrid-column" style="width: 10.05%;">
+                  <div id="cc-matrix-3524053890"></div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column" style="width: 36.96%;">
+                  <div id="cc-matrix-3523609390">
+                    <div id="cc-m-12598507190" class="j-module n j-spacing ">
+                      <div class="cc-m-spacer" style="height: 50px;">
+
+                      </div>
+
+                    </div>
+                    <div id="cc-m-12597564190" class="j-module n titulo ">
+                      <h2 class="" id="cc-m-header-12597564190" style="color:#1e2938; font-family:PlayfairDisplay-Bold; font-weight: bold; margin-bottom:0px; margin-top:0px;">Retratos Setoriais</h2>
+                    </div>
+                    <div id="cc-m-12597564290" class="j-module n j-text ">
+                      <p style="color: #1e2938;">
+                        Análises que evidenciam as características de um determinado setor.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column" style="width: 36.96%;">
+                  <div id="cc-matrix-3523609490">
+                    <div id="cc-m-12598503490" class="j-module n j-spacing ">
+                      <div class="cc-m-spacer" style="height: 50px;">
+
+                      </div>
+
+                    </div>
+                    <div id="cc-m-12597569790" class="descricao" style="color: #1e2938;">
+                      <p>
+                        Visão pontual sobre assuntos específicos, localizados em espaços temporais e geográficos.
+                      </p>
+                    </div>
+                    <div id="cc-m-12598508090" class="j-module n j-spacing ">
+
+
+                    </div>
+                    <div id="cc-m-12597564390" class="j-module n j-callToAction ">
+                      <div class="j-calltoaction-wrapper j-calltoaction-align-1">
+                        <a class="j-calltoaction-link j-calltoaction-link-style-1" data-action="button" href="{% url 'contact' %}" target="_blank" data-title="Fale conosco" style="padding-left: 47px;
+    padding-right: 47px;">
+        Fale conosco    </a>
+                      </div>
+                      <div class="cc-m-spacer" style="height: 40px;">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column last" style="width: 10.02%;">
+                  <div id="cc-matrix-3524053990"></div>
+                </div>
+
+                <div class="cc-m-hgrid-overlay" data-display="cms-only"></div>
+
+                <br class="cc-clear" />
+
+              </div>
+              <div id="cc-m-12598509690" class="solucao " style="background-color:#3e5881;">
+                <div class="cc-m-hgrid-column" style="width: 10.05%;">
+                  <div id="cc-matrix-3524071990"></div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column" style="width: 36.86%;">
+                  <div id="cc-matrix-3523991490">
+                    <div id="cc-m-12598509790" class="j-module n j-spacing ">
+                      <div class="cc-m-spacer" style="height: 50px;">
+
+                      </div>
+
+                    </div>
+                    <div id="cc-m-12598509890" class="j-module n titulo ">
+                      <h2 class="" id="cc-m-header-12598509890" style="color:#ffffff; font-family:PlayfairDisplay-Bold; font-weight: bold; margin-bottom:0px; margin-top:0px;">Integração de <br/> base de dados</h2>
+                    </div>                    
+                    <div id="cc-m-12598509990" class="j-module n j-text ">
+                      <p style="color:#ffffff">
+                        integração de dados distribuídos e heterogêneos.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column" style="width: 37.05%;">
+                  <div id="cc-matrix-3523991590">
+                    <div id="cc-m-12598510090" class="j-module n j-spacing ">
+                      <div class="cc-m-spacer" style="height: 50px;">
+
+                      </div>
+
+                    </div>
+                    <div id="cc-m-12598510190" class="descricao">
+                      <p style="color:#ffffff">
+                        Integração do nosso conteúdo do lago de dados com bases proprietárias, com agilidade, buscando uma visão comparativa e qualitativa sobre temas e assuntos programados
+                      </p>
+                    </div>
+                    <div id="cc-m-12598510290" class="j-module n j-spacing ">
+
+
+                    </div>
+                    <div id="cc-m-12598510390" class="j-module n j-callToAction ">
+                      <div class="j-calltoaction-wrapper j-calltoaction-align-1">
+                        <a class="j-calltoaction-link j-calltoaction-link-style-1" data-action="button" href="{% url 'contact' %}" target="_blank" data-title="Fale conosco" style="padding-left: 47px;
+    padding-right: 47px;">
+        Fale conosco    </a>
+                      </div>
+                      <div class="cc-m-spacer" style="height: 40px;">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column last" style="width: 10.02%;">
+                  <div id="cc-matrix-3524072090"></div>
+                </div>
+
+                <div class="cc-m-hgrid-overlay" data-display="cms-only"></div>
+
+                <br class="cc-clear" />
+
+              </div>
+              <div id="cc-m-12598514790" class="solucao ">
+                <div class="cc-m-hgrid-column" style="width: 10.05%;">
+                  <div id="cc-matrix-3524072390"></div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column" style="width: 36.86%;">
+                  <div id="cc-matrix-3523993990">
+                    <div id="cc-m-12598540390" class="j-module n j-spacing ">
+                      <div class="cc-m-spacer" style="height: 50px;">
+
+                      </div>
+
+                    </div>
+                    <div id="cc-m-12598514990" class="j-module n titulo ">
+                      <div class="bg-danger" style="width: 120px; text-align: center; font-size:14px;">EM BREVE!</div>
+                      <h2 class="" id="cc-m-header-12598514990" style="color:#1e2938;font-family:PlayfairDisplay-Bold; font-weight: bold; margin-bottom:0px; margin-top:0px;">Análises e </br> Descobertas</h2>
+                    </div>
+                    <div id="cc-m-12598515090" class="j-module n j-text ">
+                      <p style="color: #1e2938;">
+                        Análise de tendências e padrões em dados.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column" style="width: 37.05%;">
+                  <div id="cc-matrix-3523994090">
+                    <div id="cc-m-12598515190" class="j-module n j-spacing ">
+                      <div class="cc-m-spacer" style="height: 50px;">
+
+                      </div>
+
+                    </div>
+                    <div id="cc-m-12598515290" class="descricao" style="color: #1e2938;">
+                      <p>
+                        Análises e correlações de dados utilizando ferramentas e métodos conhecidos no campo da Estatística e do Aprendizado de máquina.
+                      </p>
+                    </div>
+                    <div id="cc-m-12598515390" class="j-module n j-spacing ">
+                      <div class="cc-m-spacer" style="height: 20px;">
+
+                      </div>
+
+                    </div>
+                    <div id="cc-m-12598515490" class="j-module n j-callToAction ">
+                      <div class="j-calltoaction-wrapper j-calltoaction-align-1">
+                        <a class="j-calltoaction-link j-calltoaction-link-style-1"  href="{% url 'contact' %}" target="_blank" data-title="Fale conosco" style="padding-left: 47px;
+    padding-right: 47px;">
+        Fale conosco    </a>
+                      </div>
+                      <div class="cc-m-spacer" style="height: 40px;">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cc-m-hgrid-separator" data-display="cms-only">
+                  <div></div>
+                </div>
+                <div class="cc-m-hgrid-column last" style="width: 10.02%;">
+                  <div id="cc-matrix-3524072690"></div>
+                </div>
+
+                <div class="cc-m-hgrid-overlay" data-display="cms-only"></div>
+
+                <br class="cc-clear" />
+
+              </div>
+              <div id="cc-m-12597564590" class="j-module n j-spacing ">
+                <div class="cc-m-spacer" style="height: 0px;">
+
+                </div>
+
+              </div>
+
+			  
 	<section class="services-mensagem">
 		<div class="services-mensagem__general">
 			<div class="services-mensagem__group">
@@ -159,19 +371,17 @@
 				
 					<div class="row">
 						<div class="col-md-3 offset-1" style="text-align: center;">
-							<i class="fa fa-user-circle" aria-hidden="true" style="font-size: 84px;"></i>
+							
+							<img src="{% static 'img/emanuel.png' %}" class="img-circle"  width="45px" height="45px" style="min-height: 165px!important; max-width: 165px!important; float:center;"> 
 						</div>
 						<div class="col-md-9">
-							<div class="avec-quotes-content-message"><i class="fa fa-quote-left"></i></div>
-							<p class="services-mensagem__description avec-services-messagem" style="display: inline-block;">Research in
-										advertising is done in order to produce better advertisements that
-										are more efficient in motivating customers to buy a product or a
-										service. The research can be based on a particular advertising
-										campaign or can be more generalized and based on how</p>
-							<div class="avec-quotes-content-message" style="vertical-align: bottom;">
-								<i class="fa fa-quote-right"></i>
-							</div>
-							<span style="display: block; margin: 10px 0 0 48px;">Emanuel Porangaba - CEO</span>
+	  <div class="w3-panel w3-card-4 w3-light-grey" style="width:100%">
+    <p class=" w3-large w3-serif" style="color:white; font-family: OpenSans; font-size: 22px; text-align:justify;">
+    <i class="fa fa-quote-left w3-xxlarge w3-text-red"></i>
+    Um dado, apesar de único, não deve ser interpretado isoladamente. A sua real dimensão em importância se dá quando permitimos a sua integração e correlação com outros dados, atingindo seu pleno valor como informação a ser consumida.
+    <i class="fa fa-quote-right w3-xxlarge w3-text-red"></i>
+  </div>
+	<span style="display: block; margin: 30px 0 0 48px;">Emanuel Porangaba - CEO</span>
 								<br>
 								<br>
 							
@@ -182,7 +392,30 @@
 			</div>
 		</div>
 	</section>
-</div>
-
-
+	
+	
 {% endblock %}
+
+  <!-- Google Tag Manager -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDBL3P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <script>
+    //<![CDATA[
+    (function(w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', '_jimdoDataLayer', 'GTM-WDBL3P');
+    // ]]>
+  </script>
+  <!-- End Google Tag Manager -->
