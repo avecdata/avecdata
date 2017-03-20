@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^themes_list/$', views.lista),	
     url(r'^autocomplete/$', views.autocomplete, name='autocomplete'),		
     url(r'^dashboard/', views.dashboard, name='dashboard'),	
+	url(r'^contact/$', views.contact, name='contact'),
 	]

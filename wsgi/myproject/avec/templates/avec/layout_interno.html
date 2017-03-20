@@ -14,7 +14,12 @@
   	<link rel="icon" type="image/png" href="search.png">
   	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'min/stylesheets/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/avec.style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/avec.style.css' %}">  
+    <link href="{% static 'css/quemsomos.css' %}" rel="stylesheet" type="text/css" id="jimdo_layout_css"/>
+	
+	
+
+  
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -30,9 +35,10 @@
     <!-- Start Header Section -->
     {% include "avec/_header.html" with prefi="header__navbar--internal header__navbar--fixed" %}
     <!-- End Header -->
+<div class="avec-content">	
 
   	{% block content %}{% endblock %}	
-
+</div>
     <!-- Start Header Section -->
     {% include "avec/_footer.html" %}
     <!-- End Header -->

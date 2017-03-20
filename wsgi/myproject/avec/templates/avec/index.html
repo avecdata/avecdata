@@ -5,38 +5,20 @@
 {% block content %}
       
 <link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
-  <section class="banner-search">
+  <section class="banner-search" style="padding-top:30px;">
     <div class="container">
       <div class="row">
         <div class="banner-search__text">
-          <h2 class="banner-search__title">Encontre facilmente todos dados para suas pesquisas</h2>
+          <h2 class="banner-search__title">AVEC - Plataforma de dados setoriais</h2>
           <p class="banner-search__subtitle">Indicadores, estatísticas e previsões baseadas em informações ativas e descobertas contínuas.</p>
         </div>		
 
         <div class="banner-search__search">
-		<!--		 		 <div id="searchfield">
-        <form><input type="text" name="currency" class="biginput" id="autocomplete"></form>
-      </div>-->
+
          <form action="" class="banner-search__form">		 
 		    
 			<input list="browsers" type="text" id="autocomplete" class="banner-search__input-search"  placeholder="Encontre estatísticas, dados e estudos">
-	<!-- @end #searchfield -->
-            <!--<input list="browsers" class="banner-search__input-search" type="text" placeholder="Encontre estatísticas, dados e estudos" />
-            <datalist id="browsers">
-             {% for pt in posts %}
-                 <option value="{{ pt.title }}" label="Indicador" title="assuntos">
-             {% endfor %}
-             {% for th in themes %}
-                 {% for ass in th.subject_set.all %}
-                     <option value="{{ ass.title }}" label="{{ th.title }} || Assunto" title="assuntos">
-                 {% endfor %}
-             {% endfor %}
-             {% for sb in subject %}
-                 {% for sd in th.subject_detail_set.all %}
-                     <option value="{{ sd.title }}" label="{{ sb.title }} || Assunto" title="assuntos">
-                 {% endfor %}
-             {% endfor %}
-            </datalist>-->
+
           </form>
 		  
         </div>
@@ -84,7 +66,7 @@
         <div class="services__content">
           <h2 class="services__title">Conheça os Painéis Interativos com informações atualizadas</h2>
 
-          <p class="services__description">Conheça os Painéis Interativos com informações atualizadas</p>
+          <p class="services__description">Indicadores, dados e informações apresentados de forma dinâmica, consolidados por diferentes níveis e espaços temporais</p>
 
           <a href="{% url 'dashboard' %}" class="services__button btn">Ver Painéis recentes</a>
         </div>
@@ -99,21 +81,21 @@
         <div class="row">
           <div class="moment-data__graphic moment-data__box">
             <figure>
-              <img src="{% static 'img/tmp/indice1.jpg' %}" class="moment-data__img-replace">
+              <img src="{% static 'img/tmp/info1.jpg' %}" class="moment-data__img-replace">
             </figure>
           </div>
           <div class="moment-data__data-list moment-data__box">
             <ul class="moment-data__list">
-              <li class="moment-data__item"><a href="" data-image="{% static 'img/tmp/indice1.jpg' %}">Importações brasileiras de vinhos e espumantes
-    Importações em milhões de litros - 2010 a 2015</a> <a href="" class="moment-data__arrow-btn"></a></li>
-              <li class="moment-data__item"><a href="" data-image="{% static 'img/tmp/indice2.jpg' %}">Importações brasileiras de vinhos e espumantes
-    Importações em milhões de litros - 2010 a 2015</a> <a href="" class="moment-data__arrow-btn"></a></li>
-              <li class="moment-data__item"><a href="" data-image="{% static 'img/tmp/indice3.jpg' %}">Importações brasileiras de vinhos e espumantes
-    Importações em milhões de litros - 2010 a 2015</a></li>
-              <li class="moment-data__item"><a href="" data-image="{% static 'img/tmp/indice1.jpg' %}">Importações brasileiras de vinhos e espumantes
-    Importações em milhões de litros - 2010 a 2015</a></li>
-              <li class="moment-data__item"><a href="" data-image="{% static 'img/tmp/indice2.jpg' %}">Importações brasileiras de vinhos e espumantes
-    Importações em milhões de litros - 2010 a 2015</a></li>
+              <li class="moment-data__item"><a href="{% url 'post_detail' pk=25 %}" data-image="{% static 'img/tmp/info1.jpg' %}">Cenário de Sífilis na maternidade e no pós nascimento
+			  - Número de casos e taxa de detecção  </a> <a href="" class="moment-data__arrow-btn"></a></li>
+              <li class="moment-data__item"><a href="{% url 'post_detail' pk=67 %}" data-image="{% static 'img/tmp/info2.jpg' %}">Transfusão de sangue na Rede SUS - Hospitalar
+    - Número de transfusões hospitalares - Brasil 2016</a> <a href="" class="moment-data__arrow-btn"></a></li>
+              <li class="moment-data__item"><a href="{% url 'post_detail' pk=11 %}" data-image="{% static 'img/tmp/info3.jpg' %}">Tomógrafos computadorizados 
+    - Número de tomógrafos computadores existentes, em uso e disponíveis para o SUS</a></li>
+              <li class="moment-data__item"><a href="{% url 'post_detail' pk=49 %}" data-image="{% static 'img/tmp/info4.jpg' %}">Roubo de cargas - 
+    Quantitativo de roubo de cargas nos Estados de Rio de Janeiro e São Paulo (2013 a 2016)</a></li>
+              <li class="moment-data__item"><a href="{% url 'post_detail' pk=39 %}" data-image="{% static 'img/tmp/info5.jpg' %}">Frota de veículos - 
+    Frota de veículos emplacados por ano de fabricação - 2016</a></li>
             </ul>
             <a href="assuntos" class="moment-data__btn-list btn">Ver lista de assuntos</a>
           </div>
@@ -152,7 +134,7 @@
                 <a href="" class="plans__link">Integração com bases próprias *</a>
               </li>
             </ul>
-            <a href="" class="plans__sign btn btn--blue">Cadastre-se grátis</a>
+            <a href="{% url 'accounts:register' %}" class="plans__sign btn btn--blue">Cadastre-se grátis</a>
           </div>
           <div class="plans__box">
             <h3 class="plans__price-title">Plano Profissional</h3>
