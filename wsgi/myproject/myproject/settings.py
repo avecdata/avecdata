@@ -140,12 +140,14 @@ AUTHENTICATION_BACKENDS = (
 )
 
 #-----e-mail configuration--------------
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.avecdata.com'
 EMAIL_HOST_USER = 'contato@avecdata.com'
-EMAIL_HOST_PASSWORD = '!Avecdata17'
+EMAIL_HOST_PASSWORD = 'Lulurap10!'
 EMAIL_PORT = 465
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'contato@avecdata.com'
+SERVER_EMAIL = 'contato@avecdata.com'
 
 
 try:

@@ -9,20 +9,19 @@ from django.contrib.auth.forms import UserCreationForm # Formulario de criacao d
 from django.contrib.auth.forms import AuthenticationForm # Formulario de autenticacao de usuarios
 from django.contrib.auth import login # funcao que salva o usuario na sessao
 from django.views.generic import View, TemplateView, CreateView
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.conf import settings
 import requests, json
 from django.db.models import Q
-<<<<<<< HEAD
+
 # adicionados para o formulario de contato c/ envio de email
-from forms import ContactForm
+from .forms import ContactForm
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 from django.template import Context
 from django.template.loader import get_template
-=======
 from django.views.decorators.csrf import csrf_exempt
->>>>>>> origin/master
+from django.contrib import messages
 
 # Create your views here.
 def page_not_found(request):
@@ -164,25 +163,6 @@ def assuntos(request):
 def servicos(request):
     return render(request, 'avec/servicos.html')
 
-def contatos(request):
-    
-    form = ContactForm(request.POST or None)
-
-    success = False
-
-    if form.is_valid():
-        form.send_mail()
-        success = True
-    elif request.method == 'POST':
-        messages.error(request, 'Formulário inválido')
-
-    context = {
-        'form': form,
-        'success': success
-    }
-
-    return render(request, 'avec/contatos.html', context)
-
 def quemsomos(request):
     return render(request, 'avec/quemsomos.html')	
 
@@ -222,44 +202,24 @@ def lista(request):
     #print(json.dumps(resultado_json, indent=4, sort_keys=True))
     
     return JsonResponse(resultado_json, safe=False)
-	
+
 def contact(request):
-    form_class = ContactForm
+    
+    form = ContactForm(request.POST or None)
 
-    # new logic!
-    if request.method == 'POST':
-        form = form_class(data=request.POST)
+    success = False
 
-        if form.is_valid():
-            nome = request.POST.get(
-                'nome'
-            , '')
-            contact_email = request.POST.get(
-                'email'
-            , '')
-            form_content = request.POST.get('texto', '')
+    if form.is_valid():
+        form.send_mail()
+        success = True
+        messages.success(request, 'Mensagem enviada com sucesso!')
+        return HttpResponseRedirect(reverse('contact', args=[]))
+    elif request.method == 'POST':
+        messages.error(request, 'Formulário inválido')
 
-            # Email the profile with the 
-            # contact information
-            template = get_template('avec/contact_template.txt')
-            context = Context({
-                'nome': contact_name,
-                'email': contact_email,
-                'texto': text,
-            })
-            content = template.render(context)
+    context = {
+        'form': form,
+        'success': success
+    }
 
-            email = EmailMessage(
-                "New contact form submission",
-                content,
-                "Your website" +'',
-                ['viuaraujo@gmail.com'],
-                headers = {'Reply-To': contact_email }
-            )
-            email.send()
-            return redirect('contact')
-
-    return render(request, 'avec/contact.html', {
-        'form': form_class,
-    })
-	
+    return render(request, 'avec/contact.html', context)
