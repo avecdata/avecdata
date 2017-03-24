@@ -1,0 +1,80 @@
+{% extends 'avec/layout_interno.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load poll_extras %}
+{% block content %}
+
+<div class="container" style="padding-top: 50px;">
+
+	<div class="bs-example bs-example-control-sizing" data-example-id="form-control-height-sizes" style="background-color: #fff;">
+<form action="/seja-socio" class="form-group form-adesao" id="RedemaisSejaSocioAddForm" method="post" data-toggle="validator" role="form" accept-charset="utf-8" enctype='multipart/form-data' onsubmit="return validaSejaSocio(this)" style="margin: 15px auto; width: 960px;">
+<p>&nbsp;</p>
+<h3 style="color: #30A2DB;">Termos e Condições Gerais de Uso do Site</h3>
+
+<div class="clear height20"></div>
+          <ul>
+            <li><a href="#Cadastro">1. Cadastro</a></li>
+            <li><a href="#Conduta">2.	Conduta</a></li>
+            <li><a href="#Jogos">3.	Jogos</a></li>
+            <li><a href="#Licenca">4.	Licença dos seus conteúdos e propriedade intelectual</a></li>
+            <li><a href="#Informacoes">5.	Mais informações</a></li>
+            <li><a href="#Ajuda">6. Ajuda</a></li>
+          </ul>
+          <div class="clear height20"></div>
+          <a name="Cadastro"></a>
+          <strong>1. Cadastro</strong>
+           <div class="clear height20"></div>
+          <p>Para utilizar algumas funcionalidades e recursos do Site você precisará realizar um cadastro, nos termos da nossa Política de Privacidade. Poderemos, nessa oportunidade, solicitar o fornecimento de alguns dados pessoais seus, tais como nome, idade e endereço de e-mail, dentre outros.</p>
+          <p>Você deve ter 18 anos ou mais e plena capacidade civil para utilizar o Site e seus recursos; nos demais casos você deverá ter a autorização de seus pais ou responsáveis legais.</p>
+          <p>Você poderá solicitar a exclusão dos dados pessoais que você nos fornecer dos nossos registros, clicando aqui .</p>
+          <p><strong>Mesmo após a sua solicitação de exclusão, manteremos, contudo, os dados agregados e não identificáveis, para fins estatísticos, bem como os dados e informações que somos obrigados a manter em registro por lei.</strong></p>
+            <p>Enquanto estivermos em posse de informações ou dados seus, poderemos fornecê-los às autoridades competentes para colaborar em investigações ou procedimentos judiciais, ainda que preparatórios ou cautelares, desde que permitido por lei.</p>
+
+          <a name="Conduta"></a>
+          <strong>2. Conduta</strong>
+          <div class="clear height20"></div>
+          <p>A AVEC oferece ao Usuário um Site que permite a navegação em seu conteúdo, que ficará hospedado nos servidores da AVEC.</p>
+          <p>O Site e os recursos que estão nele são destinados ao seu uso pessoal e recreativo. <strong>Ao utilizar o Site e os nossos sites em geral, você não deve:</strong></p>
+          <ul style="list-style: inherit;">
+            <li>  Disseminar conteúdo ilegal, ofensivo, violento ou que viole a privacidade e a intimidade de terceiros.</li>
+            <li>Violar propriedade intelectual de terceiros.</li>
+            <li>Disseminar vírus ou código de computador malicioso, arquivos ou programas desenvolvidos para coletar dados não autorizados, interromper, destruir ou limitar a funcionalidade do Site ou do Site, de qualquer software ou hardware de computador ou equipamentos de telecomunicações em geral (malware ou spyware).</li>
+            <li>Interferir com a arquitetura do Site ou dos sites por qualquer forma, meio ou técnica.</li>
+            <li>Disfarçar ou ocultar o número de IP (internet protocol) que identifica sua conexão à internet.</li>
+            <li> Usar qualquer dos elementos do Site ou dos sites para fins comerciais, publicitários ou em qualquer outro que não represente a finalidade principal do Site.</li>
+            <li>Criar ou utilizar mais que uma única forma de identificação para utilizar o Site, utilizar identificação de um terceiro, ou permitir que terceiros utilizem a sua identificação.</li>
+          </ul>
+          <p><strong>Poderemos impedir que você utilize o Site ou qualquer de seus recursos caso, no nosso entendimento, você viole quaisquer das condições destes Termos. Informaremos a você da suspensão de seu uso do Site.</strong></p>
+
+          <a name="Jogos"></a>
+          <strong>3. Jogos</strong>
+          <div class="clear height20"></div>
+          <p>Além de outros recursos, podemos oferecer a você jogos em páginas especiais do Site, para o seu uso pessoal e estritamente recreativo.</p>
+          <p>As regras específicas dos jogos, tais como pontuação, controles e diretrizes podem ser encontrados no próprio jogo, podendo ser modificadas de tempos em tempos. Tais regras fazem parte destes Termos e você concorda que deverá cumprir com eles ao jogar.</p>
+
+          <a name="Licenca"></a>
+          <strong>4. Licença dos seus conteúdos e propriedade intelectual </strong>
+          <div class="clear height20"></div>
+          <p>Ao enviar qualquer conteúdo ou informação para o Site, incluindo textos, tais como comentários, fóruns de discussão, comunidades, enquetes, testes, seção de dúvidas, participação em concurso cultural, jogos, envio de fotografias, ilustrações, vídeos, arquivos de áudio e outros materiais, você declara autorizar, de forma gratuita, não exclusiva, perpétua, global e livre de remuneração, compensação, retenção ou indenização, o uso do conteúdo por nós AVEC, por qualquer modalidade e suporte, para publicação, reprodução, transmissão, retransmissão, distribuição, comunicação ao público, edição, adaptação e outras transformações, tradução para qualquer idioma, inclusão em quaisquer outras obras, representação, execução, uso por radiodifusão e outros meios de comunicação, mediante o emprego de qualquer tecnologia, exposição, inclusão em base de dados e quaisquer outras modalidades de utilização existentes ou que venham a ser inventadas no futuro, em quaisquer suportes existentes ou que venham a ser inventados no futuro, autorizando também a criação de obras derivadas e o sublicenciamento do material para uso em outras plataformas de comunicação, sem limite de tempo, território ou número de utilizações. Qualquer eventual omissão não implicará limitação de uso do material por nós.</p>
+          <p><strong>Caso você não concorde com a autorização acima, ou não tenha os direitos necessários para emitir essa autorização com relação a um conteúdo, você não deve enviar o conteúdo para nós.</strong></p>
+          <p>Você só deve enviar pelo Site ou para o Site materiais originais seus. Todos os direitos autorais patrimoniais sobre o material submetido por você continuam sendo seus.</p>
+          <p>Não temos qualquer obrigação de uso dos seus conteúdos e nem perderemos o direito de usá-los, ainda que esse direito não seja exercido por nós.</p> 
+
+          <a name="Informacoes"></a>
+          <strong>5. Mais informãções</strong>
+          <div class="clear height20"></div>
+          <p>A AVEC se reserva o direito de modificar a qualquer momento a apresentação, configuração e disponibilização do Site.</p>
+          <p>Leia também a Política de Privacidade do Site  para saber mais sobre o uso que fazemos dos seus dados e de outras regras que se aplicam a você.</p>
+
+         <a name="Ajuda"></a>
+          <strong>6. Ajuda</strong>
+          <div class="clear height20"></div>
+          <p>Caso você tenha dúvidas ou problemas ligados ao Site, entre em contato conosco <a href="mailto:contato@avec.com" target="_blank">contato@avec.com</a></p>
+          <p>&nbsp;</p>
+</form>
+</div>
+</div>
+
+
+{% endblock %}
+

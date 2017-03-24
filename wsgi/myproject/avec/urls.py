@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^dashboard/', views.dashboard, name='dashboard'),	
 	url(r'^contact/$', views.contact, name='contact'),
     url(r'^conta/', include('accounts.urls', namespace='accounts')),
+    url(r'^termos-condicoes-gerais/', views.terms_conditions, name='terms_conditions'),
+    url(r'^politica-privacidade/', views.privacy_statement, name='privacy_statement'),
 	]

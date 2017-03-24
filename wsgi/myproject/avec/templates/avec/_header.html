@@ -25,20 +25,24 @@
 			  {% if user.is_authenticated %}
 <!-- <a href="javascript:void(0)" class="dropbtn" style="background: url('{% static 'img/person-outline.svg' %}') no-repeat left; padding-right:10px; background-size: 15px 15px;">Sua Conta</a>
 </li>-->
-
-				<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style="float:right;  padding-left: 20px; ">Sua Conta
-				<span class="caret"></span></button>
-				<ul class="dropdown-menu dropdown-menu-right" role="menu">
-				  <li class="header__menu-item">Meu Perfil</li>
-				  <li><a href="#">Preferências</a></li>
-				  <li><a href="#">Alterar Senha</a></li>
-				  <li class="divider"></li>
-				  <li><a href="{% url 'logout' %}">Sair</a></li>
-				</ul>
-
-			  {% else %}
-				<li><a class="header__menu-item btn" href="{% url 'logar' %}">Entrar</a></li>
-			  {% endif%}
+				<li>
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" style="padding-left: 20px;">
+						Sua Conta <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu dropdown-user-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<li><i class="fa fa-address-card" aria-hidden="true"></i> Meu Perfil</li>
+						<li class="divider"></li>
+						<li><i class="fa fa-cog" aria-hidden="true"></i><a href="#">Preferências</a></li>
+						<li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a href="#">Alterar Senha</a></li>
+						<li class="divider"></li>
+						<li><i class="fa fa-sign-out" aria-hidden="true"></i><a href="{% url 'logout' %}">Sair</a></li>
+					</ul>
+				</div>
+				</li>
+				{% else %}
+					<li><a class="header__menu-item btn" href="{% url 'logar' %}">Entrar</a></li>
+			  	{% endif%}
 			</ul>
 		  </div>
 		 </div> 

@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
 	'widget_tweaks',
 	'django.contrib.sites',
+    'paypal.standard.ipn',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -149,6 +150,9 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'contato@avecdata.com'
 SERVER_EMAIL = 'contato@avecdata.com'
 
+#-----paypal configuration--------------
+PAYPAL_TEST = True
+PAYPAL_EMAIL = 'theo.duarte@icloud.com'
 
 try:
     from .local_settings import *

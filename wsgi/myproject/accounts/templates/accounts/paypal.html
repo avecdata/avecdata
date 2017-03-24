@@ -1,0 +1,36 @@
+{% extends 'avec/layout_interno.html' %}
+
+{% block title %}
+Pagamento via Paypal
+{% endblock %}
+
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block content %}
+
+<ol class="breadcrumb">
+  <li><a href="{% url 'index' %}">Início</a></li>
+  <li><a href="{% url 'accounts:payment' %}">Pagamento</a></li>
+  <li class="active">Pagamento via Paypal</li>
+</ol>
+<div class="container" style="padding-top: 10%;">
+	<div class="form-group">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="page-header">
+			    <h4>Clique no botão abaixo para<br>Para realizar o Pagamento via Paypal...</h4>
+			</div>
+			<div id="paypal" class="row">
+			    {{ form.render }}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(function(){
+        $("#paypal form").submit();
+    });
+</script>
+{% endblock %}

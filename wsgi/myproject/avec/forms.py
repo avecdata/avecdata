@@ -35,7 +35,7 @@ class ContactForm(forms.Form):
         phone = self.cleaned_data['phone']
         uf = self.cleaned_data['uf']
         content_message = '################ AVECDATA - PLATAFORMA DE DADOS SETORIAIS ################ \n\n'
-        content_message += 'O Usuário abaixo: \n Nome: {0}\nE-mail: {1}\nTelefone: {3}\nUF: {4}\nNos enviou a seguinte mensagem de contato: \n'.format(name, email, message, phone, uf)
+        content_message += 'O Usuário abaixo: \nNome: {0}\nE-mail: {1}\nTelefone: {3}\nUF: {4}\nNos enviou a seguinte mensagem de contato: \n'.format(name, email, message, phone, uf)
         content_message += '-------------------------------------------------------------------------\n'
         content_message += '{2}\n'.format(name, email, message, phone, uf)
 

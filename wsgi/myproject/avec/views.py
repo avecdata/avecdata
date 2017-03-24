@@ -1,18 +1,22 @@
 # -*- coding: utf-8 -*-
+
+
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order
+from accounts.models import User
 from django.template import RequestContext
 from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect # Funcao para redirecionar o usuario
 from django.contrib.auth.forms import UserCreationForm # Formulario de criacao de usuarios
 from django.contrib.auth.forms import AuthenticationForm # Formulario de autenticacao de usuarios
-from django.contrib.auth import login # funcao que salva o usuario na sessao
+from django.contrib.auth import authenticate, login # funcao que salva o usuario na sessao
 from django.views.generic import View, TemplateView, CreateView
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.conf import settings
 import requests, json
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # adicionados para o formulario de contato c/ envio de email
 from .forms import ContactForm
@@ -22,6 +26,7 @@ from django.template import Context
 from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+
 
 # Create your views here.
 def page_not_found(request):
@@ -79,10 +84,10 @@ def inovacao(request):
         return render(request,'avec/permissao.html')
 
 def nascidosvivos(request):
-   # if request.user.is_authenticated():
+    # if request.user.is_authenticated():
         return render(request, 'avec/dashboards/nascidosvivos.html')
-   # else:
-   #     return render(request,'avec/permissao.html')
+    # else:
+    #     return render(request,'avec/permissao.html')
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
@@ -223,3 +228,11 @@ def contact(request):
     }
 
     return render(request, 'avec/contact.html', context)
+
+def terms_conditions(request):
+
+    return render(request, 'avec/terms_conditions.html')
+
+def privacy_statement(request):
+
+    return render(request, 'avec/privacy_statement.html')

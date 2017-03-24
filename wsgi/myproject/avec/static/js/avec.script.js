@@ -4,13 +4,19 @@
 
 $(document).ready(function () {
 	
-	//window.url_config = 'http://192.168.0.104:8080';
-	window.url_config = 'http://www.avecdata.com';
+	window.url_config = 'http://192.168.0.104:8080';
+	//window.url_config = 'http://www.avecdata.com';
 	
 	$('li.moment-data__item').mouseover(function() {
 		var imgpath = $(this).find('a').attr('data-image');
 		$('div.moment-data__graphic').find('figure').find('img').attr('src', imgpath);
 	});
+	
+	try {
+		$(".phone").mask("(99) 9?9999-9999");
+	} catch (e) {
+		console.log(e.message);
+	}
 	
 	var csrftoken = getCookie('csrftoken');
 	
@@ -37,6 +43,12 @@ $(document).ready(function () {
 			}
 	    }
 	});
+	
+	/*$.dialog({
+	   icon: 'fa fa-clock-o', 
+	   title: 'Avec Data',
+	   content: '<div style="width: 100%; text-align: center; font-size: 32px;"><i class="fa fa-spin fa-spinner" aria-hidden="true"></i><br><span style="font-size: 14px;">Você está sendo redirecionado para a página do PayPal. Aguarde...</span></div>',
+	});*/
 });
 
 function getCookie(name) {

@@ -10,7 +10,7 @@ class UserAdminCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'name' , 'email']
+        fields = ['username', 'name' , 'email', 'phone']
 
 
 class UserAdminForm(forms.ModelForm):

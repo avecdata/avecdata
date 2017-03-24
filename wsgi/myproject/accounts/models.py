@@ -5,12 +5,13 @@ import re
 from django.db import models
 from django.core import validators
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
+from datetime import datetime
 
 
 class User(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(
-        'Usuario', max_length=30, unique=True, validators=[
+        'Usuário', max_length=30, unique=True, validators=[
             validators.RegexValidator(
                 re.compile('^[\w.@+-]+$'),
                 'Informe um nome de usuario valido. '
@@ -21,10 +22,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         ], help_text='Um nome curto que sera usado para identifica-lo de forma unica na plataforma'
     )
     name = models.CharField('Nome', max_length=100, blank=False)
+    phone = models.CharField('Telefone', max_length=22, null=True)
     email = models.EmailField('E-mail', unique=True)
     is_staff = models.BooleanField('Equipe', default=False)
     is_active = models.BooleanField('Ativo', default=True)
     date_joined = models.DateTimeField('Data de Entrada', auto_now_add=True)
+    date_expiration = models.DateTimeField('Data de Expiração', default=datetime.now, blank=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

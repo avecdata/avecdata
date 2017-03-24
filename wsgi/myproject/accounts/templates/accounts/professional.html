@@ -1,0 +1,83 @@
+{% extends 'avec/layout_interno.html' %}
+
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block content %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+
+<p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+
+<p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="page-header" style="margin-top: 7%;">
+            <h2>Assinatura do Plano Profissional</h2>
+        </div>
+        <form class="form-horizontal" action="{% url 'accounts:payment' %}" method="post">
+            {% csrf_token %}
+            {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+            {% endfor %}
+            <fieldset>
+            	<div class="form-group form-group-avec">
+            		<div class="col-md-6 {% if form.username.errors %} has-error{% endif %}">
+            			<input type="text" id="{{ form.username.auto_id }}" class="form-control" name="{{ form.username.name }}" value="theo.duarte" autocomplete="off" placeholder="{{ form.username.label }}" maxlength="150" >
+            			<input type="hidden" id="plan_type" name="plan_type" value="2">
+            			{% for error in form.username.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+            		</div>
+            		<div class="col-md-6 {% if form.name.errors %} has-error{% endif %}">
+            			<input type="text" id="{{ form.name.auto_id }}" class="form-control" name="{{ form.name.name }}" value="Theogenes" autocomplete="off" placeholder="{{ form.name.label }}" maxlength="150" >
+            			{% for error in form.name.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+            		</div>
+            	</div>
+            	<div class="form-group form-group-avec">
+            		<div class="col-md-6 {% if form.email.errors %} has-error{% endif %}">
+            			<input type="text" id="{{ form.email.auto_id }}" class="form-control" name="{{ form.email.name }}" value="teocomp@gmail.com" autocomplete="off" placeholder="{{ form.email.label }}" maxlength="150" >
+            			{% for error in form.email.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+            		</div>
+            		<div class="col-md-6 {% if form.phone.errors %} has-error{% endif %}">
+            			<input type="tel" id="{{ form.phone.auto_id }}" class="form-control phone" name="{{ form.phone.name }}" value="(61) 98188-7403" autocomplete="off" placeholder="{{ form.phone.label }}" maxlength="150" >
+            			{% for error in form.phone.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+            		</div>
+            	</div>
+            	<div class="form-group form-group-avec">
+            		<div class="col-md-6 {% if form.password1.errors %} has-error{% endif %}">
+            			<input type="password" id="{{ form.password1.auto_id }}" class="form-control" name="{{ form.password1.name }}" value="1234" autocomplete="off" placeholder="{{ form.password1.label }}" maxlength="150" >
+            			{% for error in form.password1.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+            		</div>
+            		<div class="col-md-6 {% if form.password2.errors %} has-error{% endif %}">
+            			<input type="password" id="{{ form.password2.auto_id }}" class="form-control" name="{{ form.password2.name }}" value="1234" autocomplete="off" placeholder="{{ form.password2.label }}" maxlength="150" >
+            			{% for error in form.password2.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+            		</div>
+            	</div>
+            	<div class="form-group form-group-avec">
+            		<div class="col-md-12 col-md-offset-0">
+            			<div class="cb-avec-content">
+	            			<div class="cb-avec-content">
+		            			<input type="checkbox" id="plan_accept" class="cb-avec" name="plan_accept" value="1" required="required" >
+		            			<label for="plan_accept">Eu <strong>ACEITO</strong> os <a href="{% url 'terms_conditions' %}" target="_blank">Termos e Condições Gerais</a>
+		            			(<a href="{% static 'termsofuse/avec-termos-condicoes-gerais.pdf' %}" target="_blank">PDF</a>) e a <a href="{% url 'privacy_statement' %}" target="_blank">Política de Privacidade</a>
+		            			(<a href="{% static 'termsofuse/avec-politica-privacidade.pdf' %}" target="_blank">PDF</a>)</label>
+		            		</div>
+	            		</div>
+            		</div>
+            	</div>
+                <div class="form-group">
+                  <div class="col-md-12 col-md-offset-0">
+                    <button type="submit" class="btn btn-primary">Criar Conta</button>
+                  </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+{% endblock %}
