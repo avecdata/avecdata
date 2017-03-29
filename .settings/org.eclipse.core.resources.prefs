@@ -1,5 +1,13 @@
 eclipse.preferences.version=1
+encoding//wsgi/myproject/accounts/__init__.py=utf-8
+encoding//wsgi/myproject/accounts/admin.py=utf-8
+encoding//wsgi/myproject/accounts/forms.py=utf-8
 encoding//wsgi/myproject/accounts/models.py=utf-8
+encoding//wsgi/myproject/accounts/urls.py=utf-8
+encoding//wsgi/myproject/accounts/views.py=utf-8
+encoding//wsgi/myproject/avec/admin.py=utf-8
 encoding//wsgi/myproject/avec/forms.py=utf-8
 encoding//wsgi/myproject/avec/models.py=utf-8
+encoding//wsgi/myproject/avec/utils.py=utf-8
+encoding//wsgi/myproject/avec/validators.py=utf-8
 encoding//wsgi/myproject/avec/views.py=utf-8

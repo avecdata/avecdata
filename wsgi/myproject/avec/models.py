@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
+from django.contrib.auth import get_user_model
 from django.conf import settings
+from avec import utils
 from django.db.models import Q
 
 class Keywords(models.Model):
@@ -13,55 +15,61 @@ class Keywords(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8')
 
-        
+		
 class Themes(models.Model):
     #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     image = models.ImageField( blank=True)
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
 
     def publish_theme(self):
         self.published_date = timezone.now()
         self.save()
 
     def __str__(self):
-        return self.title
-        
+        return self.title.encode('utf-8')
+		
 class Subject(models.Model):
     #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     text = models.TextField()
     image = models.ImageField( blank=True)
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
     keywords = models.ManyToManyField(Keywords, blank=True)
     theme = models.ForeignKey(Themes)
-    
+	
     def publish_subject(self):
         self.published_date = timezone.now()
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8')
 
 class Subject_detail(models.Model):
     #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
     keywords = models.ManyToManyField(Keywords, blank=True)
     subject = models.ForeignKey(Subject)
-    
+	
     def publish_subject_detail(self):
         self.published_date = timezone.now()
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8')			
 
 class Post(models.Model):
     #author = models.ForeignKey('auth.User')
@@ -69,37 +77,42 @@ class Post(models.Model):
     text = models.TextField()
     html = models.TextField(blank=True)
     image = models.ImageField( blank=True)
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
-    subject = models.ManyToManyField(Subject , related_name='subparent')            
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+    subject = models.ManyToManyField(Subject , related_name='subparent')			
     subject_detail = models.ManyToManyField(Subject_detail , related_name='subchild')
     keywords = models.ManyToManyField(Keywords, blank=True)
     group = models.ManyToManyField(Group)
-    open = models.BooleanField(default=False)
-    
+    open = models.BooleanField()
+	
     def publish_post(self):
         self.published_date = timezone.now()
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8')
 
 class Reports(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
     pdf = models.FileField(upload_to='pdf')
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
     subject = models.ManyToManyField(Subject , related_name='subparent1')
     subject_detail = models.ManyToManyField(Subject_detail , related_name='subchild1')
     keywords = models.ManyToManyField(Keywords, blank=True)
+
 
     def publish_report(self):
         self.published_date = timezone.now()
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8')
     
 class Price(models.Model):
     
@@ -121,7 +134,7 @@ class Price(models.Model):
         verbose_name_plural = 'Preços dos Planos'
 
     def __str__(self):
-        return self.group.name
+        return self.group.name.encode('utf-8')
     
 #     def __str__(self):
 #         return '{} [{}] {} {}'.format(self.country_code, self.country_name, self.pvalue, self.group.name)
@@ -145,6 +158,7 @@ class Order(models.Model):
     status = models.IntegerField('Situação', choices=STATUS_CHOICES, default=0, blank=True)
     payment_option = models.CharField('Opção de Pagamento', choices=PAYMENT_OPTION_CHOICES, max_length=20, default='paypal')
     order_key = models.CharField('Chave da compra', max_length=40, db_index=True)
+    amount = models.DecimalField(default=0.0, max_digits=5, decimal_places=2, verbose_name='Valor do Pedido')
 
     created = models.DateTimeField('Criado em', auto_now_add=True)
     modified = models.DateTimeField('Modificado em', auto_now=True)
@@ -168,51 +182,51 @@ class Order(models.Model):
         result = self.price.pvalue
         
         return result
-
+	
     def complete(self):
-        self.status = 1
-        self.save()
-
+    
+	try:
+		User = get_user_model()
+		user_payment = User.objects.get(id=self.user_id)
+		now = timezone.now()
+		user_payment.date_expiration = now
+		user_payment.name = 'Theogenes F Duarte'
+		user_payment.save()
+	except:
+		pass
+		
+	self.status = 1
+	self.save()
+		
+	return self.status
+	
     def paypal(self):
         self.payment_option = 'paypal'
         self.save()
+        subscription_name = ""
+        
+        try:
+            subscription_name = str(self.price)
+        except:
+            pass
+        
         paypal_dict = {
             'upload': '1',
             'business': settings.PAYPAL_EMAIL,
+            'cmd': '_xclick-subscriptions',
             'invoice': self.pk,
-            'cmd': '_cart',
+            "a3": self.total(),                         # monthly price
+            "p3": 1,                                    # duration of each unit (depends on unit)
+            "t3": "M",                                  # duration unit ("M for Month")
+            "src": "1",                                 # make payments recur
+            "sra": "1",                                 # reattempt payment on payment error
+            "no_note": "1",                             # remove extra notes (optional)
+            "item_name": "AVEC - Plano de Assinatura: "+subscription_name,
             'currency_code': 'BRL',
             'charset': 'utf-8',
         }
-        index = 1
-#         for item in self.items.all():
-#             paypal_dict['amount_{}'.format(index)] = '%.2f' % item.price
-#             paypal_dict['item_name_{}'.format(index)] = item.product.name
-#             paypal_dict['quantity_{}'.format(index)] = item.quantity
-#             index = index + 1
-        country_slug = settings.LANGUAGE_CODE.split("-")[1]
-        
-        paypal_dict['amount_{}'.format(index)] = '%.2f' % self.total()
-        paypal_dict['item_name_{}'.format(index)] = self.price.group.name+' '+str(country_slug)
-        paypal_dict['quantity_{}'.format(index)] = 1
             
         return paypal_dict
-
-
-# class OrderItem(models.Model):
-# 
-#     order = models.ForeignKey(Order, verbose_name='Pedido', related_name='items')
-#     product = models.ForeignKey('catalog.Product', verbose_name='Produto')
-#     quantity = models.PositiveIntegerField('Quantidade', default=1)
-#     price = models.DecimalField('Preço', decimal_places=2, max_digits=8)
-# 
-#     class Meta:
-#         verbose_name = 'Item do pedido'
-#         verbose_name_plural = 'Itens dos pedidos'
-# 
-#     def __str__(self):
-#         return '[{}] {}'.format(self.order, self.product)
-
 
 # def post_save_order(instance, **kwargs):
 #     if instance.quantity < 1:

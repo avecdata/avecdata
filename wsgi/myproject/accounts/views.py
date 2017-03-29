@@ -38,6 +38,10 @@ class RegisterProfessionalPlanView(CreateView):
     template_name = 'accounts/professional.html'
     form_class = UserAdminCreationForm
     success_url = reverse_lazy('accounts:payment')
+    
+class PaymentFailedView(TemplateView):
+
+    template_name = 'accounts/payment_failed.html'
 
 
 class UpdateUserView(LoginRequiredMixin, UpdateView):
@@ -104,7 +108,7 @@ def payment(request):
         if request.session.session_key is None:
             request.session.save()
         
-        order = Order.objects.create(user=user, price=price, status=0, payment_option='paypal', order_key=request.session.session_key)
+        order = Order.objects.create(user=user, price=price, status=0, payment_option='paypal', order_key=request.session.session_key, amount=price.pvalue)
         order.save()
         
         context = {
@@ -150,23 +154,26 @@ class PaypalView(LoginRequiredMixin, TemplateView):
             reverse('index')
         )
         paypal_dict['cancel_return'] = self.request.build_absolute_uri(
-            reverse('index')
+            reverse('accounts:payment_failed')
         )
         paypal_dict['notify_url'] = self.request.build_absolute_uri(
-            reverse('paypal-ipn')
+            reverse('accounts:paypal-ipn')
         )
-        context['form'] = PayPalPaymentsForm(initial=paypal_dict)
+        context['form'] = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
         return context
+
 
 def paypal_notification(sender, **kwargs):
     ipn_obj = sender
+    
     if ipn_obj.payment_status == ST_PP_COMPLETED and \
         ipn_obj.receiver_email == settings.PAYPAL_EMAIL:
+        
         try:
             order = Order.objects.get(pk=ipn_obj.invoice)
             order.complete()
         except Order.DoesNotExist:
-            pass    
+            pass
 
 valid_ipn_received.connect(paypal_notification)
 
@@ -174,6 +181,6 @@ index = IndexView.as_view()
 register = RegisterView.as_view()
 update_user = UpdateUserView.as_view()
 update_password = UpdatePasswordView.as_view()
-# payment = PaymentView.as_view()
+payment_failed = PaymentFailedView.as_view()
 paypal_view = PaypalView.as_view()
 register_professional_plan = RegisterProfessionalPlanView.as_view()

@@ -6,7 +6,7 @@ class PriceAdmin(admin.ModelAdmin):
     list_display = ['country_code', 'country_name', 'pvalue', 'group']
     
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['status', 'payment_option', 'order_key', 'price', 'user']
+    list_display = ['status', 'payment_option', 'order_key', 'price', 'user', 'amount']
   
 admin.site.register(Post)
 admin.site.register(Reports)

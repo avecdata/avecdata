@@ -20,7 +20,7 @@
         <div class="page-header" style="margin-top: 7%;">
             <h2>Assinatura do Plano Profissional</h2>
         </div>
-        <form class="form-horizontal" action="{% url 'accounts:payment' %}" method="post">
+        <form class="form-horizontal" id="form-register" action="{% url 'accounts:payment' %}" method="post">
             {% csrf_token %}
             {% for error in form.non_field_errors %}
             <div class="alert alert-danger">
@@ -32,11 +32,11 @@
             		<div class="col-md-6 {% if form.username.errors %} has-error{% endif %}">
             			<input type="text" id="{{ form.username.auto_id }}" class="form-control" name="{{ form.username.name }}" value="theo.duarte" autocomplete="off" placeholder="{{ form.username.label }}" maxlength="150" >
             			<input type="hidden" id="plan_type" name="plan_type" value="2">
-            			{% for error in form.username.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+            			{% for error in form.email.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
             		</div>
             		<div class="col-md-6 {% if form.name.errors %} has-error{% endif %}">
             			<input type="text" id="{{ form.name.auto_id }}" class="form-control" name="{{ form.name.name }}" value="Theogenes" autocomplete="off" placeholder="{{ form.name.label }}" maxlength="150" >
-            			{% for error in form.name.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+            			{% for error in form.email.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
             		</div>
             	</div>
             	<div class="form-group form-group-avec">
@@ -80,4 +80,5 @@
         </form>
     </div>
 </div>
+<script type="text/javascript" src="{% static 'js/validators.js' %}"></script>
 {% endblock %}

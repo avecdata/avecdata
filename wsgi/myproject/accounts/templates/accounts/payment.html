@@ -117,10 +117,11 @@
 			            			(<a href="{% static 'termsofuse/avec-termos-condicoes-gerais.pdf' %}" target="_blank">PDF</a>) e a <a href="{% url 'privacy_statement' %}" target="_blank">Política de Privacidade</a>
 			            			(<a href="{% static 'termsofuse/avec-politica-privacidade.pdf' %}" target="_blank">PDF</a>)</label>
 			            		</div>
-		            			<br>
 		            			<div class="cb-avec-content">
 			            			<input type="checkbox" id="terms_conditions_accept" class="cb-avec" name="terms_conditions_accept" value="1" required="required" >
-			            			<label for="terms_conditions_accept">Eu li e aceito os seguintes termos e condições:</label><br><br>
+			            			<label for="terms_conditions_accept">Eu li e aceito os seguintes termos e condições:</label>
+			            		</div>
+		            			<div class="cb-avec-content">
 			            			<span style="margin: 0px 0 0 22px;">Este produto é para uso comercial. O restante o Daniel elabora e coloca aqui...</span>
 			            		</div>
 		            		</div>
@@ -134,7 +135,7 @@
 					<input class="btn btn-success btn-sm" type="submit" value="Enviar" /> -->
 					<div class="row">
 					    <div class="col-md-4 col-md-offset-4">
-					        <a href="{% url 'accounts:paypal_view' order %}" class="btn btn-default"><span style="display: block;">Pagar com </span><input type="image" src="{% static 'img/paypal.png' %}"/></a>
+					        <a href="#" id="btn-submit" class="btn btn-default"><span style="display: block;">Pagar com </span><input type="image" src="{% static 'img/paypal.png' %}"/></a>
 					    </div>
 					</div>
 				<!-- </center> -->
@@ -142,6 +143,30 @@
 		</fieldset>
 	
 </div>
-
+<script>
+$(document).ready(function () {
+	var url = "{% url 'accounts:paypal_view' order %}";
+	
+	$('#btn-submit').click(function(){
+		if($('#payment_accept').is(':checked') == false) {
+			$('#payment_accept').parent().append('<span class="cb-message" style="color: #a94442; display: block;"><i class="fa fa-arrow-up"></i> Marque esta caixa se deseja continuar</span>');
+		}
+		
+		if($('#terms_conditions_accept').is(':checked') == false) {
+			$('#terms_conditions_accept').parent().append('<span class="cb-message" style="color: #a94442; display: block;"><i class="fa fa-arrow-up"></i> Marque esta caixa se deseja continuar</span>');
+		}
+		
+		if($('#payment_accept').is(':checked') & $('#terms_conditions_accept').is(':checked')) {
+			window.location.href = url;
+		}
+	});
+	
+	$('.cb-avec').change(function(){
+		$(this).parent().find('.cb-message').remove();
+	});
+	
+	
+});
+</script>
 {% endblock %}
 

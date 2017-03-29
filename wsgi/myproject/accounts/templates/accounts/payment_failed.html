@@ -1,0 +1,32 @@
+{% extends 'avec/layout_interno.html' %}
+
+{% block title %}
+Pagamento via Paypal
+{% endblock %}
+
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block content %}
+
+<ol class="breadcrumb">
+  <li><a href="{% url 'index' %}">Início</a></li>
+  <li><a href="{% url 'accounts:payment' %}">Pagamento</a></li>
+  <li class="active">Pagamento via Paypal</li>
+  <li class="active">Pagamento com Problemas</li>
+</ol>
+<div class="container" style="padding-top: 10%;">
+	<div class="form-group">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="alert alert-danger" role="alert">
+				<span style="width: 100%; display: inline-block; text-align: center;"><i class="fa fa-exclamation-triangle" style="font-size: 3em;"></i></span><br>
+				<span>O Pagamento apresentou alguma inconsistência e não pôde ser realiza. Por favor, tente novamente mais tarde!</span>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+</script>
+{% endblock %}

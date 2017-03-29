@@ -96,6 +96,12 @@
     border-color: #3e5881;
 }
 
+.j-calltoaction-link-register {
+	background-color: #1ab198 !important;
+    border: none !important;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.24), 0 0 2px 0 rgba(0,0,0,.12);
+}
+
 #paypal, .page-header {
 	text-align:center !important;
 }
@@ -158,6 +164,10 @@ input[type=checkbox].cb-avec:focus ~ label
     color: #1e2938;
 }
 
+.cb-avec-content {
+	height: 50px;
+}
+
  .cb-avec-content label {
 	background: #fff;
     color: #1e2938;
@@ -183,7 +193,8 @@ input[type=checkbox].cb-avec:focus ~ label
 }
 
 .form-group-avec {
-	margin-bottom: 30px;
+	height: 65px;
+	margin-bottom: 10px;
 }
 
 @media screen and (max-width: 768px) {

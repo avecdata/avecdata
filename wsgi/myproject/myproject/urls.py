@@ -18,6 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^paypal/', include('paypal.standard.ipn.urls')),
     url(r'^', include('avec.urls')),
 ]

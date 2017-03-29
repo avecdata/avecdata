@@ -151,8 +151,8 @@ DEFAULT_FROM_EMAIL = 'contato@avecdata.com'
 SERVER_EMAIL = 'contato@avecdata.com'
 
 #-----paypal configuration--------------
-PAYPAL_TEST = True
-PAYPAL_EMAIL = 'theo.duarte@icloud.com'
+PAYPAL_TEST = False
+PAYPAL_EMAIL = 'daniel.porangaba@avecdata.com'
 
 try:
     from .local_settings import *
