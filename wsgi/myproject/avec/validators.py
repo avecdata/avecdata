@@ -27,12 +27,29 @@ def validate_is_not_empty(value):
 def check_email(request):
     
     resultado_json = False
-    print('hkjfsh dfkjhds')
+#     print('hkjfsh dfkjhds')
     if request.method == 'POST':
         email = request.POST.get('username')
         
         User = get_user_model()
         user_payment = User.objects.filter(email=email)
+        
+        if not user_payment:
+            resultado_json = True
+        else:
+            resultado_json = False
+    
+    return JsonResponse(resultado_json, safe=False)
+
+@csrf_exempt
+def check_username(request):
+    
+    resultado_json = False
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        
+        User = get_user_model()
+        user_payment = User.objects.filter(username=username)
         
         if not user_payment:
             resultado_json = True

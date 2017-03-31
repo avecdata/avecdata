@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="page-header" style="margin-top: 7%;">
-            <h2>Assinatura do Plano Profissional</h2>
+            <h2>Assinatura do Plano Corporativo</h2>
         </div>
         <form class="form-horizontal" id="form-register" action="{% url 'accounts:payment' %}" method="post">
             {% csrf_token %}
@@ -31,7 +31,7 @@
             	<div class="form-group form-group-avec">
             		<div class="col-md-6 {% if form.username.errors %} has-error{% endif %}">
             			<input type="text" id="{{ form.username.auto_id }}" class="form-control" name="{{ form.username.name }}" autocomplete="off" placeholder="{{ form.username.label }}" maxlength="150" >
-            			<input type="hidden" id="plan_type" name="plan_type" value="2">
+            			<input type="hidden" id="plan_type" name="plan_type" value="3">
             			{% for error in form.email.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
             		</div>
             		<div class="col-md-6 {% if form.name.errors %} has-error{% endif %}">

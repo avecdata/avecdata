@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
 from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order
@@ -55,14 +54,6 @@ def index(request):
     subject_detail = Subject_detail.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'avec/index.html', {'subject': subject, 'themes': themes, 'subject_detail' : subject_detail, 'posts' : posts})
-
-def autocompleteModel(request):
-    search_qs = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    results = []
-    for r in search_qs:
-        results.append(r.name)
-    resp = request.REQUEST['callback'] + '(' + simplejson.dumps(result) + ');'
-    return HttpResponse(resp, content_type='application/json')
 
 def ciencia_tecnologia(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -236,3 +227,12 @@ def terms_conditions(request):
 def privacy_statement(request):
 
     return render(request, 'avec/privacy_statement.html')
+
+def padrao1(request):
+        return render(request, 'avec/dashboards/padrao1.html')
+
+def padrao2(request):
+        return render(request, 'avec/dashboards/padrao2.html')
+
+def padrao3(request):
+        return render(request, 'avec/dashboards/padrao3.html')    

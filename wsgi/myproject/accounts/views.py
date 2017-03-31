@@ -9,7 +9,8 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import authenticate, login
-from avec.models import Price, Order
+from avec.models import Price, Order, Group
+from django.utils import timezone
 
 from .models import User
 from .forms import UserAdminCreationForm
@@ -36,6 +37,13 @@ class RegisterProfessionalPlanView(CreateView):
 
     model = User
     template_name = 'accounts/professional.html'
+    form_class = UserAdminCreationForm
+    success_url = reverse_lazy('accounts:payment')
+    
+class RegisterCorporatePlanView(CreateView):
+
+    model = User
+    template_name = 'accounts/corporate.html'
     form_class = UserAdminCreationForm
     success_url = reverse_lazy('accounts:payment')
     
@@ -84,8 +92,17 @@ def payment(request):
         user.phone = phone
         user.is_active = True
         user.is_staff = False
+        now = timezone.now()
+        user.date_expiration = now
         
         user.save()
+        
+        #---assign user to basic group-------
+        try:
+            basic_group = Group.objects.get(id=1)
+            basic_group.user_set.add(user)
+        except Exception:
+            print("Basic group definition register Exception")
         
         user_auth = authenticate(username=username, password=password)
         
@@ -94,10 +111,13 @@ def payment(request):
             
         currency = 'R$ '
         service_list = []
+        subscription_name = 'Plano Básico de Assinatura'
         
-        if group_id == 2:
+        if group_id == '2':
+            subscription_name = 'Plano Profissional de Assinatura'
             service_list = ['Estatísticas e infográficos básico', 'Estatísticas e infográficos premium', 'Download de conteúdos']
-        elif group_id == 3:
+        elif group_id == '3':
+            subscription_name = 'Plano Corporativo de Assinatura'
             service_list = ['Estatísticas e infográficos básico', 'Estatísticas e infográficos premium', 'Download de conteúdos', 'Painéis Interativos', 'Montagem de retratos setoriais', 'Integração com bases próprias']
 
             
@@ -116,7 +136,7 @@ def payment(request):
             'name': name,
             'email': email,
             'phone': phone,
-            'plano': 'Plano Profissional de Assinatura',
+            'plano': subscription_name,
             'annual_cost': currency+str((pvalue*12)),
             'pvalue': pvalue,
             'pvalue_text': currency+str(pvalue),
@@ -184,3 +204,4 @@ update_password = UpdatePasswordView.as_view()
 payment_failed = PaymentFailedView.as_view()
 paypal_view = PaypalView.as_view()
 register_professional_plan = RegisterProfessionalPlanView.as_view()
+register_corporate_plan = RegisterCorporatePlanView.as_view()

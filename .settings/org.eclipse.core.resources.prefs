@@ -7,6 +7,7 @@ encoding//wsgi/myproject/accounts/urls.py=utf-8
 encoding//wsgi/myproject/accounts/views.py=utf-8
 encoding//wsgi/myproject/avec/admin.py=utf-8
 encoding//wsgi/myproject/avec/forms.py=utf-8
+encoding//wsgi/myproject/avec/middleware.py=utf-8
 encoding//wsgi/myproject/avec/models.py=utf-8
 encoding//wsgi/myproject/avec/utils.py=utf-8
 encoding//wsgi/myproject/avec/validators.py=utf-8

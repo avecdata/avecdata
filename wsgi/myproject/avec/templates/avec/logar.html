@@ -14,43 +14,43 @@
 {% endif %}
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Login</h3>
-                </div>
-                <div class="panel-body">
-                    <form method="post" action="{% url 'logar' %}">
-{% csrf_token %}
-
-                        <p class="bs-component">
-                            <table>
-                                <tr>
-                                    <td>{{ form.username.label_tag }}</td>
-                                    <td>{{ form.username }}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ form.password.label_tag }}</td>
-                                    <td>{{ form.password }}</td>
-                                </tr>
-                            </table>
-                        </p>
-                        <p class="bs-component">
-                            <center>
-                                <input class="btn btn-success btn-sm" type="submit" value="Entrar" />
-                            </center>
-                        </p>
-                        <input type="hidden" name="next" value="{{ next }}" />
-						    {% if form.errors %}
-
-								<p style="color: red">Usuario e/ou senha invalidos. Tente novamente.</p>
-							{% endif %}
-                    </form>
+	<header>
+        <div class="mpt-container">
+            <div class="row" style="margin-left: 0px; margin-right: 0px;">
+				<div class="col-lg-4 col-lg-offset-4">
+                    <div class="intro-text" style="padding-top: 40%;">
+                    	<div class="card card-container card-webapp">
+                    		<span class="avec-login-title">AVEC Data</span>
+                    		<div class="avec-login-logo img-responsive">
+                    			<i class="fa fa-user-circle-o"></i>
+                    		</div>
+				            <hr>
+				            <form class="form-signin" role="form" action="{% url 'logar' %}" method="post">
+				            	{% csrf_token %}
+				                <span id="reauth-email" class="reauth-email"></span>
+				                
+				                <input type="email" id="{{ form.username.auto_id }}" class="form-control" name="{{ form.username.name }}" placeholder="Usuário" required="required" autofocus="autofocus">
+				                
+				                <input type="password" id="{{ form.password.auto_id }}" class="form-control" name="{{ form.password.name }}" placeholder="Senha" required="required">
+				                
+				                <div id="remember" class="checkbox">
+				                    <label>
+				                        <!-- <input type="checkbox" value="remember-me"> Manter conectado -->
+				                    </label>
+				                </div>
+				                <button type="submit" class="btn btn-lg btn-primary btn-block btn-signin btn-mpt" value="Entrar"><i class="fa fa-key" aria-hidden="true"></i>Entrar</button>
+				                <a href="#" class="forgot-password">Esqueceu a senha?</a>
+				                <input type="hidden" name="next" value="{{ next }}" />
+				                {% if form.errors %}
+									<div class="alert alert-danger" style="margin-bottom: 0px;">Usuário e/ou senha inválidos. Tente novamente.</div>
+								{% endif %}
+				            </form>
+				        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 </div>
 
 {% endblock %}

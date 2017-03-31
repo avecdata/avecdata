@@ -17,7 +17,6 @@ class Keywords(models.Model):
     def __str__(self):
         return self.title.encode('utf-8')
 
-		
 class Themes(models.Model):
     #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
@@ -33,7 +32,7 @@ class Themes(models.Model):
 
     def __str__(self):
         return self.title.encode('utf-8')
-		
+
 class Subject(models.Model):
     #author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
@@ -45,7 +44,7 @@ class Subject(models.Model):
             blank=True, null=True)
     keywords = models.ManyToManyField(Keywords, blank=True)
     theme = models.ForeignKey(Themes)
-	
+    
     def publish_subject(self):
         self.published_date = timezone.now()
         self.save()
@@ -63,7 +62,7 @@ class Subject_detail(models.Model):
             blank=True, null=True)
     keywords = models.ManyToManyField(Keywords, blank=True)
     subject = models.ForeignKey(Subject)
-	
+
     def publish_subject_detail(self):
         self.published_date = timezone.now()
         self.save()
@@ -86,7 +85,7 @@ class Post(models.Model):
     keywords = models.ManyToManyField(Keywords, blank=True)
     group = models.ManyToManyField(Group)
     open = models.BooleanField()
-	
+
     def publish_post(self):
         self.published_date = timezone.now()
         self.save()
@@ -173,7 +172,8 @@ class Order(models.Model):
         return 'Pedido #{}'.format(self.pk)
 
     def total(self):
-    
+        
+        #--this will be used when the system is multi-language---------------- 
 #         country_slug = settings.LANGUAGE_CODE.split("-")[1]
 #         group_id = self.group.id
 #         
@@ -182,24 +182,30 @@ class Order(models.Model):
         result = self.price.pvalue
         
         return result
-	
-    def complete(self):
     
-	try:
-		User = get_user_model()
-		user_payment = User.objects.get(id=self.user_id)
-		now = timezone.now()
-		user_payment.date_expiration = now
-		user_payment.name = 'Theogenes F Duarte'
-		user_payment.save()
-	except:
-		pass
-		
-	self.status = 1
-	self.save()
-		
-	return self.status
-	
+    def complete(self):
+        
+        try:
+            User = get_user_model()
+            user_payment = User.objects.get(id=self.user_id)
+            now = timezone.now()
+#             user_payment.date_expiration = now
+            user_payment.date_expiration = utils.add_months(now, 1)
+#             user_payment.name = 'Theogenes F Duarte'
+            user_payment.save()
+            
+            #--adding user to group--------
+            group_id = self.price.group_id
+            group = Group.objects.get(id=group_id)
+            group.user_set.add(user_payment)
+        except:
+            pass
+        
+        self.status = 1
+        self.save()
+        
+        return self.status
+    
     def paypal(self):
         self.payment_option = 'paypal'
         self.save()

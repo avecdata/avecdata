@@ -13,7 +13,17 @@ $(document).ready(function () {
 	            required: true
 	        },
 	        username: {
-	            required: true
+	            required: true,
+	            remote:  {
+	                url: window.url_config+'/check_username/',
+	                dataType: 'json',
+	                type: "post",
+	                data: {
+	                  username: function() {
+	                    return $("#id_username").val();
+	                  }
+	                }
+	            }
 	        },
 	        phone: {
 	            required: true
@@ -61,7 +71,10 @@ $(document).ready(function () {
 	    },
 	    messages: {
 	    	name: "Campo Obrigatório!",
-	    	username: "Campo Obrigatório!",
+	    	username: {
+	    		required: "Campo Obrigatório!",
+	    		remote: 'O Nome de Usuário <<strong>{0}</strong>> já está em uso no sistema!',
+	    	},
 	    	phone: "Campo Obrigatório!",
 	    	email: {
 	    		required: "Campo Obrigatório!",
