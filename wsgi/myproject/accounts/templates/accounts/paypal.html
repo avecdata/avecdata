@@ -13,14 +13,43 @@ Pagamento via Paypal
   <li><a href="{% url 'accounts:payment' %}">Pagamento</a></li>
   <li class="active">Pagamento via Paypal</li>
 </ol>
-<div class="container" style="padding-top: 10%;">
+<div class="container">
 	<div class="form-group">
-		<div class="col-md-6 col-md-offset-3">
-			<div class="page-header">
-			    <h4>Clique no botão abaixo para<br>Para realizar o Pagamento via Paypal...</h4>
-			</div>
-			<div id="paypal" class="row">
-			    {{ form.render }}
+		<div class="form-group">
+			<div class="col-md-8 col-md-offset-2">
+				<font face="Helvetica, Arial, sans-serif" size="3" color="#000000">
+				<br>
+				<span>Olá {{ customer_name }},</span><br>
+				<br>
+				<p style="text-align: justify;">Obrigado pelo interesse em assinar um dos nossos planos de acesso à plataforma AVEC.</p>
+				<br>
+				<p style="text-align: justify;">Seu pedido será processado e seu acesso liberado assim que o pagamento for confirmado.</p>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col-md-6">
+						<span style="font-weight: bold; text-decoration: underline;">Detalhes do Plano:</span><br><br>
+						<span>Plano: {{ plan_type }}</span><br><br>
+						<span>Data do Pedido: {{ order_date }}</span><br><br>
+						<span>Pagamento: Cartão de Crédito</span><br><br>
+						<span>Valor: {{ order_amount }}</span>
+					</div>
+					<div class="col-md-6" style="text-align: center;">
+						<div class="page-header" style="margin-top: 0px;">
+						    <h4 style="font-family: Helvetica, Arial, sans-serif; font-weight: bold;">Clique no botão abaixo<br>Para realizar o Pagamento via Paypal...</h4>
+						</div>
+						<div id="paypal" class="row">
+						    {{ form.render }}
+						</div>
+					</div>
+				</div>
+				<hr height="1" style="height:1px; border:0 none; color: #76899a; background-color: #76899a; margin-top: 0.5em; margin-bottom:1.5em;">
+				<div class="row">
+					<div class="col-md-12" style="text-align: center;">
+						<span style="color: #6f0000;">Esta compra está sendo feita no <strong>{{ order_contry }}</strong> <img src="{% static 'img/country_flag/' %}{{ order_flag }}.png" alt="{{ order_contry }}" style="height: 32px;"></span>
+					</div>
+				</div>
+				</font>
 			</div>
 		</div>
 	</div>

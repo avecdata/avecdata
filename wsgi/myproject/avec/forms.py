@@ -28,17 +28,9 @@ class ContactForm(forms.Form):
         self.fields['email'].widget.attrs['class'] = 'form-control'
         self.fields['message'].widget.attrs['class'] = 'form-control'
     
-    def send_mail(self):
-        name = self.cleaned_data['name']
-        email = self.cleaned_data['email']
-        message = self.cleaned_data['message']
-        phone = self.cleaned_data['phone']
-        uf = self.cleaned_data['uf']
-        content_message = '################ AVECDATA - PLATAFORMA DE DADOS SETORIAIS ################ \n\n'
-        content_message += 'O Usuário abaixo: \nNome: {0}\nE-mail: {1}\nTelefone: {3}\nUF: {4}\nNos enviou a seguinte mensagem de contato: \n'.format(name, email, message, phone, uf)
-        content_message += '-------------------------------------------------------------------------\n'
-        content_message += '{2}\n'.format(name, email, message, phone, uf)
+    def send_mail(self, content_message):
 
         #print("teste.....")
         email_obj = EmailMessage("[AVEC] Contato do Cliente", content_message, to=[settings.EMAIL_HOST_USER])
+        email_obj.content_subtype = "html"  # Main content is now text/html
         email_obj.send()

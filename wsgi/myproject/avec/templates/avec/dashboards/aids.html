@@ -1,0 +1,3214 @@
+﻿{% extends 'avec/base_dashboard.html' %}
+{% load staticfiles %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>AVEC - Ciencia de dados</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />		
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  	
+
+   <!-- <link href="css/style2.css" rel="stylesheet">-->
+   
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+   
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>	
+    <script src="{% static 'js/colorbrewer.js' %}"></script>
+    <script src="{% static 'data/world-countries.json' %}"></script>
+	
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dc.js' %}"></script>		
+	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'js/cloud.js' %}"></script>
+   <!--<script type="text/javascript" src="http://www.kunalbabre.com/projects/table2CSV.js" > </script> 	-->
+
+	<!--  <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+<style>
+	
+	
+	@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
+
+
+#chartdiv, #chartdiv2, #chartdiv3, #chartdiv4  {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}							
+svg {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+h1 {
+  padding: 50px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16b'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09, #chart-10,  #chart-11,  #chart-12,  #chart-13{
+        background: #899296;
+        width: 100%;
+        font-size: 64px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 100px;
+        height: 40px;
+        line-height: normal;
+		margin-bottom: 15px;
+      }
+
+	</style>
+    </head>
+<body>
+
+<div class="title_sec">
+		<div class="internal__row">
+			<h1 class="internal__title">AIDS</h1>
+		</div>
+</div>	
+
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Casos Novos</label>
+    
+  <input id="tab2" type="radio" name="tabs" >
+  <label for="tab2">Por categoria</label>
+    
+  <input id="tab3" type="radio" name="tabs">
+  <label for="tab3">Por sexo</label>
+    
+  <input id="tab4" type="radio" name="tabs" class="btab">
+  <label for="tab4">Por faixa etária</label>
+
+<section id="content1">
+	<div class="tab-pane " id="a_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Serie Historica -  Casos Novos - 1980 à 2016
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			  				<div id="chartdiv"></div>	
+			
+          </div>
+          <div class="chart-notes">
+            Fonte: Departamento de IST, AIDS e Hepatites virais/MS </br>
+			Dados consolidados até 30/06/2016.
+          </div>
+        </div>
+      </div>
+	</div>
+	</div>
+</section>	
+
+<section id="content2">
+	<div class="tab-pane " id="b_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica - Por categoria - 1980 à 2016
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			<div id="chartdiv2"></div>	
+			
+          </div>
+          <div class="chart-notes">
+            Fonte: Departamento de IST, AIDS e Hepatites virais/MS </br>
+			Dados consolidados até 30/06/2016.
+          </div>
+        </div>
+      </div>
+	</div>	
+
+	</div>
+</section>	
+
+<section id="content3">
+	<div class="tab-pane " id="c_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Frequência por ano diagnóstico segundo sexo
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			<div id="chartdiv3"></div>	
+			
+          </div>
+          <div class="chart-notes">
+            Fonte: Departamento de IST, AIDS e Hepatites virais/MS </br>
+			Dados consolidados até 30/06/2016.
+          </div>
+        </div>
+      </div>
+	</div>	
+
+	</div>
+</section>	
+
+<section id="content4">
+	<div class="tab-pane " id="d_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Faixa etária
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			<div id="chartdiv4"></div>	
+			
+          </div>
+          <div class="chart-notes">
+            Fonte: Departamento de IST, AIDS e Hepatites virais/MS </br>
+			Dados consolidados até 30/06/2016.
+          </div>
+        </div>
+      </div>
+	</div>	
+
+	</div>
+</section>	
+
+<script>
+
+var chart = AmCharts.makeChart("chartdiv", {
+    "type": "serial",
+    "theme": "light",
+    "marginRight":30,
+    "legend": {
+        "equalWidths": false,
+        "periodValueText": "total: [[value.sum]]",
+        "position": "top",
+        "valueAlign": "left",
+        "valueWidth": 100
+    },
+    "dataProvider": [
+  {
+    "ano": 1980,
+    "TOTAL": 1,
+    "Rondônia": 0,
+    "Acre": 0,
+    "Amazonas": 0,
+    "Roraima": 0,
+    "Pará": 0,
+    "Amapá": 0,
+    "Tocantins": 0,
+    "Maranhão": 0,
+    "Piauí": 0,
+    "Ceará": 0,
+    "Rio Grande do Norte": 0,
+    "Paraíba": 0,
+    "Pernambuco": 0,
+    "Alagoas": 0,
+    "Sergipe": 0,
+    "Bahia": 0,
+    "Minas Gerais": 0,
+    "Espírito Santo": 0,
+    "Rio de Janeiro": 0,
+    "São Paulo": 1,
+    "Paraná": 0,
+    "Santa Catarina": 0,
+    "Rio Grande do Sul": 0,
+    "Mato Grosso do Sul": 0,
+    "Mato Grosso": 0,
+    "Goiás": 0,
+    "Distrito Federal": 0,
+    "Grosso": 0
+  },
+  {
+    "ano": 1982,
+    "TOTAL": 16,
+    "Rondônia": 0,
+    "Acre": 0,
+    "Amazonas": 0,
+    "Roraima": 0,
+    "Pará": 0,
+    "Amapá": 0,
+    "Tocantins": 0,
+    "Maranhão": 0,
+    "Piauí": 0,
+    "Ceará": 1,
+    "Rio Grande do Norte": 0,
+    "Paraíba": 0,
+    "Pernambuco": 0,
+    "Alagoas": 0,
+    "Sergipe": 0,
+    "Bahia": 0,
+    "Minas Gerais": 1,
+    "Espírito Santo": 0,
+    "Rio de Janeiro": 4,
+    "São Paulo": 8,
+    "Paraná": 1,
+    "Santa Catarina": 0,
+    "Rio Grande do Sul": 1,
+    "Mato Grosso do Sul": 0,
+    "Mato Grosso": 0,
+    "Goiás": 0,
+    "Distrito Federal": 0,
+    "Grosso": 0
+  },
+  {
+    "ano": 1983,
+    "TOTAL": 40,
+    "Rondônia": 0,
+    "Acre": 0,
+    "Amazonas": 0,
+    "Roraima": 0,
+    "Pará": 0,
+    "Amapá": 0,
+    "Tocantins": 0,
+    "Maranhão": 0,
+    "Piauí": 0,
+    "Ceará": 1,
+    "Rio Grande do Norte": 1,
+    "Paraíba": 0,
+    "Pernambuco": 2,
+    "Alagoas": 0,
+    "Sergipe": 0,
+    "Bahia": 0,
+    "Minas Gerais": 1,
+    "Espírito Santo": 0,
+    "Rio de Janeiro": 7,
+    "São Paulo": 24,
+    "Paraná": 1,
+    "Santa Catarina": 0,
+    "Rio Grande do Sul": 3,
+    "Mato Grosso do Sul": 0,
+    "Mato Grosso": 0,
+    "Goiás": 0,
+    "Distrito Federal": 0,
+    "Grosso": 0
+  },
+  {
+    "ano": 1984,
+    "TOTAL": 130,
+    "Rondônia": 0,
+    "Acre": 0,
+    "Amazonas": 0,
+    "Roraima": 0,
+    "Pará": 1,
+    "Amapá": 0,
+    "Tocantins": 0,
+    "Maranhão": 0,
+    "Piauí": 0,
+    "Ceará": 0,
+    "Rio Grande do Norte": 1,
+    "Paraíba": 0,
+    "Pernambuco": 1,
+    "Alagoas": 0,
+    "Sergipe": 0,
+    "Bahia": 2,
+    "Minas Gerais": 4,
+    "Espírito Santo": 0,
+    "Rio de Janeiro": 25,
+    "São Paulo": 84,
+    "Paraná": 1,
+    "Santa Catarina": 1,
+    "Rio Grande do Sul": 5,
+    "Mato Grosso do Sul": 2,
+    "Mato Grosso": 2,
+    "Goiás": 1,
+    "Distrito Federal": 0,
+    "Grosso": 2
+  },
+  {
+    "ano": 1985,
+    "TOTAL": 529,
+    "Rondônia": 0,
+    "Acre": 0,
+    "Amazonas": 0,
+    "Roraima": 0,
+    "Pará": 1,
+    "Amapá": 0,
+    "Tocantins": 0,
+    "Maranhão": 5,
+    "Piauí": 0,
+    "Ceará": 6,
+    "Rio Grande do Norte": 0,
+    "Paraíba": 6,
+    "Pernambuco": 8,
+    "Alagoas": 0,
+    "Sergipe": 0,
+    "Bahia": 3,
+    "Minas Gerais": 30,
+    "Espírito Santo": 4,
+    "Rio de Janeiro": 108,
+    "São Paulo": 322,
+    "Paraná": 5,
+    "Santa Catarina": 1,
+    "Rio Grande do Sul": 14,
+    "Mato Grosso do Sul": 1,
+    "Mato Grosso": 5,
+    "Goiás": 5,
+    "Distrito Federal": 5,
+    "Grosso": 5
+  },
+  {
+    "ano": 1986,
+    "TOTAL": 1116,
+    "Rondônia": 0,
+    "Acre": 0,
+    "Amazonas": 1,
+    "Roraima": 0,
+    "Pará": 3,
+    "Amapá": 0,
+    "Tocantins": 0,
+    "Maranhão": 2,
+    "Piauí": 2,
+    "Ceará": 9,
+    "Rio Grande do Norte": 3,
+    "Paraíba": 3,
+    "Pernambuco": 15,
+    "Alagoas": 0,
+    "Sergipe": 0,
+    "Bahia": 21,
+    "Minas Gerais": 48,
+    "Espírito Santo": 8,
+    "Rio de Janeiro": 282,
+    "São Paulo": 591,
+    "Paraná": 15,
+    "Santa Catarina": 9,
+    "Rio Grande do Sul": 72,
+    "Mato Grosso do Sul": 6,
+    "Mato Grosso": 8,
+    "Goiás": 8,
+    "Distrito Federal": 10,
+    "Grosso": 8
+  },
+  {
+    "ano": 1987,
+    "TOTAL": 2685,
+    "Rondônia": 3,
+    "Acre": 3,
+    "Amazonas": 4,
+    "Roraima": 1,
+    "Pará": 9,
+    "Amapá": 0,
+    "Tocantins": 0,
+    "Maranhão": 8,
+    "Piauí": 9,
+    "Ceará": 13,
+    "Rio Grande do Norte": 14,
+    "Paraíba": 13,
+    "Pernambuco": 67,
+    "Alagoas": 0,
+    "Sergipe": 8,
+    "Bahia": 40,
+    "Minas Gerais": 106,
+    "Espírito Santo": 19,
+    "Rio de Janeiro": 585,
+    "São Paulo": 1527,
+    "Paraná": 37,
+    "Santa Catarina": 23,
+    "Rio Grande do Sul": 98,
+    "Mato Grosso do Sul": 10,
+    "Mato Grosso": 19,
+    "Goiás": 46,
+    "Distrito Federal": 23,
+    "Grosso": 19
+  },
+  {
+    "ano": 1988,
+    "TOTAL": 4339,
+    "Rondônia": 3,
+    "Acre": 2,
+    "Amazonas": 10,
+    "Roraima": 1,
+    "Pará": 20,
+    "Amapá": 3,
+    "Tocantins": 0,
+    "Maranhão": 11,
+    "Piauí": 14,
+    "Ceará": 29,
+    "Rio Grande do Norte": 10,
+    "Paraíba": 11,
+    "Pernambuco": 89,
+    "Alagoas": 0,
+    "Sergipe": 17,
+    "Bahia": 75,
+    "Minas Gerais": 148,
+    "Espírito Santo": 33,
+    "Rio de Janeiro": 876,
+    "São Paulo": 2549,
+    "Paraná": 77,
+    "Santa Catarina": 52,
+    "Rio Grande do Sul": 170,
+    "Mato Grosso do Sul": 19,
+    "Mato Grosso": 17,
+    "Goiás": 63,
+    "Distrito Federal": 40,
+    "Grosso": 17
+  },
+  {
+    "ano": 1989,
+    "TOTAL": 5986,
+    "Rondônia": 2,
+    "Acre": 4,
+    "Amazonas": 16,
+    "Roraima": 7,
+    "Pará": 31,
+    "Amapá": 2,
+    "Tocantins": 0,
+    "Maranhão": 29,
+    "Piauí": 12,
+    "Ceará": 55,
+    "Rio Grande do Norte": 21,
+    "Paraíba": 18,
+    "Pernambuco": 165,
+    "Alagoas": 0,
+    "Sergipe": 15,
+    "Bahia": 131,
+    "Minas Gerais": 232,
+    "Espírito Santo": 50,
+    "Rio de Janeiro": 1136,
+    "São Paulo": 3428,
+    "Paraná": 101,
+    "Santa Catarina": 84,
+    "Rio Grande do Sul": 259,
+    "Mato Grosso do Sul": 27,
+    "Mato Grosso": 25,
+    "Goiás": 63,
+    "Distrito Federal": 73,
+    "Grosso": 25
+  },
+  {
+    "ano": 1990,
+    "TOTAL": 8610,
+    "Rondônia": 7,
+    "Acre": 2,
+    "Amazonas": 24,
+    "Roraima": 6,
+    "Pará": 34,
+    "Amapá": 1,
+    "Tocantins": 6,
+    "Maranhão": 53,
+    "Piauí": 20,
+    "Ceará": 70,
+    "Rio Grande do Norte": 27,
+    "Paraíba": 44,
+    "Pernambuco": 182,
+    "Alagoas": 31,
+    "Sergipe": 19,
+    "Bahia": 150,
+    "Minas Gerais": 377,
+    "Espírito Santo": 58,
+    "Rio de Janeiro": 1369,
+    "São Paulo": 5058,
+    "Paraná": 159,
+    "Santa Catarina": 211,
+    "Rio Grande do Sul": 429,
+    "Mato Grosso do Sul": 60,
+    "Mato Grosso": 48,
+    "Goiás": 83,
+    "Distrito Federal": 82,
+    "Grosso": 48
+  },
+  {
+    "ano": 1991,
+    "TOTAL": 11477,
+    "Rondônia": 3,
+    "Acre": 7,
+    "Amazonas": 36,
+    "Roraima": 13,
+    "Pará": 63,
+    "Amapá": 3,
+    "Tocantins": 8,
+    "Maranhão": 68,
+    "Piauí": 33,
+    "Ceará": 126,
+    "Rio Grande do Norte": 49,
+    "Paraíba": 62,
+    "Pernambuco": 220,
+    "Alagoas": 36,
+    "Sergipe": 25,
+    "Bahia": 214,
+    "Minas Gerais": 510,
+    "Espírito Santo": 84,
+    "Rio de Janeiro": 1601,
+    "São Paulo": 6570,
+    "Paraná": 299,
+    "Santa Catarina": 306,
+    "Rio Grande do Sul": 638,
+    "Mato Grosso do Sul": 93,
+    "Mato Grosso": 67,
+    "Goiás": 140,
+    "Distrito Federal": 203,
+    "Grosso": 67
+  },
+  {
+    "ano": 1992,
+    "TOTAL": 14195,
+    "Rondônia": 18,
+    "Acre": 5,
+    "Amazonas": 52,
+    "Roraima": 6,
+    "Pará": 86,
+    "Amapá": 7,
+    "Tocantins": 6,
+    "Maranhão": 80,
+    "Piauí": 28,
+    "Ceará": 173,
+    "Rio Grande do Norte": 33,
+    "Paraíba": 63,
+    "Pernambuco": 253,
+    "Alagoas": 58,
+    "Sergipe": 46,
+    "Bahia": 275,
+    "Minas Gerais": 592,
+    "Espírito Santo": 112,
+    "Rio de Janeiro": 2165,
+    "São Paulo": 8056,
+    "Paraná": 438,
+    "Santa Catarina": 385,
+    "Rio Grande do Sul": 639,
+    "Mato Grosso do Sul": 106,
+    "Mato Grosso": 88,
+    "Goiás": 200,
+    "Distrito Federal": 225,
+    "Grosso": 88
+  },
+  {
+    "ano": 1993,
+    "TOTAL": 16380,
+    "Rondônia": 17,
+    "Acre": 7,
+    "Amazonas": 56,
+    "Roraima": 5,
+    "Pará": 116,
+    "Amapá": 1,
+    "Tocantins": 13,
+    "Maranhão": 108,
+    "Piauí": 29,
+    "Ceará": 180,
+    "Rio Grande do Norte": 71,
+    "Paraíba": 88,
+    "Pernambuco": 311,
+    "Alagoas": 74,
+    "Sergipe": 47,
+    "Bahia": 316,
+    "Minas Gerais": 1002,
+    "Espírito Santo": 164,
+    "Rio de Janeiro": 2238,
+    "São Paulo": 8769,
+    "Paraná": 559,
+    "Santa Catarina": 528,
+    "Rio Grande do Sul": 942,
+    "Mato Grosso do Sul": 193,
+    "Mato Grosso": 87,
+    "Goiás": 233,
+    "Distrito Federal": 226,
+    "Grosso": 87
+  },
+  {
+    "ano": 1994,
+    "TOTAL": 17982,
+    "Rondônia": 43,
+    "Acre": 8,
+    "Amazonas": 84,
+    "Roraima": 7,
+    "Pará": 146,
+    "Amapá": 6,
+    "Tocantins": 18,
+    "Maranhão": 123,
+    "Piauí": 67,
+    "Ceará": 213,
+    "Rio Grande do Norte": 87,
+    "Paraíba": 112,
+    "Pernambuco": 348,
+    "Alagoas": 70,
+    "Sergipe": 79,
+    "Bahia": 299,
+    "Minas Gerais": 1221,
+    "Espírito Santo": 209,
+    "Rio de Janeiro": 2385,
+    "São Paulo": 9138,
+    "Paraná": 648,
+    "Santa Catarina": 680,
+    "Rio Grande do Sul": 1113,
+    "Mato Grosso do Sul": 175,
+    "Mato Grosso": 147,
+    "Goiás": 307,
+    "Distrito Federal": 249,
+    "Grosso": 147
+  },
+  {
+    "ano": 1995,
+    "TOTAL": 20741,
+    "Rondônia": 56,
+    "Acre": 1,
+    "Amazonas": 92,
+    "Roraima": 8,
+    "Pará": 177,
+    "Amapá": 16,
+    "Tocantins": 22,
+    "Maranhão": 143,
+    "Piauí": 76,
+    "Ceará": 290,
+    "Rio Grande do Norte": 70,
+    "Paraíba": 118,
+    "Pernambuco": 392,
+    "Alagoas": 82,
+    "Sergipe": 81,
+    "Bahia": 321,
+    "Minas Gerais": 1406,
+    "Espírito Santo": 205,
+    "Rio de Janeiro": 2760,
+    "São Paulo": 10241,
+    "Paraná": 840,
+    "Santa Catarina": 916,
+    "Rio Grande do Sul": 1349,
+    "Mato Grosso do Sul": 208,
+    "Mato Grosso": 169,
+    "Goiás": 435,
+    "Distrito Federal": 267,
+    "Grosso": 169
+  },
+  {
+    "ano": 1996,
+    "TOTAL": 23570,
+    "Rondônia": 51,
+    "Acre": 6,
+    "Amazonas": 114,
+    "Roraima": 17,
+    "Pará": 220,
+    "Amapá": 19,
+    "Tocantins": 24,
+    "Maranhão": 184,
+    "Piauí": 77,
+    "Ceará": 301,
+    "Rio Grande do Norte": 104,
+    "Paraíba": 125,
+    "Pernambuco": 551,
+    "Alagoas": 104,
+    "Sergipe": 78,
+    "Bahia": 467,
+    "Minas Gerais": 1523,
+    "Espírito Santo": 251,
+    "Rio de Janeiro": 3390,
+    "São Paulo": 11018,
+    "Paraná": 1059,
+    "Santa Catarina": 1073,
+    "Rio Grande do Sul": 1610,
+    "Mato Grosso do Sul": 268,
+    "Mato Grosso": 237,
+    "Goiás": 375,
+    "Distrito Federal": 324,
+    "Grosso": 237
+  },
+  {
+    "ano": 1997,
+    "TOTAL": 25849,
+    "Rondônia": 69,
+    "Acre": 10,
+    "Amazonas": 176,
+    "Roraima": 15,
+    "Pará": 240,
+    "Amapá": 31,
+    "Tocantins": 32,
+    "Maranhão": 195,
+    "Piauí": 95,
+    "Ceará": 355,
+    "Rio Grande do Norte": 130,
+    "Paraíba": 150,
+    "Pernambuco": 576,
+    "Alagoas": 137,
+    "Sergipe": 97,
+    "Bahia": 573,
+    "Minas Gerais": 1696,
+    "Espírito Santo": 346,
+    "Rio de Janeiro": 3858,
+    "São Paulo": 11151,
+    "Paraná": 1320,
+    "Santa Catarina": 1112,
+    "Rio Grande do Sul": 2026,
+    "Mato Grosso do Sul": 274,
+    "Mato Grosso": 277,
+    "Goiás": 542,
+    "Distrito Federal": 366,
+    "Grosso": 277
+  },
+  {
+    "ano": 1998,
+    "TOTAL": 28669,
+    "Rondônia": 87,
+    "Acre": 18,
+    "Amazonas": 217,
+    "Roraima": 20,
+    "Pará": 284,
+    "Amapá": 22,
+    "Tocantins": 47,
+    "Maranhão": 277,
+    "Piauí": 98,
+    "Ceará": 602,
+    "Rio Grande do Norte": 172,
+    "Paraíba": 185,
+    "Pernambuco": 755,
+    "Alagoas": 110,
+    "Sergipe": 96,
+    "Bahia": 537,
+    "Minas Gerais": 1708,
+    "Espírito Santo": 404,
+    "Rio de Janeiro": 4026,
+    "São Paulo": 12149,
+    "Paraná": 1375,
+    "Santa Catarina": 1394,
+    "Rio Grande do Sul": 2751,
+    "Mato Grosso do Sul": 276,
+    "Mato Grosso": 249,
+    "Goiás": 470,
+    "Distrito Federal": 340,
+    "Grosso": 249
+  },
+  {
+    "ano": 1999,
+    "TOTAL": 26344,
+    "Rondônia": 76,
+    "Acre": 25,
+    "Amazonas": 282,
+    "Roraima": 24,
+    "Pará": 290,
+    "Amapá": 39,
+    "Tocantins": 49,
+    "Maranhão": 265,
+    "Piauí": 107,
+    "Ceará": 539,
+    "Rio Grande do Norte": 126,
+    "Paraíba": 241,
+    "Pernambuco": 655,
+    "Alagoas": 130,
+    "Sergipe": 106,
+    "Bahia": 646,
+    "Minas Gerais": 1731,
+    "Espírito Santo": 399,
+    "Rio de Janeiro": 3621,
+    "São Paulo": 10565,
+    "Paraná": 1438,
+    "Santa Catarina": 1295,
+    "Rio Grande do Sul": 2490,
+    "Mato Grosso do Sul": 245,
+    "Mato Grosso": 174,
+    "Goiás": 447,
+    "Distrito Federal": 339,
+    "Grosso": 174
+  },
+  {
+    "ano": 2000,
+    "TOTAL": 31324,
+    "Rondônia": 141,
+    "Acre": 23,
+    "Amazonas": 302,
+    "Roraima": 52,
+    "Pará": 298,
+    "Amapá": 34,
+    "Tocantins": 58,
+    "Maranhão": 330,
+    "Piauí": 169,
+    "Ceará": 548,
+    "Rio Grande do Norte": 174,
+    "Paraíba": 242,
+    "Pernambuco": 762,
+    "Alagoas": 147,
+    "Sergipe": 117,
+    "Bahia": 894,
+    "Minas Gerais": 1754,
+    "Espírito Santo": 503,
+    "Rio de Janeiro": 4276,
+    "São Paulo": 12461,
+    "Paraná": 1675,
+    "Santa Catarina": 1599,
+    "Rio Grande do Sul": 3207,
+    "Mato Grosso do Sul": 269,
+    "Mato Grosso": 245,
+    "Goiás": 629,
+    "Distrito Federal": 414,
+    "Grosso": 245
+  },
+  {
+    "ano": 2001,
+    "TOTAL": 32099,
+    "Rondônia": 149,
+    "Acre": 31,
+    "Amazonas": 370,
+    "Roraima": 53,
+    "Pará": 536,
+    "Amapá": 49,
+    "Tocantins": 63,
+    "Maranhão": 351,
+    "Piauí": 162,
+    "Ceará": 634,
+    "Rio Grande do Norte": 168,
+    "Paraíba": 243,
+    "Pernambuco": 953,
+    "Alagoas": 211,
+    "Sergipe": 93,
+    "Bahia": 911,
+    "Minas Gerais": 2150,
+    "Espírito Santo": 545,
+    "Rio de Janeiro": 4395,
+    "São Paulo": 11330,
+    "Paraná": 1674,
+    "Santa Catarina": 1813,
+    "Rio Grande do Sul": 3476,
+    "Mato Grosso do Sul": 294,
+    "Mato Grosso": 353,
+    "Goiás": 752,
+    "Distrito Federal": 340,
+    "Grosso": 353
+  },
+  {
+    "ano": 2002,
+    "TOTAL": 39268,
+    "Rondônia": 201,
+    "Acre": 47,
+    "Amazonas": 465,
+    "Roraima": 34,
+    "Pará": 637,
+    "Amapá": 76,
+    "Tocantins": 84,
+    "Maranhão": 394,
+    "Piauí": 191,
+    "Ceará": 737,
+    "Rio Grande do Norte": 167,
+    "Paraíba": 298,
+    "Pernambuco": 1243,
+    "Alagoas": 236,
+    "Sergipe": 130,
+    "Bahia": 1336,
+    "Minas Gerais": 3267,
+    "Espírito Santo": 756,
+    "Rio de Janeiro": 5690,
+    "São Paulo": 11853,
+    "Paraná": 2227,
+    "Santa Catarina": 2476,
+    "Rio Grande do Sul": 4325,
+    "Mato Grosso do Sul": 454,
+    "Mato Grosso": 551,
+    "Goiás": 831,
+    "Distrito Federal": 560,
+    "Grosso": 551
+  },
+  {
+    "ano": 2003,
+    "TOTAL": 37925,
+    "Rondônia": 204,
+    "Acre": 34,
+    "Amazonas": 417,
+    "Roraima": 94,
+    "Pará": 709,
+    "Amapá": 49,
+    "Tocantins": 86,
+    "Maranhão": 487,
+    "Piauí": 193,
+    "Ceará": 814,
+    "Rio Grande do Norte": 197,
+    "Paraíba": 298,
+    "Pernambuco": 1165,
+    "Alagoas": 258,
+    "Sergipe": 163,
+    "Bahia": 1240,
+    "Minas Gerais": 3008,
+    "Espírito Santo": 727,
+    "Rio de Janeiro": 5328,
+    "São Paulo": 11308,
+    "Paraná": 2038,
+    "Santa Catarina": 2228,
+    "Rio Grande do Sul": 4392,
+    "Mato Grosso do Sul": 452,
+    "Mato Grosso": 591,
+    "Goiás": 800,
+    "Distrito Federal": 645,
+    "Grosso": 591
+  },
+  {
+    "ano": 2004,
+    "TOTAL": 37998,
+    "Rondônia": 211,
+    "Acre": 57,
+    "Amazonas": 561,
+    "Roraima": 117,
+    "Pará": 1001,
+    "Amapá": 69,
+    "Tocantins": 100,
+    "Maranhão": 725,
+    "Piauí": 326,
+    "Ceará": 943,
+    "Rio Grande do Norte": 153,
+    "Paraíba": 353,
+    "Pernambuco": 1301,
+    "Alagoas": 215,
+    "Sergipe": 158,
+    "Bahia": 1377,
+    "Minas Gerais": 3067,
+    "Espírito Santo": 726,
+    "Rio de Janeiro": 5771,
+    "São Paulo": 10443,
+    "Paraná": 1830,
+    "Santa Catarina": 2138,
+    "Rio Grande do Sul": 3966,
+    "Mato Grosso do Sul": 436,
+    "Mato Grosso": 622,
+    "Goiás": 816,
+    "Distrito Federal": 516,
+    "Grosso": 622
+  },
+  {
+    "ano": 2005,
+    "TOTAL": 37848,
+    "Rondônia": 240,
+    "Acre": 54,
+    "Amazonas": 640,
+    "Roraima": 70,
+    "Pará": 939,
+    "Amapá": 75,
+    "Tocantins": 81,
+    "Maranhão": 691,
+    "Piauí": 334,
+    "Ceará": 822,
+    "Rio Grande do Norte": 350,
+    "Paraíba": 356,
+    "Pernambuco": 1696,
+    "Alagoas": 295,
+    "Sergipe": 174,
+    "Bahia": 1355,
+    "Minas Gerais": 3125,
+    "Espírito Santo": 703,
+    "Rio de Janeiro": 5399,
+    "São Paulo": 10571,
+    "Paraná": 1793,
+    "Santa Catarina": 1860,
+    "Rio Grande do Sul": 3944,
+    "Mato Grosso do Sul": 393,
+    "Mato Grosso": 594,
+    "Goiás": 795,
+    "Distrito Federal": 499,
+    "Grosso": 594
+  },
+  {
+    "ano": 2006,
+    "TOTAL": 37133,
+    "Rondônia": 295,
+    "Acre": 35,
+    "Amazonas": 690,
+    "Roraima": 76,
+    "Pará": 930,
+    "Amapá": 90,
+    "Tocantins": 119,
+    "Maranhão": 723,
+    "Piauí": 270,
+    "Ceará": 828,
+    "Rio Grande do Norte": 278,
+    "Paraíba": 333,
+    "Pernambuco": 1497,
+    "Alagoas": 263,
+    "Sergipe": 195,
+    "Bahia": 1375,
+    "Minas Gerais": 2927,
+    "Espírito Santo": 670,
+    "Rio de Janeiro": 5301,
+    "São Paulo": 9788,
+    "Paraná": 1780,
+    "Santa Catarina": 2220,
+    "Rio Grande do Sul": 4229,
+    "Mato Grosso do Sul": 426,
+    "Mato Grosso": 541,
+    "Goiás": 783,
+    "Distrito Federal": 471,
+    "Grosso": 541
+  },
+  {
+    "ano": 2007,
+    "TOTAL": 38163,
+    "Rondônia": 298,
+    "Acre": 59,
+    "Amazonas": 717,
+    "Roraima": 118,
+    "Pará": 1110,
+    "Amapá": 112,
+    "Tocantins": 92,
+    "Maranhão": 789,
+    "Piauí": 329,
+    "Ceará": 1104,
+    "Rio Grande do Norte": 351,
+    "Paraíba": 355,
+    "Pernambuco": 1628,
+    "Alagoas": 310,
+    "Sergipe": 239,
+    "Bahia": 1502,
+    "Minas Gerais": 2996,
+    "Espírito Santo": 667,
+    "Rio de Janeiro": 5175,
+    "São Paulo": 8839,
+    "Paraná": 1910,
+    "Santa Catarina": 2026,
+    "Rio Grande do Sul": 5087,
+    "Mato Grosso do Sul": 446,
+    "Mato Grosso": 655,
+    "Goiás": 797,
+    "Distrito Federal": 452,
+    "Grosso": 655
+  },
+  {
+    "ano": 2008,
+    "TOTAL": 40508,
+    "Rondônia": 281,
+    "Acre": 63,
+    "Amazonas": 965,
+    "Roraima": 162,
+    "Pará": 1400,
+    "Amapá": 111,
+    "Tocantins": 129,
+    "Maranhão": 879,
+    "Piauí": 337,
+    "Ceará": 1099,
+    "Rio Grande do Norte": 353,
+    "Paraíba": 403,
+    "Pernambuco": 1667,
+    "Alagoas": 405,
+    "Sergipe": 321,
+    "Bahia": 1697,
+    "Minas Gerais": 3057,
+    "Espírito Santo": 746,
+    "Rio de Janeiro": 4933,
+    "São Paulo": 9329,
+    "Paraná": 2741,
+    "Santa Catarina": 2148,
+    "Rio Grande do Sul": 4840,
+    "Mato Grosso do Sul": 551,
+    "Mato Grosso": 657,
+    "Goiás": 764,
+    "Distrito Federal": 470,
+    "Grosso": 657
+  },
+  {
+    "ano": 2009,
+    "TOTAL": 40368,
+    "Rondônia": 271,
+    "Acre": 37,
+    "Amazonas": 1072,
+    "Roraima": 150,
+    "Pará": 1363,
+    "Amapá": 113,
+    "Tocantins": 158,
+    "Maranhão": 1049,
+    "Piauí": 405,
+    "Ceará": 1157,
+    "Rio Grande do Norte": 392,
+    "Paraíba": 423,
+    "Pernambuco": 1604,
+    "Alagoas": 379,
+    "Sergipe": 255,
+    "Bahia": 1811,
+    "Minas Gerais": 2866,
+    "Espírito Santo": 795,
+    "Rio de Janeiro": 5482,
+    "São Paulo": 9178,
+    "Paraná": 2042,
+    "Santa Catarina": 2229,
+    "Rio Grande do Sul": 4609,
+    "Mato Grosso do Sul": 506,
+    "Mato Grosso": 640,
+    "Goiás": 878,
+    "Distrito Federal": 503,
+    "Grosso": 640
+  },
+  {
+    "ano": 2010,
+    "TOTAL": 39872,
+    "Rondônia": 303,
+    "Acre": 62,
+    "Amazonas": 1124,
+    "Roraima": 164,
+    "Pará": 1520,
+    "Amapá": 122,
+    "Tocantins": 146,
+    "Maranhão": 1072,
+    "Piauí": 379,
+    "Ceará": 1088,
+    "Rio Grande do Norte": 359,
+    "Paraíba": 437,
+    "Pernambuco": 1838,
+    "Alagoas": 376,
+    "Sergipe": 280,
+    "Bahia": 1863,
+    "Minas Gerais": 2785,
+    "Espírito Santo": 846,
+    "Rio de Janeiro": 5286,
+    "São Paulo": 8661,
+    "Paraná": 1930,
+    "Santa Catarina": 2195,
+    "Rio Grande do Sul": 4495,
+    "Mato Grosso do Sul": 492,
+    "Mato Grosso": 641,
+    "Goiás": 916,
+    "Distrito Federal": 491,
+    "Grosso": 641
+  },
+  {
+    "ano": 2011,
+    "TOTAL": 41845,
+    "Rondônia": 373,
+    "Acre": 74,
+    "Amazonas": 1086,
+    "Roraima": 136,
+    "Pará": 1449,
+    "Amapá": 146,
+    "Tocantins": 188,
+    "Maranhão": 1248,
+    "Piauí": 375,
+    "Ceará": 1169,
+    "Rio Grande do Norte": 414,
+    "Paraíba": 440,
+    "Pernambuco": 1796,
+    "Alagoas": 435,
+    "Sergipe": 307,
+    "Bahia": 1913,
+    "Minas Gerais": 2995,
+    "Espírito Santo": 796,
+    "Rio de Janeiro": 5412,
+    "São Paulo": 9092,
+    "Paraná": 2083,
+    "Santa Catarina": 2521,
+    "Rio Grande do Sul": 4606,
+    "Mato Grosso do Sul": 464,
+    "Mato Grosso": 731,
+    "Goiás": 970,
+    "Distrito Federal": 626,
+    "Grosso": 731
+  },
+  {
+    "ano": 2012,
+    "TOTAL": 41429,
+    "Rondônia": 371,
+    "Acre": 71,
+    "Amazonas": 1072,
+    "Roraima": 137,
+    "Pará": 1509,
+    "Amapá": 163,
+    "Tocantins": 204,
+    "Maranhão": 1194,
+    "Piauí": 482,
+    "Ceará": 1329,
+    "Rio Grande do Norte": 432,
+    "Paraíba": 476,
+    "Pernambuco": 1981,
+    "Alagoas": 424,
+    "Sergipe": 267,
+    "Bahia": 1909,
+    "Minas Gerais": 2946,
+    "Espírito Santo": 890,
+    "Rio de Janeiro": 5095,
+    "São Paulo": 8498,
+    "Paraná": 2090,
+    "Santa Catarina": 2295,
+    "Rio Grande do Sul": 4637,
+    "Mato Grosso do Sul": 654,
+    "Mato Grosso": 651,
+    "Goiás": 1.051,
+    "Distrito Federal": 601,
+    "Grosso": 651
+  },
+  {
+    "ano": 2013,
+    "TOTAL": 42266,
+    "Rondônia": 438,
+    "Acre": 68,
+    "Amazonas": 1379,
+    "Roraima": 155,
+    "Pará": 1824,
+    "Amapá": 200,
+    "Tocantins": 254,
+    "Maranhão": 1394,
+    "Piauí": 480,
+    "Ceará": 1259,
+    "Rio Grande do Norte": 527,
+    "Paraíba": 450,
+    "Pernambuco": 2052,
+    "Alagoas": 438,
+    "Sergipe": 319,
+    "Bahia": 2114,
+    "Minas Gerais": 2886,
+    "Espírito Santo": 813,
+    "Rio de Janeiro": 5148,
+    "São Paulo": 8086,
+    "Paraná": 2079,
+    "Santa Catarina": 2203,
+    "Rio Grande do Sul": 4653,
+    "Mato Grosso do Sul": 671,
+    "Mato Grosso": 681,
+    "Goiás": 1.053,
+    "Distrito Federal": 641,
+    "Grosso": 681
+  },
+  {
+    "ano": 2014,
+    "TOTAL": 41007,
+    "Rondônia": 414,
+    "Acre": 72,
+    "Amazonas": 1543,
+    "Roraima": 146,
+    "Pará": 1904,
+    "Amapá": 188,
+    "Tocantins": 219,
+    "Maranhão": 1354,
+    "Piauí": 482,
+    "Ceará": 1276,
+    "Rio Grande do Norte": 544,
+    "Paraíba": 484,
+    "Pernambuco": 1976,
+    "Alagoas": 448,
+    "Sergipe": 306,
+    "Bahia": 1939,
+    "Minas Gerais": 2861,
+    "Espírito Santo": 856,
+    "Rio de Janeiro": 4925,
+    "São Paulo": 7668,
+    "Paraná": 2071,
+    "Santa Catarina": 2067,
+    "Rio Grande do Sul": 4338,
+    "Mato Grosso do Sul": 591,
+    "Mato Grosso": 810,
+    "Goiás": 973,
+    "Distrito Federal": 552,
+    "Grosso": 810
+  },
+  {
+    "ano": 2015,
+    "TOTAL": 39113,
+    "Rondônia": 354,
+    "Acre": 68,
+    "Amazonas": 1227,
+    "Roraima": 142,
+    "Pará": 2057,
+    "Amapá": 139,
+    "Tocantins": 218,
+    "Maranhão": 1476,
+    "Piauí": 404,
+    "Ceará": 1272,
+    "Rio Grande do Norte": 483,
+    "Paraíba": 557,
+    "Pernambuco": 1775,
+    "Alagoas": 426,
+    "Sergipe": 384,
+    "Bahia": 1893,
+    "Minas Gerais": 2790,
+    "Espírito Santo": 762,
+    "Rio de Janeiro": 4597,
+    "São Paulo": 7253,
+    "Paraná": 2082,
+    "Santa Catarina": 2175,
+    "Rio Grande do Sul": 3900,
+    "Mato Grosso do Sul": 537,
+    "Mato Grosso": 627,
+    "Goiás": 1.004,
+    "Distrito Federal": 511,
+    "Grosso": 627
+  },
+  {
+    "ano": 2016,
+    "TOTAL": 15885,
+    "Rondônia": 130,
+    "Acre": 31,
+    "Amazonas": 523,
+    "Roraima": 76,
+    "Pará": 862,
+    "Amapá": 101,
+    "Tocantins": 79,
+    "Maranhão": 548,
+    "Piauí": 194,
+    "Ceará": 537,
+    "Rio Grande do Norte": 235,
+    "Paraíba": 185,
+    "Pernambuco": 679,
+    "Alagoas": 197,
+    "Sergipe": 157,
+    "Bahia": 759,
+    "Minas Gerais": 1111,
+    "Espírito Santo": 263,
+    "Rio de Janeiro": 1829,
+    "São Paulo": 3089,
+    "Paraná": 836,
+    "Santa Catarina": 838,
+    "Rio Grande do Sul": 1539,
+    "Mato Grosso do Sul": 242,
+    "Mato Grosso": 231,
+    "Goiás": 406,
+    "Distrito Federal": 208,
+    "Grosso": 231
+  }
+]
+	
+	,
+    "valueAxes": [{
+        "stackType": "regular",
+        "gridAlpha": 0.07,
+        "position": "left",
+        "title": "Casos de Aids por UF"
+    }],
+    "graphs": [
+	{
+        "balloonText": "Rondônia: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Rondônia",
+        "valueField": "Rondônia"
+    },
+	{
+        "balloonText": "Acre: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Acre",
+        "valueField": "Acre"
+    },	
+	{
+        "balloonText": "Amazonas: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Amazonas",
+        "valueField": "Amazonas"
+    },
+	{
+        "balloonText": "Roraima:<span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Roraima",
+        "valueField": "Roraima"
+    }, {
+        "balloonText": "Pará: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Pará",
+        "valueField": "Pará"
+    }, {
+        "balloonText": "Amapá: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Amapá",
+        "valueField": "Amapá"
+    }, {
+        "balloonText": "Tocantins: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Tocantins",
+        "valueField": "Tocantins"
+    }, {
+        "balloonText": "Maranhão: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Maranhão",
+        "valueField": "Maranhão"
+    }, {
+        "balloonText": "Piauí<span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Piauí",
+        "valueField": "Piauí"
+    }, {
+        "balloonText": "Ceará: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Ceará",
+        "valueField": "Ceará"
+    },
+  	{
+        "balloonText": "Rio Grande do Norte: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Rio Grande do Norte",
+        "valueField": "Rio Grande do Norte"
+    }, {
+        "balloonText": "Paraíba: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Paraíba",
+        "valueField": "Paraíba"
+    }, {
+        "balloonText": "Pernambuco: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Pernambuco",
+        "valueField": "Pernambuco"
+    }, {
+        "balloonText": "Alagoas: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Alagoas",
+        "valueField": "Alagoas"
+    }, {
+        "balloonText": "Sergipe: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Sergipe",
+        "valueField": "Sergipe"
+    }, {
+        "balloonText": "Bahia: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Bahia",
+        "valueField": "Bahia"
+    }	, {
+        "balloonText": "Minas Gerais: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Minas Gerais",
+        "valueField": "Minas Gerais"
+    }, {
+        "balloonText": "Espírito Santo: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Espírito Santo",
+        "valueField": "Espírito Santo"
+    }, {
+        "balloonText": "Rio de Janeiro: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Rio de Janeiro",
+        "valueField": "Rio de Janeiro"
+    }, {
+        "balloonText": "São Paulo: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "São Paulo",
+        "valueField": "São Paulo"
+    }, {
+        "balloonText": "Paraná: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Paraná",
+        "valueField": "Paraná"
+    }, {
+        "balloonText": "Santa Catarina: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Santa Catarina",
+        "valueField": "Santa Catarina"
+    }, {
+        "balloonText": "Rio Grande do Sul: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Rio Grande do Sul",
+        "valueField": "Rio Grande do Sul"
+    }, 
+	{
+        "balloonText": "Mato Grosso do Sul: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Mato Grosso do Sul",
+        "valueField": "Mato Grosso do Sul"
+    }, {
+        "balloonText": "Mato Grosso<span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Mato Grosso",
+        "valueField": "Mato Grosso"
+    }, {
+        "balloonText": "Goiás: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Goiás",
+        "valueField": "Goiás"
+    }, {
+        "balloonText": "Distrito Federal: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Distrito Federal",
+        "valueField": "Distrito Federal"
+    }],
+    "plotAreaBorderAlpha": 0,
+    "marginTop": 10,
+    "marginLeft": 0,
+    "marginBottom": 0,
+    "chartScrollbar": {},
+    "chartCursor": {
+        "cursorAlpha": 0
+    },
+    "categoryField": "ano",
+    "categoryAxis": {
+        "startOnAxis": true,
+        "axisColor": "#DADADA",
+        "gridAlpha": 0.07,
+        "title": "Ano",
+        "guides": [{
+            category: "1900",
+            toCategory: "1920",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            fillAlpha: 0.2,
+            fillColor: "#CC0000",
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "fines for speeding increased"
+        }, {
+            category: "2017",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "motorcycle fee introduced"
+        }]
+    },
+    "export": {
+    	"enabled": true
+     }
+});
+
+</script>
+
+
+
+<script>
+
+var chart = AmCharts.makeChart("chartdiv2", {
+    "type": "serial",
+    "theme": "light",
+    "marginRight":30,
+    "legend": {
+        "equalWidths": false,
+        "periodValueText": "total: [[value.sum]]",
+        "position": "top",
+        "valueAlign": "left",
+        "valueWidth": 100
+    },
+    "dataProvider": [
+  {
+    "ano": 1980,
+    "TOTAL": 1,
+    "Homossexual": 0,
+    "Bissexual": 1,
+    "Heterossexual": 0,
+    "UDI": 0,
+    "Hemofílico": 0,
+    "Transfusão": 0,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 0,
+    "Ignorado": 0
+  },
+  {
+    "ano": 1982,
+    "TOTAL": 16,
+    "Homossexual": 6,
+    "Bissexual": 3,
+    "Heterossexual": 3,
+    "UDI": 3,
+    "Hemofílico": 0,
+    "Transfusão": 0,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 0,
+    "Ignorado": 1
+  },
+  {
+    "ano": 1983,
+    "TOTAL": 40,
+    "Homossexual": 18,
+    "Bissexual": 9,
+    "Heterossexual": 5,
+    "UDI": 2,
+    "Hemofílico": 1,
+    "Transfusão": 0,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 0,
+    "Ignorado": 5
+  },
+  {
+    "ano": 1984,
+    "TOTAL": 130,
+    "Homossexual": 62,
+    "Bissexual": 27,
+    "Heterossexual": 12,
+    "UDI": 12,
+    "Hemofílico": 8,
+    "Transfusão": 0,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 0,
+    "Ignorado": 9
+  },
+  {
+    "ano": 1985,
+    "TOTAL": 529,
+    "Homossexual": 253,
+    "Bissexual": 126,
+    "Heterossexual": 33,
+    "UDI": 42,
+    "Hemofílico": 23,
+    "Transfusão": 6,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 2,
+    "Ignorado": 44
+  },
+  {
+    "ano": 1986,
+    "TOTAL": 1116,
+    "Homossexual": 520,
+    "Bissexual": 209,
+    "Heterossexual": 121,
+    "UDI": 114,
+    "Hemofílico": 44,
+    "Transfusão": 21,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 2,
+    "Ignorado": 85
+  },
+  {
+    "ano": 1987,
+    "TOTAL": 2685,
+    "Homossexual": 1006,
+    "Bissexual": 459,
+    "Heterossexual": 311,
+    "UDI": 491,
+    "Hemofílico": 81,
+    "Transfusão": 72,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 32,
+    "Ignorado": 233
+  },
+  {
+    "ano": 1988,
+    "TOTAL": 4339,
+    "Homossexual": 1382,
+    "Bissexual": 609,
+    "Heterossexual": 638,
+    "UDI": 978,
+    "Hemofílico": 107,
+    "Transfusão": 115,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 74,
+    "Ignorado": 436
+  },
+  {
+    "ano": 1989,
+    "TOTAL": 5986,
+    "Homossexual": 1722,
+    "Bissexual": 761,
+    "Heterossexual": 1009,
+    "UDI": 1573,
+    "Hemofílico": 97,
+    "Transfusão": 114,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 109,
+    "Ignorado": 601
+  },
+  {
+    "ano": 1990,
+    "TOTAL": 8610,
+    "Homossexual": 2084,
+    "Bissexual": 1061,
+    "Heterossexual": 1420,
+    "UDI": 2618,
+    "Hemofílico": 116,
+    "Transfusão": 155,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 156,
+    "Ignorado": 1000
+  },
+  {
+    "ano": 1991,
+    "TOTAL": 11477,
+    "Homossexual": 2495,
+    "Bissexual": 1369,
+    "Heterossexual": 2297,
+    "UDI": 3621,
+    "Hemofílico": 103,
+    "Transfusão": 199,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 232,
+    "Ignorado": 1161
+  },
+  {
+    "ano": 1992,
+    "TOTAL": 14195,
+    "Homossexual": 2837,
+    "Bissexual": 1672,
+    "Heterossexual": 3386,
+    "UDI": 4198,
+    "Hemofílico": 76,
+    "Transfusão": 225,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 305,
+    "Ignorado": 1496
+  },
+  {
+    "ano": 1993,
+    "TOTAL": 16380,
+    "Homossexual": 2790,
+    "Bissexual": 1713,
+    "Heterossexual": 4656,
+    "UDI": 4576,
+    "Hemofílico": 74,
+    "Transfusão": 249,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 351,
+    "Ignorado": 1971
+  },
+  {
+    "ano": 1994,
+    "TOTAL": 17982,
+    "Homossexual": 2927,
+    "Bissexual": 1862,
+    "Heterossexual": 5605,
+    "UDI": 4396,
+    "Hemofílico": 67,
+    "Transfusão": 221,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 521,
+    "Ignorado": 2383
+  },
+  {
+    "ano": 1995,
+    "TOTAL": 20741,
+    "Homossexual": 2897,
+    "Bissexual": 1906,
+    "Heterossexual": 7278,
+    "UDI": 4496,
+    "Hemofílico": 69,
+    "Transfusão": 277,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 646,
+    "Ignorado": 3172
+  },
+  {
+    "ano": 1996,
+    "TOTAL": 23570,
+    "Homossexual": 3195,
+    "Bissexual": 2006,
+    "Heterossexual": 9140,
+    "UDI": 4652,
+    "Hemofílico": 81,
+    "Transfusão": 270,
+    "Acid Material Biológico": 1,
+    "Transmissão Vertical": 843,
+    "Ignorado": 3382
+  },
+  {
+    "ano": 1997,
+    "TOTAL": 25849,
+    "Homossexual": 3339,
+    "Bissexual": 2243,
+    "Heterossexual": 11498,
+    "UDI": 4572,
+    "Hemofílico": 80,
+    "Transfusão": 157,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 957,
+    "Ignorado": 3003
+  },
+  {
+    "ano": 1998,
+    "TOTAL": 28669,
+    "Homossexual": 3511,
+    "Bissexual": 2198,
+    "Heterossexual": 13910,
+    "UDI": 4498,
+    "Hemofílico": 42,
+    "Transfusão": 31,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 964,
+    "Ignorado": 3515
+  },
+  {
+    "ano": 1999,
+    "TOTAL": 26344,
+    "Homossexual": 3026,
+    "Bissexual": 1918,
+    "Heterossexual": 13558,
+    "UDI": 3638,
+    "Hemofílico": 26,
+    "Transfusão": 13,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 919,
+    "Ignorado": 3246
+  },
+  {
+    "ano": 2000,
+    "TOTAL": 31324,
+    "Homossexual": 2983,
+    "Bissexual": 1795,
+    "Heterossexual": 14937,
+    "UDI": 3425,
+    "Hemofílico": 21,
+    "Transfusão": 14,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 855,
+    "Ignorado": 7294
+  },
+  {
+    "ano": 2001,
+    "TOTAL": 32099,
+    "Homossexual": 2861,
+    "Bissexual": 1679,
+    "Heterossexual": 15417,
+    "UDI": 2967,
+    "Hemofílico": 25,
+    "Transfusão": 23,
+    "Acid Material Biológico": 1,
+    "Transmissão Vertical": 881,
+    "Ignorado": 8245
+  },
+  {
+    "ano": 2002,
+    "TOTAL": 39268,
+    "Homossexual": 3049,
+    "Bissexual": 1744,
+    "Heterossexual": 16468,
+    "UDI": 2763,
+    "Hemofílico": 17,
+    "Transfusão": 13,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 826,
+    "Ignorado": 14388
+  },
+  {
+    "ano": 2003,
+    "TOTAL": 37925,
+    "Homossexual": 2999,
+    "Bissexual": 1629,
+    "Heterossexual": 16886,
+    "UDI": 2538,
+    "Hemofílico": 15,
+    "Transfusão": 17,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 829,
+    "Ignorado": 13012
+  },
+  {
+    "ano": 2004,
+    "TOTAL": 37998,
+    "Homossexual": 2878,
+    "Bissexual": 1709,
+    "Heterossexual": 16488,
+    "UDI": 2101,
+    "Hemofílico": 12,
+    "Transfusão": 44,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 677,
+    "Ignorado": 14089
+  },
+  {
+    "ano": 2005,
+    "TOTAL": 37848,
+    "Homossexual": 2838,
+    "Bissexual": 1551,
+    "Heterossexual": 15920,
+    "UDI": 1729,
+    "Hemofílico": 12,
+    "Transfusão": 27,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 668,
+    "Ignorado": 15103
+  },
+  {
+    "ano": 2006,
+    "TOTAL": 37133,
+    "Homossexual": 2889,
+    "Bissexual": 1429,
+    "Heterossexual": 15106,
+    "UDI": 1584,
+    "Hemofílico": 13,
+    "Transfusão": 27,
+    "Acid Material Biológico": 2,
+    "Transmissão Vertical": 564,
+    "Ignorado": 15519
+  },
+  {
+    "ano": 2007,
+    "TOTAL": 38163,
+    "Homossexual": 3254,
+    "Bissexual": 1380,
+    "Heterossexual": 15080,
+    "UDI": 1415,
+    "Hemofílico": 10,
+    "Transfusão": 16,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 586,
+    "Ignorado": 16422
+  },
+  {
+    "ano": 2008,
+    "TOTAL": 40508,
+    "Homossexual": 3631,
+    "Bissexual": 1406,
+    "Heterossexual": 16092,
+    "UDI": 1305,
+    "Hemofílico": 12,
+    "Transfusão": 9,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 618,
+    "Ignorado": 17435
+  },
+  {
+    "ano": 2009,
+    "TOTAL": 40368,
+    "Homossexual": 4036,
+    "Bissexual": 1421,
+    "Heterossexual": 16245,
+    "UDI": 1253,
+    "Hemofílico": 7,
+    "Transfusão": 13,
+    "Acid Material Biológico": 2,
+    "Transmissão Vertical": 560,
+    "Ignorado": 16831
+  },
+  {
+    "ano": 2010,
+    "TOTAL": 39872,
+    "Homossexual": 4450,
+    "Bissexual": 1469,
+    "Heterossexual": 16542,
+    "UDI": 1155,
+    "Hemofílico": 7,
+    "Transfusão": 7,
+    "Acid Material Biológico": 1,
+    "Transmissão Vertical": 562,
+    "Ignorado": 15679
+  },
+  {
+    "ano": 2011,
+    "TOTAL": 41845,
+    "Homossexual": 4932,
+    "Bissexual": 1590,
+    "Heterossexual": 16943,
+    "UDI": 1099,
+    "Hemofílico": 6,
+    "Transfusão": 7,
+    "Acid Material Biológico": 5,
+    "Transmissão Vertical": 522,
+    "Ignorado": 16741
+  },
+  {
+    "ano": 2012,
+    "TOTAL": 41429,
+    "Homossexual": 5398,
+    "Bissexual": 1509,
+    "Heterossexual": 16747,
+    "UDI": 950,
+    "Hemofílico": 8,
+    "Transfusão": 8,
+    "Acid Material Biológico": 2,
+    "Transmissão Vertical": 539,
+    "Ignorado": 16268
+  },
+  {
+    "ano": 2013,
+    "TOTAL": 42266,
+    "Homossexual": 5544,
+    "Bissexual": 1534,
+    "Heterossexual": 16387,
+    "UDI": 857,
+    "Hemofílico": 5,
+    "Transfusão": 4,
+    "Acid Material Biológico": 2,
+    "Transmissão Vertical": 467,
+    "Ignorado": 17466
+  },
+  {
+    "ano": 2014,
+    "TOTAL": 41007,
+    "Homossexual": 5176,
+    "Bissexual": 1352,
+    "Heterossexual": 14177,
+    "UDI": 686,
+    "Hemofílico": 5,
+    "Transfusão": 6,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 431,
+    "Ignorado": 19174
+  },
+  {
+    "ano": 2015,
+    "TOTAL": 39113,
+    "Homossexual": 4583,
+    "Bissexual": 1131,
+    "Heterossexual": 11644,
+    "UDI": 575,
+    "Hemofílico": 7,
+    "Transfusão": 4,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 334,
+    "Ignorado": 20835
+  },
+  {
+    "ano": 2016,
+    "TOTAL": 15885,
+    "Homossexual": 1500,
+    "Bissexual": 345,
+    "Heterossexual": 3489,
+    "UDI": 179,
+    "Hemofílico": 1,
+    "Transfusão": 0,
+    "Acid Material Biológico": 0,
+    "Transmissão Vertical": 111,
+    "Ignorado": 10260
+  }
+]
+	,
+    "valueAxes": [{
+        "stackType": "regular",
+        "gridAlpha": 0.07,
+        "position": "left",
+        "title": "Total acumulado no período"
+    }],
+    "graphs": [
+	{
+        "balloonText": "Homossexual: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Homossexual",
+        "valueField": "Homossexual"
+    },
+	{
+        "balloonText": "Bissexual: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Bissexual",
+        "valueField": "Bissexual"
+    },	
+	{
+        "balloonText": "Heterossexual: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Heterossexual",
+        "valueField": "Heterossexual"
+    },
+	{
+        "balloonText": "Usuário de Drogas Injetáveis: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Usuário de Drogas Injetáveis",
+        "valueField": "Usuário de Drogas Injetáveis"
+    }, 
+	{
+        "balloonText": "Hemofílico: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Hemofílico",
+        "valueField": "Hemofílico"
+    }, {
+        "balloonText": "Transfusão: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Transfusão",
+        "valueField": "Transfusão"
+    }, 
+	{
+        "balloonText": "Acidente Material Biológico: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Acidente Material Biológico",
+        "valueField": "Acidente Material Biológico"
+    }, {
+        "balloonText": "Transmissão Vertical: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Transmissão Vertical",
+        "valueField": "Transmissão Vertical"
+    }, {
+        "balloonText": "Ignorado: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Ignorado",
+        "valueField": "Ignorado"
+    }
+	],
+    "plotAreaBorderAlpha": 0,
+    "marginTop": 10,
+    "marginLeft": 0,
+    "marginBottom": 0,
+    "chartScrollbar": {},
+    "chartCursor": {
+        "cursorAlpha": 0
+    },
+    "categoryField": "ano",
+    "categoryAxis": {
+        "startOnAxis": true,
+        "axisColor": "#DADADA",
+        "gridAlpha": 0.07,
+        "title": "Ano",
+        "guides": [{
+            category: "1900",
+            toCategory: "1901",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            fillAlpha: 0.2,
+            fillColor: "#CC0000",
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "fines for speeding increased"
+        }, {
+            category: "2020",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "Campanha Nacional"
+        }]
+    },
+    "export": {
+    	"enabled": true
+     }
+});
+
+</script>
+
+
+<script>
+
+var chart = AmCharts.makeChart("chartdiv3", {
+    "type": "serial",
+    "theme": "light",
+    "marginRight":30,
+    "legend": {
+        "equalWidths": false,
+        "periodValueText": "total: [[value.sum]]",
+        "position": "top",
+        "valueAlign": "left",
+        "valueWidth": 100
+    },
+    "dataProvider": [
+  {
+    "Ano": 1980,
+    "Masculino": 1,
+    "Feminino": 0,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1982,
+    "Masculino": 15,
+    "Feminino": 1,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1983,
+    "Masculino": 39,
+    "Feminino": 1,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1984,
+    "Masculino": 120,
+    "Feminino": 10,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1985,
+    "Masculino": 509,
+    "Feminino": 20,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1986,
+    "Masculino": 1045,
+    "Feminino": 71,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1987,
+    "Masculino": 2412,
+    "Feminino": 273,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1988,
+    "Masculino": 3747,
+    "Feminino": 592,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1989,
+    "Masculino": 5128,
+    "Feminino": 858,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1990,
+    "Masculino": 7273,
+    "Feminino": 1337,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1991,
+    "Masculino": 9475,
+    "Feminino": 2001,
+    "Em Branco": 1
+  },
+  {
+    "Ano": 1992,
+    "Masculino": 11346,
+    "Feminino": 2849,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1993,
+    "Masculino": 12764,
+    "Feminino": 3616,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1994,
+    "Masculino": 13729,
+    "Feminino": 4253,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1995,
+    "Masculino": 15257,
+    "Feminino": 5484,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1996,
+    "Masculino": 16643,
+    "Feminino": 6925,
+    "Em Branco": 2
+  },
+  {
+    "Ano": 1997,
+    "Masculino": 17491,
+    "Feminino": 8357,
+    "Em Branco": 1
+  },
+  {
+    "Ano": 1998,
+    "Masculino": 18956,
+    "Feminino": 9713,
+    "Em Branco": 0
+  },
+  {
+    "Ano": 1999,
+    "Masculino": 17043,
+    "Feminino": 9300,
+    "Em Branco": 1
+  },
+  {
+    "Ano": 2000,
+    "Masculino": 20011,
+    "Feminino": 11312,
+    "Em Branco": 1
+  },
+  {
+    "Ano": 2001,
+    "Masculino": 20050,
+    "Feminino": 12048,
+    "Em Branco": 1
+  },
+  {
+    "Ano": 2002,
+    "Masculino": 23878,
+    "Feminino": 15385,
+    "Em Branco": 5
+  },
+  {
+    "Ano": 2003,
+    "Masculino": 23027,
+    "Feminino": 14891,
+    "Em Branco": 7
+  },
+  {
+    "Ano": 2004,
+    "Masculino": 22930,
+    "Feminino": 15061,
+    "Em Branco": 7
+  },
+  {
+    "Ano": 2005,
+    "Masculino": 22487,
+    "Feminino": 15357,
+    "Em Branco": 4
+  },
+  {
+    "Ano": 2006,
+    "Masculino": 22127,
+    "Feminino": 15005,
+    "Em Branco": 1
+  },
+  {
+    "Ano": 2007,
+    "Masculino": 22961,
+    "Feminino": 15193,
+    "Em Branco": 9
+  },
+  {
+    "Ano": 2008,
+    "Masculino": 24376,
+    "Feminino": 16114,
+    "Em Branco": 18
+  },
+  {
+    "Ano": 2009,
+    "Masculino": 24584,
+    "Feminino": 15771,
+    "Em Branco": 13
+  },
+  {
+    "Ano": 2010,
+    "Masculino": 24880,
+    "Feminino": 14988,
+    "Em Branco": 4
+  },
+  {
+    "Ano": 2011,
+    "Masculino": 26352,
+    "Feminino": 15479,
+    "Em Branco": 14
+  },
+  {
+    "Ano": 2012,
+    "Masculino": 26357,
+    "Feminino": 15064,
+    "Em Branco": 8
+  },
+  {
+    "Ano": 2013,
+    "Masculino": 27407,
+    "Feminino": 14847,
+    "Em Branco": 12
+  },
+  {
+    "Ano": 2014,
+    "Masculino": 27062,
+    "Feminino": 13929,
+    "Em Branco": 16
+  },
+  {
+    "Ano": 2015,
+    "Masculino": 26516,
+    "Feminino": 12579,
+    "Em Branco": 18
+  },
+  {
+    "Ano": 2016,
+    "Masculino": 10852,
+    "Feminino": 5001,
+    "Em Branco": 32
+  }
+]
+	,
+    "valueAxes": [{
+        "stackType": "regular",
+        "gridAlpha": 0.07,
+        "position": "left",
+        "title": "Total acumulado no período"
+    }],
+    "graphs": [
+	{
+        "balloonText": "Masculino: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Masculino",
+        "valueField": "Masculino"
+    },
+	{
+        "balloonText": "Feminino: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Feminino",
+        "valueField": "Feminino"
+    },	
+	{
+        "balloonText": "Em Branco: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Em Branco",
+        "valueField": "Em Branco"
+    }
+	],
+    "plotAreaBorderAlpha": 0,
+    "marginTop": 10,
+    "marginLeft": 0,
+    "marginBottom": 0,
+    "chartScrollbar": {},
+    "chartCursor": {
+        "cursorAlpha": 0
+    },
+    "categoryField": "Ano",
+    "categoryAxis": {
+        "startOnAxis": true,
+        "axisColor": "#DADADA",
+        "gridAlpha": 0.07,
+        "title": "Ano",
+        "guides": [{
+            category: "1900",
+            toCategory: "1901",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            fillAlpha: 0.2,
+            fillColor: "#CC0000",
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "fines for speeding increased"
+        }, {
+            category: "2020",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "Campanha Nacional"
+        }]
+    },
+    "export": {
+    	"enabled": true
+     }
+});
+
+</script>
+
+
+<script>
+
+var chart = AmCharts.makeChart("chartdiv4", {
+    "type": "serial",
+    "theme": "light",
+    "marginRight":30,
+    "legend": {
+        "equalWidths": false,
+        "periodValueText": "total: [[value.sum]]",
+        "position": "top",
+        "valueAlign": "left",
+        "valueWidth": 100
+    },
+    "dataProvider": [
+  {
+    "Ano": 1980,
+    "menor que 1 ano": 0,
+    "01 a 04": 0,
+    "05 a 09": 0,
+    "10 a 14": 0,
+    "15 a 19": 0,
+    "20 a 34": 1,
+    "35 a 49": 0,
+    "50 a 64": 0,
+    "65 a 79": 0,
+    "80 e mais": 0,
+    "ignorado": 0
+  },
+  {
+    "Ano": 1982,
+    "menor que 1 ano": 2,
+    "01 a 04": 0,
+    "05 a 09": 0,
+    "10 a 14": 1,
+    "15 a 19": 0,
+    "20 a 34": 9,
+    "35 a 49": 2,
+    "50 a 64": 2,
+    "65 a 79": 0,
+    "80 e mais": 0,
+    "ignorado": 0
+  },
+  {
+    "Ano": 1983,
+    "menor que 1 ano": 0,
+    "01 a 04": 0,
+    "05 a 09": 0,
+    "10 a 14": 0,
+    "15 a 19": 1,
+    "20 a 34": 24,
+    "35 a 49": 12,
+    "50 a 64": 2,
+    "65 a 79": 0,
+    "80 e mais": 0,
+    "ignorado": 1
+  },
+  {
+    "Ano": 1984,
+    "menor que 1 ano": 3,
+    "01 a 04": 3,
+    "05 a 09": 1,
+    "10 a 14": 3,
+    "15 a 19": 6,
+    "20 a 34": 62,
+    "35 a 49": 42,
+    "50 a 64": 7,
+    "65 a 79": 1,
+    "80 e mais": 1,
+    "ignorado": 1
+  },
+  {
+    "Ano": 1985,
+    "menor que 1 ano": 4,
+    "01 a 04": 3,
+    "05 a 09": 5,
+    "10 a 14": 6,
+    "15 a 19": 26,
+    "20 a 34": 258,
+    "35 a 49": 188,
+    "50 a 64": 32,
+    "65 a 79": 2,
+    "80 e mais": 0,
+    "ignorado": 5
+  },
+  {
+    "Ano": 1986,
+    "menor que 1 ano": 0,
+    "01 a 04": 8,
+    "05 a 09": 6,
+    "10 a 14": 9,
+    "15 a 19": 48,
+    "20 a 34": 588,
+    "35 a 49": 379,
+    "50 a 64": 70,
+    "65 a 79": 2,
+    "80 e mais": 0,
+    "ignorado": 6
+  },
+  {
+    "Ano": 1987,
+    "menor que 1 ano": 27,
+    "01 a 04": 21,
+    "05 a 09": 12,
+    "10 a 14": 21,
+    "15 a 19": 124,
+    "20 a 34": 1471,
+    "35 a 49": 817,
+    "50 a 64": 155,
+    "65 a 79": 25,
+    "80 e mais": 2,
+    "ignorado": 10
+  },
+  {
+    "Ano": 1988,
+    "menor que 1 ano": 59,
+    "01 a 04": 42,
+    "05 a 09": 16,
+    "10 a 14": 27,
+    "15 a 19": 208,
+    "20 a 34": 2405,
+    "35 a 49": 1290,
+    "50 a 64": 241,
+    "65 a 79": 37,
+    "80 e mais": 1,
+    "ignorado": 13
+  },
+  {
+    "Ano": 1989,
+    "menor que 1 ano": 62,
+    "01 a 04": 56,
+    "05 a 09": 25,
+    "10 a 14": 38,
+    "15 a 19": 242,
+    "20 a 34": 3342,
+    "35 a 49": 1804,
+    "50 a 64": 367,
+    "65 a 79": 43,
+    "80 e mais": 4,
+    "ignorado": 3
+  },
+  {
+    "Ano": 1990,
+    "menor que 1 ano": 107,
+    "01 a 04": 74,
+    "05 a 09": 32,
+    "10 a 14": 34,
+    "15 a 19": 349,
+    "20 a 34": 4901,
+    "35 a 49": 2560,
+    "50 a 64": 472,
+    "65 a 79": 60,
+    "80 e mais": 5,
+    "ignorado": 16
+  },
+  {
+    "Ano": 1991,
+    "menor que 1 ano": 145,
+    "01 a 04": 108,
+    "05 a 09": 35,
+    "10 a 14": 43,
+    "15 a 19": 434,
+    "20 a 34": 6679,
+    "35 a 49": 3296,
+    "50 a 64": 634,
+    "65 a 79": 84,
+    "80 e mais": 1,
+    "ignorado": 18
+  },
+  {
+    "Ano": 1992,
+    "menor que 1 ano": 180,
+    "01 a 04": 145,
+    "05 a 09": 38,
+    "10 a 14": 33,
+    "15 a 19": 395,
+    "20 a 34": 8267,
+    "35 a 49": 4285,
+    "50 a 64": 739,
+    "65 a 79": 90,
+    "80 e mais": 3,
+    "ignorado": 20
+  },
+  {
+    "Ano": 1993,
+    "menor que 1 ano": 202,
+    "01 a 04": 164,
+    "05 a 09": 45,
+    "10 a 14": 38,
+    "15 a 19": 403,
+    "20 a 34": 9472,
+    "35 a 49": 4978,
+    "50 a 64": 953,
+    "65 a 79": 98,
+    "80 e mais": 5,
+    "ignorado": 22
+  },
+  {
+    "Ano": 1994,
+    "menor que 1 ano": 282,
+    "01 a 04": 244,
+    "05 a 09": 60,
+    "10 a 14": 46,
+    "15 a 19": 406,
+    "20 a 34": 10118,
+    "35 a 49": 5670,
+    "50 a 64": 1001,
+    "65 a 79": 133,
+    "80 e mais": 4,
+    "ignorado": 18
+  },
+  {
+    "Ano": 1995,
+    "menor que 1 ano": 335,
+    "01 a 04": 315,
+    "05 a 09": 81,
+    "10 a 14": 46,
+    "15 a 19": 444,
+    "20 a 34": 11139,
+    "35 a 49": 6897,
+    "50 a 64": 1267,
+    "65 a 79": 181,
+    "80 e mais": 5,
+    "ignorado": 31
+  },
+  {
+    "Ano": 1996,
+    "menor que 1 ano": 438,
+    "01 a 04": 376,
+    "05 a 09": 109,
+    "10 a 14": 51,
+    "15 a 19": 399,
+    "20 a 34": 12550,
+    "35 a 49": 7996,
+    "50 a 64": 1438,
+    "65 a 79": 203,
+    "80 e mais": 4,
+    "ignorado": 6
+  },
+  {
+    "Ano": 1997,
+    "menor que 1 ano": 413,
+    "01 a 04": 461,
+    "05 a 09": 133,
+    "10 a 14": 60,
+    "15 a 19": 490,
+    "20 a 34": 13531,
+    "35 a 49": 8867,
+    "50 a 64": 1675,
+    "65 a 79": 208,
+    "80 e mais": 4,
+    "ignorado": 7
+  },
+  {
+    "Ano": 1998,
+    "menor que 1 ano": 384,
+    "01 a 04": 507,
+    "05 a 09": 136,
+    "10 a 14": 61,
+    "15 a 19": 586,
+    "20 a 34": 14532,
+    "35 a 49": 10200,
+    "50 a 64": 1980,
+    "65 a 79": 265,
+    "80 e mais": 11,
+    "ignorado": 7
+  },
+  {
+    "Ano": 1999,
+    "menor que 1 ano": 348,
+    "01 a 04": 467,
+    "05 a 09": 168,
+    "10 a 14": 58,
+    "15 a 19": 513,
+    "20 a 34": 12856,
+    "35 a 49": 9743,
+    "50 a 64": 1913,
+    "65 a 79": 257,
+    "80 e mais": 16,
+    "ignorado": 5
+  },
+  {
+    "Ano": 2000,
+    "menor que 1 ano": 333,
+    "01 a 04": 525,
+    "05 a 09": 207,
+    "10 a 14": 72,
+    "15 a 19": 573,
+    "20 a 34": 14771,
+    "35 a 49": 11988,
+    "50 a 64": 2513,
+    "65 a 79": 324,
+    "80 e mais": 13,
+    "ignorado": 5
+  },
+  {
+    "Ano": 2001,
+    "menor que 1 ano": 335,
+    "01 a 04": 553,
+    "05 a 09": 256,
+    "10 a 14": 102,
+    "15 a 19": 574,
+    "20 a 34": 14719,
+    "35 a 49": 12522,
+    "50 a 64": 2655,
+    "65 a 79": 358,
+    "80 e mais": 21,
+    "ignorado": 4
+  },
+  {
+    "Ano": 2002,
+    "menor que 1 ano": 348,
+    "01 a 04": 800,
+    "05 a 09": 549,
+    "10 a 14": 192,
+    "15 a 19": 631,
+    "20 a 34": 16842,
+    "35 a 49": 15968,
+    "50 a 64": 3484,
+    "65 a 79": 432,
+    "80 e mais": 21,
+    "ignorado": 1
+  },
+  {
+    "Ano": 2003,
+    "menor que 1 ano": 328,
+    "01 a 04": 652,
+    "05 a 09": 457,
+    "10 a 14": 156,
+    "15 a 19": 648,
+    "20 a 34": 15950,
+    "35 a 49": 15706,
+    "50 a 64": 3553,
+    "65 a 79": 456,
+    "80 e mais": 19,
+    "ignorado": 0
+  },
+  {
+    "Ano": 2004,
+    "menor que 1 ano": 346,
+    "01 a 04": 476,
+    "05 a 09": 449,
+    "10 a 14": 194,
+    "15 a 19": 622,
+    "20 a 34": 15638,
+    "35 a 49": 15858,
+    "50 a 64": 3882,
+    "65 a 79": 502,
+    "80 e mais": 30,
+    "ignorado": 1
+  },
+  {
+    "Ano": 2005,
+    "menor que 1 ano": 328,
+    "01 a 04": 487,
+    "05 a 09": 380,
+    "10 a 14": 201,
+    "15 a 19": 547,
+    "20 a 34": 15166,
+    "35 a 49": 16016,
+    "50 a 64": 4202,
+    "65 a 79": 489,
+    "80 e mais": 28,
+    "ignorado": 4
+  },
+  {
+    "Ano": 2006,
+    "menor que 1 ano": 303,
+    "01 a 04": 387,
+    "05 a 09": 299,
+    "10 a 14": 190,
+    "15 a 19": 593,
+    "20 a 34": 14663,
+    "35 a 49": 15910,
+    "50 a 64": 4224,
+    "65 a 79": 535,
+    "80 e mais": 29,
+    "ignorado": 0
+  },
+  {
+    "Ano": 2007,
+    "menor que 1 ano": 288,
+    "01 a 04": 329,
+    "05 a 09": 277,
+    "10 a 14": 221,
+    "15 a 19": 584,
+    "20 a 34": 14952,
+    "35 a 49": 16208,
+    "50 a 64": 4663,
+    "65 a 79": 607,
+    "80 e mais": 34,
+    "ignorado": 0
+  },
+  {
+    "Ano": 2008,
+    "menor que 1 ano": 279,
+    "01 a 04": 344,
+    "05 a 09": 241,
+    "10 a 14": 236,
+    "15 a 19": 688,
+    "20 a 34": 15815,
+    "35 a 49": 16879,
+    "50 a 64": 5314,
+    "65 a 79": 668,
+    "80 e mais": 43,
+    "ignorado": 1
+  },
+  {
+    "Ano": 2009,
+    "menor que 1 ano": 265,
+    "01 a 04": 322,
+    "05 a 09": 208,
+    "10 a 14": 202,
+    "15 a 19": 674,
+    "20 a 34": 15888,
+    "35 a 49": 16696,
+    "50 a 64": 5366,
+    "65 a 79": 710,
+    "80 e mais": 37,
+    "ignorado": 0
+  },
+  {
+    "Ano": 2010,
+    "menor que 1 ano": 268,
+    "01 a 04": 302,
+    "05 a 09": 196,
+    "10 a 14": 172,
+    "15 a 19": 670,
+    "20 a 34": 15805,
+    "35 a 49": 16164,
+    "50 a 64": 5543,
+    "65 a 79": 716,
+    "80 e mais": 36,
+    "ignorado": 0
+  },
+  {
+    "Ano": 2011,
+    "menor que 1 ano": 281,
+    "01 a 04": 212,
+    "05 a 09": 165,
+    "10 a 14": 178,
+    "15 a 19": 763,
+    "20 a 34": 16579,
+    "35 a 49": 17102,
+    "50 a 64": 5759,
+    "65 a 79": 758,
+    "80 e mais": 48,
+    "ignorado": 0
+  },
+  {
+    "Ano": 2012,
+    "menor que 1 ano": 222,
+    "01 a 04": 274,
+    "05 a 09": 122,
+    "10 a 14": 157,
+    "15 a 19": 850,
+    "20 a 34": 16586,
+    "35 a 49": 16444,
+    "50 a 64": 5922,
+    "65 a 79": 786,
+    "80 e mais": 54,
+    "ignorado": 12
+  },
+  {
+    "Ano": 2013,
+    "menor que 1 ano": 199,
+    "01 a 04": 250,
+    "05 a 09": 119,
+    "10 a 14": 133,
+    "15 a 19": 952,
+    "20 a 34": 17047,
+    "35 a 49": 16331,
+    "50 a 64": 6233,
+    "65 a 79": 931,
+    "80 e mais": 60,
+    "ignorado": 11
+  },
+  {
+    "Ano": 2014,
+    "menor que 1 ano": 212,
+    "01 a 04": 212,
+    "05 a 09": 120,
+    "10 a 14": 117,
+    "15 a 19": 1000,
+    "20 a 34": 16474,
+    "35 a 49": 15668,
+    "50 a 64": 6248,
+    "65 a 79": 881,
+    "80 e mais": 71,
+    "ignorado": 4
+  },
+  {
+    "Ano": 2015,
+    "menor que 1 ano": 199,
+    "01 a 04": 182,
+    "05 a 09": 96,
+    "10 a 14": 88,
+    "15 a 19": 951,
+    "20 a 34": 15736,
+    "35 a 49": 14746,
+    "50 a 64": 6118,
+    "65 a 79": 935,
+    "80 e mais": 62,
+    "ignorado": 0
+  },
+  {
+    "Ano": 2016,
+    "menor que 1 ano": 71,
+    "01 a 04": 90,
+    "05 a 09": 38,
+    "10 a 14": 33,
+    "15 a 19": 385,
+    "20 a 34": 6465,
+    "35 a 49": 5976,
+    "50 a 64": 2475,
+    "65 a 79": 329,
+    "80 e mais": 23,
+    "ignorado": 0
+  }
+]
+	,
+    "valueAxes": [{
+        "stackType": "regular",
+        "gridAlpha": 0.07,
+        "position": "left",
+        "title": "Total acumulado no período"
+    }],
+    "graphs": [
+	{
+        "balloonText": "menor que 1 ano: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "menor que 1 ano",
+        "valueField": "menor que 1 ano"
+    },
+	{
+        "balloonText": "01 a 04: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "01 a 04",
+        "valueField": "01 a 04"
+    },	
+	{
+        "balloonText": "05 a 09: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "05 a 09",
+        "valueField": "05 a 09"
+    },	
+	{
+        "balloonText": "10 a 14: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "10 a 14",
+        "valueField": "10 a 14"
+    },	
+	{
+        "balloonText": "15 a 19: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "15 a 19",
+        "valueField": "15 a 19"
+    },	
+	{
+        "balloonText": "20 a 34: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "20 a 34",
+        "valueField": "20 a 34"
+    },	
+	{
+        "balloonText": "35 a 49: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "35 a 49",
+        "valueField": "35 a 49"
+    },	
+	{
+        "balloonText": "50 a 64: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "50 a 64",
+        "valueField": "50 a 64"
+    },	
+	{
+        "balloonText": "65 a 79: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "65 a 79",
+        "valueField": "65 a 79"
+    },	
+	{
+        "balloonText": "80 e mais: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "80 e mais",
+        "valueField": "80 e mais"
+    },	
+	{
+        "balloonText": "ignorado: <span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "ignorado",
+        "valueField": "ignorado"
+    }
+	],
+    "plotAreaBorderAlpha": 0,
+    "marginTop": 10,
+    "marginLeft": 0,
+    "marginBottom": 0,
+    "chartScrollbar": {},
+    "chartCursor": {
+        "cursorAlpha": 0
+    },
+    "categoryField": "Ano",
+    "categoryAxis": {
+        "startOnAxis": true,
+        "axisColor": "#DADADA",
+        "gridAlpha": 0.07,
+        "title": "Ano",
+        "guides": [{
+            category: "1900",
+            toCategory: "1901",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            fillAlpha: 0.2,
+            fillColor: "#CC0000",
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "fines for speeding increased"
+        }, {
+            category: "2020",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "Campanha Nacional"
+        }]
+    },
+    "export": {
+    	"enabled": true
+     }
+});
+
+</script>
+
+
+
+</body>
+</html>
+{% endblock %}

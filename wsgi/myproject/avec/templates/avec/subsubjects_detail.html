@@ -61,6 +61,30 @@
 					</div>
 				   </div>
 				  </div>
+				  {% elif mysubject.pk == 135 or  mysubject.pk == 137 %}	
+				  <div class="row" style="padding-top: 20px">
+					<div class="col-sm-2">
+					<a href="{% url 'sangue' %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
+					</div>
+					<div class="col-sm-10">
+					<div class="author_dec">
+							<a href="{% url 'sangue' %}">Coleta e Transfusões de Sangue - SUS</a>						
+							<p style ="padding-top:10px;">Painel com com informações sobre coletas e transfusões de sangue.</p>								
+					</div>
+				   </div>
+				  </div>
+				  {% elif mysubject.pk == 145 %}	
+				  <div class="row" style="padding-top: 20px">
+					<div class="col-sm-2">
+					<a href="{% url 'aids' %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
+					</div>
+					<div class="col-sm-10">
+					<div class="author_dec">
+							<a href="{% url 'aids' %}">Casos de AIDS identificados no Brasil</a>						
+							<p style ="padding-top:10px;">Painel com com informações sobre casos de AIDS identificados no Brasil.</p>								
+					</div>
+				   </div>
+				  </div>
 				  {% else %}	
 				  <div class="row" style="padding-top: 20px">
 					<div class="col-sm-2">

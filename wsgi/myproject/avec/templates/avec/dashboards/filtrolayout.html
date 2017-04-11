@@ -1,0 +1,351 @@
+{% extends 'avec/base_dashboard.html' %}
+{% load staticfiles %}
+{% block content %}
+<html>
+<title>Layout possivel</title>
+  <title>Layouts</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>AVEC - Ciencia de dados</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />		
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  
+  
+	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dc2.js' %}"></script>		
+	
+<style>
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09{
+        background: #899296;
+        width: 100%;
+        font-size: 64px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 100px;
+        height: 40px;
+        line-height: normal;
+		margin-bottom: 15px;
+      }
+
+#dc-cpty-chart svg g .axis.x .tick {
+    display: none;
+}
+
+pre {display:none;}
+
+</style>
+<body>
+
+<div class="title_sec">
+		<div class="internal__row">
+			<h1 class="internal__title">Layout Painel</h1>
+		</div>
+</div>	
+
+ <div class="container-fluid" style = "padding-top:20px;">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Filtros geograficos
+          </div>
+          <div class="chart-stage" style="padding-bottom:20px; padding-top:20px;">
+		  	  <div class="col-sm-3">
+			      <h4>Selecionar Regiao</h4>
+				  <div id="menuselect0" style="float:left;"></div>
+			  </div>			  
+			  <div class="col-sm-3">
+				  <h4>Selecionar Estado</h4>
+				  <div id="menuselect" style="float:none;"></div>
+			  </div>	
+			  <div class="col-sm-3">
+				  <h4>Selecionar Municipio</h4>
+				  <div id="menuselect2" style="float:none;"></div>
+			  </div>		  
+			  <div class="col-sm-3">
+				  <h4>Selecionar Ano</h4>
+				  <div id="menuselect3" style="float:none;"></div>
+			  </div>		  			  
+          </div>
+          <div class="chart-notes" >
+            Notes about this chart
+          </div>
+
+        </div>
+		
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			  <div id="volume-chart"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+			  <div id="dc-cpty-chart"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-3">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+			  <div id="chart-06"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+			  <div id="chart-07"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+			  <div id="chart-08"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cell Title
+          </div>
+          <div class="chart-stage">
+			  <div id="chart-09"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+<pre>
+regiao,date,cpty,na,ma,ac,hs,ss,LeafID,ead,ead_CEM
+Sudeste,15.01.2017,Sao Paulo,NS::SWN,CSA::SWN,IR,CHF,1,T::6290,6141.596552,570971.2303
+Sudeste,19.07.2016,Sao Paulo,NS::SWN,CSA::SWN,IR,CHF,1,T::6290,6141.596552,570971.2303
+Sudeste,17.10.2016,Sao Paulo,NS::SWN,CSA::SWN,IR,CHF,1,T::6290,6141.596552,570971.2303
+Sudeste,19.07.2016,Sao Paulo,not-net,_,_,_,_,T::7994,31858.95692,0
+Sudeste,17.10.2016,Sao Paulo,not-net,_,_,_,_,T::7994,31858.95692,0
+Nordeste,19.07.2016,Maceio,NS::ILMN,CSA::ILMN,IR,USD,2,T::10000,38540.64338,12483.826
+Nordeste,17.10.2016,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
+Nordeste,15.01.2017,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
+Nordeste,14.07.2017,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
+Nordeste,15.04.2017,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
+Nordeste,15.01.2017,Irece,NS::CL,dma,IR,USD,1,T::1953,1414.16706,0
+Nordeste,17.10.2016,Irece,NS::CL,dma,IR,USD,1,T::1953,1414.16706,0
+Nordeste,19.07.2016,Irece,NS::CL,dma,IR,USD,1,T::1953,1414.16706,0
+Centro Oeste,09.07.2018,Brasilia,not-net,_,_,_,_,T::5135,908458.539,3217734.507
+</pre>
+
+</body>
+<script>
+var sinopse_estatistica_da_educacao_basica_2015 = "{% static 'data/educacao2.csv' %}"; 
+
+d3.csv( sinopse_estatistica_da_educacao_basica_2015, function(data) {
+	data.forEach(function(d) {                 
+		d.date = d.date; 
+	});  
+
+
+var cptyChart = dc.barChart("#dc-cpty-chart");
+var periodoRingChart   = dc.pieChart("#volume-chart");
+var big1 = dc.numberDisplay("#chart-06");
+var big2 = dc.numberDisplay("#chart-07");
+var big3 = dc.numberDisplay("#chart-08");	
+var big4 = dc.numberDisplay("#chart-09");	  
+
+  var ndx = crossfilter(data);
+
+  var dimdate = ndx.dimension(function(d) { return d.date;});
+  var dimline = ndx.dimension(function(d) { return d.date;});
+  var minDate = dimdate.bottom(1)[0].date;
+  var maxDate = dimdate.top(1)[0].date;
+  var dimregiao = ndx.dimension(function(d) { return d.regiao;});  
+  var dimestado = ndx.dimension(function(d) { return d.estado;});    
+  var dimcpty = ndx.dimension(function(d) { return d.cpty;});
+  var dimcptyC = ndx.dimension(function(d) { return d.cpty;});
+
+  var groupdate = dimdate.group().reduceSum(function(d){return d.ead/1000000;});
+  var groupline = dimline.group().reduceSum(function(d){return d.ead/1000000;});
+  var groupregiao = dimregiao.group().reduceSum(function(d){return d.ead/1000000;});  
+  var groupcpty = dimcpty.group().reduceSum(function(d){return d.ead/1000000;});
+  var spendhisto=dimcptyC.group().reduceSum(function(d){return d.ead/1000000;});
+  var groupcptyC = remove_empty_bins(spendhisto);
+
+  //                //a dropdown widget
+  selectField=dc.selectMenu('#menuselect0')
+    .dimension(dimregiao)
+    .group(dimregiao.group());
+  
+  selectField=dc.selectMenu('#menuselect')
+    .dimension(dimestado)
+    .group(dimestado.group());
+	
+  selectField2=dc.selectMenu('#menuselect2')
+    .dimension(dimcpty)
+    .group(groupcpty);
+	
+  selectField3=dc.selectMenu('#menuselect3')
+    .dimension(dimdate)
+    .group(groupdate);	
+/*
+  var oldHandler = selectField2.filterHandler();
+  selectField2.filterHandler(function(dimension, filters) {
+    var parseFilters = filters.map(function(d) { return new Date(d);})
+    oldHandler(dimension, parseFilters);
+    return filters;
+  });*/
+  
+  var widthcomp =  document.getElementById('graph').offsetWidth;   
+
+	big1		
+		.group(groupcpty);	
+
+	big2		
+		.group(groupcpty);	
+
+	big3		
+		.group(groupcpty);	
+
+	big4
+		.group(groupcpty);			
+		
+  //a line chart
+
+    periodoRingChart
+		.colors(d3.scale.ordinal().range(
+			[ "#a05d56", "#d0743c", "#ff8c00"]))
+		.height(350)
+		.width(widthcomp*0.9)
+		//.margins({top: 20, right: 20, bottom: 20, left: 20})
+        .dimension(dimline)
+        .group(groupline)
+		.minAngleForLabel(0.1)
+		.externalLabels(20)
+        .externalRadiusPadding(45)
+        .drawPaths(true)
+		.legend(dc.legend().x(140).y(0).gap(5))
+        .innerRadius(30);
+		
+	 // example of formatting the legend via svg
+      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
+      periodoRingChart.on('pretransition', function(periodoRingChart) {
+          periodoRingChart.selectAll('.dc-legend-item text')
+              .text('')
+            .append('tspan')
+              .text(function(d) { return d.a; })
+            .append('tspan')
+              .attr('x', 50)
+              .attr('text-anchor', 'end')
+              .text(function(d) { return d.data; });
+      });
+      periodoRingChart.render();		
+
+
+  var barTip2=[]; //define some tips
+  cptyChart
+    .ordering(function(d){return -d.value;})
+    .height(350)
+    .width(widthcomp*0.9)
+    .transitionDuration(500)
+    .dimension(dimcptyC)
+    .group(groupcptyC)
+    .margins({top:10, right:10, bottom: 2, left: 60})
+    .gap(1)
+    .elasticY(true)
+    .elasticX(true)
+    .x(d3.scale.ordinal().domain(dimcptyC))
+    .xUnits(dc.units.ordinal)
+    .renderHorizontalGridLines(true)
+    .yAxis().tickFormat(d3.format("s"));
+
+
+  dc.renderAll();
+
+  function remove_empty_bins(source_group) {
+    return {
+      all:function () {
+        return source_group.all().filter(function(d) {
+          return d.value > 0.00001;
+        });
+      }
+    };
+  }
+});
+  //var parser = d3.time.format("%d.%m.%Y");
+  //var formatter=d3.time.format("%d.%m.%Y");
+
+
+
+  
+
+</script>
+</html>
+{% endblock %}

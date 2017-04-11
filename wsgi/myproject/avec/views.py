@@ -2,7 +2,8 @@
 
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard
+from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
 from django.http import HttpResponse, JsonResponse
@@ -16,6 +17,9 @@ from django.conf import settings
 import requests, json
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from avec import utils
 
 # adicionados para o formulario de contato c/ envio de email
 from .forms import ContactForm
@@ -49,10 +53,10 @@ def permission_denied(request):
     return render(request,'avec/403.html',values_for_template,status=403)
 
 def index(request):
-    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    subject_detail = Subject_detail.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    subject_detail = Subject_detail.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     return render(request, 'avec/index.html', {'subject': subject, 'themes': themes, 'subject_detail' : subject_detail, 'posts' : posts})
 
 def ciencia_tecnologia(request):
@@ -73,6 +77,9 @@ def inovacao(request):
         return render(request, 'avec/dashboards/inovacao.html')
     else:
         return render(request,'avec/permissao.html')
+    
+def permssao(request):
+    return render(request,'avec/permissao.html')
 
 def nascidosvivos(request):
     # if request.user.is_authenticated():
@@ -81,11 +88,21 @@ def nascidosvivos(request):
     #     return render(request,'avec/permissao.html')
 
 def post_detail(request, pk):
+    
+    groups = request.user.groups.all()
+    group_user = groups[len(groups)-1]
+    
     post = Post.objects.get(pk=pk)
-    mykeywords = post.keywords.all()
-    myparent = post.subject.all()
-    related = Subject_detail.objects.filter(subject=myparent)
-    return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related})
+    
+    post_permission = utils.post_permission(group_user.id, post)
+    
+    if post_permission:
+        mykeywords = post.keywords.all()
+        myparent = post.subject.all()
+        related = Subject_detail.objects.filter(subject=myparent)
+        return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related})
+    else:
+        return render(request,'avec/permissao.html')
 
 def reports_detail(request, pk):
     report = Reports.objects.get(pk=pk)
@@ -96,20 +113,23 @@ def subject_detail(request, pk):
     mysubject = Subject.objects.get(pk=pk)
     mykeywords = mysubject.keywords.all()
     mysubdetail = mysubject.subject_detail_set.all()
-    posts = Post.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date')
-    reports  = Reports.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date')
-    return render(request, 'avec/subjects_detail.html', {'posts': posts, 'mysubject': mysubject, 'mykeywords': mykeywords, 'mysubdetail': mysubdetail, 'reports': reports})
+    posts = Post.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date').reverse()
+    dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date').reverse()
+    reports  = Reports.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date').reverse()
+    return render(request, 'avec/subjects_detail.html', {'posts': posts, 'dashboards': dashboards, 'mysubject': mysubject, 'mykeywords': mykeywords, 'mysubdetail': mysubdetail, 'reports': reports})
 
 def subsubject_detail(request, pk):
     mysubject = Subject_detail.objects.get(pk=pk)
-    posts = Post.objects.filter(published_date__lte=timezone.now()).filter(subject_detail=mysubject).order_by('published_date')
+    posts = Post.objects.filter(published_date__lte=timezone.now()).filter(subject_detail=mysubject).order_by('published_date').reverse()
+    dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).filter(subject_detail=mysubject).order_by('published_date').reverse()
     myparent = mysubject.subject.subject_detail_set.all()
-    return render(request, 'avec/subsubjects_detail.html', {'mysubject': mysubject, 'posts': posts , 'myparent': myparent})
+    return render(request, 'avec/subsubjects_detail.html', {'mysubject': mysubject, 'posts': posts, 'dashboards': dashboards , 'myparent': myparent})
 
 def keywords_detail(request, pk):
     mykeywords = Keywords.objects.get(pk=pk)
     posts = Post.objects.filter(published_date__lte=timezone.now()).filter(keywords=mykeywords).order_by('published_date')
-    return render(request, 'avec/keywords.html', {'mykeywords': mykeywords, 'posts': posts})
+    dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).filter(keywords=mykeywords).order_by('published_date')
+    return render(request, 'avec/keywords.html', {'mykeywords': mykeywords, 'posts': posts, 'dashboards': dashboards})
 
 # pagina de cadastro de cliente
 def registrar(request):
@@ -119,7 +139,7 @@ def registrar(request):
         form = UserCreationForm(request.POST)
 
         if form.is_valid(): # se o formulario for valido
-            form.save() # cria um novo usuario a partir dos dados enviados
+            
             return render(request, "avec/logar.html", {"form": form})
         else:
             # mostra novamente o formulario de cadastro com os erros do formulario atual
@@ -137,6 +157,7 @@ def logar(request):
         if form.is_valid():
             #se o formulario for valido significa que o Django conseguiu encontrar o usuario no banco de dados
             #agora, basta logar o usuario e ser feliz.
+            
             login(request, form.get_user())
             return HttpResponseRedirect("/") # redireciona o usuario logado para a pagina inicial
         else:
@@ -152,18 +173,18 @@ def logout(request):
 
 def assuntos(request):
     
-    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('title')
+    subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('title')
     return render(request, 'avec/assuntos.html', {'subject': subject, 'themes': themes})
 
 def servicos(request):
     return render(request, 'avec/servicos.html')
 
 def quemsomos(request):
-    return render(request, 'avec/quemsomos.html')	
+    return render(request, 'avec/quemsomos.html')    
 
 def dashboard(request):
-    return render(request, 'avec/dashboards.html')		
+    return render(request, 'avec/dashboards.html')        
 
 def autocomplete(request):
     return render(request, 'avec/autocomplete.html')
@@ -180,20 +201,26 @@ def lista(request):
         #subjects = Subject.objects.filter(Q(title__icontains=str(request.POST.get('query')))|Q(text__icontains=str(request.POST.get('query')))).order_by('published_date')
         posts = Post.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         subjects = Subject.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
+        dashboards = Dashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         
         posts_data = []
         
         for post in posts:
             posts_data.append({ "value": post.title, "id" : post.id , "type": "post"})
+
+        dashboards_data = []
+        
+        for dashboard in dashboards:
+            dashboards_data.append({ "value": dashboard.title, "id" : dashboard.url , "type": "dashboard"})            
             
         subjects_data = []
         
         for subject in subjects:
             subjects_data.append({ "value": subject.title, "id" : subject.id , "type": "subject"})
 
-        result = posts_data+subjects_data
+        result = posts_data+dashboards_data+subjects_data
         response = {"query": "Unit", "suggestions": result}
-        resultado_json = json.loads(json.dumps(response))    
+        resultado_json = json.loads(json.dumps(response))
     
     #print(json.dumps(resultado_json, indent=4, sort_keys=True))
     
@@ -206,7 +233,20 @@ def contact(request):
     success = False
 
     if form.is_valid():
-        form.send_mail()
+        
+        name = form.cleaned_data['name']
+        email = form.cleaned_data['email']
+        message = form.cleaned_data['message']
+        phone = form.cleaned_data['phone']
+        uf = form.cleaned_data['uf']
+        
+#         content_message = '<!-- [if gte mso 9]><style>.elemento_com_webfont { font-family: Arial, sans-serif !important; }</style><![endif]-->'
+        content_message = '<font face="Helvetica, Arial, sans-serif" size="2" color="#000000"><div>################ <strong>AVECDATA - PLATAFORMA DE DADOS SETORIAIS</strong> ################ <br><br>'
+        content_message += 'O Usuário abaixo: <br>Nome: {0}<br>E-mail: {1}<br>Telefone: {3}<br>UF: {4}<br>Nos enviou a seguinte mensagem de contato: <br>'.format(name, email, message, phone, uf)
+        content_message += '-------------------------------------------------------------------------<br>'
+        content_message += '{2}<br></div></font>'.format(name, email, message, phone, uf)
+        
+        form.send_mail(content_message)
         success = True
         messages.success(request, 'Mensagem enviada com sucesso!')
         return HttpResponseRedirect(reverse('contact', args=[]))
@@ -236,3 +276,24 @@ def padrao2(request):
 
 def padrao3(request):
         return render(request, 'avec/dashboards/padrao3.html')    
+        
+def aids(request):
+        return render(request, 'avec/dashboards/aids.html')         
+
+@login_required(login_url='/permissao/')        
+def sangue(request, dashboard_id):
+    
+    groups = request.user.groups.all()
+    group_user = utils.get_greater_group(groups)
+    
+    dashboard = Dashboard.objects.get(id=dashboard_id)
+    
+    dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
+    
+    if dsh_permission:
+        return render(request, 'avec/dashboards/sangue.html')
+    else:
+        return render(request,'avec/permissao.html')
+
+def permissao(request):
+    return render(request,'avec/permissao.html')

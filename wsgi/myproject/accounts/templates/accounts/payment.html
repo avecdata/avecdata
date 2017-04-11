@@ -3,8 +3,11 @@
 {% load widget_tweaks %}
 {% load poll_extras %}
 {% block content %}
-
-<div class="container" style="padding-top: 50px;">
+<ol class="breadcrumb">
+  <li><a href="{% url 'index' %}">Início</a></li>
+  <li><a href="{% url 'accounts:payment' %}">Pagamento</a></li>
+</ol>
+<div class="container" style="padding-top: 5px;">
 
 	
 		
@@ -26,11 +29,17 @@
         			<td>
         				<div class="form-group">
 							<div class="col-md-4">
-								<span><strong>{{ plano }}</strong></span>
+								<span><strong>{{ plano }}</strong></span>{% if group_id == '3' %}<br>
+								<h6><em>Mínimo de <strong>10</strong> assinaturas</em></h6>{% endif %}
 			                 </div>
-			                 <div class="col-md-4 col-md-offset-4">
-			                 	<span>{{ annual_cost }} por ano</span><br>
-			                 	<h6>({{ pvalue }} cobrado com recorrência mensalmente)</h6>
+			                 <div class="col-md-4 col-md-offset-3" style="text-align: right;">
+			                 	<span class="avec_pvalue">{{ pvalue_text }}</span><br>
+			                 	<h6>(cobrado com recorrência mensalmente)</h6>
+			                </div>
+			                <div class="col-md-1">
+			                	{% if group_id == '3' %}
+			                 	<input type="number" class="form-control" id="num_subscription" name="num_subscription" value="10" onkeypress="onlyNumbers(event)" style="width: 60px;" min="10">
+			                 	{% endif %}
 			                </div>
 			            </div>	
         			</td>
@@ -54,10 +63,10 @@
         			<td>
         				<div class="form-group">
 							<div class="col-md-4">
-								<span><strong>Valor Total em 12 meses:</strong></span>
+								<span><strong>Valor Mensal:</strong></span>
 			                 </div>
 			                 <div class="col-md-4 col-md-offset-4">
-			                 	<span><strong>{{ annual_cost }}</strong></span><br>
+			                 	<span class="avec_pvalue"><strong>{{ pvalue_text }}</strong></span><br>
 			                </div>
 			            </div>
         			</td>
@@ -135,7 +144,7 @@
 					<input class="btn btn-success btn-sm" type="submit" value="Enviar" /> -->
 					<div class="row">
 					    <div class="col-md-4 col-md-offset-4">
-					        <a href="#" id="btn-submit" class="btn btn-default"><span style="display: block;">Pagar com </span><input type="image" src="{% static 'img/paypal.png' %}"/></a>
+					        <a href="#" id="btn-submit" class="btn btn-sucess"><span style="display: block;">Pagar com </span><input type="image" src="{% static 'img/paypal.png' %}"/></a>
 					    </div>
 					</div>
 				<!-- </center> -->
@@ -145,7 +154,17 @@
 </div>
 <script>
 $(document).ready(function () {
-	var url = "{% url 'accounts:paypal_view' order %}";
+	var num = 0;
+	//var url = "{% url 'accounts:paypal_view' order 10 %}";
+	var order_id = "{{ order }}";
+	var url = "/conta/finalizando/"+order_id+"/paypal/"+num;
+	
+	$('#num_subscription').change(function(){
+		num = parseInt($(this).val())-10;
+		var pvalue = 1500+(num*150)
+		$('.avec_pvalue').html('<strong>R$ '+pvalue+',00</strong>');
+		url = "/conta/finalizando/"+order_id+"/paypal/"+num;
+	});
 	
 	$('#btn-submit').click(function(){
 		if($('#payment_accept').is(':checked') == false) {

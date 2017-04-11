@@ -1,0 +1,591 @@
+﻿{% extends 'avec/base_dashboard.html' %}
+{% load staticfiles %}
+{% block content %}
+<html>
+<title>Candidatos à Doação</title>
+  <title>Layouts</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>AVEC - Ciencia de dados</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />		
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  
+	
+	    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>		
+	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.js' %}"></script>	
+	
+	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dc2.js' %}"></script>		
+	
+<style>
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09{
+        background: #899296;
+        width: 100%;
+        font-size: 64px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 100px;
+        height: 40px;
+        line-height: normal;
+		margin-bottom: 15px;
+      }
+	  
+	  #chartdiv1, #chartdiv2, #chartdiv3, #chartdiv4, #chartdiv5, #chartdiv6, #chartdiv7, #chartdiv8 {
+		width: 100%;
+		height: 300px;
+	  }
+
+#dc-cpty-chart svg g .axis.x .tick {
+    display: none;
+}
+
+pre {display:none;}
+
+</style>
+<body>
+
+<div class="title_sec">
+		<div class="internal__row">
+			<h1 class="internal__title">Candidatos à Doação</h1>
+		</div>
+</div>	
+
+ <div class="container-fluid" style = "padding-top:20px;">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Filtros
+          </div>
+          <div class="chart-stage" style="padding-bottom:20px; padding-top:20px;">
+		  	  <div class="col-sm-3">
+			      <h4>Selecionar Local</h4>
+				  <div id="menuselect0" style="float:left;"></div>
+			  </div>			  
+			  <div class="col-sm-3">
+				  <h4>Selecionar Período</h4>
+				  <div id="menuselect3" style="float:none;"></div>
+			  </div>		  			  
+          </div>
+          <div class="chart-notes" >
+            Notes about this chart
+          </div>
+
+        </div>
+		
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Sexo
+          </div>
+          <div class="chart-stage">
+			  <div id="chartdiv1"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+	        <div class="col-sm-4">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+            Faixa Etária
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			  <div id="chartdiv2"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Estado Civil
+          </div>
+          <div class="chart-stage">
+			  <div id="chartdiv3"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+            <div class="col-sm-4">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+            Tipo de Doação
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			  <div id="chartdiv4"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Tipo de Doador
+          </div>
+          <div class="chart-stage">
+			  <div id="chartdiv5"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+	        <div class="col-sm-4">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+            Município de Residência
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			  <div id="chartdiv6"></div>
+          </div>
+          <div class="chart-notes">
+            Notes about this chart
+          </div>
+        </div>
+      </div>
+    </div>
+	
+	<div class="row">
+		<div class="col-sm-12">
+				<div class="chart-wrapper">
+				  <div class="chart-title">
+					Estatistica 4
+				  </div>
+				  <div class="chart-stage" id="bigchart-05">
+		
+		 <!-- <center> -->
+        <!-- <div class="col-md-6 col-md-offset-1"> -->
+		
+				        <table class='table table-hover' id='chart-05' class="list table table-striped table-bordered">
+							 
+								<thead>
+									<tr class='header' center style="background-color: Cornsilk ;">
+										<th> </th>
+										<th> Local</th>
+										<th> Inaptos na Triagem</th>
+										<th> Inaptos na coleta</th>
+										<th> Desistentes</th>
+										<th> Total de Candidatos à Doação</th>
+									 </tr>
+								</thead>
+							</table>				  
+
+
+				  </div>
+				  <div class="chart-notes">
+					fonte: SINASC - Sistema de Informações sobre nascidos vivos (Min. da Saúde) .
+				  </div>
+				</div>
+			  </div>
+			  <div class="row">
+
+			  </div>
+
+			</div><!--row end-->
+	</div>
+
+
+  </div>
+
+
+<pre>
+regiao,date,cpty,na,ma,ac,hs,ss,LeafID,ead,ead_CEM
+Sudeste,15.01.2017,Sao Paulo,NS::SWN,CSA::SWN,IR,CHF,1,T::6290,6141.596552,570971.2303
+Sudeste,19.07.2016,Sao Paulo,NS::SWN,CSA::SWN,IR,CHF,1,T::6290,6141.596552,570971.2303
+Sudeste,17.10.2016,Sao Paulo,NS::SWN,CSA::SWN,IR,CHF,1,T::6290,6141.596552,570971.2303
+Sudeste,19.07.2016,Sao Paulo,not-net,_,_,_,_,T::7994,31858.95692,0
+Sudeste,17.10.2016,Sao Paulo,not-net,_,_,_,_,T::7994,31858.95692,0
+Nordeste,19.07.2016,Maceio,NS::ILMN,CSA::ILMN,IR,USD,2,T::10000,38540.64338,12483.826
+Nordeste,17.10.2016,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
+Nordeste,15.01.2017,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
+Nordeste,14.07.2017,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
+Nordeste,15.04.2017,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
+Nordeste,15.01.2017,Irece,NS::CL,dma,IR,USD,1,T::1953,1414.16706,0
+Nordeste,17.10.2016,Irece,NS::CL,dma,IR,USD,1,T::1953,1414.16706,0
+Nordeste,19.07.2016,Irece,NS::CL,dma,IR,USD,1,T::1953,1414.16706,0
+Centro Oeste,09.07.2018,Brasilia,not-net,_,_,_,_,T::5135,908458.539,3217734.507
+</pre>
+
+</body>
+<script>
+var sinopse_estatistica_da_educacao_basica_2015 = "{% static 'data/educacao2.csv' %}"; 
+
+d3.csv( sinopse_estatistica_da_educacao_basica_2015, function(data) {
+	data.forEach(function(d) {                 
+		d.date = d.date; 
+	});  
+
+
+var cptyChart = dc.barChart("#chartdiv2");
+var periodoRingChart   = dc.pieChart("#chartdiv1");
+var chartdiv3   = dc.pieChart("#chartdiv3");
+var chartdiv4   = dc.pieChart("#chartdiv4");
+var chartdiv5   = dc.pieChart("#chartdiv5");
+var chartdiv6   = dc.pieChart("#chartdiv6");
+var big1 = dc.numberDisplay("#chart-06");
+var big2 = dc.numberDisplay("#chart-07");
+var big3 = dc.numberDisplay("#chart-08");	
+var big4 = dc.numberDisplay("#chart-09");	  
+
+  var ndx = crossfilter(data);
+
+  var dimdate = ndx.dimension(function(d) { return d.date;});
+  var dimline = ndx.dimension(function(d) { return d.date;});
+  var minDate = dimdate.bottom(1)[0].date;
+  var maxDate = dimdate.top(1)[0].date;
+  var dimregiao = ndx.dimension(function(d) { return d.regiao;});  
+  var dimestado = ndx.dimension(function(d) { return d.estado;});    
+  var dimcpty = ndx.dimension(function(d) { return d.cpty;});
+  var dimcptyC = ndx.dimension(function(d) { return d.cpty;});
+
+  var groupdate = dimdate.group().reduceSum(function(d){return d.ead/1000000;});
+  var groupline = dimline.group().reduceSum(function(d){return d.ead/1000000;});
+  var groupregiao = dimregiao.group().reduceSum(function(d){return d.ead/1000000;});  
+  var groupcpty = dimcpty.group().reduceSum(function(d){return d.ead/1000000;});
+  var spendhisto=dimcptyC.group().reduceSum(function(d){return d.ead/1000000;});
+  var groupcptyC = remove_empty_bins(spendhisto);
+
+  //                //a dropdown widget
+  selectField=dc.selectMenu('#menuselect0')
+    .dimension(dimregiao)
+    .group(dimregiao.group());
+  
+  selectField=dc.selectMenu('#menuselect')
+    .dimension(dimestado)
+    .group(dimestado.group());
+	
+  selectField2=dc.selectMenu('#menuselect2')
+    .dimension(dimcpty)
+    .group(groupcpty);
+	
+  selectField3=dc.selectMenu('#menuselect3')
+    .dimension(dimdate)
+    .group(groupdate);	
+/*
+  var oldHandler = selectField2.filterHandler();
+  selectField2.filterHandler(function(dimension, filters) {
+    var parseFilters = filters.map(function(d) { return new Date(d);})
+    oldHandler(dimension, parseFilters);
+    return filters;
+  });*/
+  
+  var widthcomp =  document.getElementById('graph').offsetWidth;   
+
+	big1		
+		.group(groupcpty);	
+
+	big2		
+		.group(groupcpty);	
+
+	big3		
+		.group(groupcpty);	
+
+	big4
+		.group(groupcpty);			
+		
+  //a line chart
+
+    periodoRingChart
+		.height(280)
+		.width(widthcomp*0.9)
+		.colors( [ 'rgb(132, 183, 97)','rgb(103, 183, 220)', 'rgb(204, 71, 72)' ] )
+		.colorDomain ([2016,2018])
+		//rgb(103, 183, 220);
+		//.margins({top: 20, right: 20, bottom: 20, left: 20})
+        .dimension(dimline)		
+        .group(groupline)
+		.minAngleForLabel(0.1)
+		.externalLabels(-20)
+        .externalRadiusPadding(20)
+        .drawPaths(false)
+		.legend(dc.legend().x(80).y(0).gap(5))
+        .innerRadius(30);
+		
+	 // example of formatting the legend via svg
+      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
+      periodoRingChart.on('pretransition', function(periodoRingChart) {
+          periodoRingChart.selectAll('.dc-legend-item text')
+              .text('')
+            .append('tspan')
+              .text(function(d) { return d.a; })
+            .append('tspan')
+              .attr('x', 50)
+              .attr('text-anchor', 'end')
+              .text(function(d) { return d.data; });
+      });
+      periodoRingChart.render();	
+
+    chartdiv3
+		.height(280)
+		.width(widthcomp*0.9)
+		.colors( [ 'rgb(132, 183, 97)','rgb(103, 183, 220)', 'rgb(204, 71, 72)' ] )
+		.colorDomain ([2016,2018])		
+		//.margins({top: 20, right: 20, bottom: 20, left: 20})
+        .dimension(dimline)		
+        .group(groupline)
+		.minAngleForLabel(0.1)
+		.externalLabels(-20)
+        .externalRadiusPadding(20)
+        .drawPaths(false)
+		.legend(dc.legend().x(80).y(0).gap(5))
+        .innerRadius(30);
+		
+	 // example of formatting the legend via svg
+      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
+      chartdiv3.on('pretransition', function(chartdiv3) {
+          chartdiv3.selectAll('.dc-legend-item text')
+              .text('')
+            .append('tspan')
+              .text(function(d) { return d.a; })
+            .append('tspan')
+              .attr('x', 50)
+              .attr('text-anchor', 'end')
+              .text(function(d) { return d.data; });
+      });
+      chartdiv3.render();	  
+
+	  chartdiv4
+		.height(280)
+		.width(widthcomp*0.9)
+		.colors( [ 'rgb(132, 183, 97)','rgb(103, 183, 220)', 'rgb(204, 71, 72)' ] )
+		.colorDomain ([2016,2018])		
+		//.margins({top: 20, right: 20, bottom: 20, left: 20})
+        .dimension(dimline)		
+        .group(groupline)
+		.minAngleForLabel(0.1)
+		.externalLabels(-20)
+        .externalRadiusPadding(20)
+        .drawPaths(false)
+		.legend(dc.legend().x(80).y(0).gap(5))
+        .innerRadius(30);
+		
+	 // example of formatting the legend via svg
+      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
+      chartdiv4.on('pretransition', function(chartdiv4) {
+          chartdiv4.selectAll('.dc-legend-item text')
+              .text('')
+            .append('tspan')
+              .text(function(d) { return d.a; })
+            .append('tspan')
+              .attr('x', 50)
+              .attr('text-anchor', 'end')
+              .text(function(d) { return d.data; });
+      });
+      chartdiv4.render();	
+
+	  chartdiv5
+		.height(280)
+		.width(widthcomp*0.9)
+		.colors( [ 'rgb(132, 183, 97)','rgb(103, 183, 220)', 'rgb(204, 71, 72)' ] )
+		.colorDomain ([2016,2018])		
+		//.margins({top: 20, right: 20, bottom: 20, left: 20})
+        .dimension(dimline)		
+        .group(groupline)
+		.minAngleForLabel(0.1)
+		.externalLabels(-20)
+        .externalRadiusPadding(20)
+        .drawPaths(false)
+		.legend(dc.legend().x(80).y(0).gap(5))
+        .innerRadius(30);
+		
+	 // example of formatting the legend via svg
+      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
+      chartdiv5.on('pretransition', function(chartdiv5) {
+          chartdiv5.selectAll('.dc-legend-item text')
+              .text('')
+            .append('tspan')
+              .text(function(d) { return d.a; })
+            .append('tspan')
+              .attr('x', 50)
+              .attr('text-anchor', 'end')
+              .text(function(d) { return d.data; });
+      });
+      chartdiv5.render();	
+
+	  chartdiv6
+		.height(280)
+		.width(widthcomp*0.9)
+		.colors( [ 'rgb(132, 183, 97)','rgb(103, 183, 220)', 'rgb(204, 71, 72)' ] )
+		.colorDomain ([2016,2018])		
+		//.margins({top: 20, right: 20, bottom: 20, left: 20})
+        .dimension(dimline)		
+        .group(groupline)
+		.minAngleForLabel(0.1)
+		.externalLabels(-20)
+        .externalRadiusPadding(20)
+        .drawPaths(false)
+		.legend(dc.legend().x(80).y(0).gap(5))
+        .innerRadius(30);
+		
+	 // example of formatting the legend via svg
+      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
+      chartdiv6.on('pretransition', function(chartdiv6) {
+          chartdiv6.selectAll('.dc-legend-item text')
+              .text('')
+            .append('tspan')
+              .text(function(d) { return d.a; })
+            .append('tspan')
+              .attr('x', 50)
+              .attr('text-anchor', 'end')
+              .text(function(d) { return d.data; });
+      });
+      chartdiv6.render();		 
+
+var dataTableOptions = {
+                "lengthMenu": [[10], [25]],
+                "retrieve": true,
+                columnDefs: [
+                    {
+                        "orderable": true,
+						"orderData": [ 1, 1 ],
+                        targets: 0,
+                        data: function (d) { return d.regiao;  }
+                    } ,
+				   {
+                        "orderable": true,
+                        targets: 1,
+                        data: function (d) { return d.cpty; }
+                    },
+
+                    {
+                        "orderable": false,
+                        targets: 2,
+                        data: function (d) { return d.ead ; }
+                    },
+                    {
+                        "orderable": false,
+                        targets: 3,
+                        data: function (d) { return d.ead ; }
+                    },
+                    {
+                        "orderable": false,
+                        targets: 4,
+                        data: function (d) { return d.ead; }
+                    },
+                    {
+                        "orderable": false,
+                        targets: 5,
+                        data: function (d) { return d.ead; }
+                    }
+                ]
+            };
+
+            var datatable = $('#chart-05').dataTable(dataTableOptions);
+		
+			
+            function RefreshTable() {
+                dc.events.trigger(function () {
+                    datatable.api()
+                      .clear()
+                      .rows.add(dimdate.top(100))
+                      .draw();
+                });
+            }
+            for (var i = 0; i < dc.chartRegistry.list().length; i++) {
+                var chartI = dc.chartRegistry.list()[i];
+                chartI.on("filtered", RefreshTable);
+            }
+
+            //Jquery DT
+
+            window.filter = function (filters) {
+                filters.forEach(function (d, i) { charts[i].filter(d); });
+                renderAll();
+            };
+
+            window.reset = function (i) {
+                charts[i].filter(null);
+                renderAll();
+            };
+
+			
+			
+            RefreshTable();		  
+	  
+	  
+
+  var barTip2=[]; //define some tips
+  cptyChart
+    .ordering(function(d){return -d.value;})
+    .height(280)
+    .width(widthcomp*0.9)
+	.colors(d3.scale.category10())
+	.colorAccessor(function(d, i){return i;})
+    .transitionDuration(500)
+    .dimension(dimcptyC)
+    .group(groupcptyC)
+	.renderHorizontalGridLines(true)
+	.renderVerticalGridLines(true)	
+    .margins({top:10, right:10, bottom: 2, left: 60})
+    .gap(1)
+    .elasticY(true)
+    .elasticX(true)
+    .x(d3.scale.ordinal().domain(dimcptyC))
+    .xUnits(dc.units.ordinal)
+    .renderHorizontalGridLines(true)
+    .yAxis().tickFormat(d3.format("s"));
+
+
+  dc.renderAll();
+
+  function remove_empty_bins(source_group) {
+    return {
+      all:function () {
+        return source_group.all().filter(function(d) {
+          return d.value > 0.00001;
+        });
+      }
+    };
+  }
+});
+  //var parser = d3.time.format("%d.%m.%Y");
+  //var formatter=d3.time.format("%d.%m.%Y");
+
+
+
+  
+
+</script>
+</html>
+{% endblock %}

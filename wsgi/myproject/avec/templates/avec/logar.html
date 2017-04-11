@@ -29,7 +29,7 @@
 				            	{% csrf_token %}
 				                <span id="reauth-email" class="reauth-email"></span>
 				                
-				                <input type="email" id="{{ form.username.auto_id }}" class="form-control" name="{{ form.username.name }}" placeholder="Usuário" required="required" autofocus="autofocus">
+				                <input type="text" id="{{ form.username.auto_id }}" class="form-control" name="{{ form.username.name }}" placeholder="Usuário" required="required" autofocus="autofocus">
 				                
 				                <input type="password" id="{{ form.password.auto_id }}" class="form-control" name="{{ form.password.name }}" placeholder="Senha" required="required">
 				                
@@ -39,7 +39,7 @@
 				                    </label>
 				                </div>
 				                <button type="submit" class="btn btn-lg btn-primary btn-block btn-signin btn-mpt" value="Entrar"><i class="fa fa-key" aria-hidden="true"></i>Entrar</button>
-				                <a href="#" class="forgot-password">Esqueceu a senha?</a>
+				                <a href="#" id="btn-forgot-password" class="forgot-password">Esqueceu a senha?</a>
 				                <input type="hidden" name="next" value="{{ next }}" />
 				                {% if form.errors %}
 									<div class="alert alert-danger" style="margin-bottom: 0px;">Usuário e/ou senha inválidos. Tente novamente.</div>

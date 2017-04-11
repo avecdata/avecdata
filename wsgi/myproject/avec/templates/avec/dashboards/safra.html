@@ -1,0 +1,889 @@
+﻿{% extends 'avec/base_dashboard.html' %}
+{% load staticfiles %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>AVEC - Ciencia de dados</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />		
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  	
+
+   <!-- <link href="css/style2.css" rel="stylesheet">-->
+   
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+   
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>	
+    <script src="{% static 'js/colorbrewer.js' %}"></script>
+    <script src="{% static 'data/world-countries.json' %}"></script>
+	
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dc.js' %}"></script>		
+	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'js/cloud.js' %}"></script>
+   <!--<script type="text/javascript" src="http://www.kunalbabre.com/projects/table2CSV.js" > </script> 	-->
+
+	<!--  <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+<style>
+	
+	
+	@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
+
+
+#chartdiv, #chartdiv2 {
+	width		: 100%;
+	height		: 600px;
+	font-size	: 11px;
+}							
+svg {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+h1 {
+  padding: 50px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16b'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09, #chart-10,  #chart-11,  #chart-12,  #chart-13{
+        background: #899296;
+        width: 100%;
+        font-size: 64px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 100px;
+        height: 40px;
+        line-height: normal;
+		margin-bottom: 15px;
+      }
+
+	</style>
+    </head>
+<body>
+
+<div class="title_sec">
+		<div class="internal__row">
+			<h1 class="internal__title">Produção Agrícola</h1>
+		</div>
+</div>	
+
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Cana</label>
+    
+  <input id="tab2" type="radio" name="tabs" >
+  <label for="tab2">Café Arábica</label>
+    
+  <input id="tab3" type="radio" name="tabs">
+  <label for="tab3">Soja</label>
+    
+  <input id="tab4" type="radio" name="tabs" class="btab">
+  <label for="tab4">Milho</label>
+
+<section id="content1">
+	<div class="tab-pane " id="a_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Serie Historica - Producao de Cana no Brasil - 2005 a 2016
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			  				<div id="chartdiv"></div>	
+			
+          </div>
+          <div class="chart-notes">
+            Fonte: Conab. </br>
+			Previsao em dezembro de 2016.
+          </div>
+        </div>
+      </div>
+	</div>
+	</div>
+</section>	
+
+<section id="content2">
+	<div class="tab-pane " id="b_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica - Produção de café arábica no Brasil por Regiao
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			<div id="chartdiv2"></div>	
+			
+          </div>
+          <div class="chart-notes">
+            Fonte: Conab. </br>
+			Previsao em dezembro de 2016.
+          </div>
+        </div>
+      </div>
+	</div>	
+
+	</div>
+</section>	
+
+
+<script>
+
+var chart = AmCharts.makeChart("chartdiv", {
+    "type": "serial",
+    "theme": "light",
+    "marginRight":30,
+    "legend": {
+        "equalWidths": false,
+        "periodValueText": "total: [[value.sum]]",
+        "position": "top",
+        "valueAlign": "left",
+        "valueWidth": 100
+    },
+    "dataProvider": [
+  {
+    "year": 2005,
+    "ATR Medio": 132.61,
+    "Açucar %": 0,
+    "Etanol Anidro": 9105448.1,
+    "Etanol Anidro %": 0,
+    "Etanol Hidratado": 7746040.5,
+    "Etanol Hidratado %": 0,
+    "area": 5840.3,
+    "açucar": 26420.1,
+    "etanol Total": 0,
+    "produtividade": 74318,
+    "produção": 431413.4
+  },
+  {
+    "year": 2006,
+    "ATR Medio": 130.18,
+    "Açucar %": 0,
+    "Etanol Anidro": 8220715.8,
+    "Etanol Anidro %": 0,
+    "Etanol Hidratado": 9211462.2,
+    "Etanol Hidratado %": 0,
+    "area": 6163.3,
+    "açucar": 30223.6,
+    "etanol Total": 17432178,
+    "produtividade": 77038,
+    "produção": 474800.4
+  },
+  {
+    "year": 2007,
+    "ATR Medio": 126.67,
+    "Açucar %": 40.6,
+    "Etanol Anidro": 8640050.3,
+    "Etanol Anidro %": 17.7,
+    "Etanol Hidratado": 14367117.5,
+    "Etanol Hidratado %": 28,
+    "area": 7010.2,
+    "açucar": 31279.7,
+    "etanol Total": 23007167.8,
+    "produtividade": 81506,
+    "produção": 571370.7
+  },
+  {
+    "year": 2008,
+    "ATR Medio": 138.35,
+    "Açucar %": 42.2,
+    "Etanol Anidro": 10063711.1,
+    "Etanol Anidro %": 21.3,
+    "Etanol Hidratado": 16619713.8,
+    "Etanol Hidratado %": 35.7,
+    "area": 7057.9,
+    "açucar": 31620.2,
+    "etanol Total": 26683424.9,
+    "produtividade": 80965,
+    "produção": 571434.3
+  },
+  {
+    "year": 2009,
+    "ATR Medio": 130.35,
+    "Açucar %": 45.1,
+    "Etanol Anidro": 6949840.2,
+    "Etanol Anidro %": 16.7,
+    "Etanol Hidratado": 18812782.5,
+    "Etanol Hidratado %": 38.2,
+    "area": 7409.5,
+    "açucar": 33074.7,
+    "etanol Total": 25762622.7,
+    "produtividade": 81585,
+    "produção": 604513.7
+  },
+  {
+    "year": 2010,
+    "ATR Medio": 139.96,
+    "Açucar %": 48.1,
+    "Etanol Anidro": 8016983,
+    "Etanol Anidro %": 17.2,
+    "Etanol Hidratado": 19578500.3,
+    "Etanol Hidratado %": 34.7,
+    "area": 8056.1,
+    "açucar": 38168.4,
+    "etanol Total": 27595483.3,
+    "produtividade": 77446,
+    "produção": 623905.3
+  },
+  {
+    "year": 2011,
+    "ATR Medio": 143.51,
+    "Açucar %": 49.8,
+    "Etanol Anidro": 9677885,
+    "Etanol Anidro %": 20.9,
+    "Etanol Hidratado": 13749286,
+    "Etanol Hidratado %": 29.2,
+    "area": 8362.6,
+    "açucar": 38271.8,
+    "etanol Total": 23427171,
+    "produtividade": 67081,
+    "produção": 560955.2
+  },
+  {
+    "year": 2012,
+    "ATR Medio": 137.45,
+    "Açucar %": 49.7,
+    "Etanol Anidro": 9852373.1,
+    "Etanol Anidro %": 21.5,
+    "Etanol Hidratado": 13788092,
+    "Etanol Hidratado %": 28.8,
+    "area": 8485,
+    "açucar": 38336.9,
+    "etanol Total": 23640465.1,
+    "produtividade": 69407,
+    "produção": 588915.7
+  },
+  {
+    "year": 2013,
+    "ATR Medio": 133.43,
+    "Açucar %": 45.2,
+    "Etanol Anidro": 11824427.7,
+    "Etanol Anidro %": 23.6,
+    "Etanol Hidratado": 16132283.8,
+    "Etanol Hidratado %": 31.2,
+    "area": 8811.4,
+    "açucar": 37878.3,
+    "etanol Total": 27956711.5,
+    "produtividade": 74769,
+    "produção": 658822.3
+  },
+  {
+    "year": 2014,
+    "ATR Medio": 136.52,
+    "Açucar %": 43.1,
+    "Etanol Anidro": 11728042.3,
+    "Etanol Anidro %": 23.9,
+    "Etanol Hidratado": 16931881.4,
+    "Etanol Hidratado %": 33,
+    "area": 9004.5,
+    "açucar": 35560.2,
+    "etanol Total": 28659923.7,
+    "produtividade": 70495,
+    "produção": 634767
+  },
+  {
+    "year": 2015,
+    "ATR Medio": 131.44,
+    "Açucar %": 40.4,
+    "Etanol Anidro": 11208500.4,
+    "Etanol Anidro %": 22.5,
+    "Etanol Hidratado": 19253024.1,
+    "Etanol Hidratado %": 37.1,
+    "area": 8654.8,
+    "açucar": 33489.1,
+    "etanol Total": 30461524.5,
+    "produtividade": 76903,
+    "produção": 665586.2
+  },
+  {
+    "year": 2016,
+    "ATR Medio": 129.22,
+    "Açucar %": 47,
+    "Etanol Anidro": 11372503.9,
+    "Etanol Anidro %": 22.4,
+    "Etanol Hidratado": 16491447.9,
+    "Etanol Hidratado %": 30.6,
+    "area": 9110.9,
+    "açucar": 39814.8,
+    "etanol Total": 27863951.7,
+    "produtividade": 76232,
+    "produção": 694544.8
+  }
+],
+    "valueAxes": [{
+        "stackType": "regular",
+        "gridAlpha": 0.07,
+        "position": "left",
+        "title": "Produção de combustível"
+    }],
+	
+    "graphs": [{
+        "balloonText": "<img src='http://canasol.com.br/imagens/indicadorEhidratado.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "hidden": true,
+        "lineAlpha": 0.4,
+        "title": "etanol Total",
+        "valueField": "etanol Total"
+    }, 
+	{
+        "balloonText": "<img src='http://canasol.com.br/imagens/indicadorEhidratado.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Etanol Anidro",
+        "valueField": "Etanol Anidro"
+    },
+	{
+        "balloonText": "<img src='http://canasol.com.br/imagens/indicadorEhidratado.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Etanol Hidratado",
+        "valueField": "Etanol Hidratado"
+    },	
+	{
+        "balloonText": "<img src='http://canasol.com.br/imagens/indicadorEhidratado.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "Etanol Hidratado",
+        "valueField": "Etanol Hidratado"
+    },
+	{
+        "balloonText": "<img src='https://ae01.alicdn.com/kf/HTB1WTpPKFXXXXXXXVXXq6xXFXXX3/100-P%C3%A7s-saco-Sementes-de-Cana-de-A%C3%A7%C3%BAcar-2016-Nova-Vegatable-E-Frutas-Fontes-do-jardim.jpg_50x50.jpg' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "açucar",
+        "valueField": "açucar"
+    }, {
+        "balloonText": "<img src='http://www.rankbrasil.com.br/Midia/Recordes/Materias/000002.jpg' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "produção",
+        "valueField": "produção"
+    }],
+    "plotAreaBorderAlpha": 0,
+    "marginTop": 10,
+    "marginLeft": 0,
+    "marginBottom": 0,
+    "chartScrollbar": {},
+    "chartCursor": {
+        "cursorAlpha": 0
+    },
+    "categoryField": "year",
+    "categoryAxis": {
+        "startOnAxis": true,
+        "axisColor": "#DADADA",
+        "gridAlpha": 0.07,
+        "title": "Year",
+        "guides": [{
+            category: "1900",
+            toCategory: "1920",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            fillAlpha: 0.2,
+            fillColor: "#CC0000",
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "fines for speeding increased"
+        }, {
+            category: "2017",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "motorcycle fee introduced"
+        }]
+    },
+    "export": {
+    	"enabled": true
+     }
+});
+
+</script>
+
+
+
+<script>
+
+var chart = AmCharts.makeChart("chartdiv2", {
+    "type": "serial",
+    "theme": "light",
+    "marginRight":30,
+    "legend": {
+        "equalWidths": false,
+        "periodValueText": "total: [[value.sum]]",
+        "position": "top",
+        "valueAlign": "left",
+        "valueWidth": 100
+    },
+    "dataProvider": [
+  {
+    "periodo": 2001,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 1900,
+    "GO": 0,
+    "MG Sul e CentroOeste": 7600,
+    "MG Triângulo Alto Paranaiba e Noroeste": 3100,
+    "MG Zona da Mata Rio Doce e Central": 3950,
+    "MT": 40,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 540,
+    "RJ": 150,
+    "SP": 3520
+  },
+  {
+    "periodo": 2002,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 2500,
+    "GO": 0,
+    "MG Sul e CentroOeste": 13200,
+    "MG Triângulo Alto Paranaiba e Noroeste": 5100,
+    "MG Zona da Mata Rio Doce e Central": 6800,
+    "MT": 60,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 2340,
+    "RJ": 240,
+    "SP": 5800
+  },
+  {
+    "periodo": 2003,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 1600,
+    "GO": 0,
+    "MG Sul e CentroOeste": 5360,
+    "MG Triângulo Alto Paranaiba e Noroeste": 2810,
+    "MG Zona da Mata Rio Doce e Central": 3850,
+    "MT": 30,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 1970,
+    "RJ": 120,
+    "SP": 2810
+  },
+  {
+    "periodo": 2004,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 2295,
+    "GO": 0,
+    "MG Sul e CentroOeste": 0,
+    "MG Triângulo Alto Paranaiba e Noroeste": 0,
+    "MG Zona da Mata Rio Doce e Central": 0,
+    "MT": 30,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 2526,
+    "RJ": 250,
+    "SP": 5870
+  },
+  {
+    "periodo": 2005,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 2056,
+    "GO": 0,
+    "MG Sul e CentroOeste": 6750,
+    "MG Triângulo Alto Paranaiba e Noroeste": 2886,
+    "MG Zona da Mata Rio Doce e Central": 5553,
+    "MT": 40,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 1435,
+    "RJ": 288,
+    "SP": 3223
+  },
+  {
+    "periodo": 2006,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 2128,
+    "GO": 0,
+    "MG Sul e CentroOeste": 12043,
+    "MG Triângulo Alto Paranaiba e Noroeste": 4313,
+    "MG Zona da Mata Rio Doce e Central": 5601,
+    "MT": 25,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 2248,
+    "RJ": 255,
+    "SP": 4470
+  },
+  {
+    "periodo": 2007,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 2167,
+    "GO": 0,
+    "MG Sul e CentroOeste": 7265.5,
+    "MG Triângulo Alto Paranaiba e Noroeste": 3255,
+    "MG Zona da Mata Rio Doce e Central": 5916,
+    "MT": 11.4,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 1732,
+    "RJ": 269.4,
+    "SP": 2632
+  },
+  {
+    "periodo": 2008,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 2867,
+    "GO": 0,
+    "MG Sul e CentroOeste": 12118,
+    "MG Triângulo Alto Paranaiba e Noroeste": 4534,
+    "MG Zona da Mata Rio Doce e Central": 6893,
+    "MT": 12,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 2608,
+    "RJ": 253,
+    "SP": 4420
+  },
+  {
+    "periodo": 2009,
+    "BA Cerrado": 436,
+    "BA Planalto": 895.5,
+    "ES": 2603,
+    "GO": 0,
+    "MG Sul e CentroOeste": 9750,
+    "MG Triângulo Alto Paranaiba e Noroeste": 3859,
+    "MG Zona da Mata Rio Doce e Central": 5989,
+    "MT": 11,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 1467,
+    "RJ": 252,
+    "SP": 3423
+  },
+  {
+    "periodo": 2010,
+    "BA Cerrado": 485.5,
+    "BA Planalto": 1242.4,
+    "ES": 2792,
+    "GO": 0,
+    "MG Sul e CentroOeste": 12616,
+    "MG Triângulo Alto Paranaiba e Noroeste": 5652,
+    "MG Zona da Mata Rio Doce e Central": 6635,
+    "MT": 16.3,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 2284,
+    "RJ": 237.6,
+    "SP": 4662
+  },
+  {
+    "periodo": 2011,
+    "BA Cerrado": 429,
+    "BA Planalto": 1119.9,
+    "ES": 3079,
+    "GO": 0,
+    "MG Sul e CentroOeste": 10442,
+    "MG Triângulo Alto Paranaiba e Noroeste": 4001,
+    "MG Zona da Mata Rio Doce e Central": 7439,
+    "MT": 11,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 1842,
+    "RJ": 247,
+    "SP": 3111.5
+  },
+  {
+    "periodo": 2012,
+    "BA Cerrado": 527.7,
+    "BA Planalto": 808.8,
+    "ES": 2789,
+    "GO": 247.4,
+    "MG Sul e CentroOeste": 13792,
+    "MG Triângulo Alto Paranaiba e Noroeste": 6231,
+    "MG Zona da Mata Rio Doce e Central": 6621,
+    "MT": 2.5,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 1580,
+    "RJ": 262.2,
+    "SP": 5356.6
+  },
+  {
+    "periodo": 2013,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 0,
+    "GO": 0,
+    "MG Sul e CentroOeste": 0,
+    "MG Triângulo Alto Paranaiba e Noroeste": 0,
+    "MG Zona da Mata Rio Doce e Central": 0,
+    "MT": 0,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 0,
+    "RJ": 0,
+    "SP": 0
+  },
+  {
+    "periodo": 2014,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 0,
+    "GO": 0,
+    "MG Sul e CentroOeste": 0,
+    "MG Triângulo Alto Paranaiba e Noroeste": 0,
+    "MG Zona da Mata Rio Doce e Central": 0,
+    "MT": 0,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 0,
+    "RJ": 0,
+    "SP": 0
+  },
+  {
+    "periodo": 2015,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 0,
+    "GO": 0,
+    "MG Sul e CentroOeste": 0,
+    "MG Triângulo Alto Paranaiba e Noroeste": 0,
+    "MG Zona da Mata Rio Doce e Central": 0,
+    "MT": 0,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 0,
+    "RJ": 0,
+    "SP": 0
+  },
+  {
+    "periodo": 2016,
+    "BA Cerrado": 0,
+    "BA Planalto": 0,
+    "ES": 0,
+    "GO": 0,
+    "MG Sul e CentroOeste": 0,
+    "MG Triângulo Alto Paranaiba e Noroeste": 0,
+    "MG Zona da Mata Rio Doce e Central": 0,
+    "MT": 0,
+    "Norte Jequitinhonha e Mucuri": 0,
+    "PR": 0,
+    "RJ": 0,
+    "SP": 0
+  }
+]
+	,
+    "valueAxes": [{
+        "stackType": "regular",
+        "gridAlpha": 0.07,
+        "position": "left",
+        "title": "Produção de Café"
+    }],
+    "graphs": [{
+        "balloonText": "<img src='https://upload.wikimedia.org/wikipedia/commons/2/28/Bandeira_da_Bahia.svg' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "BA Cerrado",
+        "valueField": "BA Cerrado"
+    }, 
+	{
+        "balloonText": "<img src='https://upload.wikimedia.org/wikipedia/commons/2/28/Bandeira_da_Bahia.svg' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "BA Planalto",
+        "valueField": "BA Planalto"
+    },
+	{
+        "balloonText": "<img src='http://2.bp.blogspot.com/-bO04Xfa3Vv4/VOuFrxGzsnI/AAAAAAAAKxw/vSGA1bkIJIc/s1600/IMAGEM%2B1130%2B-%2BBANDEIRA%2BDO%2BESP%C3%8DRITO%2BSANTO%2B-%2BO%2BBLOG%2BDO%2BMESTRE.jpg' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "ES",
+        "valueField": "ES"
+    },	
+	{
+        "balloonText": "<img src='data:image/png;base64,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' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "GO",
+        "valueField": "GO"
+    },
+	{
+        "balloonText": "<img src='data:image/png;base64,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' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "MG Sul e CentroOeste",
+        "valueField": "MG Sul e CentroOeste"
+    }, 
+	{
+        "balloonText": "<img src='data:image/png;base64,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 style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "MG Triângulo Alto Paranaiba e Noroeste",
+        "valueField": "MG Triângulo Alto Paranaiba e Noroeste"
+    }, {
+        "balloonText": "<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAAC8CAMAAAC672BgAAAAwFBMVEX/////AAAAAAD/ODj8/PzZ2dlxcXHW1tbq6ur4+PiGhobR0dHz8/OhoaF+fn55eXnGxsYuLi5BQUGbm5vi4uKxsbFKSkpzc3Pv7++RkZHDw8PNzc1nZ2dfX18JCQm5ubn/xMT/4OD/6ur/vb05OTn/S0uLi4upqan/d3f/r6//iIj/b28yMjL/Q0P/UlJUVFQbGxv/kJAkJCT/IiL/f38WFhb/np7/pqb/5OT/XFz/MDD/z8//8/P/tbX/ExP/YGBFCkw7AAAJGklEQVR4nO2da2PaOgyGEy0JIYQEAuEaoN062HbYYHTsfvn//+pYcsxloxBoITjV86GjJk1t1bZk6Q0zDIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhmKfl7du8e3BFmGbePbgePprmx7z7cC38NAU/8+7FlfAHjfFnq6nWaFRy6k2+/DCJH+uWGJB6J78+5cZ3aYzvq4Y2RDXDqNSHOXYqJ96aKcq9VqFL/1owzq9XF8H2PHurwTJXWLIFnPStBliX7dyFacAS+lst79bGeEcNFVDWqoB/4e5dlD7E+E9p4qqWl+YGL+U15fS9UbGN0aIVEApX0Uhbvm0a4xu2uKupc3eXRx8vRRlK4qsDVbFJyrXww9yC3Ous5dNmEUIvx76eHR8qaAtcKsMJtdxvG+Me21y4mxp+LSKnMsqxu2dmAKNEzAt0mzX8/ov5F1+wtbnAmGso5kVtAcUNRMsDkFtolRbCz79tkR5RuoNGVxjLncFdcW0hKFPoUKHpYXz61xifsH2Ka8jyUsMVmkmSQIIvvv5rC9P8Kt5whUu1AbzixlyuGlp1OqV5YXzYZYwP8iIfFs18+nkJxF96GkxKGyfRm122MM0berMBK1uUXaNo9CAJI+Ek5rPGSI7ufrcxyL0aXl394Ahm+fT4nHTBNawmzIRDoWDq825bmOZnfDdOD2l2BIPizQwMMnzhUsuGRYPb4VYV6F4t8MTXThvmtXx7fSasReRKl4q8edgYb/D9EThxuD7DFAjXwZOoC7DaCW4ftoVp3uIVozlAWMQV4ixpB6jR3Cde7zPGa3mNv4ozrAKlQ21IF34V0oPXq322MM1X6id9txJ3B1Mo0BElGqhXTjqq3/uN8ZsuqrbqeGJbzLx4FuXT86dnBIvVSbxOc+RBt6og91qKgkkCtEJ6RcltWMNgAFGa2KSU3h63qlAFNh+zGuVAzI+cev/EYJK7N4f2ehP877Ax/lPXVqETA1Q7xXCyHblpNtYxw4/DttgosC1ECN8ho+TS/Scm9SSdREWT77MY4738KT+EQY9SxPN2Pt1/UqxVtFCpU7LmVxZbmOYvvLYJC2HAEDeMWgHc6wQg2Sp/WAfcquI3GbGFXtmnKD7R3qGMwOvCVpDwMZstUv2KTT61CkWIyy38m1agF69SNS8PW0FBBbZwiV8HRUh7jecG1o4EbVdWDf9kNwbpV/z1QVdzXDqUTKBUFp6VhAaZ3KqC3GtBfKqY3VgtLcuyUUwz48UxxnhBN2nZe36DPpQjECMJNhQ4bw9bYJO/5aFNrSfJSDjWjTOWdXj822xVTkoiGHX++RWaEKMVugCTVcu7w8Pf5t3G7Sy4s21dreHLLdMdQD1VXOwsoe3na3qzSVUccmIMSfWMQ0NIX/Trspx4jFtVpPLQEoSGsQzEq5mWU6NJp9UB/SGrtFKOcqsKeXrtYiY5xKAlbOU1oMfQQrc6go3Q8fspxpDy0DZW1WoiKO+kuki96KFkSZaC7IhCjH+UKdkg/coEC2y+2DTilfxNI6whTowxFQkjmtkZcn27wQxgmSbEcixuLIyS58BOoRwCjFxSm6RLZYcyJRukX4nFDjRRqh/9hF7NFsizu6wc3Z5qi7TAJg43gN6kv4S6jsrh3hDavoi6qOs7lSnZkPoVv++SzEsE+JqJyrst2vTxrCon9QPKlGzcqNt6ALgV9bTK9QygBVRF85M0zfWAMiUbUr+Cj6E0ZPSyLtFdPz2wMW4OA7Fz9ukAfrCEth8qsPVh5hty1ekUlNOanorzqjqwnuxWFVRgS0jQQPuxo83UaMg/njBEMpcte5Qp2SD9ipS69NBTa+NOOnQsG2AAPZLx4u1jbZG61y49czGjpGhFjzyP78CwV6INfywfktirTMmG1K8M2+vfEeQzuqOxIxkgdWTIeECZkg3Sr9CBxyCX7YEO1YMuTuURYLzlTKnlUW5VId0rLZHeHBxxcw3O8jbIZHgXYCz/jplLaPtRD4hjmC9rjhqIIjsOFYsx3Rfi90eU0PZDBTY/EAdAm8KMqhb6ldIdzHBB12jDz6BMyQbpV1xSeYQYcXS02DUocPbSJMxJub7dUAaQIowyZtx7oEl1yRqrJ2cyKVOy8X59/wZ4AeijAHRnxyhTsvFrdffqcFbvXnkYupGflD3NqkzJxm81/FjuzVfNZJ2Q68lA/IncqkK6V7cFyZXPCoNCAKX3HD6tW1WQe/VWz0SX3doVJ8t7S6n3rMqJcUIJbT9SvyJs4TdHjQTV1FedASS9pw+nl9D2Q+7Vbi1IU97tVa+8piQi0PpAPldylDIlG1K/MgjiGGP95vUX5UuRzModqUzJxkq/ktyJcFSDw5oUBT8617cbJbF3YVJfXvH2uc3RypRsrPQrYnfSpmJwgjIlG0q/4miUIv92eFin8U3ef6zRxwY8qoS2nxu8f+XKneoWJylTsiH1KxrZ4kRlSja+5D264ziTW1Xo9RGRJytTsvEp7/Edw+15bZEW2DThEcqUbHzIe4TZOaNbVdzkPcbMPEkJbT/3eY8xK49UpmTjc96jzMaZ3apCD/f6aGVKNt7kPc4s3F7GFnq41ycsoe3n/eG+5M3N/YsLcX+T91gZhmEuhuc47bDtOA6WjeOEyrKxI1OZFScwjC6+6TiJa3QdynyPvIfvpjnjMEggCcIAjbGUsgIP5EOODgwNo7UIkLZrRPKzHhta6LZOxVZCrD4EZAWvLtVIMJ0LYyTqutaU5A2N+o57FIaSEmI5M59k9l7k4FLoQXeYfo4KEY0DVKA/D2NYwhJTHLp3V8MZkozJGKuZEYUGioyfhzFiSEUcXt3AyhjYnjDGjP6XFxTiC2OMxKXPwxitxC6NsCYmjJGEYpUYaIxWq1SpVPpNMoYxmz4PY7hyCrTIGGKdJIE0xuYyERfFk+dgjC5Y5bLVgA59cjL0xUrxtjdQ9LtV8Ka59fQCpMYYyk+TgAkZIxyKHYSMMfNdpCyNYdxBof9Xjwo9aVBLo41oaQRLijnkJ0xEcvWgpyF9kg2FXiZ+DR9HaabaxWbNaKLIAiX3+KLUl3SMkrRWSR8JBsMwDMMwDMMwDMMwDMMwDMMwDMMwDMMwDMMwDMOci/8B2dyHxuJOgAkAAAAASUVORK5CYII=' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "MG Zona da Mata Rio Doce e Central",
+        "valueField": "MG Zona da Mata Rio Doce e Central"
+    }, {
+        "balloonText": "<img src='data:image/png;base64,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' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "MT",
+        "valueField": "MT"
+    }, {
+        "balloonText": "<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAAC8CAMAAAC672BgAAAAwFBMVEX/////AAAAAAD/ODj8/PzZ2dlxcXHW1tbq6ur4+PiGhobR0dHz8/OhoaF+fn55eXnGxsYuLi5BQUGbm5vi4uKxsbFKSkpzc3Pv7++RkZHDw8PNzc1nZ2dfX18JCQm5ubn/xMT/4OD/6ur/vb05OTn/S0uLi4upqan/d3f/r6//iIj/b28yMjL/Q0P/UlJUVFQbGxv/kJAkJCT/IiL/f38WFhb/np7/pqb/5OT/XFz/MDD/z8//8/P/tbX/ExP/YGBFCkw7AAAJGklEQVR4nO2da2PaOgyGEy0JIYQEAuEaoN062HbYYHTsfvn//+pYcsxloxBoITjV86GjJk1t1bZk6Q0zDIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhmKfl7du8e3BFmGbePbgePprmx7z7cC38NAU/8+7FlfAHjfFnq6nWaFRy6k2+/DCJH+uWGJB6J78+5cZ3aYzvq4Y2RDXDqNSHOXYqJ96aKcq9VqFL/1owzq9XF8H2PHurwTJXWLIFnPStBliX7dyFacAS+lst79bGeEcNFVDWqoB/4e5dlD7E+E9p4qqWl+YGL+U15fS9UbGN0aIVEApX0Uhbvm0a4xu2uKupc3eXRx8vRRlK4qsDVbFJyrXww9yC3Ous5dNmEUIvx76eHR8qaAtcKsMJtdxvG+Me21y4mxp+LSKnMsqxu2dmAKNEzAt0mzX8/ov5F1+wtbnAmGso5kVtAcUNRMsDkFtolRbCz79tkR5RuoNGVxjLncFdcW0hKFPoUKHpYXz61xifsH2Ka8jyUsMVmkmSQIIvvv5rC9P8Kt5whUu1AbzixlyuGlp1OqV5YXzYZYwP8iIfFs18+nkJxF96GkxKGyfRm122MM0berMBK1uUXaNo9CAJI+Ek5rPGSI7ufrcxyL0aXl394Ahm+fT4nHTBNawmzIRDoWDq825bmOZnfDdOD2l2BIPizQwMMnzhUsuGRYPb4VYV6F4t8MTXThvmtXx7fSasReRKl4q8edgYb/D9EThxuD7DFAjXwZOoC7DaCW4ftoVp3uIVozlAWMQV4ixpB6jR3Cde7zPGa3mNv4ozrAKlQ21IF34V0oPXq322MM1X6id9txJ3B1Mo0BElGqhXTjqq3/uN8ZsuqrbqeGJbzLx4FuXT86dnBIvVSbxOc+RBt6og91qKgkkCtEJ6RcltWMNgAFGa2KSU3h63qlAFNh+zGuVAzI+cev/EYJK7N4f2ehP877Ax/lPXVqETA1Q7xXCyHblpNtYxw4/DttgosC1ECN8ho+TS/Scm9SSdREWT77MY4738KT+EQY9SxPN2Pt1/UqxVtFCpU7LmVxZbmOYvvLYJC2HAEDeMWgHc6wQg2Sp/WAfcquI3GbGFXtmnKD7R3qGMwOvCVpDwMZstUv2KTT61CkWIyy38m1agF69SNS8PW0FBBbZwiV8HRUh7jecG1o4EbVdWDf9kNwbpV/z1QVdzXDqUTKBUFp6VhAaZ3KqC3GtBfKqY3VgtLcuyUUwz48UxxnhBN2nZe36DPpQjECMJNhQ4bw9bYJO/5aFNrSfJSDjWjTOWdXj822xVTkoiGHX++RWaEKMVugCTVcu7w8Pf5t3G7Sy4s21dreHLLdMdQD1VXOwsoe3na3qzSVUccmIMSfWMQ0NIX/Trspx4jFtVpPLQEoSGsQzEq5mWU6NJp9UB/SGrtFKOcqsKeXrtYiY5xKAlbOU1oMfQQrc6go3Q8fspxpDy0DZW1WoiKO+kuki96KFkSZaC7IhCjH+UKdkg/coEC2y+2DTilfxNI6whTowxFQkjmtkZcn27wQxgmSbEcixuLIyS58BOoRwCjFxSm6RLZYcyJRukX4nFDjRRqh/9hF7NFsizu6wc3Z5qi7TAJg43gN6kv4S6jsrh3hDavoi6qOs7lSnZkPoVv++SzEsE+JqJyrst2vTxrCon9QPKlGzcqNt6ALgV9bTK9QygBVRF85M0zfWAMiUbUr+Cj6E0ZPSyLtFdPz2wMW4OA7Fz9ukAfrCEth8qsPVh5hty1ekUlNOanorzqjqwnuxWFVRgS0jQQPuxo83UaMg/njBEMpcte5Qp2SD9ipS69NBTa+NOOnQsG2AAPZLx4u1jbZG61y49czGjpGhFjzyP78CwV6INfywfktirTMmG1K8M2+vfEeQzuqOxIxkgdWTIeECZkg3Sr9CBxyCX7YEO1YMuTuURYLzlTKnlUW5VId0rLZHeHBxxcw3O8jbIZHgXYCz/jplLaPtRD4hjmC9rjhqIIjsOFYsx3Rfi90eU0PZDBTY/EAdAm8KMqhb6ldIdzHBB12jDz6BMyQbpV1xSeYQYcXS02DUocPbSJMxJub7dUAaQIowyZtx7oEl1yRqrJ2cyKVOy8X59/wZ4AeijAHRnxyhTsvFrdffqcFbvXnkYupGflD3NqkzJxm81/FjuzVfNZJ2Q68lA/IncqkK6V7cFyZXPCoNCAKX3HD6tW1WQe/VWz0SX3doVJ8t7S6n3rMqJcUIJbT9SvyJs4TdHjQTV1FedASS9pw+nl9D2Q+7Vbi1IU97tVa+8piQi0PpAPldylDIlG1K/MgjiGGP95vUX5UuRzModqUzJxkq/ktyJcFSDw5oUBT8617cbJbF3YVJfXvH2uc3RypRsrPQrYnfSpmJwgjIlG0q/4miUIv92eFin8U3ef6zRxwY8qoS2nxu8f+XKneoWJylTsiH1KxrZ4kRlSja+5D264ziTW1Xo9RGRJytTsvEp7/Edw+15bZEW2DThEcqUbHzIe4TZOaNbVdzkPcbMPEkJbT/3eY8xK49UpmTjc96jzMaZ3apCD/f6aGVKNt7kPc4s3F7GFnq41ycsoe3n/eG+5M3N/YsLcX+T91gZhmEuhuc47bDtOA6WjeOEyrKxI1OZFScwjC6+6TiJa3QdynyPvIfvpjnjMEggCcIAjbGUsgIP5EOODgwNo7UIkLZrRPKzHhta6LZOxVZCrD4EZAWvLtVIMJ0LYyTqutaU5A2N+o57FIaSEmI5M59k9l7k4FLoQXeYfo4KEY0DVKA/D2NYwhJTHLp3V8MZkozJGKuZEYUGioyfhzFiSEUcXt3AyhjYnjDGjP6XFxTiC2OMxKXPwxitxC6NsCYmjJGEYpUYaIxWq1SpVPpNMoYxmz4PY7hyCrTIGGKdJIE0xuYyERfFk+dgjC5Y5bLVgA59cjL0xUrxtjdQ9LtV8Ka59fQCpMYYyk+TgAkZIxyKHYSMMfNdpCyNYdxBof9Xjwo9aVBLo41oaQRLijnkJ0xEcvWgpyF9kg2FXiZ+DR9HaabaxWbNaKLIAiX3+KLUl3SMkrRWSR8JBsMwDMMwDMMwDMMwDMMwDMMwDMMwDMMwDMMwDMOci/8B2dyHxuJOgAkAAAAASUVORK5CYII=' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "MG Norte Jequitinhonha e Mucuri",
+        "valueField": "MG Norte Jequitinhonha e Mucuri"
+    }, {
+        "balloonText": "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Bandeira_do_Paran%C3%A1.svg/220px-Bandeira_do_Paran%C3%A1.svg.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "PR",
+        "valueField": "PR"
+    }, {
+        "balloonText": "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bandeira_do_estado_do_Rio_de_Janeiro.svg/275px-Bandeira_do_estado_do_Rio_de_Janeiro.svg.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "RJ",
+        "valueField": "RJ"
+    }, {
+        "balloonText": "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Bandeira_do_estado_de_S%C3%A3o_Paulo.svg/275px-Bandeira_do_estado_de_S%C3%A3o_Paulo.svg.png' style='vertical-align:bottom; margin-right: 10px; width:28px; height:21px;'><span style='font-size:14px; color:#000000;'><b>[[value]]</b></span>",
+        "fillAlphas": 0.6,
+        "lineAlpha": 0.4,
+        "title": "SP",
+        "valueField": "SP"
+    }	
+	
+	],
+    "plotAreaBorderAlpha": 0,
+    "marginTop": 10,
+    "marginLeft": 0,
+    "marginBottom": 0,
+    "chartScrollbar": {},
+    "chartCursor": {
+        "cursorAlpha": 0
+    },
+    "categoryField": "periodo",
+    "categoryAxis": {
+        "startOnAxis": true,
+        "axisColor": "#DADADA",
+        "gridAlpha": 0.07,
+        "title": "Periodo",
+        "guides": [{
+            category: "1900",
+            toCategory: "1920",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            fillAlpha: 0.2,
+            fillColor: "#CC0000",
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "fines for speeding increased"
+        }, {
+            category: "2017",
+            lineColor: "#CC0000",
+            lineAlpha: 1,
+            dashLength: 2,
+            inside: true,
+            labelRotation: 90,
+            label: "motorcycle fee introduced"
+        }]
+    },
+    "export": {
+    	"enabled": true
+     }
+});
+
+</script>
+
+</body>
+</html>
+{% endblock %}

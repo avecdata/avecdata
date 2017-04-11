@@ -27,14 +27,14 @@
 </li>-->
 				<li>
 				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" style="padding-left: 20px;">
+					<button class="btn btn-sucesst dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" style="padding-left: 20px;">
 						Sua Conta <span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu dropdown-user-menu" role="menu" aria-labelledby="dropdownMenu1">
 						<li><i class="fa fa-address-card" aria-hidden="true"></i> Meu Perfil</li>
 						<li class="divider"></li>
-						<li><i class="fa fa-cog" aria-hidden="true"></i><a href="#">Preferências</a></li>
-						<li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a href="#">Alterar Senha</a></li>
+						<li><i class="fa fa-cog" aria-hidden="true"></i><a href="{% url 'accounts:preferences_user' user.pk %}">Preferências</a></li>
+						<li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a class="btn-change-password" href="#" id="btn-change-password" user_pk="{{ user.username }}">Alterar Senha</a></li>
 						<li class="divider"></li>
 						<li><i class="fa fa-sign-out" aria-hidden="true"></i><a href="{% url 'logout' %}">Sair</a></li>
 					</ul>

@@ -7,7 +7,12 @@ Created on 28 de mar de 2017
 from django.utils import timezone
 import datetime
 import calendar
+from django.conf import settings
+from django.core.mail import EmailMessage
 from avec.models import Group
+
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils import six
 
 def add_time(input_date, time_unit, quantity):
     
@@ -158,11 +163,13 @@ def check_plan_validity(user_session):
         
         if(now > user_session.date_expiration and len(user_session.groups.filter(name=basic_group.name)) < 1 and len(user_session.groups.filter(id=4)) < 1):
             
+            std_group = Group.objects.get(id=5)
             pro_group = Group.objects.get(id=2)
             corp_group = Group.objects.get(id=3)
 #             adm_group = Group.objects.get(id=4)
             
             basic_group.user_set.remove(user_session)
+            std_group.user_set.remove(user_session)
             pro_group.user_set.remove(user_session)
             corp_group.user_set.remove(user_session)
 #             adm_group.user_set.remove(user_session)
@@ -174,3 +181,173 @@ def check_plan_validity(user_session):
         return False
     
     return True
+
+def send_mail(title, content_message, receivers):
+        
+        email_obj = EmailMessage(title, content_message, to=receivers)
+        email_obj.content_subtype = "html"  # Main content is now text/html
+        email_obj.send()
+        
+def get_content_subscription_email(name, plan_type, item_list):
+    
+    content_message = '<font face="Helvetica, Arial, sans-serif" size="2" color="#000000">'
+    content_message += '<img src="http://www.avecdata.com/static/img/logo-avec-dark@2x.png"><br>'
+    content_message += '<hr height="1" style="height:1px; border:0 none; color: #76899a; background-color: #76899a; margin-top: 0.5em; margin-bottom:1.5em;">'
+    content_message += '<br>'
+    content_message += '<span>Olá '+name+',</span><br>'
+    content_message += '<br>'
+    content_message += '<p>Obrigado pelo interesse em assinar um dos nossos planos de acesso à plataforma AVEC.</p>'
+    content_message += '<br>'
+    
+    if(plan_type == 'Básico'):
+        content_message += '<p>Seu cadastro foi concluído e agora você tem acesso ao <strong>Plano de Assinatura '+plan_type+'</strong>.</p>'
+    else:
+        content_message += '<p>Seu cadastro foi concluído e seu acesso ao <strong>Plano de Assinatura '+plan_type+'</strong> será liberado automaticamente após a confirmação do pagamento.</p>'
+        
+    content_message += '<br>'
+    content_message += '<p>Com ele você terá acesso aos seguintes serviços:</p>'
+    content_message += '<ul>'
+    
+    for item in item_list:
+        content_message += '<li>'+item+'</li>'
+
+    content_message += '</ul>'
+    content_message += '<br>'
+    content_message += '<span>Atenciosamente,</span>'
+    content_message += '<br>'
+    content_message += '<br>'
+    content_message += '<p>-----------------------------------------------------------------<br>AVEC DATA - Plataforma de Dados Setoriais</p>'
+    content_message += '</font>'
+            
+    return content_message
+
+def get_content_update_register(name, plan_type):
+    
+    content_message = '<font face="Helvetica, Arial, sans-serif" size="2" color="#000000">'
+    content_message += '<img src="http://www.avecdata.com/static/img/logo-avec-dark@2x.png"><br>'
+    content_message += '<hr height="1" style="height:1px; border:0 none; color: #76899a; background-color: #76899a; margin-top: 0.5em; margin-bottom:1.5em;">'
+    content_message += '<br>'
+    content_message += '<span>Olá '+name+',</span><br>'
+    content_message += '<br>'
+    content_message += '<p>Seus dados cadastrais foram atualizados com sucesso!.</p>'
+    content_message += '<br>'
+    content_message += '<p>Seu Plano de Assinatura atual é: '+plan_type+'</strong>.</p>'
+    content_message += '<br>'
+    content_message += '<span>Atenciosamente,</span>'
+    content_message += '<br>'
+    content_message += '<br>'
+    content_message += '<p>-----------------------------------------------------------------<br>AVEC DATA - Plataforma de Dados Setoriais</p>'
+    content_message += '</font>'
+            
+    return content_message
+
+def get_content_update_subscription_email(name, plan_type, item_list):
+    
+    content_message = '<font face="Helvetica, Arial, sans-serif" size="2" color="#000000">'
+    content_message += '<img src="http://www.avecdata.com/static/img/logo-avec-dark@2x.png"><br>'
+    content_message += '<hr height="1" style="height:1px; border:0 none; color: #76899a; background-color: #76899a; margin-top: 0.5em; margin-bottom:1.5em;">'
+    content_message += '<br>'
+    content_message += '<span>Olá '+name+',</span><br>'
+    content_message += '<br>'
+    content_message += '<p>Obrigado pelo interesse em expandir seu plano de assinatura à plataforma AVEC.</p>'
+    content_message += '<br>'
+    content_message += '<p>Sua solicitação foi realizada e seu acesso ao <strong>Plano de Assinatura '+plan_type+'</strong> será liberado automaticamente após a confirmação do pagamento.</p>'    
+    content_message += '<br>'
+    content_message += '<p>Com ele você terá acesso aos seguintes serviços:</p>'
+    content_message += '<ul>'
+    
+    for item in item_list:
+        content_message += '<li>'+item+'</li>'
+
+    content_message += '</ul>'
+    content_message += '<br>'
+    content_message += '<span>Atenciosamente,</span>'
+    content_message += '<br>'
+    content_message += '<br>'
+    content_message += '<p>-----------------------------------------------------------------<br>AVEC DATA - Plataforma de Dados Setoriais</p>'
+    content_message += '</font>'
+            
+    return content_message
+
+def get_content_recovery_password(name, url):
+    
+    content_message = '<font face="Helvetica, Arial, sans-serif" size="2" color="#000000">'
+    content_message += '<img src="http://www.avecdata.com/static/img/logo-avec-dark@2x.png"><br>'
+    content_message += '<hr height="1" style="height:1px; border:0 none; color: #76899a; background-color: #76899a; margin-top: 0.5em; margin-bottom:1.5em;">'
+    content_message += '<br>'
+    content_message += '<span>Olá '+name+',</span><br>'
+    content_message += '<br>'
+    content_message += '<p>Você solicitou o cadastramento de Nova Senha através da nossa plataforma.</p>'
+    content_message += '<br>'
+    content_message += '<p>Por favor, clique no link abaixo para realizar o cadastramento de sua Senha.</p>'    
+    content_message += '<br>'
+    content_message += '<a href="'+url+'">Link para Recuperação de Senha AVEC</a>'
+    content_message += '<br>'
+    content_message += '<br>'
+    content_message += '<span>Atenciosamente,</span>'
+    content_message += '<br>'
+    content_message += '<br>'
+    content_message += '<p>-----------------------------------------------------------------<br>AVEC DATA - Plataforma de Dados Setoriais</p>'
+    content_message += '</font>'
+            
+    return content_message
+
+def dashboard_permission(group_user_id, dashboard):
+    
+#     print('teste: '+str(group_dash.id))
+    
+    groups_dash = dashboard.group.all()
+    group_dash = groups_dash[len(groups_dash)-1]
+    
+    if dashboard.open == True or group_user_id == 3 or group_dash.id == 1:
+        return True
+    elif group_dash.id == 2 and (group_user_id == 2 or group_user_id == 3):
+        return True
+    elif group_dash.id == 5 and (group_user_id == 2 or group_user_id == 3 or group_user_id == 5):
+        return True
+    else:
+        False
+        
+def post_permission(group_user_id, avec_post):
+    
+#     print('teste: '+str(group_dash.id))
+    
+    groups_post = avec_post.group.all()
+    group_post = groups_post[len(groups_post)-1]
+    
+    if avec_post.open == True or group_user_id == 3 or group_post.id == 1:
+        return True
+    elif group_post.id == 2 and (group_user_id == 2 or group_user_id == 3):
+        return True
+    elif group_post.id == 5 and (group_user_id == 2 or group_user_id == 3 or group_user_id == 5):
+        return True
+    else:
+        False
+
+def get_greater_group(groups):
+    
+    for group in groups:
+        if group.id == 3:
+            return group
+    
+    for group in groups:
+        if group.id == 5:
+            return group
+
+    for group in groups:
+        if group.id == 2:
+            return group
+    
+    basic_group = Group.objects.get(id=1)    
+    
+    return basic_group
+
+class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
+    
+    def _make_hash_value(self, user, timestamp):
+        return (
+            six.text_type(user.pk) + six.text_type(timestamp) +
+            six.text_type(user.is_active)
+        )
+
+account_activation_token = AccountActivationTokenGenerator()

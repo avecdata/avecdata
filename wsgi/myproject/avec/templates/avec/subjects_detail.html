@@ -66,6 +66,30 @@
 					</div>
 				   </div>
 				  </div>
+				  {% elif mysubject.pk == 55 %}
+				  <div class="row" style="padding-top: 20px">
+					<div class="col-sm-2">
+					<a href="{% url 'sangue' mysubject.pk  %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
+					</div>
+					<div class="col-sm-10">
+					<div class="author_dec">
+							<a href="{% url 'sangue' mysubject.pk %}">Coleta e Transfusões de Sangue - SUS</a>						
+							<p style ="padding-top:10px;">Painel com com informações sobre coletas e transfusões de sangue.</p>										
+					</div>
+				   </div>
+				  </div>
+				  {% elif mysubject.pk == 63 %}	
+				  <div class="row" style="padding-top: 20px">
+					<div class="col-sm-2">
+					<a href="{% url 'aids' %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
+					</div>
+					<div class="col-sm-10">
+					<div class="author_dec">
+							<a href="{% url 'aids' %}">Casos de AIDS identificados no Brasil</a>						
+							<p style ="padding-top:10px;">Painel com com informações sobre casos de AIDS identificados no Brasil.</p>								
+					</div>
+				   </div>
+				  </div>				  
 				  {% else %}	
 				  <div class="row" style="padding-top: 20px">
 					<div class="col-sm-2">
@@ -100,12 +124,12 @@
 							{% for post in posts %}
 							<div class="row" style="padding-top: 20px">
 								<div class="col-sm-2">
-								<a href="{{post.link}}"><img src="{% static 'img/fs-line.png' %}" alt="" style="width:30%"/></a>
+								<a href="{% url 'post_detail' pk=post.pk %}"><img src="{% static 'img/fs-line.png' %}" alt="" style="width:30%"/></a>
 								</div>
 								<div class="col-sm-10">
 								<div class="author_dec">
 									<a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
-									<a href="{{post.link}}"><p>{{ post.text|linebreaksbr }}</p></a>
+									<a href="{% url 'post_detail' pk=post.pk %}"><p>{{ post.text|linebreaksbr }}</p></a>
 									<p>published: {{ post.published_date }}</p>
 								</div>
 							   </div>
@@ -120,27 +144,27 @@
 							Retratos recentes						
 						</div>
 					</div>
-					{% if not reports %}
+					{% if not dashboards %}
 						<div class="row" style="padding-top: 20px">
 						<div class="col-sm-2">
-						<!--<a href="{% url 'inovacao' %}"><img src="{% static 'img/fs-redline.png' %}" alt="" style="width:60%"/></a>-->
 						</div>
 						<div class="col-sm-10">
 						<div class="author_dec">
-							<p>No momento não há retrato disponível para esse assunto.</p>
+							<p>No momento não há infografico disponível para esse assunto.</p>
 						</div>
 					   </div>
 					  </div>
 					{% else %}
-							{% for report in reports %}
+							{% for dash in dashboards %}
 							<div class="row" style="padding-top: 20px">
 								<div class="col-sm-2">
-								<a href=""><img src="{% static 'img/fs-line.png' %}" alt="" style="width:60%"/></a>
+								<a href="{% url dash.url dash.id %}"><img src="{% static 'img/fs-line.png' %}" alt="" style="width:30%"/></a>
 								</div>
 								<div class="col-sm-10">
 								<div class="author_dec">
-									<a href="{% url 'reports_detail' pk=report.pk %}">{{ report.title }}</a>
-									<p>published: {{ report.published_date }}</p>
+									<a href="{% url dash.url dash.id %}">{{ dash.title }}</a>
+									<!--<a href="{{dash.url}}"><p>{{ dash.url }}</p></a>-->
+									<p>publicado: {{ dash.published_date }}</p>
 								</div>
 							   </div>
 							</div>

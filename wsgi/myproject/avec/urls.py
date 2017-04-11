@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from . import views
+from accounts import views as ac_views
 from . import validators
 from django.contrib.auth.views import login, logout
 
@@ -13,6 +14,7 @@ urlpatterns = [
     url(r'^keyword/(?P<pk>[0-9]+)/$', views.keywords_detail, name='keywords_detail'),
     url(r'^report/(?P<pk>[0-9]+)/$', views.reports_detail, name='reports_detail'),
     url(r'^inovacao/$', views.inovacao, name='inovacao'),
+    url(r'^permissao/$', views.permissao, name='permissao'),
     url(r'^nascidosvivos/$', views.nascidosvivos, name='nascidosvivos'),
     url(r'^retratosmunicipais/$', views.retratos_municipais, name='retratos_municipais'),	
     url(r'^educacao/$', views.educacao, name='educacao'),
@@ -35,4 +37,6 @@ urlpatterns = [
 	url(r'^padrao1/$', views.padrao1, name='padrao1'),
     url(r'^padrao2/$', views.padrao2, name='padrao2'),
     url(r'^padrao3/$', views.padrao3, name='padrao3'),
+    url(r'^aids/$', views.aids, name='aids'),
+    url(r'^sangue/(?P<dashboard_id>[0-9]+)/$', views.sangue, name='sangue'),
 ]

@@ -1,0 +1,4206 @@
+﻿{% extends 'avec/base_dashboard.html' %}
+{% load staticfiles %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>AVEC - Ciência de dados</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />		
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  	
+
+   <!-- <link href="css/style2.css" rel="stylesheet">-->
+   
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+   
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>	
+    <script src="{% static 'js/colorbrewer.js' %}"></script>
+    <script src="{% static 'data/world-countries.json' %}"></script>
+	
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dc.js' %}"></script>		
+	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'js/cloud.js' %}"></script>
+
+   <!--<script type="text/javascript" src="http://www.kunalbabre.com/projects/table2CSV.js" > </script> 	-->
+
+   <script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>
+	<!--  <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+<style>
+	
+	
+	@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
+
+*,:after,:before{box-sizing:content-box;!important}
+
+#chartdiv, #chartdiv2, #chartdiv3, #chartdiv4  {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}							
+
+.amChartsCompareList -compare-div{
+	height		: 400px;	
+}
+
+svg {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+h1 {
+  padding: 50px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16b'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09, #chart-10,  #chart-11,  #chart-12,  #chart-13{
+        background: #899296;
+        width: 100%;
+        font-size: 64px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 100px;
+        height: 40px;
+        line-height: normal;
+		margin-bottom: 15px;
+      }
+
+	  .amcharts-compare-item-div{
+			padding: 8px; position: relative; height: 20px;
+	  }
+	</style>
+    </head>
+<body>
+
+<div class="title_sec">
+		<div class="internal__row">
+			<h1 class="internal__title">Coleta e Transfusões de Sangue - SUS</h1>
+		</div>
+</div>	
+
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Coletas de Sangue</label>
+  
+  <input id="tab2" type="radio" name="tabs" >
+  <label for="tab2">Transfusão</label>  
+
+
+
+<section id="content1">
+	<div class="tab-pane " id="a_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica - Coletas de sangue total e por processador automático - 2008 a 2016
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			  				<div id="chartdiv"></div>	
+			
+          </div>
+          <div class="chart-notes">
+            Fonte: Sistema de Informações ambulatoriais do SUS/SIASUS. </br>			
+          </div>
+        </div>
+      </div>
+	</div>
+	</div>
+</section>	
+
+<section id="content2">
+	<div class="tab-pane " id="b_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica - Transfusão ambulatorial e hospitalar - 2008 à 2016
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			<div id="chartdiv2"></div>	
+			
+          </div>
+          <div class="chart-notes">
+             Fonte: Ministério da Saúde - Sistema de Informações Hospitalares do SUS (SIH/SUS) </br>
+          </div>
+        </div>
+      </div>
+	</div>	
+
+	</div>
+</section>	
+
+<!-- Chart Sangue -->
+<script>
+
+
+var acre =[
+  {
+    date: "2008-01-30",
+    processadorautomatico: 103,
+    sanguetotal: 10595
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 117,
+    sanguetotal: 10773
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 85,
+    sanguetotal: 10499
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 132,
+    sanguetotal: 10558
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 124,
+    sanguetotal: 11018
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 164,
+    sanguetotal: 11302
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 137,
+    sanguetotal: 11753
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 132,
+    sanguetotal: 11504
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 70,
+    sanguetotal: 12283
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 70,
+    sanguetotal: 12283
+  }
+];
+
+var alagoas = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 80,
+    sanguetotal: 37441
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 59,
+    sanguetotal: 34366
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 77,
+    sanguetotal: 35464
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 115,
+    sanguetotal: 35638
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 127,
+    sanguetotal: 36027
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 100,
+    sanguetotal: 38185
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 187,
+    sanguetotal: 42307
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 328,
+    sanguetotal: 41730
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 392,
+    sanguetotal: 43202
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 392,
+    sanguetotal: 43202
+  }
+  
+];
+
+var amapa = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 50,
+    sanguetotal: 19180
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 52,
+    sanguetotal: 10295
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 18,
+    sanguetotal: 11733
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 11545
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 11745
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 13454
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 13012
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 12924
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 0,
+    sanguetotal: 13657
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 0,
+    sanguetotal: 13657
+  }
+];
+
+var amazonas = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 293,
+    sanguetotal: 49062
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 275,
+    sanguetotal: 43835
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 377,
+    sanguetotal: 55499
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 181,
+    sanguetotal: 46870
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 180,
+    sanguetotal: 56488
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 227,
+    sanguetotal: 56106
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 165,
+    sanguetotal: 57866
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 185,
+    sanguetotal: 61914
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 71,
+    sanguetotal: 60867
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 71,
+    sanguetotal: 60867
+  }
+];
+
+var bahia = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 1059,
+    sanguetotal: 179513
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 880,
+    sanguetotal: 204489
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 811,
+    sanguetotal: 200683
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 840,
+    sanguetotal: 207499
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 933,
+    sanguetotal: 199678
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 1131,
+    sanguetotal: 175519
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 1187,
+    sanguetotal: 176618
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 1078,
+    sanguetotal: 184419
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 958,
+    sanguetotal: 189478
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 958,
+    sanguetotal: 189478
+  }
+];
+
+var ceara = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 505,
+    sanguetotal: 100446
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 482,
+    sanguetotal: 99010
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 451,
+    sanguetotal: 99605
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 788,
+    sanguetotal: 105652
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 1254,
+    sanguetotal: 103090
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 1478,
+    sanguetotal: 99244
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 1909,
+    sanguetotal: 102316
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 1663,
+    sanguetotal: 101980
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 1471,
+    sanguetotal: 108406
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 1471,
+    sanguetotal: 108406
+  }
+];
+
+var distritofederal = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 357,
+    sanguetotal: 54148
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 51628
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 830,
+    sanguetotal: 51781
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 1147,
+    sanguetotal: 54917
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 1361,
+    sanguetotal: 55227
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 1754,
+    sanguetotal: 55193
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 1670,
+    sanguetotal: 54650
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 1612,
+    sanguetotal: 55847
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 987,
+    sanguetotal: 58897
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 987,
+    sanguetotal: 58897
+  }
+];
+
+var espiritosanto = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 182,
+    sanguetotal: 78573
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 311,
+    sanguetotal: 75782
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 212,
+    sanguetotal: 72008-01-30
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 188,
+    sanguetotal: 70093
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 290,
+    sanguetotal: 75800
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 363,
+    sanguetotal: 68627
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 988,
+    sanguetotal: 68310
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 265,
+    sanguetotal: 70135
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 172,
+    sanguetotal: 67731
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 172,
+    sanguetotal: 67731
+  }
+];
+
+var goias = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 845,
+    sanguetotal: 123244
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 871,
+    sanguetotal: 129301
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 703,
+    sanguetotal: 119341
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 974,
+    sanguetotal: 127754
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 922,
+    sanguetotal: 128197
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 1048,
+    sanguetotal: 139883
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 1319,
+    sanguetotal: 140636
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 962,
+    sanguetotal: 136953
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 761,
+    sanguetotal: 129508
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 761,
+    sanguetotal: 129508
+  }
+];
+
+var maranhao = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 92,
+    sanguetotal: 57162
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 147,
+    sanguetotal: 60621
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 108,
+    sanguetotal: 61107
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 181,
+    sanguetotal: 65632
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 3115,
+    sanguetotal: 69206
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 179,
+    sanguetotal: 73242
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 248,
+    sanguetotal: 75347
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 181,
+    sanguetotal: 76700
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 246,
+    sanguetotal: 78439
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 246,
+    sanguetotal: 78439
+  }
+];
+
+var matogrosso = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 165,
+    sanguetotal: 49085
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 431,
+    sanguetotal: 58386
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 424,
+    sanguetotal: 54665
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 307,
+    sanguetotal: 61140
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 386,
+    sanguetotal: 62444
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 270,
+    sanguetotal: 73970
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 332,
+    sanguetotal: 69772
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 467,
+    sanguetotal: 79066
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 435,
+    sanguetotal: 68948
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 435,
+    sanguetotal: 68948
+  }
+];
+
+var matogrossodosul = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 388,
+    sanguetotal: 67027
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 347,
+    sanguetotal: 65459
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 459,
+    sanguetotal: 65857
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 532,
+    sanguetotal: 66664
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 504,
+    sanguetotal: 65518
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 498,
+    sanguetotal: 57632
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 117,
+    sanguetotal: 59784
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 133,
+    sanguetotal: 56339
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 273,
+    sanguetotal: 56385
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 273,
+    sanguetotal: 56385
+  }
+];
+
+var minasgerais = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 1507,
+    sanguetotal: 294355
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 1614,
+    sanguetotal: 309123
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 1757,
+    sanguetotal: 306579
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 1607,
+    sanguetotal: 303837
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 1738,
+    sanguetotal: 307038
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 2382,
+    sanguetotal: 305161
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 2299,
+    sanguetotal: 307158
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 3148,
+    sanguetotal: 307676
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 2943,
+    sanguetotal: 309737
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 2943,
+    sanguetotal: 309737
+  }
+];
+
+var para = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 9,
+    sanguetotal: 80907
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 26,
+    sanguetotal: 79783
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 15,
+    sanguetotal: 85033
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 1,
+    sanguetotal: 85447
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 1,
+    sanguetotal: 85855
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 12,
+    sanguetotal: 79267
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 9,
+    sanguetotal: 77456
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 31,
+    sanguetotal: 78990
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 91,
+    sanguetotal: 85644
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 91,
+    sanguetotal: 85644
+  }
+];
+
+var paraiba = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 16,
+    sanguetotal: 57725
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 19,
+    sanguetotal: 64447
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 134,
+    sanguetotal: 68349
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 318,
+    sanguetotal: 70421
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 355,
+    sanguetotal: 72402
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 512,
+    sanguetotal: 74052
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 348,
+    sanguetotal: 78284
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 231,
+    sanguetotal: 79719
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 232,
+    sanguetotal: 79994
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 232,
+    sanguetotal: 79994
+  }
+];
+
+var parana = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 1854,
+    sanguetotal: 243980
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 2315,
+    sanguetotal: 223432
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 2895,
+    sanguetotal: 223283
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 3048,
+    sanguetotal: 229919
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 3447,
+    sanguetotal: 224257
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 3467,
+    sanguetotal: 226647
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 3435,
+    sanguetotal: 242283
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 3847,
+    sanguetotal: 243080
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 3716,
+    sanguetotal: 238355
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 3716,
+    sanguetotal: 238355
+  }
+];
+
+var pernambuco = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 934,
+    sanguetotal: 141188
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 894,
+    sanguetotal: 163867
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 920,
+    sanguetotal: 165133
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 1063,
+    sanguetotal: 173862
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 1188,
+    sanguetotal: 175924
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 771,
+    sanguetotal: 181763
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 595,
+    sanguetotal: 182424
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 798,
+    sanguetotal: 186809
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 661,
+    sanguetotal: 182272
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 661,
+    sanguetotal: 182272
+  }
+];
+
+var piaui = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 39686
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 41603
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 68,
+    sanguetotal: 42663
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 236,
+    sanguetotal: 41983
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 435,
+    sanguetotal: 48531
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 464,
+    sanguetotal: 55774
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 506,
+    sanguetotal: 54677
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 359,
+    sanguetotal: 54453
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 563,
+    sanguetotal: 55974
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 563,
+    sanguetotal: 55974
+  }
+];
+
+var riodejaneiro = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 3019,
+    sanguetotal: 156686
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 3340,
+    sanguetotal: 146289
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 3709,
+    sanguetotal: 156067
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 4021,
+    sanguetotal: 163190
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 3872,
+    sanguetotal: 141208
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 2415,
+    sanguetotal: 160196
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 2283,
+    sanguetotal: 138700
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 2480,
+    sanguetotal: 141289
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 1481,
+    sanguetotal: 121747
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 1481,
+    sanguetotal: 121747
+  }
+];
+
+var riograndedonorte = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 569,
+    sanguetotal: 38596
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 551,
+    sanguetotal: 41610
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 498,
+    sanguetotal: 44562
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 656,
+    sanguetotal: 45169
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 468,
+    sanguetotal: 46439
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 531,
+    sanguetotal: 47291
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 684,
+    sanguetotal: 50019
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 849,
+    sanguetotal: 54103
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 538,
+    sanguetotal: 50043
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 538,
+    sanguetotal: 50043
+  }
+];
+
+var riograndedosul = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 1195,
+    sanguetotal: 229129
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 1297,
+    sanguetotal: 214638
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 1226,
+    sanguetotal: 220712
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 1378,
+    sanguetotal: 233687
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 2446,
+    sanguetotal: 235608
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 2767,
+    sanguetotal: 228642
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 3093,
+    sanguetotal: 236918
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 6196,
+    sanguetotal: 233476
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 3497,
+    sanguetotal: 225757
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 3497,
+    sanguetotal: 225757
+  }
+];
+
+var rondonia = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 134,
+    sanguetotal: 26295
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 93,
+    sanguetotal: 34364
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 149,
+    sanguetotal: 29632
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 154,
+    sanguetotal: 29599
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 267,
+    sanguetotal: 31769
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 336,
+    sanguetotal: 34662
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 270,
+    sanguetotal: 33536
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 279,
+    sanguetotal: 32282
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 257,
+    sanguetotal: 32321
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 257,
+    sanguetotal: 32321
+  }
+];
+
+var roraima = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 10213
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 10182
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 27,
+    sanguetotal: 11024
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 16,
+    sanguetotal: 10698
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 77,
+    sanguetotal: 12315
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 80,
+    sanguetotal: 13803
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 90,
+    sanguetotal: 11308
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 104,
+    sanguetotal: 11154
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 64,
+    sanguetotal: 10328
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 64,
+    sanguetotal: 10328
+  }
+];
+
+var santacatarina = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 1350,
+    sanguetotal: 84162
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 1994,
+    sanguetotal: 102090
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 2227,
+    sanguetotal: 115530
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 2135,
+    sanguetotal: 148238
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 2355,
+    sanguetotal: 113315
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 2732,
+    sanguetotal: 116737
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 2688,
+    sanguetotal: 115816
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 3113,
+    sanguetotal: 116666
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 2576,
+    sanguetotal: 102227
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 2576,
+    sanguetotal: 102227
+  }
+];
+
+var saopaulo = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 8837,
+    sanguetotal: 824914
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 10462,
+    sanguetotal: 840133
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 14052,
+    sanguetotal: 886439
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 17153,
+    sanguetotal: 841704
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 17334,
+    sanguetotal: 839372
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 18939,
+    sanguetotal: 808905
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 20022,
+    sanguetotal: 842071
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 20615,
+    sanguetotal: 841081
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 20994,
+    sanguetotal: 829871
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 20994,
+    sanguetotal: 829871
+  }
+];
+
+var sergipe = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 299,
+    sanguetotal: 21498
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 66,
+    sanguetotal: 23135
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 10,
+    sanguetotal: 24937
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 25940
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 7,
+    sanguetotal: 24684
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 28,
+    sanguetotal: 26648
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 2,
+    sanguetotal: 25042
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 19,
+    sanguetotal: 26092
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 61,
+    sanguetotal: 23994
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 61,
+    sanguetotal: 23994
+  }
+];
+
+var tocantins = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 25687
+  },
+  {
+    date: "2009-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 26212
+  },
+  {
+    date: "2010-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 26117
+  },
+  {
+    date: "2011-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 23319
+  },
+  {
+    date: "2012-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 23725
+  },
+  {
+    date: "2013-01-30",
+    processadorautomatico: 0,
+    sanguetotal: 29764
+  },
+  {
+    date: "2014-01-30",
+    processadorautomatico: 47,
+    sanguetotal: 24387
+  },
+  {
+    date: "2015-01-30",
+    processadorautomatico: 178,
+    sanguetotal: 23687
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 194,
+    sanguetotal: 22287
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 194,
+    sanguetotal: 22287
+  }
+];
+
+var Brasil = [
+  {
+    date: "2008-01-30",
+    processadorautomatico: 23842,
+    sanguetotal: 3100497
+  },
+  {
+    date: "2009-12-30",
+    processadorautomatico: 26643,
+    sanguetotal: 3164853
+  },
+  {
+    date: "2010-12-30",
+    processadorautomatico: 32242,
+    sanguetotal: 3244302
+  },
+  {
+    date: "2011-12-30",
+    processadorautomatico: 37171,
+    sanguetotal: 3290975
+  },
+  {
+    date: "2012-12-30",
+    processadorautomatico: 43186,
+    sanguetotal: 3256880
+  },
+  {
+    date: "2013-12-30",
+    processadorautomatico: 42648,
+    sanguetotal: 3251669
+  },
+  {
+    date: "2014-12-30",
+    processadorautomatico: 44630,
+    sanguetotal: 3292450
+  },
+  {
+    date: "2015-12-30",
+    processadorautomatico: 49253,
+    sanguetotal: 3320068
+  },
+  {
+    date: "2016-12-31",
+    processadorautomatico: 43704,
+    sanguetotal: 3258352
+  },
+  {
+    date: "2017-12-31",
+    processadorautomatico: 43704,
+    sanguetotal: 3258352
+  }
+];
+
+
+var chart = AmCharts.makeChart("chartdiv", {
+    type: "stock",
+    theme: "light",
+	dataDateFormat : "YYYY",
+	extendToFullPeriod : false,
+    pathToImages: "http://www.amcharts.com/lib/3/images/",
+
+    panelsSettings: {
+        recalculateToPercents: "never"
+    },
+	
+    dataSets: [
+	{
+        title: "Brasil",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: Brasil,
+        categoryField: "date"
+    },
+	{
+        title: "Acre",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: acre,
+        categoryField: "date"
+    },
+
+    {
+        title: "Alagoas",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: alagoas,
+        categoryField: "date"
+    },
+
+    {
+        title: "Amapá",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: amapa,
+        categoryField: "date"
+    },
+
+    {
+        title: "Amazonas",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: amazonas,
+        categoryField: "date"
+    },
+
+    {
+        title: "Bahia",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: bahia,
+        categoryField: "date"
+    },
+
+    {
+        title: "Ceará",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: ceara,
+        categoryField: "date"
+    },
+
+    {
+        title: "Distrito Federal",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: distritofederal,
+        categoryField: "date"
+    },
+
+    {
+        title: "Espírito Santo",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: espiritosanto,
+        categoryField: "date"
+    },
+
+    {
+        title: "Goiás",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: goias,
+        categoryField: "date"
+    },
+
+    {
+        title: "Maranhão",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: maranhao,
+        categoryField: "date"
+    },
+
+    {
+        title: "Mato Grosso",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: matogrosso,
+        categoryField: "date"
+    },
+
+    {
+        title: "Mato Grosso do Sul",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: matogrossodosul,
+        categoryField: "date"
+    },
+
+    {
+        title: "Minas Gerais",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: minasgerais,
+        categoryField: "date"
+    },
+
+    {
+        title: "Pará",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: para,
+        categoryField: "date"
+    },
+
+    {
+        title: "Paraíba",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: paraiba,
+        categoryField: "date"
+    },
+
+    {
+        title: "Paraná",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: parana,
+        categoryField: "date"
+    },
+
+    {
+        title: "Pernambuco",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: pernambuco,
+        categoryField: "date"
+    },
+
+    {
+        title: "Piauí",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: piaui,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rio de Janeiro",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: riodejaneiro,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rio Grande do Norte",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: riograndedonorte,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rio Grande do Sul",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: riograndedosul,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rondônia",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: rondonia,
+        categoryField: "date"
+    },
+
+    {
+        title: "Roraima",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: roraima,
+        categoryField: "date"
+    },
+
+    {
+        title: "Santa Catarina",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: santacatarina,
+        categoryField: "date"
+    },
+
+    {
+        title: "São Paulo",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: saopaulo,
+        categoryField: "date"
+    },
+
+    {
+        title: "Sergipe",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: sergipe,
+        categoryField: "date"
+    },
+
+    {
+        title: "Tocantins",
+        fieldMappings: [{
+            fromField: "processadorautomatico",
+            toField: "processadorautomatico"
+        }, {
+            fromField: "sanguetotal",
+            toField: "sanguetotal"
+        }
+		],
+        dataProvider: tocantins,
+        categoryField: "date"
+    }
+
+    
+	],
+
+    panels: [
+	 {
+
+        title: "Sangue Total",
+
+        stockGraphs: [{
+            id: "sanguetotal",
+            valueField: "sanguetotal",
+            lineThickness: 3,
+            title: "",
+			labelPosition : "left",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true,
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	}
+	,{
+
+        title: "Processador Automático",
+
+        stockGraphs: [{
+            id: "processadorautomatico",
+            valueField: "processadorautomatico",
+            lineThickness: 3,
+            title: "",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+
+        stockLegend: {
+            useGraphSettings: true
+        }
+	}
+	
+	],
+ 
+    chartScrollbarSettings: {
+        graph: ["processadorautomatico"]
+    },
+	
+
+	
+    chartCursorSettings: {
+        valueBalloonsEnabled: true,
+        fullWidth: true,		
+		categoryBalloonEnabled : true,
+        cursorAlpha: 0.1,		
+        valueLineBalloonEnabled: true,
+        valueLineEnabled: true,
+        valueLineAlpha: 0.5
+    },
+	
+    dataSetSelector: {
+        position: "left",
+		selectText : "Selecione uma UF:",
+		compareText : "Selecione outra UF para comparar:"
+    },
+	
+"export": {
+  "enabled": true,
+  "exportFields": [
+    "date",
+    "processadorautomatico",
+    "sanguetotal",
+    "ds2_processadorautomatico",
+    "ds2_sanguetotal",
+    "ds3_processadorautomatico",
+    "ds3_sanguetotal",
+	"ds4_processadorautomatico",
+    "ds4_sanguetotal",
+	"ds5_processadorautomatico",
+    "ds5_sanguetotal",
+	"ds6_processadorautomatico",
+    "ds6_sanguetotal"
+  ],
+  "columnNames": {
+    "date": "Ano",
+    "processadorautomatico": "Brasil Processador Automatico",
+    "sanguetotal": "Brasil Sangue Total",
+    "ds2_processadorautomatico": "Acre Processador Automatico",
+    "ds2_sanguetotal": "Acre Sangue Total",
+    "ds3_processadorautomatico": "Alagoas Processador Automatico",
+    "ds3_sanguetotal" : "Alagoas Sangue Total",
+	"ds4_processadorautomatico": "Amapá Processador Automatico",
+    "ds4_sanguetotal": "Amapá Sangue Total",
+	"ds5_processadorautomatico": "Amazonas Processador Automatico",
+    "ds5_sanguetotal": "Amazonas Processador Automatico",
+	"ds6_processadorautomatico": "Bahia Processador Automatico",
+    "ds6_sanguetotal": "Bahia Sangue Total"
+  }
+}
+	
+});
+
+
+
+</script>
+
+
+
+<!-- Chart Transfusão -->
+<script>
+
+
+var acre = [
+  {
+    date: "2008-01-30",
+    hospitalar: 5382,
+    ambulatorial: 4298
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 6560,
+    ambulatorial: 5092
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 7407,
+    ambulatorial: 4840
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 9225,
+    ambulatorial: 2160
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 6661,
+    ambulatorial: 2882
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 8172,
+    ambulatorial: 2082
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 8650,
+    ambulatorial: 5
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 10316,
+    ambulatorial: 39
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 10870,
+    ambulatorial: 145
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 10870,
+    ambulatorial: 145
+  }
+];
+
+var alagoas = [
+  {
+    date: "2008-01-30",
+    hospitalar: 7856,
+    ambulatorial: 10837
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 14368,
+    ambulatorial: 5111
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 15127,
+    ambulatorial: 3454
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 17622,
+    ambulatorial: 3791
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 18284,
+    ambulatorial: 4573
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 16994,
+    ambulatorial: 3779
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 18416,
+    ambulatorial: 4102
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 23212,
+    ambulatorial: 3997
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 24252,
+    ambulatorial: 4037
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 24252,
+    ambulatorial: 4037
+  }
+];
+
+var amapa = [
+  {
+    date: "2008-01-30",
+    hospitalar: 1339,
+    ambulatorial: 26402
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 1997,
+    ambulatorial: 17635
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 1438,
+    ambulatorial: 17883
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 1605,
+    ambulatorial: 7021
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 2294,
+    ambulatorial: 4773
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 1848,
+    ambulatorial: 9423
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 1624,
+    ambulatorial: 15477
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 1802,
+    ambulatorial: 7346
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 1625,
+    ambulatorial: 966
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 1625,
+    ambulatorial: 966
+  }
+];
+
+var amazonas = [
+  {
+    date: "2008-01-30",
+    hospitalar: 17058,
+    ambulatorial: 8389
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 16136,
+    ambulatorial: 10854
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 15277,
+    ambulatorial: 23276
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 16853,
+    ambulatorial: 3793
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 13492,
+    ambulatorial: 11869
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 13279,
+    ambulatorial: 13308
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 17312,
+    ambulatorial: 18247
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 28290,
+    ambulatorial: 10767
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 27615,
+    ambulatorial: 17403
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 27615,
+    ambulatorial: 17403
+  }
+];
+
+var bahia = [
+  {
+    date: "2008-01-30",
+    hospitalar: 77706,
+    ambulatorial: 52235
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 96127,
+    ambulatorial: 58839
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 86316,
+    ambulatorial: 51042
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 97317,
+    ambulatorial: 27275
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 100271,
+    ambulatorial: 21595
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 104866,
+    ambulatorial: 16467
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 101678,
+    ambulatorial: 19967
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 102264,
+    ambulatorial: 18074
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 102596,
+    ambulatorial: 18955
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 102596,
+    ambulatorial: 18955
+  }
+];
+
+var ceara = [
+  {
+    date: "2008-01-30",
+    hospitalar: 69138,
+    ambulatorial: 14947
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 72770,
+    ambulatorial: 12299
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 74225,
+    ambulatorial: 11029
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 73865,
+    ambulatorial: 11406
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 71442,
+    ambulatorial: 13800
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 69248,
+    ambulatorial: 9830
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 80185,
+    ambulatorial: 9063
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 83160,
+    ambulatorial: 7784
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 80699,
+    ambulatorial: 7260
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 80699,
+    ambulatorial: 7260
+  }
+];
+
+var distritofederal = [
+  {
+    date: "2008-01-30",
+    hospitalar: 23381,
+    ambulatorial: 17477
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 23408,
+    ambulatorial: 16048
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 22233,
+    ambulatorial: 11429
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 17815,
+    ambulatorial: 6120
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 17057,
+    ambulatorial: 7426
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 13210,
+    ambulatorial: 7010
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 14493,
+    ambulatorial: 7754
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 13232,
+    ambulatorial: 9163
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 23163,
+    ambulatorial: 8748
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 23163,
+    ambulatorial: 8748
+  }
+];
+
+var espiritosanto = [
+  {
+    date: "2008-01-30",
+    hospitalar: 36926,
+    ambulatorial: 11384
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 45376,
+    ambulatorial: 11672
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 46496,
+    ambulatorial: 10197
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 52448,
+    ambulatorial: 9081
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 53477,
+    ambulatorial: 10417
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 52695,
+    ambulatorial: 10530
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 52197,
+    ambulatorial: 10283
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 52552,
+    ambulatorial: 8838
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 62382,
+    ambulatorial: 10474
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 62382,
+    ambulatorial: 10474
+  }
+];
+
+var goias = [
+  {
+    date: "2008-01-30",
+    hospitalar: 64924,
+    ambulatorial: 24639
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 70878,
+    ambulatorial: 32028
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 64634,
+    ambulatorial: 27674
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 71951,
+    ambulatorial: 20329
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 64148,
+    ambulatorial: 21427
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 71464,
+    ambulatorial: 20977
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 72809,
+    ambulatorial: 20452
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 76329,
+    ambulatorial: 17334
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 79716,
+    ambulatorial: 18234
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 79716,
+    ambulatorial: 18234
+  }
+];
+
+var maranhao = [
+  {
+    date: "2008-01-30",
+    hospitalar: 14596,
+    ambulatorial: 3273
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 21075,
+    ambulatorial: 8995
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 25906,
+    ambulatorial: 6048
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 26421,
+    ambulatorial: 2771
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 27887,
+    ambulatorial: 5817
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 32910,
+    ambulatorial: 4030
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 33293,
+    ambulatorial: 3669
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 37385,
+    ambulatorial: 3003
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 40237,
+    ambulatorial: 3997
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 40237,
+    ambulatorial: 3997
+  }
+];
+
+var matogrosso = [
+  {
+    date: "2008-01-30",
+    hospitalar: 35643,
+    ambulatorial: 15020
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 48843,
+    ambulatorial: 19663
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 45251,
+    ambulatorial: 18994
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 40961,
+    ambulatorial: 7167
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 43247,
+    ambulatorial: 8009
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 44340,
+    ambulatorial: 8223
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 45212,
+    ambulatorial: 8115
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 51302,
+    ambulatorial: 9323
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 48270,
+    ambulatorial: 8971
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 48270,
+    ambulatorial: 8971
+  }
+];
+
+var matogrossodosul = [
+  {
+    date: "2008-01-30",
+    hospitalar: 36322,
+    ambulatorial: 3206
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 34740,
+    ambulatorial: 4372
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 33537,
+    ambulatorial: 9972
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 30570,
+    ambulatorial: 11634
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 21351,
+    ambulatorial: 23373
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 21123,
+    ambulatorial: 18225
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 23910,
+    ambulatorial: 5245
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 29538,
+    ambulatorial: 5974
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 33838,
+    ambulatorial: 6250
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 33838,
+    ambulatorial: 6250
+  }
+];
+
+var minasgerais = [
+  {
+    date: "2008-01-30",
+    hospitalar: 270630,
+    ambulatorial: 29714
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 292932,
+    ambulatorial: 35857
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 291936,
+    ambulatorial: 34587
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 295066,
+    ambulatorial: 29010
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 289196,
+    ambulatorial: 31862
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 294193,
+    ambulatorial: 27544
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 295638,
+    ambulatorial: 28373
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 300794,
+    ambulatorial: 30195
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 311924,
+    ambulatorial: 29591
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 311924,
+    ambulatorial: 29591
+  }
+];
+
+var para = [
+  {
+    date: "2008-01-30",
+    hospitalar: 51466,
+    ambulatorial: 7520
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 58747,
+    ambulatorial: 9071
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 56469,
+    ambulatorial: 8526
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 51998,
+    ambulatorial: 7754
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 55384,
+    ambulatorial: 7861
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 55557,
+    ambulatorial: 7086
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 52505,
+    ambulatorial: 5364
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 57647,
+    ambulatorial: 6957
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 53020,
+    ambulatorial: 8536
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 53020,
+    ambulatorial: 8536
+  }
+];
+
+var paraiba = [
+  {
+    date: "2008-01-30",
+    hospitalar: 35402,
+    ambulatorial: 3083
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 43136,
+    ambulatorial: 4718
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 42856,
+    ambulatorial: 5539
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 42536,
+    ambulatorial: 4170
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 40314,
+    ambulatorial: 6101
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 37096,
+    ambulatorial: 3820
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 35370,
+    ambulatorial: 3078
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 35983,
+    ambulatorial: 3815
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 31406,
+    ambulatorial: 3250
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 31406,
+    ambulatorial: 3250
+  }
+];
+
+var parana = [
+  {
+    date: "2008-01-30",
+    hospitalar: 238745,
+    ambulatorial: 16567
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 245977,
+    ambulatorial: 20433
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 244245,
+    ambulatorial: 20225
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 256127,
+    ambulatorial: 20994
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 255444,
+    ambulatorial: 24253
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 241249,
+    ambulatorial: 22158
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 238024,
+    ambulatorial: 22258
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 223515,
+    ambulatorial: 20461
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 228175,
+    ambulatorial: 20366
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 228175,
+    ambulatorial: 20366
+  }
+];
+
+var pernambuco = [
+  {
+    date: "2008-01-30",
+    hospitalar: 67902,
+    ambulatorial: 15832
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 75303,
+    ambulatorial: 13065
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 74140,
+    ambulatorial: 8925
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 82734,
+    ambulatorial: 7350
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 83604,
+    ambulatorial: 9963
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 92206,
+    ambulatorial: 13478
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 91113,
+    ambulatorial: 12816
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 112625,
+    ambulatorial: 12001
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 110482,
+    ambulatorial: 15711
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 110482,
+    ambulatorial: 15711
+  }
+];
+
+var piaui = [
+  {
+    date: "2008-01-30",
+    hospitalar: 23950,
+    ambulatorial: 61209
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 25701,
+    ambulatorial: 74593
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 23570,
+    ambulatorial: 72672
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 23916,
+    ambulatorial: 2288
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 27329,
+    ambulatorial: 3075
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 30080,
+    ambulatorial: 4089
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 27971,
+    ambulatorial: 4273
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 32118,
+    ambulatorial: 3798
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 35035,
+    ambulatorial: 4416
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 35035,
+    ambulatorial: 4416
+  }
+];
+
+var riodejaneiro = [
+  {
+    date: "2008-01-30",
+    hospitalar: 79925,
+    ambulatorial: 47106
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 77852,
+    ambulatorial: 45817
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 88700,
+    ambulatorial: 43597
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 89269,
+    ambulatorial: 20491
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 93017,
+    ambulatorial: 22743
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 91820,
+    ambulatorial: 25568
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 101757,
+    ambulatorial: 22027
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 107710,
+    ambulatorial: 14849
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 107376,
+    ambulatorial: 11117
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 107376,
+    ambulatorial: 11117
+  }
+];
+
+var riograndedonorte = [
+  {
+    date: "2008-01-30",
+    hospitalar: 30199,
+    ambulatorial: 8525
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 29364,
+    ambulatorial: 7907
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 29193,
+    ambulatorial: 8698
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 31325,
+    ambulatorial: 8185
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 29140,
+    ambulatorial: 7101
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 30721,
+    ambulatorial: 5828
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 30540,
+    ambulatorial: 7593
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 28776,
+    ambulatorial: 3973
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 33377,
+    ambulatorial: 3130
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 33377,
+    ambulatorial: 3130
+  }
+];
+
+var riograndedosul = [
+  {
+    date: "2008-01-30",
+    hospitalar: 160524,
+    ambulatorial: 26934
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 180521,
+    ambulatorial: 25918
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 200523,
+    ambulatorial: 26303
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 196658,
+    ambulatorial: 24168
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 195550,
+    ambulatorial: 24766
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 207621,
+    ambulatorial: 26951
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 212480,
+    ambulatorial: 28859
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 204388,
+    ambulatorial: 27620
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 190998,
+    ambulatorial: 26633
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 190998,
+    ambulatorial: 26633
+  }
+];
+
+var rondonia = [
+  {
+    date: "2008-01-30",
+    hospitalar: 3303,
+    ambulatorial: 167
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 4257,
+    ambulatorial: 177
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 7699,
+    ambulatorial: 515
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 9345,
+    ambulatorial: 456
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 6560,
+    ambulatorial: 502
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 8634,
+    ambulatorial: 467
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 11938,
+    ambulatorial: 830
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 12586,
+    ambulatorial: 949
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 14951,
+    ambulatorial: 653
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 14951,
+    ambulatorial: 653
+  }
+];
+
+var roraima = [
+  {
+    date: "2008-01-30",
+    hospitalar: 5096,
+    ambulatorial: 0
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 5179,
+    ambulatorial: 1580
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 7080,
+    ambulatorial: 2588
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 4617,
+    ambulatorial: 363
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 3557,
+    ambulatorial: 42
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 5115,
+    ambulatorial: 45
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 4245,
+    ambulatorial: 24
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 6538,
+    ambulatorial: 14
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 9233,
+    ambulatorial: 13
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 9233,
+    ambulatorial: 13
+  }
+];
+
+var santacatarina = [
+  {
+    date: "2008-01-30",
+    hospitalar: 98755,
+    ambulatorial: 9045
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 99696,
+    ambulatorial: 10205
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 95075,
+    ambulatorial: 10498
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 104475,
+    ambulatorial: 9571
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 106008,
+    ambulatorial: 10512
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 107890,
+    ambulatorial: 11270
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 109195,
+    ambulatorial: 11857
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 107398,
+    ambulatorial: 12234
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 109005,
+    ambulatorial: 13589
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 109005,
+    ambulatorial: 13589
+  }
+];
+
+var saopaulo = [
+  {
+    date: "2008-01-30",
+    hospitalar: 626729,
+    ambulatorial: 168015
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 678041,
+    ambulatorial: 163477
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 690377,
+    ambulatorial: 167506
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 681002,
+    ambulatorial: 138054
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 679961,
+    ambulatorial: 136918
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 684426,
+    ambulatorial: 135832
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 668735,
+    ambulatorial: 140994
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 657130,
+    ambulatorial: 144175
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 633298,
+    ambulatorial: 145580
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 633298,
+    ambulatorial: 145580
+  }
+];
+
+var sergipe = [
+  {
+    date: "2008-01-30",
+    hospitalar: 5633,
+    ambulatorial: 51722
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 6975,
+    ambulatorial: 63961
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 8994,
+    ambulatorial: 6540
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 10707,
+    ambulatorial: 698
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 14811,
+    ambulatorial: 3328
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 13379,
+    ambulatorial: 3584
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 12918,
+    ambulatorial: 2322
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 16269,
+    ambulatorial: 357
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 19021,
+    ambulatorial: 317
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 19021,
+    ambulatorial: 317
+  }
+];
+
+var tocantins = [
+  {
+    date: "2008-01-30",
+    hospitalar: 14532,
+    ambulatorial: 89
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 17664,
+    ambulatorial: 135
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 18006,
+    ambulatorial: 178
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 14845,
+    ambulatorial: 311
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 15136,
+    ambulatorial: 267
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 14463,
+    ambulatorial: 573
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 14844,
+    ambulatorial: 828
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 13333,
+    ambulatorial: 679
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 14676,
+    ambulatorial: 711
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 14676,
+    ambulatorial: 711
+  }
+];
+
+var Brasil = [
+  {
+    date: "2008-01-30",
+    hospitalar: 2103062,
+    ambulatorial: 637635
+  },
+  {
+    date: "2009-01-30",
+    hospitalar: 2293623,
+    ambulatorial: 679522
+  },
+  {
+    date: "2010-01-30",
+    hospitalar: 2316710,
+    ambulatorial: 612735
+  },
+  {
+    date: "2011-01-30",
+    hospitalar: 2351273,
+    ambulatorial: 386411
+  },
+  {
+    date: "2012-01-30",
+    hospitalar: 2334622,
+    ambulatorial: 425255
+  },
+  {
+    date: "2013-01-30",
+    hospitalar: 2364599,
+    ambulatorial: 412177
+  },
+  {
+    date: "2014-01-30",
+    hospitalar: 2377052,
+    ambulatorial: 413875
+  },
+  {
+    date: "2015-01-30",
+    hospitalar: 2426192,
+    ambulatorial: 383719
+  },
+  {
+    date: "2016-12-31",
+    hospitalar: 2437240,
+    ambulatorial: 389053
+  },
+  {
+    date: "2017-12-31",
+    hospitalar: 2437240,
+    ambulatorial: 389053
+  }
+];
+
+var chart = AmCharts.makeChart("chartdiv2", {
+    type: "stock",
+    theme: "light",
+	dataDateFormat : "YYYY",
+    pathToImages: "http://www.amcharts.com/lib/3/images/",
+	extendToFullPeriod : false,
+    panelsSettings: {
+        recalculateToPercents: "never"
+    },
+
+    dataSets: [
+	{
+        title: "Brasil",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: Brasil,
+        categoryField: "date"
+    },
+	{
+        title: "Acre",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: acre,
+        categoryField: "date"
+    },
+
+    {
+        title: "Alagoas",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: alagoas,
+        categoryField: "date"
+    },
+
+    {
+        title: "Amapá",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: amapa,
+        categoryField: "date"
+    },
+
+    {
+        title: "Amazonas",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: amazonas,
+        categoryField: "date"
+    },
+
+    {
+        title: "Bahia",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: bahia,
+        categoryField: "date"
+    },
+
+    {
+        title: "Ceará",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: ceara,
+        categoryField: "date"
+    },
+
+    {
+        title: "Distrito Federal",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: distritofederal,
+        categoryField: "date"
+    },
+
+    {
+        title: "Espírito Santo",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: espiritosanto,
+        categoryField: "date"
+    },
+
+    {
+        title: "Goiás",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: goias,
+        categoryField: "date"
+    },
+
+    {
+        title: "Maranhão",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: maranhao,
+        categoryField: "date"
+    },
+
+    {
+        title: "Mato Grosso",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: matogrosso,
+        categoryField: "date"
+    },
+
+    {
+        title: "Mato Grosso do Sul",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: matogrossodosul,
+        categoryField: "date"
+    },
+
+    {
+        title: "Minas Gerais",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: minasgerais,
+        categoryField: "date"
+    },
+
+    {
+        title: "Pará",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: para,
+        categoryField: "date"
+    },
+
+    {
+        title: "Paraíba",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: paraiba,
+        categoryField: "date"
+    },
+
+    {
+        title: "Paraná",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: parana,
+        categoryField: "date"
+    },
+
+    {
+        title: "Pernambuco",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: pernambuco,
+        categoryField: "date"
+    },
+
+    {
+        title: "Piauí",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: piaui,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rio de Janeiro",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: riodejaneiro,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rio Grande do Norte",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: riograndedonorte,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rio Grande do Sul",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: riograndedosul,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rondônia",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: rondonia,
+        categoryField: "date"
+    },
+
+    {
+        title: "Roraima",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: roraima,
+        categoryField: "date"
+    },
+
+    {
+        title: "Santa Catarina",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: santacatarina,
+        categoryField: "date"
+    },
+
+    {
+        title: "São Paulo",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: saopaulo,
+        categoryField: "date"
+    },
+
+    {
+        title: "Sergipe",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: sergipe,
+        categoryField: "date"
+    },
+
+    {
+        title: "Tocantins",
+        fieldMappings: [{
+            fromField: "hospitalar",
+            toField: "hospitalar"
+        }, {
+            fromField: "ambulatorial",
+            toField: "ambulatorial"
+        }
+		],
+        dataProvider: tocantins,
+        categoryField: "date"
+    }
+	],
+
+    panels: [
+	 {
+
+        title: "Ambulatorial",
+
+        stockGraphs: [{
+            id: "ambulatorial",
+            valueField: "ambulatorial",
+            lineThickness: 3,
+            title: "",
+			labelPosition : "left",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true,
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        },
+		
+		
+	}
+	,{
+
+        title: "Hospitalar",
+
+        stockGraphs: [{
+            id: "hospitalar",
+            valueField: "hospitalar",
+            lineThickness: 3,
+            title: "",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+
+        stockLegend: {
+            useGraphSettings: true
+        }
+	}
+	
+	],
+ 
+    chartScrollbarSettings: {
+        graph: ["hospitalar"]
+    },
+
+	
+    chartCursorSettings: {
+        valueBalloonsEnabled: true,
+        fullWidth: true,		
+		categoryBalloonEnabled : true,
+        cursorAlpha: 0.1,		
+        valueLineBalloonEnabled: true,
+        valueLineEnabled: true,
+        valueLineAlpha: 0.5
+    },
+	
+    dataSetSelector: {
+        position: "left",
+		selectText : "Selecione uma UF:",
+		compareText : "Selecione outra UF para comparar:"		
+    },
+	
+   export: {
+    	enabled: true
+     }
+	
+
+
+});
+
+
+
+</script>
+
+</body>
+</html>
+{% endblock %}

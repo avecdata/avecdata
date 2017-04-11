@@ -15,7 +15,7 @@ class Keywords(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title.encode('utf-8')
+        return self.title
 
 class Themes(models.Model):
     #author = models.ForeignKey('auth.User')
@@ -31,7 +31,7 @@ class Themes(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title.encode('utf-8')
+        return self.title
 
 class Subject(models.Model):
     #author = models.ForeignKey('auth.User')
@@ -50,7 +50,7 @@ class Subject(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title.encode('utf-8')
+        return self.title
 
 class Subject_detail(models.Model):
     #author = models.ForeignKey('auth.User')
@@ -68,7 +68,7 @@ class Subject_detail(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title.encode('utf-8')			
+        return self.title			
 
 class Post(models.Model):
     #author = models.ForeignKey('auth.User')
@@ -91,8 +91,41 @@ class Post(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title.encode('utf-8')
+        return self.title
+		
+class Dashboard(models.Model):
+    title = models.CharField(max_length=200)
+    url = models.CharField(max_length=200)
+    description = models.TextField(blank=True)	
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+    subject = models.ManyToManyField(Subject , related_name='subparent_dash')
+    subject_detail = models.ManyToManyField(Subject_detail , related_name='subchild_dash')
+    keywords = models.ManyToManyField(Keywords, blank=True, related_name='keywords_dash')
+    group = models.ManyToManyField(Group)
+    open = models.BooleanField()
+	
+    def publish_dashboard(self):
+        self.published_date = timezone.now()
+        self.save()
 
+    def __str__(self):
+        return self.title
+
+class Dashsource(models.Model):
+    source_name = models.CharField(max_length=200)
+    source_url = models.CharField(max_length=200)
+    extract_date = models.DateTimeField(
+            blank=True, null=True)
+    dash = models.ForeignKey(Dashboard)		
+    
+    def publish_dashsource(self):
+        self.save()
+
+    def __str__(self):
+        return self.title		
 class Reports(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
@@ -111,14 +144,14 @@ class Reports(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title.encode('utf-8')
+        return self.title
     
 class Price(models.Model):
     
     country_code = models.IntegerField(default=0, verbose_name='Cód. do país')
     country_name = models.CharField(max_length=150, verbose_name='Nome do país', null=False)
     country_slug = models.CharField(max_length=160, verbose_name='Abreviação', null=False)
-    pvalue = models.DecimalField(default=0.0, max_digits=5, decimal_places=2, verbose_name='Valor do Plano')
+    pvalue = models.DecimalField(default=0.0, max_digits=10, decimal_places=2, verbose_name='Valor do Plano')
     created_date = models.DateTimeField(default=timezone.now, verbose_name='Data de criação')
     published_date = models.DateTimeField(blank=True, null=True, verbose_name='Data de modificação')
     
@@ -133,7 +166,7 @@ class Price(models.Model):
         verbose_name_plural = 'Preços dos Planos'
 
     def __str__(self):
-        return self.group.name.encode('utf-8')
+        return self.group.name
     
 #     def __str__(self):
 #         return '{} [{}] {} {}'.format(self.country_code, self.country_name, self.pvalue, self.group.name)
@@ -157,7 +190,7 @@ class Order(models.Model):
     status = models.IntegerField('Situação', choices=STATUS_CHOICES, default=0, blank=True)
     payment_option = models.CharField('Opção de Pagamento', choices=PAYMENT_OPTION_CHOICES, max_length=20, default='paypal')
     order_key = models.CharField('Chave da compra', max_length=40, db_index=True)
-    amount = models.DecimalField(default=0.0, max_digits=5, decimal_places=2, verbose_name='Valor do Pedido')
+    amount = models.DecimalField(default=0.0, max_digits=10, decimal_places=2, verbose_name='Valor do Pedido')
 
     created = models.DateTimeField('Criado em', auto_now_add=True)
     modified = models.DateTimeField('Modificado em', auto_now=True)
@@ -179,7 +212,9 @@ class Order(models.Model):
 #         
 #         price = Price.objects.filter(Q(country_slug=country_slug) & Q(group_id=group_id))
 #         result = price[0].pvalue if price.count() > 1 else 0
-        result = self.price.pvalue
+        
+#         result = self.price.pvalue
+        result = self.amount
         
         return result
     
