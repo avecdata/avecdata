@@ -20,7 +20,7 @@
 			<label for="{{ forloop.counter }}">{{ th.title }} <span class="icon"></span></label>
 			<div class="content">
 				<ul>
-				{% for subj in th.subject_set.all %}
+				{% for subj in th.subject_set.all|dictsort:"title" %}
 				  <li><a href="{% url 'subject_detail' pk=subj.pk %}">{{ subj.title }}</a></li>
 				{% endfor %}  
 				</ul>

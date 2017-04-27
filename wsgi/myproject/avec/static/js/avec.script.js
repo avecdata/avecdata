@@ -4,8 +4,9 @@
 
 $(document).ready(function () {
 	
-	window.url_config = 'http://avecdatadomain.com:8080';
+	//window.url_config = 'http://192.168.0.105:8080';
 	//window.url_config = 'http://www.avecdata.com';
+	window.url_config = 'http://avecdata.ddns.net:8080';
 	
 	$('li.moment-data__item').mouseover(function() {
 		var imgpath = $(this).find('a').attr('data-image');
@@ -41,6 +42,18 @@ $(document).ready(function () {
 			if (ui.type=='post' ){
 				window.location.href = '/post/'+ui.id;
 			}
+			if (ui.type=='dashboard' ){
+				window.location.href = '/'+ui.id;
+			}
+			if (ui.type=='report' ){				
+				window.location.href = '/report/'+ui.id;
+			}
+			if (ui.type=='simpledashboard' ){				
+				window.location.href = '/simpleDash_detail/'+ui.id;
+			}			
+			if (ui.type=='painel' ){				
+				window.location.href = '/paineis_detail/'+ui.id;
+			}			
 	    }
 	});
 	

@@ -5,9 +5,9 @@
 {% load staticfiles %}
 
 {% block content %}
-      
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">    
 <link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
-  <section class="banner-search" style="padding-top:30px;">
+  <section class="banner-search" style="padding-top:65px;">
     <div class="container">
       <div class="row">
         <div class="banner-search__text">
@@ -52,9 +52,10 @@
           </figure>
         </div>
         <div class="services__content">
-          <h2 class="services__title">Mais de 120 bases de dados integradas</h2>
+          <h2 class="services__title">Lago de Dados</h2>
+		  <h3 style="color:white;">Encontre os dados mais relevantes</h3>
 
-          <p class="services__description">DATA LAKE (lago de dados), com dados, séries históricas e informações sobre os diversos temas e obtidos de fontes oficiais em diversos espaços temporais (algumas séries com mais de 20 anos)</p>
+          <p class="services__description">Visualizações, séries históricas e informações sobre os mais diversos temas e obtidos de fontes oficiais em diversos espaços temporais (algumas séries com mais de 20 anos)</p>
 
           <a href="assuntos" class="services__button btn">Ver lista de assuntos</a>
         </div>
@@ -224,7 +225,7 @@
 	        {% endif %}
           </div>
           <div class="plans__box avec_plans">
-            <h3 class="plans__price-title">Plano Corporativo**</h3>
+            <h3 class="plans__price-title">Plano Empresarial**</h3>
             <div class="plans__price"><span class="plans__currency">R$</span>150<span class="plans__time">/mês</span></div>
             <ul class="plans__list">
               <li class="plans__item plans__item--selected">
@@ -246,7 +247,7 @@
                 <a href="" class="plans__link">Retratos setoriais</a>
               </li>
               <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Integração com bases próprias *</a>
+                <a href="" class="plans__link">Painéis personalizados *</a>
               </li>
             </ul>
             {% if request.user.id %}
@@ -265,7 +266,7 @@
 	        {% endif %}
           </div>
         </div>
-        <span style="color: #f1f1f1; width: 100%; display: inline-block; text-align: right;"><em>* Condições de serviços a serem firmadas sob contrato a parte<br>** Mínimo de 10 Assinaturas</em></span>
+        <span style="color: #f1f1f1; width: 100%; display: inline-block; text-align: right;"><em>* Um painel de preferência de usuário por mês<br>** Mínimo de 10 Assinaturas</em></span>
       </div>
     </div>
   </section>

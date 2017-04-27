@@ -1,0 +1,3212 @@
+﻿{% extends 'avec/base_dashboard.html' %}
+{% load staticfiles %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>AVEC - Ciência de dados</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />		
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  	
+
+   <!-- <link href="css/style2.css" rel="stylesheet">-->
+   
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+   
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>	
+    <script src="{% static 'js/colorbrewer.js' %}"></script>
+    <script src="{% static 'data/world-countries.json' %}"></script>
+	
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dc.js' %}"></script>		
+	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'js/cloud.js' %}"></script>
+
+   <!--<script type="text/javascript" src="http://www.kunalbabre.com/projects/table2CSV.js" > </script> 	-->
+
+   <script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>
+	<!--  <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+<style>
+	
+	
+	@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
+
+*,:after,:before{box-sizing:content-box;!important}
+
+#chartdiv, #chartdiv2, #chartdiv3, #chartdiv4  {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}							
+
+.amChartsCompareList -compare-div{
+	height		: 400px;	
+}
+
+svg {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+h1 {
+  padding: 50px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16b'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09, #chart-10,  #chart-11,  #chart-12,  #chart-13{
+        background: #899296;
+        width: 100%;
+        font-size: 64px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 100px;
+        height: 40px;
+        line-height: normal;
+		margin-bottom: 15px;
+      }
+
+	  .amcharts-compare-item-div{
+			padding: 8px; position: relative; height: 20px;
+	  }
+	</style>
+    </head>
+<body>
+
+<div class="title_sec">
+		<div class="internal__row">
+			<h1 class="internal__title">Leptospirose</h1>
+		</div>
+</div>	
+
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Leptospirose</label>
+  
+  
+
+
+<section id="content1">
+	<div class="tab-pane " id="a_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica -  Número de casos e óbitos 
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			  				<div id="chartdiv"></div>	
+			
+          </div>
+          <div class="chart-notes">
+            Fonte: Secretária de Vigilância em Saúde/MS. </br>			
+          </div>
+        </div>
+      </div>
+	</div>
+	</div>
+</section>	
+
+<section id="content2">
+	<div class="tab-pane " id="b_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica - Transfusão ambulatorial e hospitalar - "2008-30-01" à "2016-30-01"
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			<div id="chartdiv2"></div>	
+			
+          </div>
+          <div class="chart-notes">
+             Fonte: Ministério da Saúde - Sistema de Informações Hospitalares do SUS (SIH/SUS) </br>
+          </div>
+        </div>
+      </div>
+	</div>	
+
+	</div>
+</section>	
+
+<!-- Chart Sangue -->
+<script>
+
+var acre = [
+  {
+    date: "2000-30-01",
+    numcasos: 30,
+    obitos: 0
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 8,
+    obitos: 0
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 18,
+    obitos: 0
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 15,
+    obitos: 1
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 4,
+    obitos: 0
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 18,
+    obitos: 2
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 467,
+    obitos: 3
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 24,
+    obitos: 0
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 39,
+    obitos: 4
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 69,
+    obitos: 6
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 43,
+    obitos: 5
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 132,
+    obitos: 6
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 249,
+    obitos: 5
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 506,
+    obitos: 3
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 1196,
+    obitos: 7
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 945,
+    obitos: 2
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 176,
+    obitos: 1
+  }
+];
+
+var alagoas = [
+  {
+    date: "2000-30-01",
+    numcasos: 200,
+    obitos: 9
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 70,
+    obitos: 7
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 81,
+    obitos: 8
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 47,
+    obitos: 7
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 98,
+    obitos: 3
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 70,
+    obitos: 9
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 78,
+    obitos: 6
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 49,
+    obitos: 6
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 79,
+    obitos: 5
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 77,
+    obitos: 5
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 68,
+    obitos: 3
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 83,
+    obitos: 7
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 47,
+    obitos: 8
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 55,
+    obitos: 8
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 69,
+    obitos: 6
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 34,
+    obitos: 2
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 15,
+    obitos: 2
+  }
+];
+
+var amapa = [
+  {
+    date: "2000-30-01",
+    numcasos: 350,
+    obitos: 3
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 13,
+    obitos: 0
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 91,
+    obitos: 4
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 26,
+    obitos: 0
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 37,
+    obitos: 2
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 80,
+    obitos: 2
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 58,
+    obitos: 0
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 89,
+    obitos: 1
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 93,
+    obitos: 1
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 62,
+    obitos: 0
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 96,
+    obitos: 3
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 78,
+    obitos: 2
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 47,
+    obitos: 0
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 72,
+    obitos: 6
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 47,
+    obitos: 0
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 75,
+    obitos: 3
+  }
+];
+
+var amazonas = [
+  {
+    date: "2000-30-01",
+    numcasos: 34,
+    obitos: 4
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 28,
+    obitos: 2
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 25,
+    obitos: 1
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 27,
+    obitos: 2
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 34,
+    obitos: 3
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 44,
+    obitos: 4
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 60,
+    obitos: 4
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 47,
+    obitos: 5
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 49,
+    obitos: 8
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 59,
+    obitos: 11
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 41,
+    obitos: 6
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 74,
+    obitos: 6
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 75,
+    obitos: 7
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 71,
+    obitos: 8
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 99,
+    obitos: 5
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 82,
+    obitos: 6
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 47,
+    obitos: 6
+  }
+];
+
+var bahia = [
+  {
+    date: "2000-30-01",
+    numcasos: 85,
+    obitos: 10
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 114,
+    obitos: 13
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 120,
+    obitos: 15
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 120,
+    obitos: 21
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 130,
+    obitos: 24
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 212,
+    obitos: 35
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 154,
+    obitos: 22
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 125,
+    obitos: 20
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 113,
+    obitos: 18
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 154,
+    obitos: 26
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 199,
+    obitos: 29
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 166,
+    obitos: 21
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 94,
+    obitos: 11
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 182,
+    obitos: 23
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 117,
+    obitos: 14
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 128,
+    obitos: 21
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 51,
+    obitos: 8
+  }
+];
+
+var ceara = [
+  {
+    date: "2000-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 52,
+    obitos: 8
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 52,
+    obitos: 5
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 83,
+    obitos: 14
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 101,
+    obitos: 14
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 61,
+    obitos: 9
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 103,
+    obitos: 12
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 70,
+    obitos: 5
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 88,
+    obitos: 4
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 300,
+    obitos: 13
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 35,
+    obitos: 7
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 118,
+    obitos: 7
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 57,
+    obitos: 3
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 31,
+    obitos: 2
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 49,
+    obitos: 6
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 29,
+    obitos: 2
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 48,
+    obitos: 11
+  }
+];
+
+var distritofederal = [
+  {
+    date: "2000-30-01",
+    numcasos: 34,
+    obitos: 1
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 28,
+    obitos: 4
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 18,
+    obitos: 3
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 33,
+    obitos: 1
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 40,
+    obitos: 5
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 28,
+    obitos: 2
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 33,
+    obitos: 2
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 22,
+    obitos: 1
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 22,
+    obitos: 1
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 28,
+    obitos: 3
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 28,
+    obitos: 1
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 15,
+    obitos: 5
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 16,
+    obitos: 1
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 27,
+    obitos: 4
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 18,
+    obitos: 5
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 27,
+    obitos: 6
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 27,
+    obitos: 2
+  }
+];
+
+var espiritosanto = [
+  {
+    date: "2000-30-01",
+    numcasos: 31,
+    obitos: 4
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 104,
+    obitos: 10
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 40,
+    obitos: 4
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 27,
+    obitos: 3
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 219,
+    obitos: 15
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 179,
+    obitos: 9
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 299,
+    obitos: 9
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 147,
+    obitos: 6
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 135,
+    obitos: 8
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 232,
+    obitos: 6
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 273,
+    obitos: 3
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 293,
+    obitos: 18
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 238,
+    obitos: 15
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 156,
+    obitos: 8
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 230,
+    obitos: 8
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 76,
+    obitos: 7
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 46,
+    obitos: 1
+  }
+];
+
+var goias = [
+  {
+    date: "2000-30-01",
+    numcasos: 13,
+    obitos: 1
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 7,
+    obitos: 2
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 6,
+    obitos: 2
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 7,
+    obitos: 0
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 16,
+    obitos: 4
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 11,
+    obitos: 2
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 15,
+    obitos: 1
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 7,
+    obitos: 2
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 10,
+    obitos: 2
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 12,
+    obitos: 0
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 13,
+    obitos: 0
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 4,
+    obitos: 0
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 21,
+    obitos: 3
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 31,
+    obitos: 5
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 24,
+    obitos: 4
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 27,
+    obitos: 1
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 30,
+    obitos: 3
+  }
+];
+
+var maranhao = [
+  {
+    date: "2000-30-01",
+    numcasos: 11,
+    obitos: 2
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 33,
+    obitos: 5
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 27,
+    obitos: 4
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 20,
+    obitos: 5
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 25,
+    obitos: 4
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 14,
+    obitos: 3
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 52,
+    obitos: 7
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 17,
+    obitos: 4
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 60,
+    obitos: 14
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 61,
+    obitos: 5
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 41,
+    obitos: 1
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 47,
+    obitos: 10
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 21,
+    obitos: 4
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 20,
+    obitos: 0
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 34,
+    obitos: 4
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 19,
+    obitos: 5
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 13,
+    obitos: 4
+  }
+];
+
+var matogrosso = [
+  {
+    date: "2000-30-01",
+    numcasos: 3,
+    obitos: 0
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 11,
+    obitos: 1
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 3,
+    obitos: 2
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 14,
+    obitos: 4
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 11,
+    obitos: 1
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 13,
+    obitos: 3
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 3,
+    obitos: 0
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 13,
+    obitos: 0
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 3,
+    obitos: 0
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 8,
+    obitos: 2
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 5,
+    obitos: 1
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 3,
+    obitos: 0
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 4,
+    obitos: 2
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 10,
+    obitos: 3
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 5,
+    obitos: 3
+  }
+];
+
+var matogrossodosul = [
+  {
+    date: "2000-30-01",
+    numcasos: 6,
+    obitos: 1
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 8,
+    obitos: 3
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 5,
+    obitos: 0
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 9,
+    obitos: 1
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 4,
+    obitos: 0
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 15,
+    obitos: 0
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 10,
+    obitos: 0
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 7,
+    obitos: 0
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 4,
+    obitos: 0
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 2,
+    obitos: 1
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 4,
+    obitos: 0
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 6,
+    obitos: 0
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 18,
+    obitos: 2
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 13,
+    obitos: 0
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 8,
+    obitos: 0
+  }
+];
+
+var minasgerais = [
+  {
+    date: "2000-30-01",
+    numcasos: 22,
+    obitos: 4
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 43,
+    obitos: 9
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 44,
+    obitos: 5
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 168,
+    obitos: 28
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 87,
+    obitos: 7
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 94,
+    obitos: 19
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 70,
+    obitos: 11
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 79,
+    obitos: 10
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 79,
+    obitos: 16
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 108,
+    obitos: 13
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 93,
+    obitos: 12
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 113,
+    obitos: 13
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 125,
+    obitos: 15
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 148,
+    obitos: 18
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 124,
+    obitos: 13
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 116,
+    obitos: 7
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 142,
+    obitos: 20
+  }
+];
+
+var para = [
+  {
+    date: "2000-30-01",
+    numcasos: 321,
+    obitos: 23
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 102,
+    obitos: 11
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 167,
+    obitos: 7
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 110,
+    obitos: 18
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 158,
+    obitos: 25
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 164,
+    obitos: 41
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 132,
+    obitos: 18
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 111,
+    obitos: 19
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 134,
+    obitos: 12
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 103,
+    obitos: 11
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 95,
+    obitos: 16
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 130,
+    obitos: 15
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 104,
+    obitos: 8
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 123,
+    obitos: 15
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 149,
+    obitos: 14
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 134,
+    obitos: 26
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 115,
+    obitos: 10
+  }
+];
+
+var paraiba = [
+  {
+    date: "2000-30-01",
+    numcasos: 29,
+    obitos: 2
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 18,
+    obitos: 1
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 21,
+    obitos: 3
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 45,
+    obitos: 6
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 17,
+    obitos: 1
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 16,
+    obitos: 4
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 15,
+    obitos: 4
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 14,
+    obitos: 5
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 11,
+    obitos: 2
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 8,
+    obitos: 1
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 25,
+    obitos: 5
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 18,
+    obitos: 6
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 19,
+    obitos: 3
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 15,
+    obitos: 2
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 11,
+    obitos: 1
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 5,
+    obitos: 0
+  }
+];
+
+var parana = [
+  {
+    date: "2000-30-01",
+    numcasos: 11,
+    obitos: 3
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 185,
+    obitos: 29
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 251,
+    obitos: 35
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 316,
+    obitos: 34
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 204,
+    obitos: 29
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 334,
+    obitos: 35
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 289,
+    obitos: 36
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 372,
+    obitos: 29
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 194,
+    obitos: 18
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 198,
+    obitos: 19
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 319,
+    obitos: 61
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 446,
+    obitos: 58
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 227,
+    obitos: 24
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 314,
+    obitos: 45
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 247,
+    obitos: 26
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 508,
+    obitos: 50
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 410,
+    obitos: 36
+  }
+];
+
+var pernambuco = [
+  {
+    date: "2000-30-01",
+    numcasos: 861,
+    obitos: 110
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 324,
+    obitos: 36
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 307,
+    obitos: 36
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 201,
+    obitos: 35
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 371,
+    obitos: 64
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 335,
+    obitos: 41
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 224,
+    obitos: 34
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 205,
+    obitos: 27
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 188,
+    obitos: 13
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 206,
+    obitos: 17
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 268,
+    obitos: 19
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 375,
+    obitos: 41
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 114,
+    obitos: 17
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 166,
+    obitos: 14
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 222,
+    obitos: 24
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 127,
+    obitos: 20
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 146,
+    obitos: 15
+  }
+];
+
+var piaui = [
+  {
+    date: "2000-30-01",
+    numcasos: 2,
+    obitos: 1
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 11,
+    obitos: 0
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 1,
+    obitos: 1
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 1,
+    obitos: 0
+  }
+];
+
+var riodejaneiro = [
+  {
+    date: "2000-30-01",
+    numcasos: 360,
+    obitos: 54
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 266,
+    obitos: 66
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 209,
+    obitos: 52
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 245,
+    obitos: 49
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 293,
+    obitos: 64
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 310,
+    obitos: 58
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 270,
+    obitos: 53
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 247,
+    obitos: 46
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 257,
+    obitos: 55
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 305,
+    obitos: 48
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 279,
+    obitos: 58
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 415,
+    obitos: 33
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 186,
+    obitos: 30
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 229,
+    obitos: 42
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 154,
+    obitos: 40
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 136,
+    obitos: 22
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 142,
+    obitos: 23
+  }
+];
+
+var riograndedonorte = [
+  {
+    date: "2000-30-01",
+    numcasos: 23,
+    obitos: 1
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 8,
+    obitos: 4
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 10,
+    obitos: 1
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 10,
+    obitos: 1
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 12,
+    obitos: 0
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 5,
+    obitos: 0
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 9,
+    obitos: 1
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 3,
+    obitos: 2
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 18,
+    obitos: 2
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 40,
+    obitos: 1
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 16,
+    obitos: 2
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 35,
+    obitos: 4
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 13,
+    obitos: 2
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 7,
+    obitos: 0
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 14,
+    obitos: 0
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 21,
+    obitos: 1
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 2,
+    obitos: 1
+  }
+];
+
+var riograndedosul = [
+  {
+    date: "2000-30-01",
+    numcasos: 868,
+    obitos: 47
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 1134,
+    obitos: 75
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 457,
+    obitos: 21
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 570,
+    obitos: 29
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 165,
+    obitos: 15
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 347,
+    obitos: 30
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 550,
+    obitos: 32
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 518,
+    obitos: 33
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 402,
+    obitos: 30
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 459,
+    obitos: 20
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 465,
+    obitos: 25
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 532,
+    obitos: 25
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 278,
+    obitos: 17
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 434,
+    obitos: 25
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 489,
+    obitos: 26
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 528,
+    obitos: 33
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 387,
+    obitos: 16
+  }
+];
+
+var rondonia = [
+  {
+    date: "2000-30-01",
+    numcasos: 3,
+    obitos: 1
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 2,
+    obitos: 1
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 4,
+    obitos: 4
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 4,
+    obitos: 0
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 10,
+    obitos: 0
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 3,
+    obitos: 0
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 17,
+    obitos: 2
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 29,
+    obitos: 3
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 15,
+    obitos: 1
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 56,
+    obitos: 2
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 14,
+    obitos: 2
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 147,
+    obitos: 4
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 190,
+    obitos: 4
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 88,
+    obitos: 3
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 46,
+    obitos: 1
+  }
+];
+
+var roraima = [
+  {
+    date: "2000-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 2,
+    obitos: 1
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 4,
+    obitos: 1
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 3,
+    obitos: 0
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 5,
+    obitos: 0
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 4,
+    obitos: 0
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 0,
+    obitos: 0
+  }
+];
+
+var santacatarina = [
+  {
+    date: "2000-30-01",
+    numcasos: 163,
+    obitos: 12
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 330,
+    obitos: 30
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 199,
+    obitos: 14
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 306,
+    obitos: 17
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 304,
+    obitos: 17
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 407,
+    obitos: 21
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 346,
+    obitos: 13
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 370,
+    obitos: 11
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 948,
+    obitos: 25
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 425,
+    obitos: 17
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 437,
+    obitos: 21
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 691,
+    obitos: 18
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 408,
+    obitos: 9
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 338,
+    obitos: 10
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 350,
+    obitos: 10
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 556,
+    obitos: 15
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 357,
+    obitos: 8
+  }
+];
+
+var saopaulo = [
+  {
+    date: "2000-30-01",
+    numcasos: 689,
+    obitos: 83
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 809,
+    obitos: 111
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 664,
+    obitos: 109
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 559,
+    obitos: 78
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 720,
+    obitos: 81
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 780,
+    obitos: 79
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 1060,
+    obitos: 129
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 750,
+    obitos: 99
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 583,
+    obitos: 80
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 849,
+    obitos: 94
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 866,
+    obitos: 96
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 965,
+    obitos: 111
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 773,
+    obitos: 69
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 935,
+    obitos: 102
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 756,
+    obitos: 89
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 635,
+    obitos: 86
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 557,
+    obitos: 58
+  }
+];
+
+var sergipe = [
+  {
+    date: "2000-30-01",
+    numcasos: 52,
+    obitos: 8
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 48,
+    obitos: 10
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 23,
+    obitos: 4
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 12,
+    obitos: 0
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 25,
+    obitos: 5
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 31,
+    obitos: 4
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 41,
+    obitos: 13
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 85,
+    obitos: 20
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 67,
+    obitos: 12
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 52,
+    obitos: 14
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 66,
+    obitos: 11
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 50,
+    obitos: 17
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 34,
+    obitos: 11
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 33,
+    obitos: 12
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 42,
+    obitos: 13
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 40,
+    obitos: 15
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 17,
+    obitos: 2
+  }
+];
+
+var tocantins = [
+  {
+    date: "2000-30-01",
+    numcasos: 3,
+    obitos: 0
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 4,
+    obitos: 0
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 5,
+    obitos: 1
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 0,
+    obitos: 0
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 2,
+    obitos: 0
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 3,
+    obitos: 0
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 4,
+    obitos: 0
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 8,
+    obitos: 0
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 3,
+    obitos: 0
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 1,
+    obitos: 0
+  },
+  {
+    date: "2016-30-01",
+    numcasos: 2,
+    obitos: 0
+  }
+];
+
+var Brasil = [
+  {
+    date: "2000-30-01",
+    numcasos: 4208,
+    obitos: 384
+  },
+  {
+    date: "2001-30-01",
+    numcasos: 3708,
+    obitos: 436
+  },
+  {
+    date: "2002-30-01",
+    numcasos: 2769,
+    obitos: 332
+  },
+  {
+    date: "2003-30-01",
+    numcasos: 3005,
+    obitos: 353
+  },
+  {
+    date: "2004-30-01",
+    numcasos: 3097,
+    obitos: 389
+  },
+  {
+    date: "2005-30-01",
+    numcasos: 3534,
+    obitos: 408
+  },
+  {
+    date: "2006-30-01",
+    numcasos: 4386,
+    obitos: 416
+  },
+  {
+    date: "2007-30-01",
+    numcasos: 3331,
+    obitos: 349
+  },
+  {
+    date: "2008-30-01",
+    numcasos: 3611,
+    obitos: 336
+  },
+  {
+    date: "2009-30-01",
+    numcasos: 3888,
+    obitos: 335
+  },
+  {
+    date: "2010-30-01",
+    numcasos: 3739,
+    obitos: 379
+  },
+  {
+    date: "2011-30-01",
+    numcasos: 4874,
+    obitos: 427
+  },
+  {
+    date: "2012-30-01",
+    numcasos: 3208,
+    obitos: 270
+  },
+  {
+    date: "2013-30-01",
+    numcasos: 4043,
+    obitos: 351
+  },
+  {
+    date: "2014-30-01",
+    numcasos: 4690,
+    obitos: 331
+  },
+  {
+    date: "2015-30-01",
+    numcasos: 4341,
+    obitos: 334
+  },
+  {
+    date: "2016-30-12",
+    numcasos: 2870,
+    obitos: 234
+  }
+];
+
+
+var chart = AmCharts.makeChart("chartdiv", {
+    type: "stock",
+    theme: "light",
+	dataDateFormat : "YYYY",
+	extendToFullPeriod : false,
+    pathToImages: "http://www.amcharts.com/lib/3/images/",
+
+    panelsSettings: {
+        recalculateToPercents: "never"
+    },
+	
+    dataSets: [
+	{
+        title: "Brasil",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: Brasil,
+        categoryField: "date"
+    },
+	{
+        title: "Acre",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: acre,
+        categoryField: "date"
+    },
+
+    {
+        title: "Alagoas",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: alagoas,
+        categoryField: "date"
+    },
+
+    {
+        title: "Amapá",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: amapa,
+        categoryField: "date"
+    },
+
+    {
+        title: "Amazonas",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: amazonas,
+        categoryField: "date"
+    },
+
+    {
+        title: "Bahia",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: bahia,
+        categoryField: "date"
+    },
+
+    {
+        title: "Ceará",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: ceara,
+        categoryField: "date"
+    },
+
+    {
+        title: "Distrito Federal",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: distritofederal,
+        categoryField: "date"
+    },
+
+    {
+        title: "Espírito Santo",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: espiritosanto,
+        categoryField: "date"
+    },
+
+    {
+        title: "Goiás",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: goias,
+        categoryField: "date"
+    },
+
+    {
+        title: "Maranhão",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: maranhao,
+        categoryField: "date"
+    },
+
+    {
+        title: "Mato Grosso",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: matogrosso,
+        categoryField: "date"
+    },
+
+    {
+        title: "Mato Grosso do Sul",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: matogrossodosul,
+        categoryField: "date"
+    },
+
+    {
+        title: "Minas Gerais",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: minasgerais,
+        categoryField: "date"
+    },
+
+    {
+        title: "Pará",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: para,
+        categoryField: "date"
+    },
+
+    {
+        title: "Paraíba",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: paraiba,
+        categoryField: "date"
+    },
+
+    {
+        title: "Paraná",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: parana,
+        categoryField: "date"
+    },
+
+    {
+        title: "Pernambuco",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: pernambuco,
+        categoryField: "date"
+    },
+
+    {
+        title: "Piauí",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: piaui,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rio de Janeiro",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: riodejaneiro,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rio Grande do Norte",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: riograndedonorte,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rio Grande do Sul",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: riograndedosul,
+        categoryField: "date"
+    },
+
+    {
+        title: "Rondônia",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: rondonia,
+        categoryField: "date"
+    },
+
+    {
+        title: "Roraima",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: roraima,
+        categoryField: "date"
+    },
+
+    {
+        title: "Santa Catarina",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: santacatarina,
+        categoryField: "date"
+    },
+
+    {
+        title: "São Paulo",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: saopaulo,
+        categoryField: "date"
+    },
+
+    {
+        title: "Sergipe",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: sergipe,
+        categoryField: "date"
+    },
+
+    {
+        title: "Tocantins",
+        fieldMappings: [{
+            fromField: "numcasos",
+            toField: "numcasos"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: tocantins,
+        categoryField: "date"
+    }
+
+    
+	],
+
+    panels: [
+	 
+	{
+
+        title: "Número de Casos",
+
+        stockGraphs: [{
+            id: "numcasos",
+            valueField: "numcasos",
+            lineThickness: 3,
+            title: "",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+
+        stockLegend: {
+            useGraphSettings: true
+        }
+	},
+	{
+
+        title: "Óbitos",
+
+        stockGraphs: [{
+            id: "obitos",
+            valueField: "obitos",
+            lineThickness: 3,
+            title: "",
+			labelPosition : "left",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true,
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	}
+	
+	],
+ 
+    chartScrollbarSettings: {
+        graph: ["numcasos"]
+    },
+	
+
+	
+    chartCursorSettings: {
+        valueBalloonsEnabled: true,
+        fullWidth: true,		
+		categoryBalloonEnabled : true,
+        cursorAlpha: 0.1,		
+        valueLineBalloonEnabled: true,
+        valueLineEnabled: true,
+        valueLineAlpha: 0.5
+    },
+	
+    dataSetSelector: {
+        position: "left",
+		selectText : "Selecione uma UF:",
+		compareText : "Selecione outra UF para comparar:"
+    },
+	
+"export": {
+  "enabled": true,
+  "exportFields": [
+    "date",
+    "numcasos",
+    "obitos",
+    "ds2_numcasos",
+    "ds2_obitos",
+    "ds3_numcasos",
+    "ds3_obitos",
+	"ds4_numcasos",
+    "ds4_obitos",
+	"ds5_numcasos",
+    "ds5_obitos",
+	"ds6_numcasos",
+    "ds6_obitos"
+  ],
+  "columnNames": {
+    "date": "Ano",
+    "numcasos": "Brasil Processador Automatico",
+    "obitos": "Brasil Óbitos",
+    "ds2_numcasos": "Acre Processador Automatico",
+    "ds2_obitos": "Acre Óbitos",
+    "ds3_numcasos": "Alagoas Processador Automatico",
+    "ds3_obitos" : "Alagoas Óbitos",
+	"ds4_numcasos": "Amapá Processador Automatico",
+    "ds4_obitos": "Amapá Óbitos",
+	"ds5_numcasos": "Amazonas Processador Automatico",
+    "ds5_obitos": "Amazonas Processador Automatico",
+	"ds6_numcasos": "Bahia Processador Automatico",
+    "ds6_obitos": "Bahia Óbitos"
+  }
+}
+	
+});
+
+</script>
+
+
+
+</body>
+</html>
+{% endblock %}

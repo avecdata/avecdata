@@ -1,0 +1,795 @@
+﻿{% extends 'avec/base_dashboard.html' %}
+{% load staticfiles %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>AVEC - Ciência de dados</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />		
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  	
+
+   <!-- <link href="css/style2.css" rel="stylesheet">-->
+   
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+   
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>	
+    <script src="{% static 'js/colorbrewer.js' %}"></script>
+    <script src="{% static 'data/world-countries.json' %}"></script>
+	
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dc.js' %}"></script>		
+	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'js/cloud.js' %}"></script>
+
+   <!--<script type="text/javascript" src="http://www.kunalbabre.com/projects/table2CSV.js" > </script> 	-->
+
+   <script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>
+	<!--  <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" /><>
+<style>
+	
+	
+	@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
+
+*,:after,:before{box-sizing:content-box;!important}
+
+#chartdiv, #chartdiv2, #chartdiv3, #chartdiv4  {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}							
+
+.amChartsCompareList -compare-div{
+	height		: 400px;	
+}
+
+svg {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+h1 {
+  padding: 50px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16b'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09, #chart-10,  #chart-11,  #chart-12,  #chart-13{
+        background: #899296;
+        width: 100%;
+        font-size: 64px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 100px;
+        height: 40px;
+        line-height: normal;
+		margin-bottom: 15px;
+      }
+
+	  .amcharts-compare-item-div{
+			padding: 8px; position: relative; height: 20px;
+	  }
+	</style>
+    </head>
+<body>
+
+<div class="title_sec">
+		<div class="internal__row">
+			<h1 class="internal__title">Morbidades - Causas Externas</h1>
+		</div>
+</div>	
+
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Internações e Óbitos</label>
+  
+  
+
+
+<section id="content1">
+	<div class="tab-pane " id="a_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica -  Número de internações e óbitos 
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			  				<div id="chartdiv"></div>	
+			
+          </div>
+          <div class="chart-notes">
+            Fonte: Secretária de Vigilância em Saúde/MS. </br>			
+          </div>
+        </div>
+      </div>
+	</div>
+	</div>
+</section>	
+
+<section id="content2">
+	<div class="tab-pane " id="b_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica - Transfusão ambulatorial e hospitalar - "2008-30-01" à "2016-30-01"
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			<div id="chartdiv2"></div>	
+				
+          </div>
+          <div class="chart-notes">
+             Fonte: Ministério da Saúde - Sistema de Informações Hospitalares do SUS (SIH/SUS) </br>
+          </div>
+        </div>
+      </div>
+	</div>	
+
+	</div>
+</section>	
+
+<script type="text/javascript" src="{% static 'data/paineis/saude/morbidade hospitalar/causas externas/painel 2/UF.js' %}"></script>
+
+<!-- Chart Sangue -->
+<script>
+
+
+
+  
+/*
+var teste = {
+    'acre' : {
+        'url' : urlbase+"Alagoas.json",
+        'json' : 'inpu2'
+    },
+    'row2' : {
+        'key3' : 'input3',
+        'key4' : 'input4'
+    }
+};
+*/
+
+/*
+var alagoas = urlbase+"Alagoas.json";
+var amapa = urlbase+"Amapa.json";
+var amazonas = urlbase+"Amazonas.json";
+var bahia = urlbase+"Bahia.json";
+var ceara = urlbase+"Ceara.json";
+var distritofederal = urlbase+"Distrito Federal.json";
+var espiritosanto = urlbase+"Espirito Santo.json";
+var goias = urlbase+"Goias.json";
+var maranhao = urlbase+"Maranhao.json";
+var matogrosso = urlbase+"Mato Grosso.json";
+var matogrossodosul = urlbase+"Mato Grosso do Sul.json";
+var minasgerais = urlbase+"Minas Gerais.json";
+var para = urlbase+"Para.json";
+var paraiba = urlbase+"Paraiba.json";
+var parana = urlbase+"Parana.json";
+var pernambuco = urlbase+"Pernambuco.json";
+var piaui = urlbase+"Piaui.json";
+var riodejaneiro = urlbase+"Rio de Janeiro.json";
+var riograndedonorte = urlbase+"Rio Grande do Norte.json";
+var riograndedosul = urlbase+"Rio Grande do Sul.json";
+var rondonia = urlbase+"Rondonia.json";
+var roraima = urlbase+"Roraima.json";
+var santacatarina = urlbase+"Santa Catarina.json";
+var saopaulo = urlbase+"Sao Paulo.json";
+var sergipe = urlbase+"Sergipe.json";
+var tocantins = urlbase+"Tocantins.json";
+var Brasil = urlbase+"Total.json";*/
+
+
+var chart = AmCharts.makeChart("chartdiv", {
+    type: "stock",
+    theme: "light",
+	dataDateFormat : "YYYY",
+	extendToFullPeriod : false,
+    pathToImages: "http://www.amcharts.com/lib/3/images/",
+
+    panelsSettings: {
+        recalculateToPercents: "never"
+    },
+	
+    dataSets: [
+	{
+        title: "Brasil",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: Brasil,
+        categoryField: "ano"
+    },
+	{
+        title: "Acre",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: acre,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Alagoas",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: alagoas,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Amapá",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: amapa,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Amazonas",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: amazonas,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Bahia",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: bahia,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Ceará",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: ceara,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Distrito Federal",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: distritofederal,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Espírito Santo",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: espiritosanto,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Goiás",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: goias,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Maranhão",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: maranhao,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Mato Grosso",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: matogrosso,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Mato Grosso do Sul",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: matogrossodosul,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Minas Gerais",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: minasgerais,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Pará",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: para,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Paraíba",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: paraiba,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Paraná",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: parana,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Pernambuco",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: pernambuco,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Piauí",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: piaui,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Rio de Janeiro",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: riodejaneiro,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Rio Grande do Norte",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: riograndedonorte,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Rio Grande do Sul",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: riograndedosul,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Rondônia",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: rondonia,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Roraima",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: roraima,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Santa Catarina",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: santacatarina,
+        categoryField: "ano"
+    },
+
+    {
+        title: "São Paulo",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: saopaulo,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Sergipe",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: sergipe,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Tocantins",
+        fieldMappings: [{
+            fromField: "Agreessoes_internacoes",
+            toField: "Agreessoes_internacoes"
+        }, {
+            fromField: "Agressoes_obitos",
+            toField: "Agressoes_obitos"
+        }
+		],
+        dataProvider: tocantins,
+        categoryField: "ano"
+    }
+
+    
+	],
+
+    panels: [
+	 
+	{
+
+        title: "Internações",
+
+        stockGraphs: [{
+            id: "Agreessoes_internacoes",
+            valueField: "Agreessoes_internacoes",
+            lineThickness: 3,
+            title: "",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+
+        stockLegend: {
+            useGraphSettings: true
+        }
+	},
+	{
+
+        title: "Óbitos",
+
+        stockGraphs: [{
+            id: "Agressoes_obitos",
+            valueField: "Agressoes_obitos",
+            lineThickness: 3,
+            title: "",
+			labelPosition : "left",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true,
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	}
+	
+	],
+ 
+    chartScrollbarSettings: {
+        graph: ["Agreessoes_internacoes"]
+    },
+	
+
+	
+    chartCursorSettings: {
+        valueBalloonsEnabled: true,
+        fullWidth: true,		
+		categoryBalloonEnabled : true,
+        cursorAlpha: 0.1,		
+        valueLineBalloonEnabled: true,
+        valueLineEnabled: true,
+        valueLineAlpha: 0.5
+    },
+	
+    dataSetSelector: {
+        position: "left",
+		selectText : "Selecione uma UF:",
+		compareText : "Selecione outra UF para comparar:"
+    },
+	
+"export": {
+  "enabled": true,
+  "exportFields": [
+    "ano",
+    "Agreessoes_internacoes",
+    "Agressoes_obitos",
+    "ds2_numcasos",
+    "ds2_obitos",
+    "ds3_numcasos",
+    "ds3_obitos",
+	"ds4_numcasos",
+    "ds4_obitos",
+	"ds5_numcasos",
+    "ds5_obitos",
+	"ds6_numcasos",
+    "ds6_obitos"
+  ],
+  "columnNames": {
+    "ano": "Ano",
+    "Agreessoes_internacoes": "Brasil Processador Automatico",
+    "Agressoes_obitos": "Brasil Óbitos",
+    "ds2_numcasos": "Acre Processador Automatico",
+    "ds2_obitos": "Acre Óbitos",
+    "ds3_numcasos": "Alagoas Processador Automatico",
+    "ds3_obitos" : "Alagoas Óbitos",
+	"ds4_numcasos": "Amapá Processador Automatico",
+    "ds4_obitos": "Amapá Óbitos",
+	"ds5_numcasos": "Amazonas Processador Automatico",
+    "ds5_obitos": "Amazonas Processador Automatico",
+	"ds6_numcasos": "Bahia Processador Automatico",
+    "ds6_obitos": "Bahia Óbitos"
+  }
+}
+	
+});
+
+</script>
+
+
+
+</body>
+</html>
+{% endblock %}

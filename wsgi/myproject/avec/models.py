@@ -126,6 +126,7 @@ class SimpleDashboard(models.Model):
     keywords = models.ManyToManyField(Keywords, blank=True)
     group = models.ManyToManyField(Group)
     open = models.BooleanField()
+    external_files = models.TextField(blank=True)
 
     def publish_simpleDashboard(self):
         self.published_date = timezone.now()
@@ -146,19 +147,43 @@ class tabSimple(models.Model):
         verbose_name_plural = _("tabSimples")
 
     def __str__(self):
-        return self.title
-class Dashsource(models.Model):
-    source_name = models.CharField(max_length=200)
-    source_url = models.CharField(max_length=200)
-    extract_date = models.DateTimeField(
+        return self.title	
+		
+class Paineis(models.Model):
+    title = models.CharField(max_length=200)
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
             blank=True, null=True)
-    dash = models.ForeignKey(Dashboard)		
-    
-    def publish_dashsource(self):
+    subject = models.ManyToManyField(Subject , related_name='subparent_painel')			
+    subject_detail = models.ManyToManyField(Subject_detail , related_name='subchild_painel')
+    keywords = models.ManyToManyField(Keywords, blank=True)
+    group = models.ManyToManyField(Group)
+    open = models.BooleanField()
+    external_files = models.TextField(blank=True)
+
+    def publish_Paineis(self):
+        self.published_date = timezone.now()
         self.save()
 
     def __str__(self):
-        return self.title		
+        return self.title
+		
+class tabPaineis(models.Model):
+    painel = models.ForeignKey(Paineis, verbose_name=("Paineis"), on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=200)
+    footer = models.TextField(blank=True)
+    html = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = _("tabPainel")
+        verbose_name_plural = _("tabPaineis")
+
+    def __str__(self):
+        return self.title	
+		
+		
 class Reports(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()

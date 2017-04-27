@@ -36,46 +36,22 @@
 					</div>
 				</div>
 				
-				<div class="author_info" style="width: 83.33333%;">				
-				<div class="row" >
-					<div class="col-sm-12" >
-						Registro Civil						
-					</div>
-				</div>
-
-				  <div class="row" style="padding-top: 20px">
-					<div class="col-sm-2">
-					<a href="{% url 'nascidosvivos' %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
-					</div>
-					<div class="col-sm-10">
-					<div class="author_dec">
-							<a href="{% url 'nascidosvivos' %}">Nascidos Vivos</a>						
-							<p>dashboard com com informações sobre nascimentos no Brasil.</p>								
-					</div>
-				   </div>
-				  </div>
-
-				</div>
-				<div class="author_info" style="width: 83.33333%;">				
-				<div class="row" >
-					<div class="col-sm-12" >
-						Inovação						
-					</div>
-				</div>
-
-				  <div class="row" style="padding-top: 20px">
-					<div class="col-sm-2">
-					<a href="{% url 'inovacao' %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
-					</div>
-					<div class="col-sm-10">
-					<div class="author_dec">
-							<a href="{% url 'inovacao' %}">Inovacao</a>						
-							<p>dashboard com com informações sobre inovacao no Brasil e no mundo.</p>								
-					</div>
-				   </div>
-				  </div>
-
-				</div>							
+						{% for dash in dashboards %}
+							<div class="row" style="padding-top: 40px">
+								<div class="col-sm-2">
+								<a href="{% url dash.url dash.pk %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
+								</div>
+								<div class="col-sm-10">
+								<div class="author_dec">
+									<a href="{% url dash.url dash.pk %}">{{ dash.title }}</a>
+									<!--<a href="{{dash.url}}"><p>{{ dash.url }}</p></a>-->
+									<p>publicado: {{ dash.published_date }}</p>
+								</div>
+							   </div>
+							</div>
+							{% endfor %}
+				
+							
 
 			</div>				
 			

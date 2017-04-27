@@ -1,577 +1,476 @@
-﻿{% extends 'avec/base_dashboard.html' %}
+{% extends "avec/layout_interno.html" %}
+
+{% load poll_extras %}
+
 {% load staticfiles %}
+
 {% block content %}
-<html>
-<title>Candidatos à Doação</title>
-  <title>Layouts</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-  
-	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>AVEC - Ciencia de dados</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+      
+<link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
 
-	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />		
+<style>
+.chartdiv {
+  width: 90%;
+  max-width: 100%;
+  height: 375px;
+  border: 1px solid #eee;
+}
 
-	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+select {
+  font-size: 15px;
+  padding: 5px 10px;
+  margin-bottom: 15px;
+}
+
+figure {
+	width: 80px;
+}
+
+ul {
+    padding-left: 20px;
+	padding-top: 10px;
+}
+
+ul li { display: inline; 
+	padding: 2px 10px;
+    display: inline-block;
+
+}
+
+.text-right, .counter, .magnitude, .number {
+    color: white!important;
 	
-	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
-	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-	
-	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
-	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  
-	
-	    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
-	<script type="text/javascript"src="https://www.amcharts.com/lib/3/pie.js"></script>	
-	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>		
-	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.js' %}"></script>	
-	
+}
+
+#mapa{
+
+    max-width:150px;
+    max-height:80px;
+    width: auto;
+    height: auto;
+
+}
+</style>
+<script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/ammap_amcharts_extension.js"></script>
+<script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    
 	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dc2.js' %}"></script>		
+    <script type="text/javascript" src="{% static 'js/dc.js' %}"></script>		
 	
-	
-<style>
+<!-- amCharts plugins -->
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css">
 
-	#chart-06,  #chart-07,  #chart-08,  #chart-09{
-        background: #899296;
-        width: 100%;
-        font-size: 64px;
-        text-align: center;
-        padding-top: 10px;
-        padding-bottom: 100px;
-        height: 40px;
-        line-height: normal;
-		margin-bottom: 15px;
-      }
-	  
-	  #chartdiv1, #chartdiv2, #chartdiv3, #chartdiv4, #chartdiv5, #chartdiv6, #chartdiv7, #chartdiv8 {
-		width: 100%;
-		height: 300px;
-	  }
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+<!--	<script type="text/javascript" src="{% static 'js/recife.js' %}"></script>-->
 
-#dc-cpty-chart svg g .axis.x .tick {
-    display: none;
-}
 
-pre {display:none;}
+<form action="" class="banner-search__form" style = "padding-top:100px;">		 
 
-#chartdata table {
-  width: 100%;
-}
+<input list="browsers" type="text" id="autocomplete2" class="banner-search__input-search"  placeholder="Encontre o munícipio que deseja consultar">
 
-#chartdata table th, #chartdata table td {
-  text-align: center;
-  padding: 5px 7px;
-}
+</form>
 
-#chartdata table th {
-  background: #999;
-  color: #fff;
-}
+	<div class="container-fluid" id="summary-box" style=" background-color: rgba(0,0,0,0.6); opacity: 0.6; padding-top:5px; ">
+		<div class="row">
+		<div class="col-sm-8">
+		    <span class="portrait dv-bra-2ba hidden-xs"></span>
+            <img id="mapa" src="" alt="Mapa do estado" style="float:left; padding-right:5px;">
+            <h1 id="cidade" style="text-align:left; font-size:20px; color:white; padding-bottom:5px; padding-top:5px;" class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 p-w-xs">     
+				Teste  			
+            </h1>
 
-#chartdata table td {
-  border-bottom: 1px solid #eee;
-}
+            <span class="clearfix"></span>
+		</div>	
+		  <div class="col-sm-2">
 
-#chartdata table td.row-title {
-  font-weight: bold;
-}
-
-</style>
-<body>
-
-<div class="title_sec">
-		<div class="internal__row">
-			<h1 class="internal__title">Candidatos à Doação</h1>
+		  </div>
 		</div>
-</div>	
-
- <div class="container-fluid" style = "padding-top:20px;">
-
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Filtros
-          </div>
-          <div class="chart-stage" style="padding-bottom:20px; padding-top:20px;">
-		  	  <div class="col-sm-3">
-			      <h4>Selecionar Local</h4>
-				  <div id="menuselect0" style="float:left;"></div>
-			  </div>			  
-			  <div class="col-sm-3">
-				  <h4>Selecionar Período</h4>
-				  <div id="menuselect3" style="float:none;"></div>
-			  </div>		  			  
-          </div>
-          <div class="chart-notes" >
-            Notes about this chart
-          </div>
-
-        </div>
-		
-      </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Sexo
-          </div>
-          <div class="chart-stage">
-			  <div id="chartdiv1"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-	        <div class="col-sm-4">
-        <div class="chart-wrapper" id="graph">
-          <div class="chart-title">
-            Faixa Etária
-          </div>
-          <div class="chart-stage">
-			  <!--<h4>Teste</h4>-->
-			  <div id="chartdiv2"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Estado Civil
-          </div>
-          <div class="chart-stage">
-			  <div id="chartdiv3"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="row">
-            <div class="col-sm-4">
-        <div class="chart-wrapper" id="graph">
-          <div class="chart-title">
-            Tipo de Doação
-          </div>
-          <div class="chart-stage">
-			  <!--<h4>Teste</h4>-->
-			  <div id="chartdiv4"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Tipo de Doador
-          </div>
-          <div class="chart-stage">
-			  <div id="chartdiv5"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-	        <div class="col-sm-4">
-        <div class="chart-wrapper" id="graph">
-          <div class="chart-title">
-            Município de Residência
-          </div>
-          <div class="chart-stage">
-			  <!--<h4>Teste</h4>-->
-			  <div id="chartdiv6"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-    </div>
-	
-	<div class="row">
-      <div class="col-sm-12">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Tipo de Doador
-          </div>
-          <div class="chart-stage">
-			  <div id="chartdata"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
+		<div class="row" style="padding-bottom:10px;">
+			<div class="col-sm-2">
+			<div class="widget">
+								<h3 class="text-right text-uppercase">PIB (2016) </h3>
+								<div class="number">
+									R$ <strong id="pib" class="counter"></strong><br>
+									<!---<small class="magnitude">Bilhões</small>-->
+								</div>
+							</div>
+			</div>					
+			<div class="col-sm-2">
+			<div class="widget">
+								<h3 class="text-right text-uppercase">População </h3>
+								<div class="number">
+									<strong id="populacao" class="counter"></strong><br>									
+								</div>
+							</div>
+			</div>								
+			<div class="col-sm-2">
+			<div class="widget">
+								<h3 class="text-right text-uppercase">Expectativa de vida </h3>
+								<div class="number">
+									<strong id="exp" class="counter"></strong><br>
+									<small class="magnitude">anos</small>									
+								</div>
+							</div>
+			</div>								
+			<div class="col-sm-2">
+			<div class="widget">
+								<h3 class="text-right text-uppercase">IDH </h3>
+								<div class="number">
+									R$ <strong id="idh" class="counter"></strong><br>
+									<small class="magnitude">pontos</small>									
+								</div>
+							</div>
+			</div>											
+			<div class="col-sm-2">
+			<div class="widget">
+								<h3 class="text-right text-uppercase">PIB per capita</h3>
+								<div class="number">								
+									R$ <strong id="pibpercap" class="counter"></strong><br>
+									<!--<small class="magnitude">mil</small>-->
+								</div>
+							</div>
+			</div>								
+										
+		</div>				
 	</div>
 
+    <script src="{% static 'min/javascript/app.js' %}"></script>
+	
+	<script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.autocomplete.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery-confirm.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/avec.script.js' %}"></script>
 
-  </div>
-
-</body>
 <script>
-AmCharts.addInitHandler(function(chart1) {
+$(document).ready(function () {
+	
+		$("#summary-box").hide();
+	
+  var currencies =  
+[{value: 'Recife', id: 3 , type: "{% static 'js/recife.js' %}"}, {value: 'Salvador', id: 4 , type: "{% static 'js/salvador.js' %}"}
+]  
 
-  // check if export to table is enabled
-  if (chart1.dataTableId === undefined)
-    return;
-
-  // get chart data
-  var data = chart1.dataProvider;
-
-  // create a table
-  var holder = document.getElementById(chart1.dataTableId);
-  var table = document.createElement("table");
-  holder.appendChild(table);
-  var tr, td;
-
-  // add first row
-  for (var x = 0; x < chart1.dataProvider.length; x++) {
-    // first row
-    if (x == 0) {
-      tr = document.createElement("tr");
-      table.appendChild(tr);
-      td = document.createElement("th");
-      td.innerHTML = chart1.categoryAxis.title;
-      tr.appendChild(td);
-      for (var i = 0; i < chart1.graphs.length; i++) {
-        td = document.createElement('th');
-        td.innerHTML = chart1.graphs[i].title;
-        tr.appendChild(td);
-      }
+$('#autocomplete2').autocomplete({
+    lookup: currencies,
+    onSelect: function (ui) {
+		get(ui.type);
+		$("#summary-box").hide();
+		$("#summary-box").show(1000);		
+		city(ui.value);		
     }
+		
+});
 
-    // add rows
-    tr = document.createElement("tr");
-    table.appendChild(tr);
-    td = document.createElement("td");
-    td.className = "row-title";
-    td.innerHTML = chart1.dataProvider[x][chart1.categoryField];
-    tr.appendChild(td);
-    for (var i = 0; i < chart1.graphs.length; i++) {
-      td = document.createElement('td');
-      td.innerHTML = chart1.dataProvider[x][chart1.graphs[i].valueField];
-      tr.appendChild(td);
-    }
-  }
+});	
 
-}, ["serial"]);
-
-
-/**
- * Define source data
- */
-var sourceData = [ {
-  "employee": "Maringá",
-  "salary": 150000,
-  "position": "Coleta"
-}, {
-  "employee": "Arapongas",
-  "salary": 125000,
-  "position": "Coleta"
-}, {
-  "employee": "Curitiba",
-  "salary": 135000,
-  "position": "Coleta"
-}, {
-  "employee": "Maringá",
-  "salary": 145000,
-  "position": "Transfusão"
-}, {
-  "employee": "Curitiba",
-  "salary": 101000,
-  "position": "Transfusão"
-}, {
-  "employee": "Londrina",
-  "salary": 89000,
-  "position": "Transfusão"
-}, {
-  "employee": "Londrina",
-  "salary": 112000,
-  "position": "Triagem"
-}, {
-  "employee": "Curitiba",
-  "salary": 98000,
-  "position": "Triagem"
-}, {
-  "employee": "Arapongas",
-  "salary": 88000,
-  "position": "Triagem"
-}, {
-  "employee": "Maringá",
-  "salary": 85000,
-  "position": "Triagem"
-}, {
-  "employee": "Maringá",
-  "salary": 95000,
-  "position": "Rejeitado"
-}, {
-  "employee": "Curitiba",
-  "salary": 91000,
-  "position": "Rejeitado"
-}, {
-  "employee": "Londrina",
-  "salary": 75000,
-  "position": "Rejeitado"
-} ];
-
-/**
- * Set up colors for each of the position
- */
-var positionColors = {
-  "Coleta": "#67b7dc",
-  "Transfusão": "#fdd400",
-  "Triagem": "#84b761",
-  "Rejeitado": "#cc4748"
+function city(par) {
+   $('#cidade').text(par)
+   
 };
 
-function lowercase( string ) {
-  return string.toLocaleLowerCase();
-}
 
-function contains( string, value ) {
-  return string.indexOf( value ) !== -1;
-}
-
-/**
- * Function that checks which data is selected and generates a new data set
- */
-function getFilteredData() {
- /* var name = lowercase( document.getElementById( "filter-name" ).value );
-
-  var filters = {};
-
-  // get all filter checkboxes
-  var fields = document.getElementsByClassName( "filter-position" );
-  for ( var i = 0; i < fields.length; i++ ) {
-    if ( fields[ i ].checked ) {
-      filters[ fields[ i ].value ] = true;
-    }
-  }
-
-  // init new data set
-  var newData = [];
-
-  // cycle through source data and filter out required data points
-  for ( var i = 0; i < sourceData.length; i++ ) {
-    var dataPoint = sourceData[ i ];
-
-    if ( filters[ dataPoint.position ] &&
-         contains( lowercase( dataPoint.employee ), name ) ) {
-      newData.push( {
-        "employee": dataPoint.employee,
-        "salary": dataPoint.salary,
-        "position": dataPoint.position,
-        "color": positionColors[ dataPoint.position ]
-      } );
-    }
-  }*/
-  var newData = [];
-	
-  for ( var i = 0; i < sourceData.length; i++ ) {
-    var dataPoint = sourceData[ i ];
-
-      newData.push( {
-        "employee": dataPoint.employee,
-        "salary": dataPoint.salary,
-        "position": dataPoint.position,
-        "color": positionColors[ dataPoint.position ]
-      } );
-
-  }
-
-  // return new data set
-  return newData;
-
-}
-
-/**
- * Function which applies current filters when invoked
- */
-function applyFilters() {
-  var data = getFilteredData();
-
-  // update chart data
-  chart1.dataProvider = data;
-  chart2.dataProvider = data;
-  chart1.validateData();
-  chart2.validateData();
-}
-
-/**
- * Create chart
- */
-var chart1 = AmCharts.makeChart( "chartdiv1", {
-  "type": "serial",
-  "dataProvider": sourceData,
-  "dataTableId": "chartdata",
-  "graphs": [ {
-    "fillAlphas": 0.9,
-    "lineAlpha": 0.2,
-    "lineColorField": "color",
-    "fillColorsField": "color",
-    "type": "column",
-    "valueField": "salary",
-    "balloonText": "[[category]] ([[position]])<br><span style='font-size: 150%;'>$[[value]]</span>"
-  } ],
-  "categoryField": "employee",
-  "valueAxes": [{
-    "title": "Annual salary (US$)"
-  }],
-    "export": {
-    "enabled": true
-  }
-} );
-
-
-var chart2 = AmCharts.makeChart( "chartdiv2", {
-  "type": "serial",
-  "dataProvider": sourceData,
-  "graphs": [ {
-    "fillAlphas": 0.9,
-    "lineAlpha": 0.2,
-    "lineColorField": "color",
-    "fillColorsField": "color",
-    "type": "column",
-    "valueField": "salary",
-    "balloonText": "[[category]] ([[position]])<br><span style='font-size: 150%;'>$[[value]]</span>"
-  } ],
-  "categoryField": "employee",
-  "valueAxes": [{
-    "title": "Annual salary (US$)"
-  }],
-    "export": {
-    "enabled": true
-  }
-} );
-
-var chart3 = AmCharts.makeChart( "chartdiv3", {
-  "type": "pie",
-  "theme": "light",
-  "dataProvider": sourceData,
-  "graphs": [ {
-    "fillAlphas": 0.9,
-    "lineAlpha": 0.2,
-    "lineColorField": "color",
-    "fillColorsField": "color",
-    "type": "slice",
-    "valueField": "salary",
-    "balloonText": "[[category]] ([[position]])<br><span style='font-size: 150%;'>$[[value]]</span>"
-  } ],
-  "valueField": "salary",
-  "titleField": "employee",
-  /* "balloon":{
-   "fixedPosition":true
-  },*/
-  "categoryField": "employee",
-  "valueAxes": [{
-    "title": "Annual salary (US$)"
-  }],
-    "export": {
-    "enabled": true
-  }
-} );
-
-var chart4 = AmCharts.makeChart( "chartdiv4", {
-  "type": "pie",
-  "theme": "light",
-  "dataProvider": sourceData,
-  "graphs": [ {
-    "fillAlphas": 0.9,
-    "lineAlpha": 0.2,
-    "lineColorField": "color",
-    "fillColorsField": "color",
-    "type": "slice",
-    "valueField": "salary",
-    "balloonText": "[[category]] ([[position]])<br><span style='font-size: 150%;'>$[[value]]</span>"
-  } ],
-  "valueField": "salary",
-  "titleField": "position",
-  /* "balloon":{
-   "fixedPosition":true
-  },*/
-  "categoryField": "position",
-  "valueAxes": [{
-    "title": "Annual salary (US$)"
-  }],
-    "export": {
-    "enabled": true
-  }
-} );
-
-var chart5 = AmCharts.makeChart( "chartdiv5", {
-  "type": "pie",
-  "theme": "light",
-  "dataProvider": sourceData,
-  "graphs": [ {
-    "fillAlphas": 0.9,
-    "lineAlpha": 0.2,
-    "lineColorField": "color",
-    "fillColorsField": "color",
-    "type": "slice",
-    "valueField": "salary",
-    "balloonText": "[[category]] ([[position]])<br><span style='font-size: 150%;'>$[[value]]</span>"
-  } ],
-  "valueField": "salary",
-  "titleField": "salary",
-  /* "balloon":{
-   "fixedPosition":true
-  },*/
-  "categoryField": "salary",
-  "valueAxes": [{
-    "title": "Annual salary (US$)"
-  }],
-    "export": {
-    "enabled": true
-  }
-} );
-
-var chart6 = AmCharts.makeChart( "chartdiv6", {
-  "type": "pie",
-  "theme": "light",
-  "dataProvider": sourceData,
-  "graphs": [ {
-    "fillAlphas": 0.9,
-    "lineAlpha": 0.2,
-    "lineColorField": "color",
-    "fillColorsField": "color",
-    "type": "slice",
-    "valueField": "salary",
-    "balloonText": "[[category]] ([[position]])<br><span style='font-size: 150%;'>$[[value]]</span>"
-  } ],
-  "valueField": "salary",
-  "titleField": "employee",
-  /* "balloon":{
-   "fixedPosition":true
-  },*/
-  "categoryField": "employee",
-  "valueAxes": [{
-    "title": "Annual salary (US$)"
-  }],
-    "export": {
-    "enabled": true
-  }
-} );
 </script>
-</html>
+
+<script>
+function get(par) {
+$.getScript( par, function(  textStatus ) {
+var inlinePib = dc.numberDisplay("#pib"),
+	inlinePopulacao = dc.numberDisplay("#populacao"),
+	inlineExp = dc.numberDisplay("#exp"),
+	inlineIdh = dc.numberDisplay("#idh"),
+	inlinePibpercap = dc.numberDisplay("#pibpercap")	
+	
+	data.forEach( function(obj) {
+	  var img = new Image();
+	  img.src = obj.imagem;
+	  img.setAttribute("class", "banner-img");
+	  img.setAttribute("alt", "effy");
+	  document.getElementById("mapa").src = img.src ;
+	});
+	
+	var ndx            = crossfilter(data),
+	
+  cityDim  = ndx.dimension(function(d) {return d['cidade'];})
+	  	var total = cityDim.groupAll().reduce(
+				//add
+				function(p, v) {
+					++p.count;
+					p.pib += +v['PIB'];
+					p.populacao += +v['Populacao'];
+					p.exp += +v['Expectativa de Vida'];
+					p.idh += +v['IDH'];
+					p.pibpercap += +v['PIB per capita'];					
+					return p;
+				},
+				//remove
+				function(p, v) {
+					--p.count;
+					p.pib -= +v['PIB'];
+					p.populacao -= +v['Populacao'];
+					p.exp -= +v['Expectativa de Vida'];
+					p.idh -= +v['IDH'];
+					p.pibpercap -= +v['PIB per capita'];					
+					return p;
+				},
+				//init
+				function() {
+					return {pib:0, populacao:0, exp:0, idh:0, pibpercap:0};
+				}
+		);
+				
+	var nPib = function(d){
+		return (d.pib) ;
+	};
+	var nPopulacao = function(d){
+		return (d.populacao) ;
+	};	
+	var nExp = function(d){
+		return (d.exp) ;
+	};
+	var nIdh = function(d){
+		return (d.idh) ;
+	};
+	var npibpercap = function(d){
+		return (d.pibpercap) ;
+	};	
+	
+	inlinePib
+		  .formatNumber(d3.format("s"))
+		  .valueAccessor(nPib)
+		  .group(total);
+	inlinePopulacao
+		  .formatNumber(d3.format("s"))
+		  .valueAccessor(nPopulacao)
+		  .group(total);		  
+	inlineExp
+		  .formatNumber(d3.format("s"))
+		  .valueAccessor(nExp)
+		  .group(total);
+	inlineIdh
+		  .formatNumber(d3.format(".3s"))
+		  .valueAccessor(nIdh)
+		  .group(total);
+	inlinePibpercap
+		  .formatNumber(d3.format(".3s"))
+		  .valueAccessor(npibpercap)
+		  .group(total);		  
+		  
+	
+	dc.renderAll();	  
+
+
+AmCharts.makeChart("chartdiv1", {
+  "type": "serial",
+  "theme": "light",
+  "dataProvider": teste,
+  "startDuration": 1,
+  "graphs": [{
+    "balloonText": "[[category]]: <b>[[value]]</b>",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "valueField": "visits"
+  }],
+ export: {
+	enabled: true
+ },
+  
+  "categoryField": "country",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "gridAlpha": 0
+  }
+
+});
+
+/**
+ * Add chart #2
+ */
+AmCharts.makeChart("chartdiv2", {
+	"type": "pie",
+	"theme": "light",
+	"dataProvider": teste,
+	"valueField": "visits",
+	"titleField": "country",
+	"legend": {
+		"enabled": true,
+		"align": "center",
+		"markerType": "circle"
+	},
+	"balloon": {
+	"fixedPosition": true
+	}, export: {
+		enabled: true
+	}
+});
+
+/**
+ * Add chart #3
+ */
+AmCharts.makeChart("chartdiv3", {
+	"type": "serial",
+	"categoryField": "category",
+	"startDuration": 1,
+	"categoryAxis": {
+		"gridPosition": "start"
+	},
+	 export: {
+		enabled: true
+	},
+
+	"trendLines": [],
+	"graphs": [
+		{
+			"balloonText": "[[title]] of [[category]]:[[value]]",
+			"bullet": "round",
+			"id": "AmGraph-1",
+			"title": "graph 1",
+			"valueField": "column-1"
+		},
+		{
+			"balloonText": "[[title]] of [[category]]:[[value]]",
+			"bullet": "square",
+			"id": "AmGraph-2",
+			"title": "graph 2",
+			"valueField": "column-2"
+		}
+	],
+	"guides": [],
+	"valueAxes": [
+		{
+			"id": "ValueAxis-1",
+			"title": "Axis title"
+		}
+	],
+	"allLabels": [],
+	"balloon": {},
+	"legend": {
+		"enabled": true,
+		"useGraphSettings": true
+	},
+	"titles": [
+		{
+			"id": "Title-1",
+			"size": 15,
+			"text": "Chart Title"
+		}
+	],
+	"dataProvider": serie
+});
+
+/**
+ * Add chart #4
+ */
+AmCharts.makeChart( "chartdiv4", {
+  "type": "map",
+  "theme": "light",
+  "dataProvider": {
+    "map": "worldLow",
+    "getAreasFromMap": true
+  },
+   export: {
+	enabled: true
+	},
+  "areasSettings": {
+    "autoZoom": true,
+    "selectedColor": "#CC0000"
+  }
+} );
+
+  
+});
+};
+</script>
+	
+	
+	<div class="container-fluid" style = "padding-top:5px;">
+    <div class="row">
+      <div class="col-sm-4">
+            <div>
+                <ul id="liste-categories">
+					<li class="agriculture-alimentation"><figure>
+					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/agriculture-alimentation.gif" ></a>
+					<figcaption></figcaption></figure></li>
+					<li class="economie-entreprises"><figure>
+					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/economie-entreprises.gif" ></a>
+					<figcaption></figcaption></figure></li><li class="education-recherche">
+					<figure>
+					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/environnement-ressources-naturelles-energie.gif"  class="thematique-vide">
+					<figcaption></figcaption></figure></li>
+					<li class="agriculture-alimentation"><figure>
+					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/gouvernement-finances.gif" ></a>
+					<figcaption></figcaption></figure></li>
+					<li class="economie-entreprises"><figure>
+					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/infrastructures.gif" ></a>
+					<figcaption></figcaption></figure></li><li class="education-recherche">
+					<figure>
+					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/loi-justice-securite-publique.gif"  class="thematique-vide">
+					<figcaption></figcaption></figure></li>
+					<li class="agriculture-alimentation"><figure>
+					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/politiques-sociales.gif" ></a>
+					<figcaption></figcaption></figure></li>
+					<li class="economie-entreprises"><figure>
+					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/sante.gif" ></a>
+					<figcaption></figcaption></figure></li><li class="education-recherche">
+					<figure>
+					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/societe-culture.gif"  class="thematique-vide">
+					<figcaption></figcaption></figure></li>
+					<li class="agriculture-alimentation"><figure>
+					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/tourisme-sports-loisirs.gif" ></a>
+					<figcaption></figcaption></figure></li>
+					<li class="economie-entreprises"><figure>
+					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/transport.gif" ></a>
+					<figcaption></figcaption></figure></li><li class="education-recherche">
+					<figure>
+					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/education-recherche.gif"  class="thematique-vide">
+					<figcaption></figcaption></figure></li>
+					
+				</ul>
+			</div>		
+      </div>
+	  <div class="col-sm-8">
+			<div class="banner-section" id="img-container">    </div>
+			<div id="chartdiv1" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv2" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv3" class="chartdiv" style="display: none;"></div>			      
+      </div>
+	</div>
+	
+	
+	
+	
+    <div class="row">
+      
+	</div>
+	</div>
+	
+<script>
+/**
+ * Add chart #1
+ */
+var currentChart;
+function showChart( divid ) {
+
+  if (currentChart !== undefined){
+    currentChart.style.display = "none";
+	}
+  if ( divid ) {
+    currentChart = document.getElementById(divid);
+    currentChart.style.display = "block";	
+  }
+  else {
+    currentChart = undefined;
+  }
+} 
+
+</script>
+
 {% endblock %}

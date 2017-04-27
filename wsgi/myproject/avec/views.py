@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -89,6 +89,12 @@ def simpleDash_detail(request, pk):
     mykeywords = dash.keywords.all()
     mytabs = dash.tabsimple_set.all().order_by('id')
     return render(request, 'avec/simpleDash_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs})
+
+def paineis_detail(request, pk):
+    dash = Paineis.objects.get(pk=pk)
+    mykeywords = dash.keywords.all()
+    mytabs = dash.tabpaineis_set.all().order_by('id')
+    return render(request, 'avec/paineis_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs})
 	
 def post_detail(request, pk):
     
@@ -119,8 +125,9 @@ def subject_detail(request, pk):
     posts = Post.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date').reverse()
     dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date').reverse()
     simpledash = SimpleDashboard.objects.filter(subject=mysubject).order_by('published_date').reverse()
+    paineis = Paineis.objects.filter(subject=mysubject).order_by('published_date').reverse()
     reports  = Reports.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date').reverse()
-    return render(request, 'avec/subjects_detail.html', {'posts': posts, 'dashboards': dashboards, 'mysubject': mysubject, 'mykeywords': mykeywords, 'mysubdetail': mysubdetail, 'reports': reports, 'simpledash': simpledash})
+    return render(request, 'avec/subjects_detail.html', {'posts': posts, 'dashboards': dashboards, 'mysubject': mysubject, 'mykeywords': mykeywords, 'mysubdetail': mysubdetail, 'reports': reports, 'simpledash': simpledash, 'paineis': paineis})
 
 def subsubject_detail(request, pk):
     mysubject = Subject_detail.objects.get(pk=pk)
@@ -128,8 +135,9 @@ def subsubject_detail(request, pk):
     dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).filter(subject_detail=mysubject).order_by('published_date').reverse()
     myparent = mysubject.subject.subject_detail_set.all()
     simpledash = SimpleDashboard.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()
+    paineis = Paineis.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()	
     reports = Reports.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()
-    return render(request, 'avec/subsubjects_detail.html', {'mysubject': mysubject, 'posts': posts, 'dashboards': dashboards , 'myparent': myparent, 'simpledash': simpledash, 'reports': reports})
+    return render(request, 'avec/subsubjects_detail.html', {'mysubject': mysubject, 'posts': posts, 'dashboards': dashboards , 'myparent': myparent, 'simpledash': simpledash, 'reports': reports, 'paineis': paineis})
 
 def keywords_detail(request, pk):
     mykeywords = Keywords.objects.get(pk=pk)
@@ -210,6 +218,7 @@ def lista(request):
         subjects = Subject.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         reports = Reports.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         simpledashboards = SimpleDashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
+        paineis = Paineis.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')		
         dashboards = Dashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         
         posts_data = []
@@ -226,6 +235,11 @@ def lista(request):
         
         for simpledashboard in simpledashboards:
             simpledashboards_data.append({ "value": simpledashboard.title, "id" : simpledashboard.id , "type": "simpledashboard"})
+
+        paineis_data = []
+        
+        for painel in paineis:
+            paineis_data.append({ "value": painel.title, "id" : painel.id , "type": "painel"})			
             
         subjects_data = []
         
@@ -237,7 +251,7 @@ def lista(request):
         for report in reports:
             reports_data.append({ "value": report.title, "id" : report.id , "type": "report"})			
 
-        result = posts_data+dashboards_data+subjects_data+reports_data+simpledashboards_data
+        result = posts_data+dashboards_data+subjects_data+reports_data+simpledashboards_data+paineis_data
         response = {"query": "Unit", "suggestions": result}
         resultado_json = json.loads(json.dumps(response))
     
@@ -287,11 +301,17 @@ def privacy_statement(request):
 
     return render(request, 'avec/privacy_statement.html')
 
+def nescon(request):
+        return render(request, 'avec/dashboards/nescon.html')
+
 def padrao1(request):
-        return render(request, 'avec/dashboards/padrao1.html')
+        return render(request, 'avec/dashboards/padrao1.html')		
 
 def padrao2(request):
         return render(request, 'avec/dashboards/padrao2.html')
+
+def comparaestados(request):
+        return render(request, 'avec/dashboards/comparaestados.html')		
 
 @login_required(login_url='/permissao/')        
 def leptospirose(request, dashboard_id):

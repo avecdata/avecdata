@@ -1,0 +1,900 @@
+{% extends "avec/layout.html" %}
+
+{% load poll_extras %}
+
+{% load staticfiles %}
+
+{% block content %}
+      
+<link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
+
+<style>
+.chartdiv {
+  width: 90%;
+  max-width: 100%;
+  height: 375px;
+  border: 1px solid #eee;
+}
+
+select {
+  font-size: 15px;
+  padding: 5px 10px;
+  margin-bottom: 15px;
+}
+
+figure {
+	width: 80px;
+}
+
+ul {
+    padding-left: 20px;
+	padding-top: 10px;
+}
+
+ul li { display: inline; 
+	padding: 2px 10px;
+    display: inline-block;
+
+}
+
+.text-right, .counter, .magnitude, .number {
+    olor: #61788e;!important
+	
+}
+
+#mapa{
+
+    max-width:150px;
+    max-height:80px;
+    width: auto;
+    height: auto;
+
+}
+
+#autocomplete2{
+    height: 63px;!important	
+}
+
+.banner-search__input-search {
+	box-shadow: none;!important
+}
+
+.nescon__title {   
+	font-family: 'Roboto', sans-serif;
+	font-size: 24px;
+	letter-spacing: -0.8px;
+	text-align: left;
+	color: rgb(97, 120, 142);	
+	margin-bottom: 0px;!important
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+	border-bottom-style: solid;
+	border-bottom-width: 4px;
+	border-bottom-color: #3dc1d0; !important;
+    background-color: white; !important;	
+	font-family: Lato;
+	font-size: 14px;
+	font-weight: 900;
+	letter-spacing: -0.5px;
+	text-align: left;
+	color: #61788e; !important;
+}
+
+.nav-stacked>li.active>a, .nav-stacked>li.active>a:focus, .nav-stacked>li.active>a:hover{
+    border-bottom-width: 0px; !important;
+    border-bottom-color: none;!important;
+    background-color: #f7fafd; !important;	
+	font-family: Lato;
+	font-size: 14px;
+	font-weight: bold;
+	letter-spacing: -0.5px;
+	text-align: left;
+}
+
+.nav>li, .nav>li>a {
+  color: #a7b4c3; !important;
+  
+}
+
+.nav-stacked{
+    padding-left: 0px;
+}
+
+
+</style>
+<script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/ammap_amcharts_extension.js"></script>
+<script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    
+	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dc.js' %}"></script>		
+	
+<!-- amCharts plugins -->
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">  
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+	<script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>		
+	
+
+<span class="portrait dv-bra-2ba hidden-xs"></span>
+<div class="container">
+<form action="" class="banner-search__form" style = "padding-top:70px;">		 
+
+<input list="browsers" type="text" id="autocomplete2" class="banner-search__input-search"  placeholder="Procure aqui uma cidade">
+
+</form>
+
+	<div class="container-fluid" id="summary-box" style=" padding-top:34.5px;">
+		<div class="row">
+		<div class="col-sm-12">	
+			<img id="mapa4" src="{% static 'img/nescon/oval-salvar.svg' %}" alt="Mapa do estado" style="float:right; padding-right:5px;">
+			<img id="mapa3" src="{% static 'img/nescon/oval-baixar.svg' %}" alt="Mapa do estado" style="float:right; padding-right:5px;">
+			<img id="mapa2" src="{% static 'img/nescon/oval-imprimir.svg' %}" alt="Mapa do estado" style="float:right; padding-right:5px;">			
+			<img id="mapa" src="{% static 'img/nescon/box-minas-gerais.svg' %}" alt="Mapa do estado" style="float:right; padding-right:5px;">
+			
+			<p class="nescon__title">Núcleo de Educação em Saúde Coletiva</p>
+			
+            <h2 id="cidade" style="text-align:left; font-size:20px;  color: #61788e; padding-bottom:5px; padding-top:5px;" >     
+				Teste  			
+            </h2>			
+       
+
+		</div>	
+	
+		</div>
+		<div class="row" style="padding-bottom:10px;">
+			  <ul class="nav nav-pills">
+				<li class="active"><a data-toggle="tab" href="#home">DADOS GERAIS</a></li>
+				<li><a data-toggle="tab" href="#menu1">MORTALIDADE</a></li>
+				<li><a data-toggle="tab" href="#menu2">REDE ASSISTENCIAL</a></li>
+				<li><a data-toggle="tab" href="#menu3">RECURSOS HUMANOS</a></li>
+				<li><a data-toggle="tab" href="#menu3">MORBIDADE</a></li>
+				<li><a data-toggle="tab" href="#menu3">MAIS+</a></li>
+			  </ul>						
+										
+		</div>				
+	</div>
+</div>
+  
+    <script src="{% static 'min/javascript/app.js' %}"></script>
+	
+	<script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.autocomplete.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery-confirm.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/avec.script.js' %}"></script>
+
+<script>
+$(document).ready(function () {
+	
+		$("#summary-box").hide();
+		$(".nav-stacked").hide();
+
+ 
+  var currencies =  
+[
+{value: 'Baldim' , type: "{% static 'js/Baldim.js' %}"},
+{value: 'Belo Horizonte' , type: "{% static 'data/paineis/nescon/Belo Horizonte.js' %}"},
+{value: 'Brumadinho' , type: "{% static 'data/paineis/nescon/Brumadinho.js' %}"},
+{value: 'Caeté' , type: "{% static 'data/paineis/nescon/Caeté.js' %}"},
+{value: 'Capim Branco' , type: "{% static 'data/paineis/nescon/Capim Branco.js' %}"},
+{value: 'Confins' , type: "{% static 'data/paineis/nescon/Confins.js' %}"},
+{value: 'Contagem' , type: "{% static 'data/paineis/nescon/Contagem.js' %}"},
+{value: 'Esmeraldas' , type: "{% static 'data/paineis/nescon/Esmeraldas.js' %}"},
+{value: 'Florestal' , type: "{% static 'data/paineis/nescon/Florestal.js' %}"},
+{value: 'Ibirité' , type: "{% static 'data/paineis/nescon/Ibirité.js' %}"},
+{value: 'Igarapé' , type: "{% static 'data/paineis/nescon/Igarapé.js' %}"},
+{value: 'Itaguara' , type: "{% static 'data/paineis/nescon/Itaguara.js' %}"},
+{value: 'Itatiaiuçu' , type: "{% static 'data/paineis/nescon/Itatiaiuçu.js' %}"},
+{value: 'Jaboticatubas' , type: "{% static 'data/paineis/nescon/Jaboticatubas.js' %}"},
+{value: 'Juatuba' , type: "{% static 'data/paineis/nescon/Juatuba.js' %}"},
+{value: 'Lagoa Santa' , type: "{% static 'data/paineis/nescon/Lagoa Santa.js' %}"},
+{value: 'Mário Campos' , type: "{% static 'data/paineis/nescon/Mário Campos.js' %}"},
+{value: 'Mateus Leme' , type: "{% static 'data/paineis/nescon/Mateus Leme.js' %}"},
+{value: 'Matozinhos' , type: "{% static 'data/paineis/nescon/Matozinhos.js' %}"},
+{value: 'Nova Lima' , type: "{% static 'data/paineis/nescon/Nova Lima.js' %}"},
+{value: 'Nova União' , type: "{% static 'data/paineis/nescon/Nova União.js' %}"},
+{value: 'Pedro Leopoldo' , type: "{% static 'data/paineis/nescon/Pedro Leopoldo.js' %}"},
+{value: 'Raposos' , type: "{% static 'data/paineis/nescon/Raposos.js' %}"},
+{value: 'Ribeirão das Neves' , type: "{% static 'data/paineis/nescon/Ribeirão das Neves.js' %}"},
+{value: 'Rio Acima' , type: "{% static 'data/paineis/nescon/Rio Acima.js' %}"},
+{value: 'Rio Manso' , type: "{% static 'data/paineis/nescon/Rio Manso.js' %}"},
+{value: 'Sabará' , type: "{% static 'data/paineis/nescon/Sabará.js' %}"},
+{value: 'Santa Luzia' , type: "{% static 'data/paineis/nescon/Santa Luzia.js' %}"},
+{value: 'Santa Luzia' , type: "{% static 'data/paineis/nescon/Santa Luzia.js' %}"},
+{value: 'São Joaquim de Bicas' , type: "{% static 'data/paineis/nescon/São Joaquim de Bicas.js' %}"},
+{value: 'São José da Lapa' , type: "{% static 'data/paineis/nescon/São José da Lapa.js' %}"},
+{value: 'Sarzedo' , type: "{% static 'data/paineis/nescon/Sarzedo.js' %}"},
+{value: 'Taquaraçu de Minas' , type: "{% static 'data/paineis/nescon/Taquaraçu de Minas.js' %}"},
+{value: 'Vespasiano' , type: "{% static 'data/paineis/nescon/Vespasiano.js' %}"},
+{value: 'Central BH' , type: "{% static 'data/paineis/nescon/Central BH.js' %}"}
+]  
+window.cidade;
+$('#autocomplete2').autocomplete({
+    lookup: currencies,
+    onSelect: function (ui) {
+		get(ui.type);
+		$("#summary-box").hide();
+		$(".nav-stacked").hide();			
+		$("#summary-box").show(1000);	
+		$(".nav-stacked").show(1000);		
+		city(ui.value);
+		cidade = ui.value;	
+    }
+});		
+});	
+
+function city(par) {
+   $('#cidade').text(par)
+   
+};
+
+
+</script>
+
+<script>
+function get(par) {
+$.getScript( par, function(  textStatus ) {
+/*var inlinePib = dc.numberDisplay("#pib"),
+	inlinePopulacao = dc.numberDisplay("#populacao"),
+	inlineExp = dc.numberDisplay("#exp"),
+	inlineIdh = dc.numberDisplay("#idh"),
+	inlinePibpercap = dc.numberDisplay("#pibpercap")	
+	
+	data.forEach( function(obj) {
+	  var img = new Image();
+	  img.src = obj.imagem;
+	  img.setAttribute("class", "banner-img");
+	  img.setAttribute("alt", "effy");
+	
+	});
+	
+	var ndx            = crossfilter(data),
+	
+  cityDim  = ndx.dimension(function(d) {return d['cidade'];})
+	  	var total = cityDim.groupAll().reduce(
+				//add
+				function(p, v) {
+					++p.count;
+					p.pib += +v['PIB'];
+					p.populacao += +v['Populacao'];
+					p.exp += +v['Expectativa de Vida'];
+					p.idh += +v['IDH'];
+					p.pibpercap += +v['PIB per capita'];					
+					return p;
+				},
+				//remove
+				function(p, v) {
+					--p.count;
+					p.pib -= +v['PIB'];
+					p.populacao -= +v['Populacao'];
+					p.exp -= +v['Expectativa de Vida'];
+					p.idh -= +v['IDH'];
+					p.pibpercap -= +v['PIB per capita'];					
+					return p;
+				},
+				//init
+				function() {
+					return {pib:0, populacao:0, exp:0, idh:0, pibpercap:0};
+				}
+		);
+				
+	var nPib = function(d){
+		return (d.pib) ;
+	};
+	var nPopulacao = function(d){
+		return (d.populacao) ;
+	};	
+	var nExp = function(d){
+		return (d.exp) ;
+	};
+	var nIdh = function(d){
+		return (d.idh) ;
+	};
+	var npibpercap = function(d){
+		return (d.pibpercap) ;
+	};	
+	
+	inlinePib
+		  .formatNumber(d3.format("s"))
+		  .valueAccessor(nPib)
+		  .group(total);
+	inlinePopulacao
+		  .formatNumber(d3.format("s"))
+		  .valueAccessor(nPopulacao)
+		  .group(total);		  
+	inlineExp
+		  .formatNumber(d3.format("s"))
+		  .valueAccessor(nExp)
+		  .group(total);
+	inlineIdh
+		  .formatNumber(d3.format(".3s"))
+		  .valueAccessor(nIdh)
+		  .group(total);
+	inlinePibpercap
+		  .formatNumber(d3.format(".3s"))
+		  .valueAccessor(npibpercap)
+		  .group(total);		  
+		  
+	
+	dc.renderAll();	  
+
+*/
+/*
+AmCharts.makeChart("chartdiv1", {
+  "type": "serial",
+  "theme": "light",
+  "dataProvider": teste,
+  "startDuration": 1,
+  "graphs": [{
+    "balloonText": "[[category]]: <b>[[value]]</b>",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "valueField": "visits"
+  }],
+ export: {
+	enabled: true
+ },
+  
+  "categoryField": "country",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "gridAlpha": 0
+  }
+
+});
+*/
+/**
+ * Add chart #2
+ */
+ /*
+AmCharts.makeChart("chartdiv2", {
+	"type": "pie",
+	"theme": "light",
+	"dataProvider": teste,
+	"valueField": "visits",
+	"titleField": "country",
+	"legend": {
+		"enabled": true,
+		"align": "center",
+		"markerType": "circle"
+	},
+	"balloon": {
+	"fixedPosition": true
+	}, export: {
+		enabled: true
+	}
+});
+*/
+/**
+ * Add chart #3
+ */
+ /*
+AmCharts.makeChart("chartdiv3", {
+	"type": "serial",
+	"categoryField": "category",
+	"startDuration": 1,
+	"categoryAxis": {
+		"gridPosition": "start"
+	},
+	 export: {
+		enabled: true
+	},
+
+	"trendLines": [],
+	"graphs": [
+		{
+			"balloonText": "[[title]] of [[category]]:[[value]]",
+			"bullet": "round",
+			"id": "AmGraph-1",
+			"title": "graph 1",
+			"valueField": "column-1"
+		},
+		{
+			"balloonText": "[[title]] of [[category]]:[[value]]",
+			"bullet": "square",
+			"id": "AmGraph-2",
+			"title": "graph 2",
+			"valueField": "column-2"
+		}
+	],
+	"guides": [],
+	"valueAxes": [
+		{
+			"id": "ValueAxis-1",
+			"title": "Axis title"
+		}
+	],
+	"allLabels": [],
+	"balloon": {},
+	"legend": {
+		"enabled": true,
+		"useGraphSettings": true
+	},
+	"titles": [
+		{
+			"id": "Title-1",
+			"size": 15,
+			"text": "Chart Title"
+		}
+	],
+	"dataProvider": serie
+});
+*/
+/**
+ * Add chart #4
+ */
+ /*
+AmCharts.makeChart( "chartdiv4", {
+  "type": "map",
+  "theme": "light",
+  "dataProvider": {
+    "map": "worldLow",
+    "getAreasFromMap": true
+  },
+   export: {
+	enabled: true
+	},
+  "areasSettings": {
+    "autoZoom": true,
+    "selectedColor": "#CC0000"
+  }
+} );
+
+  */
+
+
+
+AmCharts.makeChart("chartdiv", {
+    type: "stock",
+	"colors": [
+		"#3dc1d0",
+		"#91d5df",
+		"#dde6ee"
+	],
+	
+    theme: "light",
+	dataDateFormat : "YYYY",
+	extendToFullPeriod : false,
+    pathToImages: "http://www.amcharts.com/lib/3/images/",
+
+    panelsSettings: {
+        recalculateToPercents: "never"
+    },
+	
+    dataSets: [
+	{
+        title: cidade,
+        fieldMappings: [{
+            fromField: "FAmilias_cadastradas_atencao_basica",
+            toField: "FAmilias_cadastradas_atencao_basica"
+        }, {
+            fromField: "pessoas_cadastradas_atencao_basica",
+            toField: "pessoas_cadastradas_atencao_basica"
+        }
+		],
+        dataProvider: atencaobasicafamiliascadastradas,
+        categoryField: "ano"
+    }
+   
+	],
+
+    panels: [
+	 
+	{
+
+        title: "Famílias cadastradas atenção básica",
+
+        stockGraphs: [{
+            id: "FAmilias_cadastradas_atencao_basica",
+            valueField: "FAmilias_cadastradas_atencao_basica",
+            lineThickness: 3,
+            title: "",			
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+
+        stockLegend: {
+            useGraphSettings: true
+        }
+	},
+	{
+
+        title: "Pessoas cadastradas atenção básica",
+
+        stockGraphs: [{
+            id: "pessoas_cadastradas_atencao_basica",
+            valueField: "pessoas_cadastradas_atencao_basica",
+            lineThickness: 3,
+            title: "",
+			labelPosition : "left",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true,
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	}
+	
+	],
+ 
+    chartScrollbarSettings: {
+        graph: ["FAmilias_cadastradas_atencao_basica"]
+    },
+	
+
+    chartCursorSettings: {
+        valueBalloonsEnabled: true,
+        fullWidth: true,		
+		categoryBalloonEnabled : true,
+        cursorAlpha: 0.1,		
+        valueLineBalloonEnabled: true,
+        valueLineEnabled: true,
+        valueLineAlpha: 0.5,
+		"cursorColor": "#61788e"
+    },
+	/*
+    dataSetSelector: {
+        position: "left",
+		selectText : "Selecione uma UF:",
+		compareText : "Selecione outra UF para comparar:"
+    },
+	*/
+"export": {
+  "enabled": true
+}
+	
+});
+
+AmCharts.makeChart("chartdiv1", {
+    type: "stock",
+	"colors": [
+		"#3dc1d0",
+		"#91d5df",
+		"#dde6ee"
+	],
+	
+    theme: "light",
+	dataDateFormat : "YYYY",
+	extendToFullPeriod : false,
+    pathToImages: "http://www.amcharts.com/lib/3/images/",
+
+    panelsSettings: {
+        recalculateToPercents: "never"
+    },
+
+    dataSets: [
+	{
+        title: cidade,
+        fieldMappings: [{
+            fromField: "morbidade_neoplasias_internacoes",
+            toField: "morbidade_neoplasias_internacoes"
+        }, {
+            fromField: "morbidade_neoplasias_valores",
+            toField: "morbidade_neoplasias_valores"
+        }
+		],
+        dataProvider: morbidadeneoplasias,
+        categoryField: "ano"
+    }
+   
+	],
+
+    panels: [
+	 
+	{
+
+        title: "Morbidade neoplasias internacoes",
+
+        stockGraphs: [{
+            id: "morbidade_neoplasias_internacoes",
+            valueField: "morbidade_neoplasias_internacoes",
+            lineThickness: 3,
+            title: "",			
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+
+        stockLegend: {
+            useGraphSettings: true
+        }
+	},
+	{
+
+        title: "Morbidade neoplasias valores",
+
+        stockGraphs: [{
+            id: "morbidade_neoplasias_valores",
+            valueField: "morbidade_neoplasias_valores",
+            lineThickness: 3,
+            title: "",
+			labelPosition : "left",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true,
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	}
+	
+	],
+ 
+    chartScrollbarSettings: {
+        graph: ["morbidade_neoplasias_internacoes"]
+    },
+	
+
+    chartCursorSettings: {
+        valueBalloonsEnabled: true,
+        fullWidth: true,		
+		categoryBalloonEnabled : true,
+        cursorAlpha: 0.1,		
+        valueLineBalloonEnabled: true,
+        valueLineEnabled: true,
+        valueLineAlpha: 0.5,
+		"cursorColor": "#61788e"
+    },
+	/*
+    dataSetSelector: {
+        position: "left",
+		selectText : "Selecione uma UF:",
+		compareText : "Selecione outra UF para comparar:"
+    },
+	*/
+"export": {
+  "enabled": true
+}
+	
+});
+
+
+AmCharts.makeChart("chartdiv2", {
+    type: "stock",
+	"colors": [
+		"#3dc1d0",
+		"#91d5df",
+		"#dde6ee"
+	],
+	
+    theme: "light",
+	dataDateFormat : "YYYY",
+	extendToFullPeriod : false,
+    pathToImages: "http://www.amcharts.com/lib/3/images/",
+
+    panelsSettings: {
+        recalculateToPercents: "never"
+    },
+
+    dataSets: [
+	{
+        title: cidade,
+        fieldMappings: [{
+            fromField: "morbidade_aparelhocirculatorio_internacoes",
+            toField: "morbidade_aparelhocirculatorio_internacoes"
+        }, {
+            fromField: "morbidade_aparelhocirculatorio_valores",
+            toField: "morbidade_aparelhocirculatorio_valores"
+        }
+		],
+        dataProvider: neoplasiasaparelhoocirculatorio,
+        categoryField: "ano"
+    }
+   
+	],
+
+    panels: [
+	 
+	{
+
+        title: "Morbidade Aparelho circulatorio internacoes",
+
+        stockGraphs: [{
+            id: "morbidade_aparelhocirculatorio_internacoes",
+            valueField: "morbidade_aparelhocirculatorio_internacoes",
+            lineThickness: 3,
+            title: "",			
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+
+        stockLegend: {
+            useGraphSettings: true
+        }
+	},
+	{
+
+        title: "Morbidade Aparelho Circulatorio valores",
+
+        stockGraphs: [{
+            id: "morbidade_aparelhocirculatorio_valores",
+            valueField: "morbidade_aparelhocirculatorio_valores",
+            lineThickness: 3,
+            title: "",
+			labelPosition : "left",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true,
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	}
+	
+	],
+ 
+    chartScrollbarSettings: {
+        graph: ["morbidade_aparelhocirculatorio_internacoes"]
+    },
+	
+
+    chartCursorSettings: {
+        valueBalloonsEnabled: true,
+        fullWidth: true,		
+		categoryBalloonEnabled : true,
+        cursorAlpha: 0.1,		
+        valueLineBalloonEnabled: true,
+        valueLineEnabled: true,
+        valueLineAlpha: 0.5,
+		"cursorColor": "#61788e"
+    },
+	/*
+    dataSetSelector: {
+        position: "left",
+		selectText : "Selecione uma UF:",
+		compareText : "Selecione outra UF para comparar:"
+    },
+	*/
+"export": {
+  "enabled": true
+}
+	
+});
+/********
+********/
+
+});
+};
+
+</script>
+	
+
+<div class="container-fluid" style = "padding-top:5px;  border-top: solid 1px #dfe4e9; background-color:#f7fafd; min-height: 400px;">
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+		<div class="col-sm-1">
+		</div>	
+		<div class="col-sm-3">
+            <div>
+				<ul class="nav nav-stacked">
+				  <li class="active"><a href="#">Home</a></li>
+				  <li ><a href="javascript:showChart('chartdiv');">Famílias Cadastradas</a></li>
+				  <li><a href="javascript:showChart('chartdiv1');">Morbidade - Neoplasias</a></li>
+				  <li><a href="javascript:showChart('chartdiv2');">Neoplasias Apar. Circulatório</a></li>
+				</ul>
+			</div>		
+		</div>
+	  <div class="col-sm-8">
+			<div class="banner-section" id="img-container">    </div>
+			<div id="chartdiv" class="chartdiv" style="display: none;"></div>			
+			<div id="chartdiv1" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv2" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv3" class="chartdiv" style="display: none;"></div>			      
+      </div>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+		<div class="col-sm-1">
+		</div>	
+		<div class="col-sm-3">
+            <div>
+				<ul class="nav  nav-stacked">
+				  <li class="active"><a href="#">Home</a></li>
+				  <li ><a href="javascript:showChart('chartdiv1');">Mortalidade Geral</a></li>
+				  <li><a href="javascript:showChart('chartdiv2');">Óbitos por causas evitáveis</a></li>
+				  <li><a href="javascript:showChart('chartdiv3');">Óbitos infantis</a></li>
+				  <li><a href="javascript:showChart('chartdiv3');">Óbitos maternos</a></li>
+				  <li><a href="javascript:showChart('chartdiv3');">Óbitos Fetais</a></li>
+				  <li><a href="javascript:showChart('chartdiv3');">Óbitos por causas externas</a></li>
+				</ul>
+			</div>		
+		</div>
+	  <div class="col-sm-8">
+			<div class="banner-section" id="img-container">    </div>
+			<div id="chartdiv1" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv2" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv3" class="chartdiv" style="display: none;"></div>			      
+      </div>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+		<div class="col-sm-1">
+		</div>	
+		<div class="col-sm-3">
+            <div>
+				<ul class="nav  nav-stacked">
+				  <li class="active"><a href="#">Home</a></li>
+				  <li ><a href="javascript:showChart('chartdiv1');">Tipos de estabelecimentos</a></li>
+				  <li><a href="javascript:showChart('chartdiv2');">Tipos de atendimento</a></li>
+				  <li><a href="javascript:showChart('chartdiv3');">Leitos Hospitalares</a></li>
+				  <li><a href="javascript:showChart('chartdiv3');">Equipamentos</a></li>
+				</ul>
+			</div>		
+		</div>
+	  <div class="col-sm-8">
+			<div class="banner-section" id="img-container">    </div>
+			<div id="chartdiv1" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv2" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv3" class="chartdiv" style="display: none;"></div>			      
+      </div>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+		<div class="col-sm-1">
+		</div>	
+		<div class="col-sm-3">
+            <div>
+				<ul class="nav  nav-stacked">
+				  <li class="active"><a href="#">Home</a></li>
+				  <li ><a href="javascript:showChart('chartdiv1');">Ocupações de nível superior</a></li>
+				  <li><a href="javascript:showChart('chartdiv2');">Ocupações de nível técnico</a></li>
+				  <li><a href="javascript:showChart('chartdiv3');">Médicos</a></li>
+				</ul>
+			</div>		
+		</div>
+	  <div class="col-sm-8">
+			<div class="banner-section" id="img-container">    </div>
+			<div id="chartdiv1" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv2" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv3" class="chartdiv" style="display: none;"></div>			      
+      </div>
+    </div>
+  </div>
+ </div>
+
+
+	
+<script>
+/**
+ * Add chart #1
+ */
+var currentChart;
+function showChart( divid ) {
+
+  if (currentChart !== undefined){	
+    currentChart.style.display = "none";
+	}
+  if ( divid ) {
+    currentChart = document.getElementById(divid);
+    currentChart.style.display = "block";	
+  }
+  else {
+    currentChart = undefined;
+  }
+} 
+
+</script>
+
+{% endblock %}

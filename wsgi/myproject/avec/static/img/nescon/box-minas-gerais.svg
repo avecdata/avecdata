@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="40" viewBox="0 0 200 40">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#3DC1D0" fill-rule="nonzero" d="M43.209 20.958l.032.047.122.179 4.673 6.714a.73.73 0 0 0 1.198 0l4.663-6.709c.044-.062.087-.123.13-.179l.03-.043a6.456 6.456 0 1 0-10.845 0l-.003-.009zm5.426-6.181a2.69 2.69 0 1 1 0 5.38 2.69 2.69 0 0 1 0-5.38z"/>
+        <text fill="#3DC1D0" font-family="Roboto-Regular, Roboto" font-size="18" letter-spacing="-.6">
+            <tspan x="62" y="26">Minas Gerais</tspan>
+        </text>
+        <rect width="198" height="38" x="1" y="1" stroke="#3DC1D0" stroke-width="2" rx="19"/>
+    </g>
+</svg>

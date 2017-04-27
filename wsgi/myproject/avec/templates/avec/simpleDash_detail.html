@@ -31,10 +31,12 @@
 	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>	
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>	
+	<script type="text/javascript" src="{% static dash.external_files %}"></script>
 		
 	<script>
 		var imguser = "{% static 'img/user/' %}";
 		var img = "{% static 'img/' %}";
+		
 	</script>
 	
 	<style>
@@ -166,7 +168,7 @@ input:checked + label {
 
  <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-8">
 			<div class="chart-wrapper" id="graph">
 			  <div class="chart-title">
 				 {{ tabs.subtitle }}

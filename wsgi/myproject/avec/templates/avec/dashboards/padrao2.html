@@ -1,14 +1,12 @@
 ﻿{% extends 'avec/base_dashboard.html' %}
 {% load staticfiles %}
 {% block content %}
-<html>
-<title>Candidatos à Doação</title>
-  <title>Layouts</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-  
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>AVEC - Ciencia de dados</title>
+	<title>AVEC - Ciência de dados</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,21 +22,133 @@
 	
 	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  
-	
-	    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  	
 
-	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>		
-	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.js' %}"></script>	
+   <!-- <link href="css/style2.css" rel="stylesheet">-->
+   
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+   
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>	
+    <script src="{% static 'js/colorbrewer.js' %}"></script>
+    <script src="{% static 'data/world-countries.json' %}"></script>
 	
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/dc2.js' %}"></script>		
-	
-<style>
+    <script type="text/javascript" src="{% static 'js/dc.js' %}"></script>		
+	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'js/cloud.js' %}"></script>
 
-	#chart-06,  #chart-07,  #chart-08,  #chart-09{
+   <!--<script type="text/javascript" src="http://www.kunalbabre.com/projects/table2CSV.js" > </script> 	-->
+
+   <script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>
+	<!--  <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+<style>
+	
+	
+	@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
+
+*,:after,:before{box-sizing:content-box;!important}
+
+#chartdiv, #chartdiv2, #chartdiv3, #chartdiv4  {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}							
+
+.amChartsCompareList -compare-div{
+	height		: 400px;	
+}
+
+svg {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+h1 {
+  padding: 50px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16b'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09, #chart-10,  #chart-11,  #chart-12,  #chart-13{
         background: #899296;
         width: 100%;
         font-size: 64px;
@@ -49,543 +159,1934 @@
         line-height: normal;
 		margin-bottom: 15px;
       }
-	  
-	  #chartdiv1, #chartdiv2, #chartdiv3, #chartdiv4, #chartdiv5, #chartdiv6, #chartdiv7, #chartdiv8 {
-		width: 100%;
-		height: 300px;
+
+	  .amcharts-compare-item-div{
+			padding: 8px; position: relative; height: 20px;
 	  }
-
-#dc-cpty-chart svg g .axis.x .tick {
-    display: none;
-}
-
-pre {display:none;}
-
-</style>
+	</style>
+    </head>
 <body>
 
 <div class="title_sec">
 		<div class="internal__row">
-			<h1 class="internal__title">Candidatos à Doação</h1>
+			<h1 class="internal__title">Morbidades - Causas Externas</h1>
 		</div>
 </div>	
 
- <div class="container-fluid" style = "padding-top:20px;">
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Internações e Óbitos</label>
+  
+  
 
+
+<section id="content1">
+	<div class="tab-pane " id="a_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
     <div class="row">
       <div class="col-sm-12">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Filtros
-          </div>
-          <div class="chart-stage" style="padding-bottom:20px; padding-top:20px;">
-		  	  <div class="col-sm-3">
-			      <h4>Selecionar Local</h4>
-				  <div id="menuselect0" style="float:left;"></div>
-			  </div>			  
-			  <div class="col-sm-3">
-				  <h4>Selecionar Período</h4>
-				  <div id="menuselect3" style="float:none;"></div>
-			  </div>		  			  
-          </div>
-          <div class="chart-notes" >
-            Notes about this chart
-          </div>
-
-        </div>
-		
-      </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Sexo
-          </div>
-          <div class="chart-stage">
-			  <div id="chartdiv1"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-	        <div class="col-sm-4">
         <div class="chart-wrapper" id="graph">
           <div class="chart-title">
-            Faixa Etária
+             Série Histórica -  Número de internações e óbitos 
           </div>
           <div class="chart-stage">
 			  <!--<h4>Teste</h4>-->
-			  <div id="chartdiv2"></div>
+			  				<div id="chartdiv"></div>	
+			
           </div>
           <div class="chart-notes">
-            Notes about this chart
+            Fonte: Secretária de Vigilância em Saúde/MS. </br>			
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Estado Civil
-          </div>
-          <div class="chart-stage">
-			  <div id="chartdiv3"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="row">
-            <div class="col-sm-4">
-        <div class="chart-wrapper" id="graph">
-          <div class="chart-title">
-            Tipo de Doação
-          </div>
-          <div class="chart-stage">
-			  <!--<h4>Teste</h4>-->
-			  <div id="chartdiv4"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Tipo de Doador
-          </div>
-          <div class="chart-stage">
-			  <div id="chartdiv5"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-	        <div class="col-sm-4">
-        <div class="chart-wrapper" id="graph">
-          <div class="chart-title">
-            Município de Residência
-          </div>
-          <div class="chart-stage">
-			  <!--<h4>Teste</h4>-->
-			  <div id="chartdiv6"></div>
-          </div>
-          <div class="chart-notes">
-            Notes about this chart
-          </div>
-        </div>
-      </div>
-    </div>
-	
-	<div class="row">
-		<div class="col-sm-12">
-				<div class="chart-wrapper">
-				  <div class="chart-title">
-					Estatistica 4
-				  </div>
-				  <div class="chart-stage" id="bigchart-05">
-		
-		 <!-- <center> -->
-        <!-- <div class="col-md-6 col-md-offset-1"> -->
-		
-				        <table class='table table-hover' id='chart-05' class="list table table-striped table-bordered">
-							 
-								<thead>
-									<tr class='header' center style="background-color: Cornsilk ;">
-										<th> </th>
-										<th> Local</th>
-										<th> Inaptos na Triagem</th>
-										<th> Inaptos na coleta</th>
-										<th> Desistentes</th>
-										<th> Total de Candidatos à Doação</th>
-									 </tr>
-								</thead>
-							</table>				  
-
-
-				  </div>
-				  <div class="chart-notes">
-					fonte: SINASC - Sistema de Informações sobre nascidos vivos (Min. da Saúde) .
-				  </div>
-				</div>
-			  </div>
-			  <div class="row">
-
-			  </div>
-
-			</div><!--row end-->
 	</div>
+	</div>
+</section>	
 
+<section id="content2">
+	<div class="tab-pane " id="b_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica - Transfusão ambulatorial e hospitalar - "2008-30-01" à "2016-30-01"
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			<div id="chartdiv2"></div>	
+			
+          </div>
+          <div class="chart-notes">
+             Fonte: Ministério da Saúde - Sistema de Informações Hospitalares do SUS (SIH/SUS) </br>
+          </div>
+        </div>
+      </div>
+	</div>	
 
-  </div>
+	</div>
+</section>	
 
-
-<pre>
-regiao,date,cpty,na,ma,ac,hs,ss,LeafID,ead,ead_CEM
-Sudeste,15.01.2017,Sao Paulo,NS::SWN,CSA::SWN,IR,CHF,1,T::6290,6141.596552,570971.2303
-Sudeste,19.07.2016,Sao Paulo,NS::SWN,CSA::SWN,IR,CHF,1,T::6290,6141.596552,570971.2303
-Sudeste,17.10.2016,Sao Paulo,NS::SWN,CSA::SWN,IR,CHF,1,T::6290,6141.596552,570971.2303
-Sudeste,19.07.2016,Sao Paulo,not-net,_,_,_,_,T::7994,31858.95692,0
-Sudeste,17.10.2016,Sao Paulo,not-net,_,_,_,_,T::7994,31858.95692,0
-Nordeste,19.07.2016,Maceio,NS::ILMN,CSA::ILMN,IR,USD,2,T::10000,38540.64338,12483.826
-Nordeste,17.10.2016,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
-Nordeste,15.01.2017,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
-Nordeste,14.07.2017,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
-Nordeste,15.04.2017,Maceio,NS::ILMN,CSA::ILMN,IR,USD,1,T::10000,38540.64338,12483.826
-Nordeste,15.01.2017,Irece,NS::CL,dma,IR,USD,1,T::1953,1414.16706,0
-Nordeste,17.10.2016,Irece,NS::CL,dma,IR,USD,1,T::1953,1414.16706,0
-Nordeste,19.07.2016,Irece,NS::CL,dma,IR,USD,1,T::1953,1414.16706,0
-Centro Oeste,09.07.2018,Brasilia,not-net,_,_,_,_,T::5135,908458.539,3217734.507
-</pre>
-
-</body>
+<!-- Chart Sangue -->
 <script>
-var sinopse_estatistica_da_educacao_basica_2015 = "{% static 'data/educacao2.csv' %}"; 
 
-d3.csv( sinopse_estatistica_da_educacao_basica_2015, function(data) {
-	data.forEach(function(d) {                 
-		d.date = d.date; 
-	});  
-
-
-var cptyChart = dc.barChart("#chartdiv2");
-var periodoRingChart   = dc.pieChart("#chartdiv1");
-var chartdiv3   = dc.pieChart("#chartdiv3");
-var chartdiv4   = dc.pieChart("#chartdiv4");
-var chartdiv5   = dc.pieChart("#chartdiv5");
-var chartdiv6   = dc.pieChart("#chartdiv6");
-var big1 = dc.numberDisplay("#chart-06");
-var big2 = dc.numberDisplay("#chart-07");
-var big3 = dc.numberDisplay("#chart-08");	
-var big4 = dc.numberDisplay("#chart-09");	  
-
-  var ndx = crossfilter(data);
-
-  var dimdate = ndx.dimension(function(d) { return d.date;});
-  var dimline = ndx.dimension(function(d) { return d.date;});
-  var minDate = dimdate.bottom(1)[0].date;
-  var maxDate = dimdate.top(1)[0].date;
-  var dimregiao = ndx.dimension(function(d) { return d.regiao;});  
-  var dimestado = ndx.dimension(function(d) { return d.estado;});    
-  var dimcpty = ndx.dimension(function(d) { return d.cpty;});
-  var dimcptyC = ndx.dimension(function(d) { return d.cpty;});
-
-  var groupdate = dimdate.group().reduceSum(function(d){return d.ead/1000000;});
-  var groupline = dimline.group().reduceSum(function(d){return d.ead/1000000;});
-  var groupregiao = dimregiao.group().reduceSum(function(d){return d.ead/1000000;});  
-  var groupcpty = dimcpty.group().reduceSum(function(d){return d.ead/1000000;});
-  var spendhisto=dimcptyC.group().reduceSum(function(d){return d.ead/1000000;});
-  var groupcptyC = remove_empty_bins(spendhisto);
-
-  //                //a dropdown widget
-  selectField=dc.selectMenu('#menuselect0')
-    .dimension(dimregiao)
-    .group(dimregiao.group());
-  
-  selectField=dc.selectMenu('#menuselect')
-    .dimension(dimestado)
-    .group(dimestado.group());
-	
-  selectField2=dc.selectMenu('#menuselect2')
-    .dimension(dimcpty)
-    .group(groupcpty);
-	
-  selectField3=dc.selectMenu('#menuselect3')
-    .dimension(dimdate)
-    .group(groupdate);	
-/*
-  var oldHandler = selectField2.filterHandler();
-  selectField2.filterHandler(function(dimension, filters) {
-    var parseFilters = filters.map(function(d) { return new Date(d);})
-    oldHandler(dimension, parseFilters);
-    return filters;
-  });*/
-  
-  var widthcomp =  document.getElementById('graph').offsetWidth;   
-
-	big1		
-		.group(groupcpty);	
-
-	big2		
-		.group(groupcpty);	
-
-	big3		
-		.group(groupcpty);	
-
-	big4
-		.group(groupcpty);			
-		
-  //a line chart
-
-    periodoRingChart
-		.height(280)
-		.width(widthcomp*0.9)
-		.colors( [ 'rgb(132, 183, 97)','rgb(103, 183, 220)', 'rgb(204, 71, 72)' ] )
-		.colorDomain ([2016,2018])
-		//rgb(103, 183, 220);
-		//.margins({top: 20, right: 20, bottom: 20, left: 20})
-        .dimension(dimline)		
-        .group(groupline)
-		.minAngleForLabel(0.1)
-		.externalLabels(-20)
-        .externalRadiusPadding(20)
-        .drawPaths(false)
-		.legend(dc.legend().x(80).y(0).gap(5))
-        .innerRadius(30);
-		
-	 // example of formatting the legend via svg
-      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
-      periodoRingChart.on('pretransition', function(periodoRingChart) {
-          periodoRingChart.selectAll('.dc-legend-item text')
-              .text('')
-            .append('tspan')
-              .text(function(d) { return d.a; })
-            .append('tspan')
-              .attr('x', 50)
-              .attr('text-anchor', 'end')
-              .text(function(d) { return d.data; });
-      });
-      periodoRingChart.render();	
-
-    chartdiv3
-		.height(280)
-		.width(widthcomp*0.9)
-		.colors( [ 'rgb(132, 183, 97)','rgb(103, 183, 220)', 'rgb(204, 71, 72)' ] )
-		.colorDomain ([2016,2018])		
-		//.margins({top: 20, right: 20, bottom: 20, left: 20})
-        .dimension(dimline)		
-        .group(groupline)
-		.minAngleForLabel(0.1)
-		.externalLabels(-20)
-        .externalRadiusPadding(20)
-        .drawPaths(false)
-		.legend(dc.legend().x(80).y(0).gap(5))
-        .innerRadius(30);
-		
-	 // example of formatting the legend via svg
-      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
-      chartdiv3.on('pretransition', function(chartdiv3) {
-          chartdiv3.selectAll('.dc-legend-item text')
-              .text('')
-            .append('tspan')
-              .text(function(d) { return d.a; })
-            .append('tspan')
-              .attr('x', 50)
-              .attr('text-anchor', 'end')
-              .text(function(d) { return d.data; });
-      });
-      chartdiv3.render();	  
-
-	  chartdiv4
-		.height(280)
-		.width(widthcomp*0.9)
-		.colors( [ 'rgb(132, 183, 97)','rgb(103, 183, 220)', 'rgb(204, 71, 72)' ] )
-		.colorDomain ([2016,2018])		
-		//.margins({top: 20, right: 20, bottom: 20, left: 20})
-        .dimension(dimline)		
-        .group(groupline)
-		.minAngleForLabel(0.1)
-		.externalLabels(-20)
-        .externalRadiusPadding(20)
-        .drawPaths(false)
-		.legend(dc.legend().x(80).y(0).gap(5))
-        .innerRadius(30);
-		
-	 // example of formatting the legend via svg
-      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
-      chartdiv4.on('pretransition', function(chartdiv4) {
-          chartdiv4.selectAll('.dc-legend-item text')
-              .text('')
-            .append('tspan')
-              .text(function(d) { return d.a; })
-            .append('tspan')
-              .attr('x', 50)
-              .attr('text-anchor', 'end')
-              .text(function(d) { return d.data; });
-      });
-      chartdiv4.render();	
-
-	  chartdiv5
-		.height(280)
-		.width(widthcomp*0.9)
-		.colors( [ 'rgb(132, 183, 97)','rgb(103, 183, 220)', 'rgb(204, 71, 72)' ] )
-		.colorDomain ([2016,2018])		
-		//.margins({top: 20, right: 20, bottom: 20, left: 20})
-        .dimension(dimline)		
-        .group(groupline)
-		.minAngleForLabel(0.1)
-		.externalLabels(-20)
-        .externalRadiusPadding(20)
-        .drawPaths(false)
-		.legend(dc.legend().x(80).y(0).gap(5))
-        .innerRadius(30);
-		
-	 // example of formatting the legend via svg
-      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
-      chartdiv5.on('pretransition', function(chartdiv5) {
-          chartdiv5.selectAll('.dc-legend-item text')
-              .text('')
-            .append('tspan')
-              .text(function(d) { return d.a; })
-            .append('tspan')
-              .attr('x', 50)
-              .attr('text-anchor', 'end')
-              .text(function(d) { return d.data; });
-      });
-      chartdiv5.render();	
-
-	  chartdiv6
-		.height(280)
-		.width(widthcomp*0.9)
-		.colors( [ 'rgb(132, 183, 97)','rgb(103, 183, 220)', 'rgb(204, 71, 72)' ] )
-		.colorDomain ([2016,2018])		
-		//.margins({top: 20, right: 20, bottom: 20, left: 20})
-        .dimension(dimline)		
-        .group(groupline)
-		.minAngleForLabel(0.1)
-		.externalLabels(-20)
-        .externalRadiusPadding(20)
-        .drawPaths(false)
-		.legend(dc.legend().x(80).y(0).gap(5))
-        .innerRadius(30);
-		
-	 // example of formatting the legend via svg
-      // http://stackoverflow.com/questions/38430632/how-can-we-add-legends-value-beside-of-legend-with-proper-alignment
-      chartdiv6.on('pretransition', function(chartdiv6) {
-          chartdiv6.selectAll('.dc-legend-item text')
-              .text('')
-            .append('tspan')
-              .text(function(d) { return d.a; })
-            .append('tspan')
-              .attr('x', 50)
-              .attr('text-anchor', 'end')
-              .text(function(d) { return d.data; });
-      });
-      chartdiv6.render();		 
-
-var dataTableOptions = {
-                "lengthMenu": [[10], [25]],
-                "retrieve": true,
-                columnDefs: [
-                    {
-                        "orderable": true,
-						"orderData": [ 1, 1 ],
-                        targets: 0,
-                        data: function (d) { return d.regiao;  }
-                    } ,
-				   {
-                        "orderable": true,
-                        targets: 1,
-                        data: function (d) { return d.cpty; }
-                    },
-
-                    {
-                        "orderable": false,
-                        targets: 2,
-                        data: function (d) { return d.ead ; }
-                    },
-                    {
-                        "orderable": false,
-                        targets: 3,
-                        data: function (d) { return d.ead ; }
-                    },
-                    {
-                        "orderable": false,
-                        targets: 4,
-                        data: function (d) { return d.ead; }
-                    },
-                    {
-                        "orderable": false,
-                        targets: 5,
-                        data: function (d) { return d.ead; }
-                    }
-                ]
-            };
-
-            var datatable = $('#chart-05').dataTable(dataTableOptions);
-		
-			
-            function RefreshTable() {
-                dc.events.trigger(function () {
-                    datatable.api()
-                      .clear()
-                      .rows.add(dimdate.top(100))
-                      .draw();
-                });
-            }
-            for (var i = 0; i < dc.chartRegistry.list().length; i++) {
-                var chartI = dc.chartRegistry.list()[i];
-                chartI.on("filtered", RefreshTable);
-            }
-
-            //Jquery DT
-
-            window.filter = function (filters) {
-                filters.forEach(function (d, i) { charts[i].filter(d); });
-                renderAll();
-            };
-
-            window.reset = function (i) {
-                charts[i].filter(null);
-                renderAll();
-            };
-
-			
-			
-            RefreshTable();		  
-	  
-	  
-
-  var barTip2=[]; //define some tips
-  cptyChart
-    .ordering(function(d){return -d.value;})
-    .height(280)
-    .width(widthcomp*0.9)
-	.colors(d3.scale.category10())
-	.colorAccessor(function(d, i){return i;})
-    .transitionDuration(500)
-    .dimension(dimcptyC)
-    .group(groupcptyC)
-	.renderHorizontalGridLines(true)
-	.renderVerticalGridLines(true)	
-    .margins({top:10, right:10, bottom: 2, left: 60})
-    .gap(1)
-    .elasticY(true)
-    .elasticX(true)
-    .x(d3.scale.ordinal().domain(dimcptyC))
-    .xUnits(dc.units.ordinal)
-    .renderHorizontalGridLines(true)
-    .yAxis().tickFormat(d3.format("s"));
-
-
-  dc.renderAll();
-
-  function remove_empty_bins(source_group) {
-    return {
-      all:function () {
-        return source_group.all().filter(function(d) {
-          return d.value > 0.00001;
-        });
-      }
-    };
+acre = [
+  {
+    ano: "2008-01-01",
+    obitos: 28,
+    internacoes: 490
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 30,
+    internacoes: 728
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 47,
+    internacoes: 867
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 39,
+    internacoes: 993
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 22,
+    internacoes: 864
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 30,
+    internacoes: 886
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 11,
+    internacoes: 848
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 47,
+    internacoes: 903
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 22,
+    internacoes: 898
   }
+];
+
+var alagoas = [
+  {
+    ano: "2008-01-01",
+    obitos: 57,
+    internacoes: 979
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 84,
+    internacoes: 1641
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 113,
+    internacoes: 1702
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 146,
+    internacoes: 1873
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 170,
+    internacoes: 2275
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 132,
+    internacoes: 2458
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 91,
+    internacoes: 2278
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 86,
+    internacoes: 2649
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 98,
+    internacoes: 2916
+  }
+];
+
+var amapa = [
+  {
+    ano: "2008-01-01",
+    obitos: 3,
+    internacoes: 296
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 11,
+    internacoes: 458
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 13,
+    internacoes: 583
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 12,
+    internacoes: 553
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 26,
+    internacoes: 826
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 14,
+    internacoes: 804
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 29,
+    internacoes: 836
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 17,
+    internacoes: 757
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 21,
+    internacoes: 573
+  }
+];
+
+var amazonas = [
+  {
+    ano: "2008-01-01",
+    obitos: 4,
+    internacoes: 1268
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 2,
+    internacoes: 1433
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 4,
+    internacoes: 1813
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 13,
+    internacoes: 2521
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 18,
+    internacoes: 2497
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 14,
+    internacoes: 2308
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 38,
+    internacoes: 2439
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 28,
+    internacoes: 2374
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 41,
+    internacoes: 2718
+  }
+];
+
+var bahia = [
+  {
+    ano: "2008-01-01",
+    obitos: 196,
+    internacoes: 4169
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 235,
+    internacoes: 5767
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 260,
+    internacoes: 7541
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 229,
+    internacoes: 7731
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 281,
+    internacoes: 8628
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 341,
+    internacoes: 10379
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 316,
+    internacoes: 12348
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 293,
+    internacoes: 12350
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 282,
+    internacoes: 13472
+  }
+];
+
+var ceara = [
+  {
+    ano: "2008-01-01",
+    obitos: 148,
+    internacoes: 5655
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 234,
+    internacoes: 7782
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 351,
+    internacoes: 10020
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 304,
+    internacoes: 11111
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 342,
+    internacoes: 11243
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 361,
+    internacoes: 11496
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 402,
+    internacoes: 12485
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 333,
+    internacoes: 11624
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 427,
+    internacoes: 12213
+  }
+];
+
+var distritofederal = [
+  {
+    ano: "2008-01-01",
+    obitos: 117,
+    internacoes: 1519
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 111,
+    internacoes: 1805
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 104,
+    internacoes: 2303
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 106,
+    internacoes: 2658
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 57,
+    internacoes: 1864
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 59,
+    internacoes: 1596
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 50,
+    internacoes: 1662
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 65,
+    internacoes: 2298
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 87,
+    internacoes: 2219
+  }
+];
+
+var espiritosanto = [
+  {
+    ano: "2008-01-01",
+    obitos: 78,
+    internacoes: 1603
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 74,
+    internacoes: 1945
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 121,
+    internacoes: 3614
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 147,
+    internacoes: 4423
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 158,
+    internacoes: 4275
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 134,
+    internacoes: 4978
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 144,
+    internacoes: 5774
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 129,
+    internacoes: 6563
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 149,
+    internacoes: 6467
+  }
+];
+
+var goias = [
+  {
+    ano: "2008-01-01",
+    obitos: 161,
+    internacoes: 5400
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 191,
+    internacoes: 7485
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 194,
+    internacoes: 7667
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 244,
+    internacoes: 7614
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 243,
+    internacoes: 9182
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 233,
+    internacoes: 9030
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 228,
+    internacoes: 10401
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 180,
+    internacoes: 9422
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 220,
+    internacoes: 10292
+  }
+];
+
+var maranhao = [
+  {
+    ano: "2008-01-01",
+    obitos: 130,
+    internacoes: 4327
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 241,
+    internacoes: 8364
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 185,
+    internacoes: 7957
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 187,
+    internacoes: 6967
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 272,
+    internacoes: 9058
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 298,
+    internacoes: 12038
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 298,
+    internacoes: 12322
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 135,
+    internacoes: 8643
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 172,
+    internacoes: 8090
+  }
+];
+
+var matogrosso = [
+  {
+    ano: "2008-01-01",
+    "Mato Grosso": 66,
+    "Mato Grosso_inter": 2346
+  },
+  {
+    ano: "2009-01-01",
+    "Mato Grosso": 98,
+    "Mato Grosso_inter": 3044
+  },
+  {
+    ano: "2010-01-01",
+    "Mato Grosso": 85,
+    "Mato Grosso_inter": 3656
+  },
+  {
+    ano: "2011-01-01",
+    "Mato Grosso": 87,
+    "Mato Grosso_inter": 3570
+  },
+  {
+    ano: "2012-01-01",
+    "Mato Grosso": 74,
+    "Mato Grosso_inter": 3527
+  },
+  {
+    ano: "2013-01-01",
+    "Mato Grosso": 97,
+    "Mato Grosso_inter": 4843
+  },
+  {
+    ano: "2014-01-01",
+    "Mato Grosso": 92,
+    "Mato Grosso_inter": 5217
+  },
+  {
+    ano: "2015-01-01",
+    "Mato Grosso": 97,
+    "Mato Grosso_inter": 5306
+  },
+  {
+    ano: "2016-01-01",
+    "Mato Grosso": 123,
+    "Mato Grosso_inter": 6968
+  }
+];
+
+var matogrossodosul = [
+  {
+    ano: "2008-01-01",
+    obitos: 8,
+    internacoes: 364
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 26,
+    internacoes: 1484
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 34,
+    internacoes: 1939
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 37,
+    internacoes: 2416
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 38,
+    internacoes: 2416
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 56,
+    internacoes: 2293
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 45,
+    internacoes: 2211
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 39,
+    internacoes: 1678
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 27,
+    internacoes: 1679
+  }
+];
+
+var minasgerais = [
+  {
+    ano: "2008-01-01",
+    obitos: 531,
+    internacoes: 11834
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 569,
+    internacoes: 14339
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 604,
+    internacoes: 16400
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 625,
+    internacoes: 18025
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 532,
+    internacoes: 19213
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 533,
+    internacoes: 21375
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 594,
+    internacoes: 23195
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 535,
+    internacoes: 23326
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 531,
+    internacoes: 23456
+  }
+];
+
+var para = [
+  {
+    ano: "2008-01-01",
+    obitos: 34,
+    internacoes: 2518
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 65,
+    internacoes: 3369
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 78,
+    internacoes: 4007
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 109,
+    internacoes: 4848
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 158,
+    internacoes: 6291
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 221,
+    internacoes: 8145
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 285,
+    internacoes: 10463
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 345,
+    internacoes: 11902
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 340,
+    internacoes: 12318
+  }
+];
+
+var paraiba = [
+  {
+    ano: "2008-01-01",
+    obitos: 149,
+    internacoes: 2744
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 172,
+    internacoes: 4207
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 175,
+    internacoes: 5322
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 138,
+    internacoes: 5227
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 115,
+    internacoes: 4389
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 141,
+    internacoes: 4411
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 121,
+    internacoes: 4453
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 121,
+    internacoes: 4808
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 143,
+    internacoes: 3820
+  }
+];
+
+var parana = [
+  {
+    ano: "2008-01-01",
+    obitos: 187,
+    internacoes: 4500
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 227,
+    internacoes: 6316
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 307,
+    internacoes: 7630
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 295,
+    internacoes: 8747
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 357,
+    internacoes: 10667
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 314,
+    internacoes: 10547
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 319,
+    internacoes: 10369
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 370,
+    internacoes: 11049
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 327,
+    internacoes: 11145
+  }
+];
+
+var pernambuco = [
+  {
+    ano: "2008-01-01",
+    obitos: 4,
+    internacoes: 398
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 26,
+    internacoes: 1172
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 38,
+    internacoes: 2892
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 83,
+    internacoes: 4537
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 138,
+    internacoes: 5444
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 338,
+    internacoes: 8086
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 100,
+    internacoes: 6823
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 79,
+    internacoes: 7971
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 89,
+    internacoes: 6803
+  }
+];
+
+var piaui = [
+  {
+    ano: "2008-01-01",
+    obitos: 99,
+    internacoes: 2466
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 87,
+    internacoes: 3057
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 97,
+    internacoes: 4374
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 103,
+    internacoes: 4473
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 125,
+    internacoes: 3883
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 175,
+    internacoes: 5726
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 216,
+    internacoes: 5950
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 178,
+    internacoes: 7504
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 177,
+    internacoes: 7955
+  }
+];
+
+var riodejaneiro = [
+  {
+    ano: "2008-01-01",
+    obitos: 334,
+    internacoes: 7880
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 305,
+    internacoes: 8498
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 401,
+    internacoes: 9608
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 424,
+    internacoes: 10516
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 433,
+    internacoes: 11021
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 427,
+    internacoes: 12250
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 490,
+    internacoes: 11967
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 378,
+    internacoes: 10016
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 383,
+    internacoes: 8964
+  }
+];
+
+var riograndedonorte = [
+  {
+    ano: "2008-01-01",
+    obitos: 102,
+    internacoes: 1653
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 86,
+    internacoes: 1983
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 136,
+    internacoes: 3002
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 107,
+    internacoes: 3213
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 125,
+    internacoes: 2973
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 97,
+    internacoes: 2360
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 106,
+    internacoes: 2296
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 68,
+    internacoes: 2401
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 90,
+    internacoes: 2412
+  }
+];
+
+var riograndedosul = [
+  {
+    ano: "2008-01-01",
+    obitos: 145,
+    internacoes: 3561
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 178,
+    internacoes: 4284
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 225,
+    internacoes: 5833
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 209,
+    internacoes: 5658
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 201,
+    internacoes: 5368
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 211,
+    internacoes: 5588
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 190,
+    internacoes: 5428
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 177,
+    internacoes: 6163
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 179,
+    internacoes: 5606
+  }
+];
+
+var rondonia = [
+  {
+    ano: "2008-01-01",
+    obitos: 12,
+    internacoes: 1108
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 45,
+    internacoes: 2154
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 78,
+    internacoes: 3653
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 59,
+    internacoes: 3136
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 41,
+    internacoes: 3360
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 42,
+    internacoes: 3107
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 53,
+    internacoes: 3413
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 44,
+    internacoes: 2648
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 52,
+    internacoes: 2362
+  }
+];
+
+var roraima = [
+  {
+    ano: "2008-01-01",
+    obitos: 12,
+    internacoes: 518
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 15,
+    internacoes: 788
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 27,
+    internacoes: 996
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 27,
+    internacoes: 812
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 30,
+    internacoes: 1187
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 23,
+    internacoes: 1170
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 18,
+    internacoes: 1263
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 19,
+    internacoes: 1619
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 38,
+    internacoes: 2524
+  }
+];
+
+var santacatarina = [
+  {
+    ano: "2008-01-01",
+    obitos: 172,
+    internacoes: 4028
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 189,
+    internacoes: 5906
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 218,
+    internacoes: 6337
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 241,
+    internacoes: 6579
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 243,
+    internacoes: 7289
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 206,
+    internacoes: 7490
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 219,
+    internacoes: 7567
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 197,
+    internacoes: 8660
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 216,
+    internacoes: 8023
+  }
+];
+
+var saopaulo = [
+  {
+    ano: "2008-01-01",
+    obitos: 1275,
+    internacoes: 30880
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 1331,
+    internacoes: 35344
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 1567,
+    internacoes: 39765
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 1509,
+    internacoes: 43979
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 1446,
+    internacoes: 40439
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 1308,
+    internacoes: 39596
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 1413,
+    internacoes: 40754
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 1172,
+    internacoes: 37096
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 1153,
+    internacoes: 39343
+  }
+];
+
+var sergipe = [
+  {
+    ano: "2008-01-01",
+    obitos: 29,
+    internacoes: 590
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 31,
+    internacoes: 480
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 29,
+    internacoes: 410
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 34,
+    internacoes: 645
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 36,
+    internacoes: 1007
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 41,
+    internacoes: 1384
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 27,
+    internacoes: 1471
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 60,
+    internacoes: 2218
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 63,
+    internacoes: 2104
+  }
+];
+
+var tocantins = [
+  {
+    ano: "2008-01-01",
+    obitos: 15,
+    internacoes: 350
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 14,
+    internacoes: 484
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 38,
+    internacoes: 1132
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 60,
+    internacoes: 1290
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 21,
+    internacoes: 983
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 16,
+    internacoes: 733
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 59,
+    internacoes: 1791
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 68,
+    internacoes: 2426
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 83,
+    internacoes: 2864
+  }
+];
+
+var Brasil = [
+  {
+    ano: "2008-01-01",
+    obitos: 4096,
+    internacoes: 103444
+  },
+  {
+    ano: "2009-01-01",
+    obitos: 4677,
+    internacoes: 134317
+  },
+  {
+    ano: "2010-01-01",
+    obitos: 5529,
+    internacoes: 161023
+  },
+  {
+    ano: "2011-01-01",
+    obitos: 5574,
+    internacoes: 174115
+  },
+  {
+    ano: "2012-01-01",
+    obitos: 5702,
+    internacoes: 180169
+  },
+  {
+    ano: "2013-01-01",
+    obitos: 5862,
+    internacoes: 195077
+  },
+  {
+    ano: "2014-01-01",
+    obitos: 5954,
+    internacoes: 206024
+  },
+  {
+    ano: "2015-01-01",
+    obitos: 5260,
+    internacoes: 204374
+  },
+  {
+    ano: "2016-01-01",
+    obitos: 5533,
+    internacoes: 208204
+  }
+];
+
+
+var chart = AmCharts.makeChart("chartdiv", {
+    type: "stock",
+    theme: "light",
+	dataDateFormat : "YYYY",
+	extendToFullPeriod : false,
+    pathToImages: "http://www.amcharts.com/lib/3/images/",
+
+    panelsSettings: {
+        recalculateToPercents: "never"
+    },
+	
+    dataSets: [
+	{
+        title: "Brasil",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: Brasil,
+        categoryField: "ano"
+    },
+	{
+        title: "Acre",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: acre,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Alagoas",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: alagoas,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Amapá",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: amapa,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Amazonas",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: amazonas,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Bahia",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: bahia,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Ceará",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: ceara,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Distrito Federal",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: distritofederal,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Espírito Santo",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: espiritosanto,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Goiás",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: goias,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Maranhão",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: maranhao,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Mato Grosso",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: matogrosso,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Mato Grosso do Sul",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: matogrossodosul,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Minas Gerais",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: minasgerais,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Pará",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: para,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Paraíba",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: paraiba,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Paraná",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: parana,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Pernambuco",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: pernambuco,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Piauí",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: piaui,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Rio de Janeiro",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: riodejaneiro,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Rio Grande do Norte",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: riograndedonorte,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Rio Grande do Sul",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: riograndedosul,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Rondônia",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: rondonia,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Roraima",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: roraima,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Santa Catarina",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: santacatarina,
+        categoryField: "ano"
+    },
+
+    {
+        title: "São Paulo",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: saopaulo,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Sergipe",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: sergipe,
+        categoryField: "ano"
+    },
+
+    {
+        title: "Tocantins",
+        fieldMappings: [{
+            fromField: "internacoes",
+            toField: "internacoes"
+        }, {
+            fromField: "obitos",
+            toField: "obitos"
+        }
+		],
+        dataProvider: tocantins,
+        categoryField: "ano"
+    }
+
+    
+	],
+
+    panels: [
+	 
+	{
+
+        title: "Internações",
+
+        stockGraphs: [{
+            id: "internacoes",
+            valueField: "internacoes",
+            lineThickness: 3,
+            title: "",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+
+        stockLegend: {
+            useGraphSettings: true
+        }
+	},
+	{
+
+        title: "Óbitos",
+
+        stockGraphs: [{
+            id: "obitos",
+            valueField: "obitos",
+            lineThickness: 3,
+            title: "",
+			labelPosition : "left",
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true,
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	}
+	
+	],
+ 
+    chartScrollbarSettings: {
+        graph: ["internacoes"]
+    },
+	
+
+	
+    chartCursorSettings: {
+        valueBalloonsEnabled: true,
+        fullWidth: true,		
+		categoryBalloonEnabled : true,
+        cursorAlpha: 0.1,		
+        valueLineBalloonEnabled: true,
+        valueLineEnabled: true,
+        valueLineAlpha: 0.5
+    },
+	
+    dataSetSelector: {
+        position: "left",
+		selectText : "Selecione uma UF:",
+		compareText : "Selecione outra UF para comparar:"
+    },
+	
+"export": {
+  "enabled": true,
+  "exportFields": [
+    "ano",
+    "internacoes",
+    "obitos",
+    "ds2_numcasos",
+    "ds2_obitos",
+    "ds3_numcasos",
+    "ds3_obitos",
+	"ds4_numcasos",
+    "ds4_obitos",
+	"ds5_numcasos",
+    "ds5_obitos",
+	"ds6_numcasos",
+    "ds6_obitos"
+  ],
+  "columnNames": {
+    "ano": "Ano",
+    "internacoes": "Brasil Processador Automatico",
+    "obitos": "Brasil Óbitos",
+    "ds2_numcasos": "Acre Processador Automatico",
+    "ds2_obitos": "Acre Óbitos",
+    "ds3_numcasos": "Alagoas Processador Automatico",
+    "ds3_obitos" : "Alagoas Óbitos",
+	"ds4_numcasos": "Amapá Processador Automatico",
+    "ds4_obitos": "Amapá Óbitos",
+	"ds5_numcasos": "Amazonas Processador Automatico",
+    "ds5_obitos": "Amazonas Processador Automatico",
+	"ds6_numcasos": "Bahia Processador Automatico",
+    "ds6_obitos": "Bahia Óbitos"
+  }
+}
+	
 });
-  //var parser = d3.time.format("%d.%m.%Y");
-  //var formatter=d3.time.format("%d.%m.%Y");
-
-
-
-  
 
 </script>
+
+
+
+</body>
 </html>
 {% endblock %}

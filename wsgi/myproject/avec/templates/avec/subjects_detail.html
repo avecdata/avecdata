@@ -45,6 +45,7 @@
 				<!---->
 					{% if not dashboards %}
 						{% if not simpledash %}
+							{% if not paineis %}
 							<div class="row" style="padding-top: 20px">
 							<div class="col-sm-2">
 							</div>
@@ -54,6 +55,7 @@
 							</div>
 						   </div>
 						  </div>
+						   {% endif %}
 						{% endif %}
 					{% else %}
 							{% for dash in dashboards %}
@@ -87,7 +89,21 @@
 					   </div>
 					</div>
 					{% endfor %}
-	
+
+					{% for dash in paineis %}
+					<div class="row" style="padding-top: 20px">
+						<div class="col-sm-2">
+						<a href="{% url 'paineis_detail' pk=dash.pk %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
+						</div>
+						<div class="col-sm-10">
+						<div class="author_dec">
+							<a href="{% url 'paineis_detail' pk=dash.pk %}">{{ dash.title }}</a>
+							<!--<a href="{{dash.url}}"><p>{{ dash.url }}</p></a>-->
+							<p>publicado: {{ dash.published_date }}</p>
+						</div>
+					   </div>
+					</div>
+					{% endfor %}					
 				
 				</div>
 				<div class="author_info" style="width: 83.33333%;">
