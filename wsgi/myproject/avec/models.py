@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from avec import utils
 from django.db.models import Q
+from django.utils.translation import ugettext_lazy as _
 
 class Keywords(models.Model):
     title = models.CharField(max_length=200)
@@ -114,6 +115,38 @@ class Dashboard(models.Model):
     def __str__(self):
         return self.title
 
+class SimpleDashboard(models.Model):
+    title = models.CharField(max_length=200)
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+    subject = models.ManyToManyField(Subject , related_name='subparent_simple')			
+    subject_detail = models.ManyToManyField(Subject_detail , related_name='subchild_simple')
+    keywords = models.ManyToManyField(Keywords, blank=True)
+    group = models.ManyToManyField(Group)
+    open = models.BooleanField()
+
+    def publish_simpleDashboard(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
+		
+class tabSimple(models.Model):
+    simpleDashboard = models.ForeignKey(SimpleDashboard, verbose_name=("SimpleDashboard"), on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=200)
+    footer = models.TextField(blank=True)
+    html = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = _("tabSimple")
+        verbose_name_plural = _("tabSimples")
+
+    def __str__(self):
+        return self.title
 class Dashsource(models.Model):
     source_name = models.CharField(max_length=200)
     source_url = models.CharField(max_length=200)

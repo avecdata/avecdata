@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -13,6 +13,7 @@ from django.contrib.auth.forms import AuthenticationForm # Formulario de autenti
 from django.contrib.auth import authenticate, login # funcao que salva o usuario na sessao
 from django.views.generic import View, TemplateView, CreateView
 from django.core.urlresolvers import reverse_lazy, reverse
+from allauth.exceptions import ImmediateHttpResponse
 from django.conf import settings
 import requests, json
 from django.db.models import Q
@@ -30,6 +31,14 @@ from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 
+from django.dispatch import receiver
+from allauth.account.signals import user_signed_up, user_logged_in
+from allauth.socialaccount.signals import pre_social_login
+from allauth.socialaccount.models import SocialAccount
+from allauth.account.adapter import DefaultAccountAdapter
+from allauth.socialaccount.adapter import DefaultSocialAccountAdapter, get_adapter
+from allauth.account.utils import perform_login, complete_signup
+from pprint import pprint
 
 # Create your views here.
 def page_not_found(request):
@@ -72,25 +81,19 @@ def retratos_municipais(request):
 def educacao(request):
     return render(request, 'avec/dashboards/educacao.html')
 
-def inovacao(request):
-    if request.user.is_authenticated():
-        return render(request, 'avec/dashboards/inovacao.html')
-    else:
-        return render(request,'avec/permissao.html')
-    
 def permssao(request):
     return render(request,'avec/permissao.html')
 
-def nascidosvivos(request):
-    # if request.user.is_authenticated():
-        return render(request, 'avec/dashboards/nascidosvivos.html')
-    # else:
-    #     return render(request,'avec/permissao.html')
-
+def simpleDash_detail(request, pk):
+    dash = SimpleDashboard.objects.get(pk=pk)
+    mykeywords = dash.keywords.all()
+    mytabs = dash.tabsimple_set.all().order_by('id')
+    return render(request, 'avec/simpleDash_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs})
+	
 def post_detail(request, pk):
     
     groups = request.user.groups.all()
-    group_user = groups[len(groups)-1]
+    group_user = utils.get_greater_group(groups)
     
     post = Post.objects.get(pk=pk)
     
@@ -106,8 +109,8 @@ def post_detail(request, pk):
 
 def reports_detail(request, pk):
     report = Reports.objects.get(pk=pk)
-    myparent = report.subject.subject_detail_set.all()
-    return render(request, 'avec/reports_detail.html', {'report': report})
+    myparent = report.subject.all()
+    return render(request, 'avec/reports_detail.html', {'report': report, 'myparent': myparent})
 
 def subject_detail(request, pk):
     mysubject = Subject.objects.get(pk=pk)
@@ -115,15 +118,18 @@ def subject_detail(request, pk):
     mysubdetail = mysubject.subject_detail_set.all()
     posts = Post.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date').reverse()
     dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date').reverse()
+    simpledash = SimpleDashboard.objects.filter(subject=mysubject).order_by('published_date').reverse()
     reports  = Reports.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date').reverse()
-    return render(request, 'avec/subjects_detail.html', {'posts': posts, 'dashboards': dashboards, 'mysubject': mysubject, 'mykeywords': mykeywords, 'mysubdetail': mysubdetail, 'reports': reports})
+    return render(request, 'avec/subjects_detail.html', {'posts': posts, 'dashboards': dashboards, 'mysubject': mysubject, 'mykeywords': mykeywords, 'mysubdetail': mysubdetail, 'reports': reports, 'simpledash': simpledash})
 
 def subsubject_detail(request, pk):
     mysubject = Subject_detail.objects.get(pk=pk)
     posts = Post.objects.filter(published_date__lte=timezone.now()).filter(subject_detail=mysubject).order_by('published_date').reverse()
     dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).filter(subject_detail=mysubject).order_by('published_date').reverse()
     myparent = mysubject.subject.subject_detail_set.all()
-    return render(request, 'avec/subsubjects_detail.html', {'mysubject': mysubject, 'posts': posts, 'dashboards': dashboards , 'myparent': myparent})
+    simpledash = SimpleDashboard.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()
+    reports = Reports.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()
+    return render(request, 'avec/subsubjects_detail.html', {'mysubject': mysubject, 'posts': posts, 'dashboards': dashboards , 'myparent': myparent, 'simpledash': simpledash, 'reports': reports})
 
 def keywords_detail(request, pk):
     mykeywords = Keywords.objects.get(pk=pk)
@@ -184,7 +190,8 @@ def quemsomos(request):
     return render(request, 'avec/quemsomos.html')    
 
 def dashboard(request):
-    return render(request, 'avec/dashboards.html')        
+	dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+	return render(request, 'avec/dashboards.html', {'dashboards': dashboards})
 
 def autocomplete(request):
     return render(request, 'avec/autocomplete.html')
@@ -201,6 +208,8 @@ def lista(request):
         #subjects = Subject.objects.filter(Q(title__icontains=str(request.POST.get('query')))|Q(text__icontains=str(request.POST.get('query')))).order_by('published_date')
         posts = Post.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         subjects = Subject.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
+        reports = Reports.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
+        simpledashboards = SimpleDashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         dashboards = Dashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         
         posts_data = []
@@ -211,14 +220,24 @@ def lista(request):
         dashboards_data = []
         
         for dashboard in dashboards:
-            dashboards_data.append({ "value": dashboard.title, "id" : dashboard.url , "type": "dashboard"})            
+            dashboards_data.append({ "value": dashboard.title, "id" : dashboard.url , "type": "dashboard"})
+            
+        simpledashboards_data = []
+        
+        for simpledashboard in simpledashboards:
+            simpledashboards_data.append({ "value": simpledashboard.title, "id" : simpledashboard.id , "type": "simpledashboard"})
             
         subjects_data = []
         
         for subject in subjects:
             subjects_data.append({ "value": subject.title, "id" : subject.id , "type": "subject"})
+            
+        reports_data = []
+        
+        for report in reports:
+            reports_data.append({ "value": report.title, "id" : report.id , "type": "report"})			
 
-        result = posts_data+dashboards_data+subjects_data
+        result = posts_data+dashboards_data+subjects_data+reports_data+simpledashboards_data
         response = {"query": "Unit", "suggestions": result}
         resultado_json = json.loads(json.dumps(response))
     
@@ -274,11 +293,36 @@ def padrao1(request):
 def padrao2(request):
         return render(request, 'avec/dashboards/padrao2.html')
 
-def padrao3(request):
-        return render(request, 'avec/dashboards/padrao3.html')    
+@login_required(login_url='/permissao/')        
+def leptospirose(request, dashboard_id):
+    
+    groups = request.user.groups.all()
+    group_user = utils.get_greater_group(groups)
+    
+    dashboard = Dashboard.objects.get(id=dashboard_id)
+    
+    dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
+    
+    if dsh_permission:
+
+        return render(request, 'avec/dashboards/leptospirose.html')
+    else:
+        return render(request,'avec/permissao.html')
         
-def aids(request):
-        return render(request, 'avec/dashboards/aids.html')         
+@login_required(login_url='/permissao/')        
+def aids(request, dashboard_id):
+    
+    groups = request.user.groups.all()
+    group_user = utils.get_greater_group(groups)
+    
+    dashboard = Dashboard.objects.get(id=dashboard_id)
+    
+    dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
+    
+    if dsh_permission:
+        return render(request, 'avec/dashboards/aids.html')
+    else:
+        return render(request,'avec/permissao.html')
 
 @login_required(login_url='/permissao/')        
 def sangue(request, dashboard_id):
@@ -295,5 +339,140 @@ def sangue(request, dashboard_id):
     else:
         return render(request,'avec/permissao.html')
 
+@login_required(login_url='/permissao/')        
+def inovacao(request, dashboard_id):
+    
+    groups = request.user.groups.all()
+    group_user = utils.get_greater_group(groups)
+    dashboard = Dashboard.objects.get(id=dashboard_id)
+    
+    dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
+
+    
+    if dsh_permission:
+        return render(request, 'avec/dashboards/inovacao.html')
+    else:
+        return render(request,'avec/permissao.html')
+
+@login_required(login_url='/permissao/')        
+def nascidosvivos(request, dashboard_id):
+
+    groups = request.user.groups.all()
+    group_user = utils.get_greater_group(groups)
+    
+    dashboard = Dashboard.objects.get(id=dashboard_id)
+    dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
+    
+    if dsh_permission:
+        return render(request, 'avec/dashboards/nascidosvivos.html')
+    else:
+        return render(request,'avec/permissao.html')
 def permissao(request):
     return render(request,'avec/permissao.html')
+
+# @receiver(user_logged_in, dispatch_uid = 'facebook.connect')
+def social_login_avec_profile(sociallogin, user, **kwargs):
+    
+    preferred_avatar_size_pixels=256
+
+#     picture_url = "http://www.gravatar.com/avatar/{0}?s={1}".format(
+#         hashlib.md5(user.email.encode('UTF-8')).hexdigest(),
+#         preferred_avatar_size_pixels
+#     )
+
+#     pprint (vars(sociallogin))
+
+    if sociallogin:
+        # Extract first / last names from social nets and store on User record
+#         if sociallogin.account.provider == 'twitter':
+#             name = sociallogin.account.extra_data['name']
+#             user.first_name = name.split()[0]
+#             user.last_name = name.split()[1]
+
+        if sociallogin.account.provider == 'facebook':
+            f_name = sociallogin.account.extra_data['first_name']
+            l_name = sociallogin.account.extra_data['last_name']
+            email = sociallogin.account.extra_data['email']
+            if f_name:
+                user.first_name = f_name
+            if l_name:
+                user.last_name = l_name
+
+            #verified = sociallogin.account.extra_data['verified']
+            picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(
+                sociallogin.account.uid, preferred_avatar_size_pixels)
+            
+        if sociallogin.account.provider == 'google':
+            f_name = sociallogin.account.extra_data['given_name']
+            l_name = sociallogin.account.extra_data['family_name']
+            if f_name:
+                user.first_name = f_name
+            if l_name:
+                user.last_name = l_name
+            #verified = sociallogin.account.extra_data['verified_email']
+            picture_url = sociallogin.account.extra_data['picture']
+
+@login_required
+def redirect_socialapp(request):
+ 
+    User = get_user_model()
+ 
+    user_logged = request.user
+    user_social_logged = User.objects.get(id=user_logged.id)
+    
+    social_ac = SocialAccount.objects.get(user_id=user_logged.id)
+    
+    if(social_ac is not None):
+        if((social_ac.provider == 'facebook') and (user_logged.is_from_socialnetwork == False)):
+        
+            img_size_pixels=256
+            picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(social_ac.extra_data['id'], img_size_pixels)
+            
+            user_social_logged.name = social_ac.extra_data['name']
+            user_social_logged.is_from_socialnetwork = True
+            user_social_logged.imgprofile = picture_url
+            user_social_logged.gender = 'M' if social_ac.extra_data['gender'] == 'male' else 'F'
+            
+            user_social_logged.save()
+            
+        elif((social_ac.provider == 'google') and (user_logged.is_from_socialnetwork == False)):
+            
+            user_social_logged.name = social_ac.extra_data['name']
+            user_social_logged.email = social_ac.extra_data['email']
+            user_social_logged.is_from_socialnetwork = True
+            user_social_logged.imgprofile = social_ac.extra_data['picture']
+            
+            user_social_logged.save()
+    
+#     print('teste---------------------0'+social_ac.extra_data['email'])
+#     print(social_ac)
+    
+    return HttpResponseRedirect("/")
+    
+class AccountAdapter(DefaultAccountAdapter):
+    
+    def get_login_redirect_url(self, request):
+        return '/redirect-socialapp/'
+    
+class SocialAccountAdapter(DefaultSocialAccountAdapter):
+    
+    def pre_social_login(self, request, sociallogin):
+        email_address = sociallogin.account.extra_data['email']
+        User = get_user_model()
+        user_logged = []
+        
+        try:
+            user_logged = User.objects.get(email=email_address)
+        except Exception as e:
+            print('Social Login Exception: on avec.views '+str(e))
+            
+#         print(user_logged)
+#         
+        if user_logged:
+            perform_login(request, user_logged, email_verification='optional')
+        else:
+            get_adapter(request).save_user(request, sociallogin, form=None)
+            return complete_signup(request, sociallogin.user, 'optional', sociallogin.get_redirect_url(request), signal_kwargs={'sociallogin': sociallogin})
+        
+#         print('teste---------------------------')
+        raise ImmediateHttpResponse(redirect(settings.LOGIN_REDIRECT_URL.format(id=request.user.id)))

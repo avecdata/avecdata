@@ -297,7 +297,7 @@ def dashboard_permission(group_user_id, dashboard):
 #     print('teste: '+str(group_dash.id))
     
     groups_dash = dashboard.group.all()
-    group_dash = groups_dash[len(groups_dash)-1]
+    group_dash = get_greater_group(groups_dash)
     
     if dashboard.open == True or group_user_id == 3 or group_dash.id == 1:
         return True
@@ -313,7 +313,7 @@ def post_permission(group_user_id, avec_post):
 #     print('teste: '+str(group_dash.id))
     
     groups_post = avec_post.group.all()
-    group_post = groups_post[len(groups_post)-1]
+    group_post = get_greater_group(groups_post)
     
     if avec_post.open == True or group_user_id == 3 or group_post.id == 1:
         return True

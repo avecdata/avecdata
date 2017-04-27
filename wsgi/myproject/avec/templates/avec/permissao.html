@@ -9,10 +9,9 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
   	<link rel="stylesheet" href="{% static 'css/jquery-confirm.min.css' %}">
     <link rel="stylesheet" href="{% static 'min/stylesheets/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/avec.style.css' %}">
     <style>
         * {
-            line-height: 1.2;
+            /* line-height: 1.2; */
             margin: 0;
         }
         html {
@@ -48,8 +47,10 @@
             }
         }
     </style>	
+    <link rel="stylesheet" href="{% static 'css/avec.style.css' %}">
 </head>
 <body>
+	<div class="avec-content">
   <section class="plans" id="plans">
     <div class="container">
       <div class="row">
@@ -213,7 +214,8 @@
       </div>
     </div>
   </section>
-
+  </div>
+{% include "avec/_footer.html" %}
 </body>
 </html>
 <!-- IE needs 512+ bytes: https://blogs.msdn.microsoft.com/ieinternals/2010/08/18/friendly-http-error-pages/ -->

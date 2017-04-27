@@ -56,10 +56,14 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 	'widget_tweaks',
 	'django.contrib.sites',
     'paypal.standard.ipn',
 )
+
+SITE_ID = 4
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -76,7 +80,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'myproject.urls'
 
 # Ensure the SITE_ID is defined
-SITE_ID = 1
+SITE_ID = 2
 
 TEMPLATES = [
     {
@@ -113,6 +117,46 @@ DATABASES = {
     }
 }
 
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile', 'user_friends'],
+#         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'AUTH_PARAMS': {},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time',
+        ],
+        'LOCALE_FUNC': lambda request: 'pt_BR',
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.8',
+    },
+    'google': {
+        'METHOD': 'oauth2',
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+ACCOUNT_ADAPTER = 'avec.views.AccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'avec.views.SocialAccountAdapter'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -138,9 +182,11 @@ MEDIA_ROOT = os.path.join(STATIC_ROOT, 'img')
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL='/'
 AUTH_USER_MODEL = 'accounts.User'
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'accounts.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 #-----e-mail configuration--------------

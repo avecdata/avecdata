@@ -6,7 +6,7 @@
 }
 
 .avec-content {
-    min-height: calc(100vh - 144px);
+    min-height: calc(100vh - 152px);
 }
 
 .services-detail__content {
@@ -537,6 +537,120 @@ fieldset[disabled] .btn-success-avec.focus {
 	padding-left: 5px;
 }
 
+.btn-facebook {
+  color: #fff;
+  background-color: #4267b2;
+  border-color: #46b8da;
+  width: 100%;
+  margin-top: 10px;
+  padding: 9px;
+}
+
+.btn-facebook i {
+	font-size: 17px;
+    display: inline-block;
+    float: left;
+    padding-left: 10px;
+}
+
+.btn-facebook:hover,
+.btn-facebook:focus,
+.btn-facebook.focus,
+.btn-facebook:active,
+.btn-facebook.active,
+.open > .dropdown-toggle.btn-facebook {
+  color: #fff !important;
+  background-color: #365899 !important;
+  border-color: #269abc;
+}
+.btn-facebook:active,
+.btn-facebook.active,
+.open > .dropdown-toggle.btn-facebook {
+  background-image: none;
+}
+.btn-facebook.disabled,
+.btn-facebook[disabled],
+fieldset[disabled] .btn-facebook,
+.btn-facebook.disabled:hover,
+.btn-facebook[disabled]:hover,
+fieldset[disabled] .btn-facebook:hover,
+.btn-facebook.disabled:focus,
+.btn-facebook[disabled]:focus,
+fieldset[disabled] .btn-facebook:focus,
+.btn-facebook.disabled.focus,
+.btn-facebook[disabled].focus,
+fieldset[disabled] .btn-facebook.focus,
+.btn-facebook.disabled:active,
+.btn-facebook[disabled]:active,
+fieldset[disabled] .btn-facebook:active,
+.btn-facebook.disabled.active,
+.btn-facebook[disabled].active,
+fieldset[disabled] .btn-facebook.active {
+  background-color: #4267b2;
+  border-color: #46b8da;
+}
+.btn-facebook .badge {
+  color: #4267b2;
+  background-color: #fff;
+}
+
+.btn-google-plus {
+	color: #fff;
+	background-color: #dd4b39;
+	border-color: rgba(0, 0, 0, 0.2);
+	width: 100%;
+  	margin-top: 10px;
+  	padding: 9px;
+}
+
+.btn-google-plus i {
+	font-size: 17px;
+    display: inline-block;
+    float: left;
+    padding-left: 10px;
+}
+
+.btn-google-plus:hover,
+.btn-google-plus:focus,
+.btn-google-plus.focus,
+.btn-google-plus:active,
+.btn-google-plus.active,
+.open > .dropdown-toggle.btn-google-plus {
+  color: #fff !important;
+  background-color: #ca3523 !important;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+.btn-google-plus:active,
+.btn-google-plus.active,
+.open > .dropdown-toggle.btn-google-plus {
+  background-image: none;
+}
+.btn-google-plus.disabled,
+.btn-google-plus[disabled],
+fieldset[disabled] .btn-google-plus,
+.btn-google-plus.disabled:hover,
+.btn-google-plus[disabled]:hover,
+fieldset[disabled] .btn-google-plus:hover,
+.btn-google-plus.disabled:focus,
+.btn-google-plus[disabled]:focus,
+fieldset[disabled] .btn-google-plus:focus,
+.btn-google-plus.disabled.focus,
+.btn-google-plus[disabled].focus,
+fieldset[disabled] .btn-google-plus.focus,
+.btn-google-plus.disabled:active,
+.btn-google-plus[disabled]:active,
+fieldset[disabled] .btn-google-plus:active,
+.btn-google-plus.disabled.active,
+.btn-google-plus[disabled].active,
+fieldset[disabled] .btn-google-plus.active {
+  background-color: #dd4b39;
+  border-color: border-color:rgba(0,0,0,0.2);
+}
+.btn-google-plus .badge {
+  color: #dd4b39;
+  background-color: #fff;
+}
+
 input[readonly] {
   cursor: not-allowed;
   pointer-events: all !important;
@@ -548,6 +662,46 @@ input[readonly] {
 
 .avec_plans {
 	margin-left: 20px; 
+}
+
+.policy-footer {
+	background-color: #3E5881;
+	color: #f1f1f1;
+	line-height: 2;
+}
+
+.policy-footer a {
+	margin: 0 5px;
+	color: #f1f1f1;
+}
+
+.policy-footer a:hover {
+	color: #1E2938 !important;
+}
+
+.footer__address p {
+	margin-bottom: 2px;
+}
+
+.footer__social a {
+	margin-right: 15px;
+}
+
+.avec-report-content {
+	text-align: justify;
+}
+
+.avec-report-content p {
+	line-height: 2;
+}
+.avec-report-content-terms ul {
+	list-style-type: none;
+}
+
+.avec-report-content-terms ul li {
+	margin-bottom: 5px !important;
+	text-align: justify;
+	line-height: 1.5;
 }
 
 @media screen and (max-width: 768px) {

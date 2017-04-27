@@ -34,69 +34,56 @@
 				<div class="author_info" style="padding-top: 40px; width: 83.33333%;">				
 				<div class="row">
 					<div class="col-sm-12">
-						Dashboards recentes						
+						Painéis recentes						
 					</div>
 				</div>
-				{% if mysubject.pk == 1 %}
-				  <div class="row" style="padding-top: 20px">
-					<div class="col-sm-2">
-					<a href="{% url 'nascidosvivos' %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
+<!---->
+					{% if not dashboards %}
+						{% if not simpledash %}
+							<div class="row" style="padding-top: 20px">
+							<div class="col-sm-2">
+							</div>
+							<div class="col-sm-10">
+							<div class="author_dec">
+								<p>No momento não há painéis disponíveis para esse assunto.</p>
+							</div>
+						   </div>
+						  </div>
+						{% endif %}
+					{% else %}
+							{% for dash in dashboards %}
+							<div class="row" style="padding-top: 20px">
+								<div class="col-sm-2">
+								<a href="{% url dash.url dash.pk %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
+								</div>
+								<div class="col-sm-10">
+								<div class="author_dec">
+									<a href="{% url dash.url dash.pk %}">{{ dash.title }}</a>
+									<!--<a href="{{dash.url}}"><p>{{ dash.url }}</p></a>-->
+									<p>publicado: {{ dash.published_date }}</p>
+								</div>
+							   </div>
+							</div>
+							{% endfor %}
+					{% endif %}	
+				<!---->					
+
+					{% for dash in simpledash %}
+					<div class="row" style="padding-top: 20px">
+						<div class="col-sm-2">
+						<a href="{% url 'simpleDash_detail' pk=dash.pk %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
+						</div>
+						<div class="col-sm-10">
+						<div class="author_dec">
+							<a href="{% url 'simpleDash_detail' pk=dash.pk %}">{{ dash.title }}</a>
+							<!--<a href="{{dash.url}}"><p>{{ dash.url }}</p></a>-->
+							<p>publicado: {{ dash.published_date }}</p>
+						</div>
+					   </div>
 					</div>
-					<div class="col-sm-10">
-					<div class="author_dec">
-							<a href="{% url 'nascidosvivos' %}">Nascidos Vivos</a>						
-							<p>dashboard com com informações sobre nascimentos no Brasil.</p>								
-					</div>
-				   </div>
-				  </div>
-				  {% elif mysubject.pk == 150 %}	
-				  <div class="row" style="padding-top: 20px">
-					<div class="col-sm-2">
-					<a href="{% url 'inovacao' %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
-					</div>
-					<div class="col-sm-10">
-					<div class="author_dec">
-							<a href="{% url 'inovacao' %}">Inovacao</a>						
-							<p>dashboard com com informações sobre inovacao no Brasil e no mundo.</p>								
-					</div>
-				   </div>
-				  </div>
-				  {% elif mysubject.pk == 135 or  mysubject.pk == 137 %}	
-				  <div class="row" style="padding-top: 20px">
-					<div class="col-sm-2">
-					<a href="{% url 'sangue' %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
-					</div>
-					<div class="col-sm-10">
-					<div class="author_dec">
-							<a href="{% url 'sangue' %}">Coleta e Transfusões de Sangue - SUS</a>						
-							<p style ="padding-top:10px;">Painel com com informações sobre coletas e transfusões de sangue.</p>								
-					</div>
-				   </div>
-				  </div>
-				  {% elif mysubject.pk == 145 %}	
-				  <div class="row" style="padding-top: 20px">
-					<div class="col-sm-2">
-					<a href="{% url 'aids' %}"><img src="{% static 'img/flattyShadow_red/fs-line.png' %}" alt="" style="width:30%"/></a>
-					</div>
-					<div class="col-sm-10">
-					<div class="author_dec">
-							<a href="{% url 'aids' %}">Casos de AIDS identificados no Brasil</a>						
-							<p style ="padding-top:10px;">Painel com com informações sobre casos de AIDS identificados no Brasil.</p>								
-					</div>
-				   </div>
-				  </div>
-				  {% else %}	
-				  <div class="row" style="padding-top: 20px">
-					<div class="col-sm-2">
-					<!--<a href="{% url 'inovacao' %}"><img src="{% static 'img/fs-redline.png' %}" alt="" style="width:60%"/></a>-->
-					</div>
-					<div class="col-sm-10">
-					<div class="author_dec">
-							<p>No momento não há dashboard disponível para esse assunto.</p>						
-					</div>
-				   </div>
-				  </div>
-				  {% endif %}
+					{% endfor %}
+				
+				
 				</div>
 				<div class="author_info" style="width: 83.33333%;">
 					<div class="row">
@@ -131,7 +118,40 @@
 						</div>
 						{% endfor %}
 					{% endif %}	
-				</div>				
+				</div>	
+				<div class="author_info" style="width: 83.33333%;">
+					<div class="row">
+						<div class="col-sm-12">
+							Retratos recentes						
+						</div>
+					</div>
+					{% if not reports %}
+						<div class="row" style="padding-top: 20px">
+						<div class="col-sm-2">
+						</div>
+						<div class="col-sm-10">
+						<div class="author_dec">
+							<p>No momento não há infografico disponível para esse assunto.</p>
+						</div>
+					   </div>
+					  </div>
+					{% else %}
+							{% for post in reports %}
+							<div class="row" style="padding-top: 20px">
+								<div class="col-sm-2">
+								<a href="{% url 'reports_detail' pk=post.pk %}"><img src="{% static 'img/fs-line.png' %}" alt="" style="width:30%"/></a>
+								</div>
+								<div class="col-sm-10">
+								<div class="author_dec">
+									<a href="{% url 'reports_detail' pk=post.pk %}">{{ post.title }}</a>
+									<a href="{% url 'reports_detail' pk=post.pk %}"><p>{{ post.text|linebreaksbr }}</p></a>
+									<p>published: {{ post.published_date }}</p>
+								</div>
+							   </div>
+							</div>
+							{% endfor %}
+					{% endif %}	
+				</div>					
 					
 
 			</div>		

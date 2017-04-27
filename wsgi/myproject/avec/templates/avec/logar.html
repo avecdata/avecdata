@@ -1,5 +1,5 @@
 {% extends 'avec/layout_interno.html' %}
-
+{% load socialaccount %}
 {% block content %}
 
 {% if next %}
@@ -18,7 +18,7 @@
         <div class="mpt-container">
             <div class="row" style="margin-left: 0px; margin-right: 0px;">
 				<div class="col-lg-4 col-lg-offset-4">
-                    <div class="intro-text" style="padding-top: 40%;">
+                    <div class="intro-text" style="padding-top: 10%;">
                     	<div class="card card-container card-webapp">
                     		<span class="avec-login-title">AVEC Data</span>
                     		<div class="avec-login-logo img-responsive">
@@ -40,6 +40,8 @@
 				                </div>
 				                <button type="submit" class="btn btn-lg btn-primary btn-block btn-signin btn-mpt" value="Entrar"><i class="fa fa-key" aria-hidden="true"></i>Entrar</button>
 				                <a href="#" id="btn-forgot-password" class="forgot-password">Esqueceu a senha?</a>
+				                <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-facebook" ><i class="fa fa-facebook"></i>Login com Facebook</a>
+				                <a href="{% provider_login_url 'google' method='oauth2' %}" class="btn btn-google-plus" ><i class="fa fa-google-plus"></i>Login com Google</a>
 				                <input type="hidden" name="next" value="{{ next }}" />
 				                {% if form.errors %}
 									<div class="alert alert-danger" style="margin-bottom: 0px;">Usuário e/ou senha inválidos. Tente novamente.</div>

@@ -21,6 +21,9 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'min/stylesheets/style.css' %}">		
+	<script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+	<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+	<link rel="stylesheet" href="{% static 'css/avec.style.css' %}">
 		
 	<!--	<link type="text/css" href="{% static 'css/player.css' %}" rel="stylesheet" />
 		<script src="{% static 'js/libs.js' %}"></script>-->
@@ -30,13 +33,17 @@
 
     <!-- Start Header Section -->
     {% include "avec/_header.html" with prefi="header__navbar--internal header__navbar--fixed" %}
-	<div class="row">
+		<div class="row">
 			<div class="title_sec">
 				    <div class="internal__row">
-						<h1 class="internal__title">{{post.title}}</h1>
+					{% block title %}
+						<!--<h1 class="internal__title">{{post.title}}</h1>-->
+					{% endblock %}
 					</div>
 			</div>		
-	</div>		
+		</div>		
+
+
     <!-- End Header -->
 
 <!-- start blog Section -->
@@ -48,9 +55,11 @@
 			</div>	
 			<div class="col-sm-6 ">
 			
-						{% block content %}
-						{% endblock %}
-			
+				<div class="avec-content">	
+
+					{% block content %}{% endblock %}	
+				</div>
+							
 
 			</div>
 			<div class="col-sm-1 ">			

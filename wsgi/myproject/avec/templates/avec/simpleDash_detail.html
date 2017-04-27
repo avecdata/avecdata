@@ -1,0 +1,227 @@
+﻿{% extends 'avec/base_simpledash.html' %}
+{% load staticfiles %}
+{% block content %}
+
+   <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>AVEC - Ciência de dados</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />		
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/avec.style.css' %}">		
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'min/stylesheets/style.css' %}">		
+
+
+   <!-- <link href="css/style2.css" rel="stylesheet">-->
+   
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>	
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>	
+		
+	<script>
+		var imguser = "{% static 'img/user/' %}";
+		var img = "{% static 'img/' %}";
+	</script>
+	
+	<style>
+	
+	
+	@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
+
+
+#chartdiv, #chartdiv2, #chartdiv3, #chartdiv4  {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}							
+svg {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16b'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09, #chart-10,  #chart-11,  #chart-12,  #chart-13{
+        background: #899296;
+        width: 100%;
+        font-size: 64px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 100px;
+        height: 40px;
+        line-height: normal;
+		margin-bottom: 15px;
+      }
+
+	</style>
+
+<div class="title_sec" style="padding: 0 0 0 0;!important">
+		<div class="internal__row">
+			<h1 class="internal__title" style="padding-bottom: 10px; padding-top: 0px; font-size: 36px; font-family: Playfair Display,serif; text-transform: none;">{{dash.title }}</h1>
+		</div>
+</div>		
+
+{% for tabs in mytabs %}
+	{% if  forloop.counter  == 1 %}
+		  <input id="tab{{forloop.counter}}" type="radio" name="tabs" checked>
+		  <label for="tab{{forloop.counter}}">{{tabs.title}}</label>
+	{% else %}		  
+		  <input id="tab{{forloop.counter}}" type="radio" name="tabs">
+		  <label for="tab{{forloop.counter}}">{{tabs.title}}</label>
+	{% endif %}	  
+{% endfor %}   
+
+
+{% for tabs in mytabs %}
+
+<section id="content{{ forloop.counter }}">
+
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+			<div class="chart-wrapper" id="graph">
+			  <div class="chart-title">
+				 {{ tabs.subtitle }}
+			  </div>
+			  <div class="chart-stage">
+			  {% if  forloop.counter  == 1 %}
+				<div id="chartdiv">
+			  {% else %} 	
+				<div id="chartdiv{{forloop.counter}}">
+			  {% endif %} 
+					<p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
+				</div>		
+			  </div>
+			  <div class="chart-notes">
+				{{ tabs.footer }}
+			  </div>
+			  </div>
+			</div>
+		
+		<!--<div class="col-sm-3">
+			<div class="sidebar">								
+				<div class="widget">
+				{% for par in myparent %}
+					<h2>{{par.title}}</h2>
+				{% endfor %}		
+					<div class="title_br"></div>
+					<ul>
+						{% for sub in related %}
+							<li><a href="{% url 'subsubject_detail'  pk=sub.pk %}">{{sub.title}}</a></li>
+						{% endfor %}	
+					</ul>
+				</div>					
+
+				<div class="widget">
+					<h2>palavras-chaves</h2>
+					<div class="title_br"></div>
+					<ul class="tag">
+						{% for key in mykeywords %}
+							<li><a href="{% url 'keywords_detail' pk=key.pk %}">{{key.title}}</a></li>
+						{% endfor %}
+					</ul>
+				</div>						
+			</div>
+		
+		</div>-->
+	  </div>
+	
+</div>	
+</section>	
+{% endfor %}
+
+{% endblock %}
+
+{% block other %}
+
+			
+
+{% endblock %}

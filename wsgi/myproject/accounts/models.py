@@ -26,6 +26,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('E-mail', unique=True)
     is_staff = models.BooleanField('Equipe', default=False)
     is_active = models.BooleanField('Ativo', default=True)
+    is_from_socialnetwork = models.BooleanField('Login Social', default=False)
+    imgprofile = models.TextField('Avatar', default="")
+    gender = models.CharField('Gênero', max_length=2, null=True)
     date_joined = models.DateTimeField('Data de Entrada', auto_now_add=True)
     date_expiration = models.DateTimeField('Data de Expiração', default=datetime.now, blank=True)
 

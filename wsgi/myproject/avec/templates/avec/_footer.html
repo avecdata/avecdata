@@ -1,26 +1,36 @@
 {% load staticfiles %}
 <footer class="footer">
-  <div class="container">
-    <div class="row">
-      <div class="footer__logo">
-        <img src="{% static 'img/logo-avec-light.png' %}"
-     class="footer__logo-img" />
-       <div class="footer__address">
-         <p>SCS Q 06, Bl A, sala 403, Edificio Carioca. Asa Sul, Brasilia - Brasil</p>
-         <p>contato@avecdata.com  +55 61 99112-4562</p>
-       </div>
-      </div>
-      <div class="footer__social">
-        <ul>
-          <li><a href=""><img src="{% static 'img/post-twitter.svg' %}"
-       class="footer__logo-img" /></a></li>
-         <li><a href=""><img src="{% static 'img/post-facebook.svg' %}"
-    class="footer__logo-img" /></a></li>
-        <li><a href=""><img src="{% static 'img/post-linkedin.svg' %}"
- class="footer__logo-img" /></a></li>
-        </ul>
-        <p>© AVEC - CIENCIA DE DADOS </p>
-      </div>
-    </div>
-  </div>
+	<div class="container">
+		<div class="row">
+			<div class="footer__logo">
+				<img src="{% static 'img/logo-avec-light.png' %}" class="footer__logo-img" />
+				<div class="footer__address">
+					<p>SCS Q 06, Bl A, sala 403, Edificio Carioca. Asa Sul, Brasilia - Brasil</p>
+					<p>contato@avecdata.com +55 61 99112-4562</p>
+				</div>
+			</div>
+			<div class="footer__social">
+				<ul>
+					<li><a href=""><img src="{% static 'img/post-twitter.svg' %}" class="footer__logo-img" /></a></li>
+					<li><a href=""><img src="{% static 'img/post-facebook.svg' %}" class="footer__logo-img" /></a></li>
+					<li><a href=""><img src="{% static 'img/post-linkedin.svg' %}" class="footer__logo-img" /></a></li>
+				</ul>
+				
+			</div>
+		</div>
+	</div>
 </footer>
+<div class="row policy-footer">
+	<div class="container">
+		<div class="col-md-4">
+			<span>© AVEC - CIENCIA DE DADOS</span>
+		</div>
+		<div class="col-md-6 col-md-offset-2" style="text-align: right;">
+			<span>|</span>
+			<a href="{% url 'privacy_statement' %}" >Política de Privacidade</a>
+			<span>|</span>
+			<a href="{% url 'terms_conditions' %}" >Termos e Condições Gerais</a>
+			<span>|</span>
+		</div>
+	</div>
+</div>

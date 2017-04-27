@@ -6,16 +6,16 @@ from django.contrib.auth.views import login, logout
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-	#url(r'^accounts/', include('allauth.urls')),
     url(r'^ciencia_tecnologia/', views.ciencia_tecnologia, name='ciencia_tecnologia'),
     url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
+	url(r'^simpleDash_detail/(?P<pk>[0-9]+)/$', views.simpleDash_detail, name='simpleDash_detail'),	
     url(r'^subject/(?P<pk>[0-9]+)/$', views.subject_detail, name='subject_detail'),
     url(r'^subsubject/(?P<pk>[0-9]+)/$', views.subsubject_detail, name='subsubject_detail'),
     url(r'^keyword/(?P<pk>[0-9]+)/$', views.keywords_detail, name='keywords_detail'),
     url(r'^report/(?P<pk>[0-9]+)/$', views.reports_detail, name='reports_detail'),
-    url(r'^inovacao/$', views.inovacao, name='inovacao'),
+    url(r'^inovacao/(?P<dashboard_id>[0-9]+)/$', views.inovacao, name='inovacao'),
     url(r'^permissao/$', views.permissao, name='permissao'),
-    url(r'^nascidosvivos/$', views.nascidosvivos, name='nascidosvivos'),
+    url(r'^nascidosvivos/(?P<dashboard_id>[0-9]+)/$', views.nascidosvivos, name='nascidosvivos'),
     url(r'^retratosmunicipais/$', views.retratos_municipais, name='retratos_municipais'),	
     url(r'^educacao/$', views.educacao, name='educacao'),
     url(r'^registrar/$', views.registrar, {} ,name='registrar'), # pagina de cadastro
@@ -36,7 +36,10 @@ urlpatterns = [
     url(r'^check_username/$', validators.check_username),
 	url(r'^padrao1/$', views.padrao1, name='padrao1'),
     url(r'^padrao2/$', views.padrao2, name='padrao2'),
-    url(r'^padrao3/$', views.padrao3, name='padrao3'),
-    url(r'^aids/$', views.aids, name='aids'),
+    url(r'^leptospirose/(?P<dashboard_id>[0-9]+)/$', views.leptospirose, name='leptospirose'),
+    url(r'^aids/(?P<dashboard_id>[0-9]+)/$', views.aids, name='aids'),
     url(r'^sangue/(?P<dashboard_id>[0-9]+)/$', views.sangue, name='sangue'),
+    url(r'^social-accounts/social/login/cancelled/$', views.logar, name='logar'),
+    url(r'^social-accounts/', include('allauth.urls')),
+    url(r'^redirect-socialapp/', views.redirect_socialapp, name='redirect_socialapp'),
 ]
