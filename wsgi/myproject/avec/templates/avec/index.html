@@ -5,270 +5,349 @@
 {% load staticfiles %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">    
-<link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
-  <section class="banner-search" style="padding-top:65px;">
-    <div class="container">
-      <div class="row">
-        <div class="banner-search__text">
-          <h2 class="banner-search__title">AVEC - Plataforma de dados setoriais</h2>
-          <p class="banner-search__subtitle">Indicadores, estatísticas e previsões baseadas em informações ativas e descobertas contínuas.</p>
-        </div>		
+<div class="home-app__container">
 
-        <div class="banner-search__search">
+		<div class="section section_centered bg-parallax">
+			<div class="section__inner">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-1 hidden-xs hidden-sm">&nbsp;</div>
+						<div class="col-sm-12 col-md-11 col-sm-offset-2 col-md-offset-2">
+							<h1 class="avec-home-app text-center">Conheça a realidade. Construa conhecimento.</h1>
 
-         <form action="" class="banner-search__form">		 
-		    
-			<input list="browsers" type="text" id="autocomplete" class="banner-search__input-search"  placeholder="Encontre estatísticas, dados e estudos">
+							<div class="row">
+								<div class="col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
+									<form class="avec-search-results">
+										<div class="input-group stylish-input-group">
+											<input type="text" id="autocomplete" class="form-control" placeholder="Encontre estatísticas, dados e estudos">
+											<span class="input-group-addon avec-input-group-addon">
+												<button type="submit" class="btn-avec-success btn-search-data">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+										</div>
+									</form>
+								</div>
+							</div>
 
-          </form>
-		  
-        </div>
-      </div>
-    </div>
-  </section>
+						</div>
+					</div>
+					<!-- / .row -->
+				</div>
+				<!-- / .container -->
+			</div>
+			<!-- / .section__inner -->
+		</div>
+		<!-- / .section -->
+		
+		<section class="shop-index__section interest_area">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<h4 class="shop-index__heading text-center">Estas e outras fontes que você confia num só lugar</h4>
+					</div>
+				</div> <!-- / .row -->
+				
+				<div class="row">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2">
+					<div class="shop-index-features__item">
+						<img src="{% static 'img/brands/logo-ibge.svg' %}" alt="IBGE" />
+						<h4 class="shop-index-features__heading">IBGE</h4>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="shop-index-features__item">
+						<img src="{% static 'img/brands/logo-onu.svg' %}" alt="ONU" />
+						<h4 class="shop-index-features__heading">ONU</h4>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="shop-index-features__item">
+						<img src="{% static 'img/brands/logo-fiesp.svg' %}" alt="FIESP" />
+						<h4 class="shop-index-features__heading">FIESP</h4>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="shop-index-features__item">
+						<img src="{% static 'img/brands/logo-cnpq.svg' %}" alt="CNPQ" />
+						<h4 class="shop-index-features__heading">CNPQ</h4>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="shop-index-features__item">
+						<img src="{% static 'img/brands/logo-minis-saude.svg' %}" alt="Ministério da Saúde" />
+						<h4 class="shop-index-features__heading">Ministério da Saúde</h4>
+					</div>
+				</div>
+				<div class="col-sm-1"></div>
+			</div>
+		</div>
+    </section>
+    
+    <div class="section">
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-sm-12">
+    				<h1 class="avec-home-app avec-title-home-app  text-center">Conheça os Painéis Interativos</h1>
+    			</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
 
-  <section class="brands">
-    <div class="container">
-      <div class="row">
-        <h2 class="brands__title">Estas e outras fontes que você confia num só lugar</h2>
-        <ul class="brands__list">
-          <li class="brands__item"><img src="{% static 'img/brands/logo-ibge.svg' %}" alt="IBGE" /></li>
-          <li class="brands__item"><img src="{% static 'img/brands/logo-onu.svg' %}" alt="ONU" /></li>
-          <li class="brands__item"><img src="{% static 'img/brands/logo-fiesp.svg' %}" alt="FIESP" /></li>
-          <li class="brands__item"><img src="{% static 'img/brands/logo-cnpq.svg' %}" alt="CNPQ" /></li>
-          <li class="brands__item"><img src="{% static 'img/brands/logo-minis-saude.svg' %}" alt="Ministério da Saúde" /></li>
-        </div>
-      </div>
-    </div>
-  </section>
+						<div class="section">
 
-  <section class="services">
-    <div class="services__general">
-      <div class="services__group">
-        <div class="services__image">
-          <figure>
-            <img src="{% static 'img/tmp/image-box-one.jpg' %}" alt="Serviço" />
-          </figure>
-        </div>
-        <div class="services__content">
-          <h2 class="services__title">Lago de Dados</h2>
-		  <h3 style="color:white;">Encontre os dados mais relevantes</h3>
+							<ul class="ft-list avec-ft-list">
+								<li>Indicadores, dados e informações</li>
+								<li>Consolidados por diferentes níveis e espaços temporais.</li>
+								<li>Lago de Dados</li>
+								<li>Encontre os dados mais relevantes</li>
+								<li>Visualizações, séries históricas e informações</li>
+								<li>Diversos temas e obtidos de fontes oficiais em diversos espaços.</li>
+								<li>Os dados mais relevantes do momento</li>
+								<li>Consolidados por diferentes níveis e espaços temporais.</li>
+								<li>Indicadores, dados e informações</li>
+								<li>Consolidados por diferentes níveis e espaços temporais.</li>
+							</ul>
 
-          <p class="services__description">Visualizações, séries históricas e informações sobre os mais diversos temas e obtidos de fontes oficiais em diversos espaços temporais (algumas séries com mais de 20 anos)</p>
+						</div>
+						<!-- / .section -->
 
-          <a href="assuntos" class="services__button btn">Ver lista de assuntos</a>
-        </div>
-      </div>
-      <div class="services__group">
-        <div class="services__image services__image--right">
-          <figure>
-            <img src="{% static 'img/tmp/image-box-two.jpg' %}" alt="Serviço" />
-          </figure>
-        </div>
-        <div class="services__content">
-          <h2 class="services__title">Conheça os Painéis Interativos com informações atualizadas</h2>
+					</div>
+					<div class="col-sm-6">
 
-          <p class="services__description">Indicadores, dados e informações apresentados de forma dinâmica, consolidados por diferentes níveis e espaços temporais</p>
+						<div class="section">
 
-          <a href="{% url 'dashboard' %}" class="services__button btn">Ver Painéis recentes</a>
-        </div>
-      </div>
-    </div>
-  </section>
+							<img src="{% static 'avecv2.0-template/img/imac-landing.png' %}" alt="imac landing" class="img-responsive">
 
-  <section class="moment-data">
-    <h2 class="moment-data__title">Os dados mais relevantes do momento</h2>
-    <div class="moment-data__general">
+						</div>
+						<!-- / .section -->
+
+					</div>
+				</div>
+				<!-- / .row -->
+			</div>
+			<!-- / .section__inner -->
+		</div>
+		<!-- / .section  -->
+		<section class="index-3__section avec-relevant-section">
       <div class="container">
+        
+        <!-- Heading -->
         <div class="row">
-          <div class="moment-data__graphic moment-data__box">
-            <figure>
-              <img src="{% static 'img/tmp/info1.jpg' %}" class="moment-data__img-replace">
-            </figure>
-          </div>
-          <div class="moment-data__data-list moment-data__box">
-            <ul class="moment-data__list">
-              <li class="moment-data__item"><a href="{% url 'post_detail' pk=25 %}" data-image="{% static 'img/tmp/info1.jpg' %}">Cenário de Sífilis na maternidade e no pós nascimento
-			  - Número de casos e taxa de detecção  </a> <a href="" class="moment-data__arrow-btn"></a></li>
-              <li class="moment-data__item"><a href="{% url 'post_detail' pk=67 %}" data-image="{% static 'img/tmp/info2.jpg' %}">Transfusão de sangue na Rede SUS - Hospitalar
-    - Número de transfusões hospitalares - Brasil 2016</a> <a href="" class="moment-data__arrow-btn"></a></li>
-              <li class="moment-data__item"><a href="{% url 'post_detail' pk=11 %}" data-image="{% static 'img/tmp/info3.jpg' %}">Tomógrafos computadorizados 
-    - Número de tomógrafos computadores existentes, em uso e disponíveis para o SUS</a></li>
-              <li class="moment-data__item"><a href="{% url 'post_detail' pk=49 %}" data-image="{% static 'img/tmp/info4.jpg' %}">Roubo de cargas - 
-    Quantitativo de roubo de cargas nos Estados de Rio de Janeiro e São Paulo (2013 a 2016)</a></li>
-              <li class="moment-data__item"><a href="{% url 'post_detail' pk=39 %}" data-image="{% static 'img/tmp/info5.jpg' %}">Frota de veículos - 
-    Frota de veículos emplacados por ano de fabricação - 2016</a></li>
-            </ul>
-            <a href="assuntos" class="moment-data__btn-list btn">Ver lista de assuntos</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+          <div class="col-sm-12">
+            
+            <h1 class="avec-home-app text-center" style="font-weight: 100; font-size: 44px;">Os dados mais relevantes do momento</h1>
+            
 
-  <section class="plans" id="plans">
-    <div class="container">
-      <div class="row">
-        <h2 class="plans__title">Um plano feito sob medida para você</h2>
-        <div class="plans__group">
-          <div class="plans__box avec_plans">
-            <h3 class="plans__price-title">Plano Básico</h3>
-            <div class="plans__price">
-              Grátis
+          </div>
+        </div> <!-- / .row -->
+        <div class="row avec-relevant-data-row">
+          <div class="col-sm-4">
+            
+            <div class="index-3-features-2__item">
+              <div class="index-3-features-2__icon">
+                <i class="fa fa-signal"></i>
+              </div>
+              <h4 class="index-3-features-2__heading">
+                Indicadores, dados e informações
+              </h4>
+              <div class="index-3-features-2__content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta harum dolore quia, aliquid vero.
+              </div>
             </div>
-            <ul class="plans__list">
-            	<li class="plans__item plans__item--selected">
-            		<a href="" class="plans__link">Estatísticas e infográficos básico</a>
-            	</li>
-            	<li class="plans__item plans__item--no-selected">
-            		<a href="" class="plans__link">Estatísticas e infográficos premium</a>
-            	</li>
-            	<li class="plans__item plans__item--no-selected">
-            		<a href="" class="plans__link">Download de conteúdos</a>
-            	</li>
-            	<li class="plans__item plans__item--no-selected">
-            		<a href="" class="plans__link">Painéis Interativos - Básicos</a>
-            	</li>
-            	<li class="plans__item plans__item--no-selected">
-            		<a href="" class="plans__link">Painéis Interativos - Avançados</a>
-            	</li>
-            	<li class="plans__item plans__item--no-selected">
-            		<a href="" class="plans__link">Retratos setoriais</a>
-            	</li>
-            	<li class="plans__item plans__item--no-selected">
-            		<a href="" class="plans__link">Integração com bases próprias *</a>
-            	</li>
-            </ul>
-            <a {% if request.user|has_group:1 or request.user|has_group:2 or request.user|has_group:3 %} href="javascript:void(0)" disabled="disabled"{% else %} href="{% url 'accounts:register' %}" {% endif %} class="plans__sign btn btn--blue">Cadastre-se grátis</a>
+
+            <div class="index-3-features-2__item">
+              <div class="index-3-features-2__icon">
+                <i class="fa fa-cubes"></i>
+              </div>
+              <h4 class="index-3-features-2__heading">
+                Indicadores, dados e informações
+              </h4>
+              <div class="index-3-features-2__content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta harum dolore quia, aliquid vero.
+              </div>
+            </div>
+
+            <div class="index-3-features-2__item">
+              <div class="index-3-features-2__icon">
+                <i class="fa fa-line-chart"></i>
+              </div>
+              <h4 class="index-3-features-2__heading">
+                Indicadores, dados e informações
+              </h4>
+              <div class="index-3-features-2__content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta harum dolore quia, aliquid vero.
+              </div>
+            </div>
+
           </div>
-          <div class="plans__box avec_plans">
-            <h3 class="plans__price-title">Plano Padrão</h3>
-            <div class="plans__price"><span class="plans__currency">R$</span>30<span class="plans__time">/mês</span></div>
-            <ul class="plans__list">
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Estatísticas e infográficos básico</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Estatísticas e infográficos premium</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Download de conteúdos</a>
-              </li>
-              <li class="plans__item plans__item--no-selected">
-                <a href="" class="plans__link">Painéis Interativos - Básicos</a>
-              </li>
-              <li class="plans__item plans__item--no-selected">
-                <a href="" class="plans__link">Painéis Interativos - Avançados</a>
-              </li>
-              <li class="plans__item plans__item--no-selected">
-                <a href="" class="plans__link">Retratos setoriais</a>
-              </li>
-              <li class="plans__item plans__item--no-selected">
-                <a href="" class="plans__link">Integração com bases próprias *</a>
-              </li>
-            </ul>
-            {% if request.user.id %}
-            	{% if request.user|has_group:2 or request.user|has_group:3 or request.user|has_group:5 %}
-	            	<a  href="javascript:void(0)" disabled="disabled" class="plans__sign btn">Assine agora</a>
-	            {% else %}
-	            	<form action="{% url 'accounts:update_subscription' %}" method="post">
-               			{% csrf_token %}
-               			<input type="hidden" name="user_id" value="{{ request.user.id }}">
-               			<input type="hidden" name="plan_id" value="5">
-               			<button type="submit" class="plans__sign btn"><i class="fa fa-pie-chart"></i> Atualizar agora</button>
-               		</form>
-	            {% endif %}
-	        {% else %}
-	        	<a href="{% url 'accounts:register_standard_plan' %}" class="plans__sign btn" >Assine agora</a>
-	        {% endif %}
+          <div class="col-sm-4">
+            
+            <div class="index-3-features-2__item">
+              <div class="index-3-features-2__icon avec-icon-pie-chart">
+                <i class="fa fa-pie-chart"></i>
+              </div>
+              <h4 class="index-3-features-2__heading">
+               Indicadores, dados e informações
+              </h4>
+              <div class="index-3-features-2__content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta harum dolore quia, aliquid vero.
+              </div>
+            </div>
+
+            <div class="index-3-features-2__item">
+              <div class="index-3-features-2__icon">
+                <i class="fa fa-cube"></i>
+              </div>
+              <h4 class="index-3-features-2__heading">
+                Indicadores, dados e informações
+              </h4>
+              <div class="index-3-features-2__content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta harum dolore quia, aliquid vero.
+              </div>
+            </div>
+
+            <div class="index-3-features-2__item">
+              <div class="index-3-features-2__icon">
+                <i class="fa fa-area-chart"></i>
+              </div>
+              <h4 class="index-3-features-2__heading">
+                Indicadores, dados e informações
+              </h4>
+              <div class="index-3-features-2__content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta harum dolore quia, aliquid vero.
+              </div>
+            </div>
+
           </div>
-          <div class="plans__box avec_plans">
-            <h3 class="plans__price-title">Plano Profissional</h3>
-            <div class="plans__price"><span class="plans__currency">R$</span>80<span class="plans__time">/mês</span></div>
-            <ul class="plans__list">
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Estatísticas e infográficos básico</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Estatísticas e infográficos premium</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Download de conteúdos</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Painéis Interativos - Básicos</a>
-              </li>
-              <li class="plans__item plans__item--no-selected">
-                <a href="" class="plans__link">Painéis Interativos - Avançados</a>
-              </li>
-              <li class="plans__item plans__item--no-selected">
-                <a href="" class="plans__link">Retratos setoriais</a>
-              </li>
-              <li class="plans__item plans__item--no-selected">
-                <a href="" class="plans__link">Integração com bases próprias *</a>
-              </li>
-            </ul>
-            {% if request.user.id %}
-            	{% if request.user|has_group:2 or request.user|has_group:3 %}
-	            	<a  href="javascript:void(0)" disabled="disabled" class="plans__sign btn">Assine agora</a>
-	            {% else %}
-	            	<form action="{% url 'accounts:update_subscription' %}" method="post">
-               			{% csrf_token %}
-               			<input type="hidden" name="user_id" value="{{ request.user.id }}">
-               			<input type="hidden" name="plan_id" value="2">
-               			<button type="submit" class="plans__sign btn"><i class="fa fa-graduation-cap"></i> Atualizar agora</button>
-               		</form>
-	            {% endif %}
-	        {% else %}
-	        	<a href="{% url 'accounts:register_professional_plan' %}" class="plans__sign btn" >Assine agora</a>
-	        {% endif %}
+          <div class="col-sm-4">
+            
+            <div class="index-3-features-2__item">
+              <div class="index-3-features-2__icon">
+                <i class="fa fa-th-list"></i>
+              </div>
+              <h4 class="index-3-features-2__heading">
+                Indicadores, dados e informações
+              </h4>
+              <div class="index-3-features-2__content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta harum dolore quia, aliquid vero.
+              </div>
+            </div>
+
+            <div class="index-3-features-2__item">
+              <div class="index-3-features-2__icon">
+                <i class="fa fa-server"></i>
+              </div>
+              <h4 class="index-3-features-2__heading">
+                Indicadores, dados e informações
+              </h4>
+              <div class="index-3-features-2__content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta harum dolore quia, aliquid vero.
+              </div>
+            </div>
+
+            <div class="index-3-features-2__item">
+              <div class="index-3-features-2__icon">
+                <i class="fa fa-sitemap"></i>
+              </div>
+              <h4 class="index-3-features-2__heading">
+                Indicadores, dados e informações
+              </h4>
+              <div class="index-3-features-2__content">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta harum dolore quia, aliquid vero.
+              </div>
+            </div>
+
           </div>
-          <div class="plans__box avec_plans">
-            <h3 class="plans__price-title">Plano Empresarial**</h3>
-            <div class="plans__price"><span class="plans__currency">R$</span>150<span class="plans__time">/mês</span></div>
-            <ul class="plans__list">
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Estatísticas e infográficos básico</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Estatísticas e infográficos premium</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Download de conteúdos</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Painéis Interativos - Básicos</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Painéis Interativos - Avançados</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Retratos setoriais</a>
-              </li>
-              <li class="plans__item plans__item--selected">
-                <a href="" class="plans__link">Painéis personalizados *</a>
-              </li>
-            </ul>
-            {% if request.user.id %}
-            	{% if request.user|has_group:3 %}
-	            	<a  href="javascript:void(0)" disabled="disabled" class="plans__sign btn">Assine agora</a>
-	            {% else %}
-	            	<form action="{% url 'accounts:update_subscription' %}" method="post">
-               			{% csrf_token %}
-               			<input type="hidden" name="user_id" value="{{ request.user.id }}">
-               			<input type="hidden" name="plan_id" value="3">
-               			<button type="submit" class="plans__sign btn"><i class="fa fa-briefcase"></i> Atualizar agora</button>
-               		</form>
-	            {% endif %}
-	        {% else %}
-	        	<a href="{% url 'accounts:register_corporate_plan' %}" class="plans__sign btn" >Assine agora</a>
-	        {% endif %}
-          </div>
-        </div>
-        <span style="color: #f1f1f1; width: 100%; display: inline-block; text-align: right;"><em>* Um painel de preferência de usuário por mês<br>** Mínimo de 10 Assinaturas</em></span>
-      </div>
-    </div>
-  </section>
-  <!-- <span>teste:{{success}}</span> -->
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
+    </section>
+    
+    <div class="section" id="plans">
+			<div class="section__inner">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<h1 class="avec-home-app text-center" style="font-weight: 100; font-size: 44px;">Os dados mais relevantes do momento</h1>
+						</div>
+					</div>
+					<!-- / .row -->
+					<div class="row">
+						<div class="col-sm-12">
+
+							<div class="home-app__pricing">
+								<div class="row">
+
+									<div class="col-sm-3 price-table-item">
+										<div class="home-app-pricing__item">
+											<div class="home-app-pricing__title">Free</div>
+											<div class="home-app-pricing__price">
+												Grátis
+											</div>
+											<div class="home-app-pricing__content">Infográficos Estatísticos</div>
+											
+											<div class="home-app-pricing__extra plans__item--no-selected">Painéis Interativos</div>
+											<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
+											<a class="btn btn-default">Cadastre-se Grátis</a>
+										</div>
+									</div>
+
+									<div class="col-sm-3 price-table-item">
+										<div class="home-app-pricing__item">
+											<div class="home-app-pricing__title">Standard</div>
+											<div class="home-app-pricing__price">
+												<span>R$</span>30<span>/mês</span>
+											</div>
+											<div class="home-app-pricing__content">Infográficos Estatísticos</div>
+											<div class="home-app-pricing__extra">Painéis Interativos</div>
+											<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
+											<a class="btn btn-default">Atualize Agora</a>
+										</div>
+									</div>
+									<div class="col-sm-3 price-table-item">
+										<div class="index-3-features-2__icon avec-icon-bg-bolt">
+											<i class="fa fa-bolt"></i>
+										</div>
+										<div class="index-3-features-2__icon avec-icon-bolt">
+											<i class="fa fa-bolt"></i>
+										</div>
+										<div class="home-app-pricing__item">
+											<div class="home-app-pricing__title">Professional</div>
+											<div class="home-app-pricing__price">
+												<span>R$</span>80<span>/mês</span>
+											</div>
+											<div class="home-app-pricing__content">Infográficos Estatísticos</div>
+											<div class="home-app-pricing__extra">Painéis Interativos</div>
+											<div class="home-app-pricing__extra home-app-pricing__bottom_extra">Download PDF, JPEG, PNG, CSV e XLSX</div>
+											<a class="btn btn-secondary">Adquira</a>
+										</div>
+									</div>
+									<div class="col-sm-3 price-table-item">
+										<div class="home-app-pricing__item">
+											<div class="home-app-pricing__title">Enterprise</div>
+											<div class="home-app-pricing__price">
+												<i class="fa fa-pencil" style="font-size: 40px;"></i>
+											</div>
+											<div class="home-app-pricing__extra" style="margin-bottom: 40px;">Construa seu próprio ambiente de visualização, integrando bases próprias com nossas bases setoriais.</div>
+											<a class="btn btn-default">Entre em Contato</a>
+										</div>
+									</div>
+
+								</div>
+								<!-- / .row -->
+							</div>
+							<!-- / .home-app__pricing -->
+
+						</div>
+					</div>
+					<!-- / .row -->
+				</div>
+				<!-- / .container -->
+			</div>
+			<!-- / .section__inner -->
+		</div>
+		<!-- / .section -->
+
+	</div>
 {% endblock %}

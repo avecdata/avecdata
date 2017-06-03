@@ -14,7 +14,7 @@
 
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <div class="page-header">
+        <div class="page-header" style="margin-top: 80px;">
             <h1>Preferências</h1>
         </div>
         <div class="row">
@@ -155,12 +155,13 @@
 		                		</form>
 		           			</div>
 		                	<div class="col-md-4" style="text-align: center;">
-		                		<form action="{% url 'accounts:update_subscription' %}" method="post">
+		                		<!-- <form action="{% url 'accounts:update_subscription' %}" method="post">
 		                			{% csrf_token %}
 		                			<input type="hidden" name="user_id" value="{{ request.user.id }}">
 		                			<input type="hidden" name="plan_id" value="3">
 		                			<button type="submit" class="btn btn-primary" {% if group_id == 3 %} disabled="disabled" {% endif %}><i class="fa fa-briefcase"></i> Corporativo</button>
-		                		</form>
+		                		</form> -->
+		                		<a href="{% url 'contact' %}" class="btn btn-primary" ><i class="fa fa-briefcase"></i> Entre em contato </a>
 		           			</div>
 		           		</div>
 		            </fieldset>

@@ -13,6 +13,15 @@ $(document).ready(function () {
 		$('div.moment-data__graphic').find('figure').find('img').attr('src', imgpath);
 	});
 	
+	$('#avec-search-input').focus(function(){
+		//alert('teste');
+		$(this).parent().css('border-color', '#40c0cf');
+	});
+	
+	$('#avec-search-input').blur(function(){
+		$(this).parent().css('border-color', '#fff');
+	});
+	
 	try {
 		$(".phone").mask("(99) 9?9999-9999");
 	} catch (e) {

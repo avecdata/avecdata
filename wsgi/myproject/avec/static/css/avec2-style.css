@@ -1,0 +1,297 @@
+.avec-navbar-brand {
+    padding: 22.5px 15px;
+}
+
+.btn-avec-primary,
+.btn-avec-success {
+	margin: 16px 0px;
+    padding: 10px 16px !important;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 26px;
+}
+
+a.avec-link-login {
+	color: #32a8b5 !important;
+	text-shadow: 1px 1px rgba(64, 192, 207, 0.2);
+}
+
+a.avec-link-login:hover {
+	color: #333333 !important;
+}
+
+
+a.btn-avec-primary:before,
+a.btn-avec-success:before,
+a.avec-link-login:before {
+	border-top: none !important;
+}
+
+.btn-avec-primary {
+  background-color: #a6b3c2;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #f1f1f1 !important;
+  -webkit-transition: all .05s linear;
+       -o-transition: all .05s linear;
+          transition: all .05s linear;
+}
+
+.btn-avec-primary:hover {
+  background-color: #91979e !important;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: white;
+}
+.btn-avec-primary:focus,
+.btn-avec-primary.focus,
+.btn-avec-primary:active,
+.btn-avec-primary:active:hover,
+.btn-avec-primary:active:focus,
+.btn-avec-primary.active,
+.btn-avec-primary.active:hover,
+.btn-avec-primary.active:focus {
+  background: #91979e;
+  border-color: rgba(0, 0, 0, 0.125);
+  -webkit-box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.125);
+          box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.125);
+  outline: none;
+}
+
+.btn-avec-success {
+  background-color: #40c0cf !important;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #f1f1f1 !important;
+  -webkit-transition: all .05s linear;
+       -o-transition: all .05s linear;
+          transition: all .05s linear;
+}
+
+.btn-avec-success:hover {
+  background-color: #32a8b5 !important;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: white;
+}
+.btn-avec-success:focus,
+.btn-avec-success.focus,
+.btn-avec-success:active,
+.btn-avec-success:active:hover,
+.btn-avec-success:active:focus,
+.btn-avec-success.active,
+.btn-avec-success.active:hover,
+.btn-avec-success.active:focus {
+  background: #32a8b5;
+  border-color: rgba(0, 0, 0, 0.125);
+  -webkit-box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.125);
+          box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.125);
+  outline: none;
+}
+
+.avec-menu-item {
+	margin: 0px 20px 0px 0px;
+}
+
+h1.avec-home-app {
+	color: #3e4c5b;
+	display: block;
+	margin-bottom: 40px !important;
+	font-weight: 100 !important;
+}
+
+h1.avec-home-app:before {
+	background: none !important;
+}
+
+h1.avec-home-app:after {
+	background: none !important;
+}
+
+.stylish-input-group {
+	background-color: #fff;
+}
+
+.stylish-input-group .input-group-addon{
+    background: #fff !important; 
+    border-radius: 0 46px 46px 0;
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+	border-radius: 46px 0px 0px 46px;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+.avec-search-results .stylish-input-group {
+	border-radius: 50px;
+	border: 1px solid #fff;
+}
+
+.interest_area {
+	background-color: #f7fafd;
+	padding-top: 30px;
+}
+
+.interest_area h2 {
+	color: #8291aa;
+}
+
+.interest_area h4 {
+	color: #8291aa;
+}
+.avec-ft-list {
+	padding-top: 30px;
+}
+	
+.avec-ft-list li {
+	color: #3e4c5b;
+	font-size: 17px;
+	padding: 0px;
+}
+
+.avec-ft-list li:before {
+	color: #fff;
+}
+
+.avec-ft-list li:nth-child(odd):before {
+	color: #40c0cf;
+}
+
+.avec-ft-list li:nth-child(odd) {
+	font-weight: bold;
+	padding-top: 12px;
+}
+
+.avec-relevant-section {
+	background-color: #f7fafe;
+}
+
+.avec-relevant-data-row {
+	color: #3e4c5b !important;
+}
+
+.avec-relevant-data-row .index-3-features-2__heading {
+	font-size: 18px;
+}
+
+.avec-relevant-data-row .index-3-features-2__icon {
+	background-color: #61788e;
+}
+
+.avec-icon-pie-chart {
+	background-color: #3dc1d0 !important;
+}
+
+.index-3-features-2__content {
+    margin-left: 52px;
+}
+
+.price-table-item {
+	width: 267px;
+	background-color: #dde6ee;
+}
+
+.price-table-item .home-app-pricing__item {
+	margin: 20px;
+	padding: 40px 0px;
+    background-color: #fff;
+}
+
+.home-app__pricing .price-table-item:not(:last-child) {
+	margin-right: 20px;
+}
+
+.avec-icon-bolt {
+    width: 54px;
+    height: 46px;
+    line-height: 54px;
+    position: absolute;
+    background-color: transparent;
+}
+
+.avec-icon-bolt i {
+	font-size: 22px;
+}
+
+.avec-icon-bg-bolt {
+	width: 81px;
+	height: 83px;
+	position: absolute;
+	overflow: hidden;
+	background-color: transparent;
+}
+
+.avec-icon-bg-bolt:before {
+	content: '';
+    position: absolute;
+    left: -97px;
+    width: 187%;
+    height: 175%;
+    background-color: transparent;
+    background-color: rgba(61, 193, 208, 1);
+    top: -73px;
+    -webkit-transform: rotate(133deg);
+    -moz-transform: rotate(133deg);
+    transform: rotate(133deg);
+}
+
+.home-app-pricing__price {
+	background-color: #f7fafe;
+	color: #3dc1d0;
+}
+
+.home-app-pricing__content {
+	border-bottom: 2px solid #dde6ee;
+	margin-bottom: 0px;
+    padding-bottom: 10px;
+}
+
+.home-app-pricing__extra {
+	border-bottom: 2px solid #dde6ee;
+	margin-bottom: 0px;
+    padding: 15px 0px;
+}
+
+.home-app-pricing__bottom_extra {
+	border-bottom: none;
+}
+
+.plans__item--no-selected {
+	color: #dde6ee;
+}
+
+.footer__item span {
+	color: #3e4c5b;
+}
+
+.footer-item__content p {
+    margin-bottom: 20px;
+}
+
+.footer-item__content a {
+	color: #3e4c5b;
+}
+
+.footer-item__content a:hover, a:focus {
+    color: #3dc1d0;
+}
+
+#autocomplete {
+	margin: 17px 0px 17px 17px;
+	font-size: 16px;
+	width: 97%;
+	border: none;
+}
+
+.avec-input-group-addon {
+	padding-right: 0px;
+	border: none;
+}
+
+.btn-search-data {
+	margin: 0 5px; padding: 22px !important;
+}
+
+.avec-title-home-app {
+	font-size: 44px;
+}

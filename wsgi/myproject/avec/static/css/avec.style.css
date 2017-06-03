@@ -114,6 +114,28 @@
     padding: 50px 0px;
 }
 
+.plans__group .avec_plans:last-child ul.avec-list-plans .plans__item--selected::before {
+    content: none;
+}
+
+.plans__group .avec_plans:last-child ul.avec-list-plans li {
+    text-align: center;
+}
+
+.plans__group .avec_plans:last-child ul.avec-list-plans li a {
+	margin-left: 0px;
+	margin-bottom: 18px;
+	padding-right: 0px;
+	padding-left: 0px;
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+}
+
+ul.avec-list-plans li {
+	text-align: left;
+}
+
 input[type=checkbox].cb-avec:hover {
 	cursor: pointer;
 }

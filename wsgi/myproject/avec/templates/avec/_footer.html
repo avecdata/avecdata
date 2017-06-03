@@ -1,36 +1,116 @@
 {% load staticfiles %}
-<footer class="footer">
-	<div class="container">
-		<div class="row">
-			<div class="footer__logo">
-				<img src="{% static 'img/logo/Logo_Negative.svg' %}" class="footer__logo-img" />
-				<div class="footer__address">
-					<p>SCS Q 06, Bl A, sala 403, Edificio Carioca. Asa Sul, Brasilia - Brasil</p>
-					<p>contato@avecdata.com +55 61 99112-4562</p>
+
+<!-- FOOTER
+    ================================================== -->
+	<footer>
+
+		<!-- Footer Top -->
+		<div class="footer_top">
+			<div class="container">
+				<div class="row">
+
+					<!-- Contact Us -->
+					<div class="col-xs-12 col-sm-3">
+						<div class="footer__item">
+							<h5 class="footer-item__title">
+								<span>FALE CONOSCO</span>
+							</h5>
+							<div class="footer-item__content">
+								<p><a href="{% url 'contact' %}"><i class="fa fa-envelope-o"></i> Contato</a></p>
+								<p>
+									Lorem ipsum dolor sit amet,<br> Consectetur adipiscing
+									elit
+								</p>
+								<p>
+									Phone: +0 000 000 00 00<br> Fax: +0 000 000 00 00
+								</p>
+								<p>
+									Email: <a href="#">support@example.com</a>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Recent Tweets -->
+					<div class="col-xs-12 col-sm-3">
+						<div class="footer__item">
+							<h5 class="footer-item__title">
+								<span>AVEC DATA SCIENSE</span>
+							</h5>
+							<div class="footer-item__content">
+								<p><a href="#">Sobre</a></p>
+								<p><a href="#">Carreiras</a></p>
+								<p><a href="{% url 'privacy_statement' %}">Política de Privacidade</a></p>
+								<p><a href="{% url 'terms_conditions' %}">Termos e Condições Gerais</a></p>
+								<p><a href="#">Imprensa e Mídia</a></p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Recent Posts -->
+					<div class="col-xs-12 col-sm-3">
+						<div class="footer__item">
+							<h5 class="footer-item__title">
+								<span>SIGA NOS</span>
+							</h5>
+							<div class="footer-item__content">
+								<p><a href="#">Linkedln</a></p>
+								<p><a href="#">Facebook</a></p>
+								<p><a href="#">Twitter</a></p>
+								<p><a href="#">Instagram</a></p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Quick Links -->
+					<div class="col-xs-12 col-sm-3">
+						<div class="footer__item">
+							<h5 class="footer-item__title">
+								<span>LINKS RÁPIDOS</span>
+							</h5>
+							<div class="footer-item__content">
+								<ul class="footer__links">
+									<li><a href="#">Donec commodo turpis eget orci</a></li>
+									<li><a href="#">Lorem ipsum dolor sit amet</a></li>
+									<li><a href="#">Aenean rhoncus vel nisi sed</a></li>
+									<li><a href="#">Aenean accumsan volutpat libero</a></li>
+									<li><a href="#">Vestibulum lacinia erat massa</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
 				</div>
+				<!-- / .row -->
 			</div>
-			<div class="footer__social">
-				<ul>
-					<li><a href=""><img src="{% static 'img/post-twitter.svg' %}" class="footer__logo-img" /></a></li>
-					<li><a href=""><img src="{% static 'img/post-facebook.svg' %}" class="footer__logo-img" /></a></li>
-					<li><a href=""><img src="{% static 'img/post-linkedin.svg' %}" class="footer__logo-img" /></a></li>
-				</ul>
-				
+			<!-- / .container -->
+		</div>
+		<!-- / .footer_top -->
+
+		<!-- Footer Bottom -->
+		<div class="footer_bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-9">
+						<div class="footer__copyright">© Copyright 2017 <a href="http://www.avecdata.com">Avec Data Sciense</a>. All Rights Reserved. SCS Q 06, Bl A, Sala 403, Ed. Carioca » Asa Sul, Brasilia DF - Brasil</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<ul class="footer__social">
+							<li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li class="facebook"><a href="#"><i
+									class="fa fa-facebook"></i></a></li>
+							<li class="linkedin"><a href="#"><i
+									class="fa fa-linkedin"></i></a></li>
+							<li class="google-plus"><a href="#"><i
+									class="fa fa-google-plus"></i></a></li>
+							<li class="pinterest"><a href="#"><i
+									class="fa fa-pinterest"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- / .row -->
 			</div>
+			<!-- / .container -->
 		</div>
-	</div>
-</footer>
-<div class="row policy-footer">
-	<div class="container">
-		<div class="col-md-4">
-			<span>© AVEC - CIENCIA DE DADOS</span>
-		</div>
-		<div class="col-md-6 col-md-offset-2" style="text-align: right;">
-			<span>|</span>
-			<a href="{% url 'privacy_statement' %}" >Política de Privacidade</a>
-			<span>|</span>
-			<a href="{% url 'terms_conditions' %}" >Termos e Condições Gerais</a>
-			<span>|</span>
-		</div>
-	</div>
-</div>
+		<!-- / .footer_bottom -->
+	</footer>
