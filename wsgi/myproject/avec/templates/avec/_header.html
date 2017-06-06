@@ -3,7 +3,7 @@
 <header class="header">
   
   <div class="navbar navbar-default" role="navigation">
-		<div class="container">
+		<div class="container avec-container">
 			<div class="navbar-header">
 
 				<!-- Navbar toggle -->
@@ -26,106 +26,18 @@
 
 					<!-- General links -->
 				
-					<li class="dropdown"><a href="{% url 'assuntos' %}" class="dropdown-toggle" data-toggle="dropdown">Assuntos <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li class="dropdown-submenu"><a href="javascript:void(0);">Identificação</a>
-								<ul class="dropdown-menu">
-									<li><a href="blog_sidebar-right.html">População</a></li>
-									<li><a href="blog_sidebar-left.html">Sidebar Left</a></li>
-									<li><a href="blog_sidebar-no.html">No Sidebar</a></li>
-								</ul>
-							</li>
-							<li class="dropdown-submenu"><a href="javascript:void(0);">População</a>
-								<ul class="dropdown-menu">
-									<li><a href="blog_sidebar-right.html">População</a></li>
-									<li><a href="blog_sidebar-left.html">Sidebar Left</a></li>
-									<li><a href="blog_sidebar-no.html">No Sidebar</a></li>
-								</ul>
-							</li>
-							<li class="dropdown-submenu"><a href="javascript:void(0);">Dados Socioeconômicos</a>
-								<ul class="dropdown-menu">
-									<li><a href="blog_sidebar-right.html">População</a></li>
-									<li><a href="blog_sidebar-left.html">Sidebar Left</a></li>
-									<li><a href="blog_sidebar-no.html">No Sidebar</a></li>
-								</ul>
-							</li>
-							<li class="dropdown-submenu"><a href="javascript:void(0);">Saúde</a>
-								<ul class="dropdown-menu">
-									<li><a href="blog-post_sidebar-right.html">Orçamentos públicos em saúde</a></li>
-									<li><a href="blog-post_sidebar-left.html">Financiamento assistencial</a></li>
-									<li class="dropdown-submenu"><a href="javascript:void(0);">Indicadores de saúde e pactuações</a>
-										<ul class="dropdown-menu">
-											<li><a href="blog-post_sidebar-right.html">Orçamentos públicos em saúde</a></li>
-											<li><a href="blog-post_sidebar-left.html">Financiamento assistencial</a></li>
-										</ul>
-									</li>
-									<li><a href="blog-post_sidebar-left.html">Rede assistencial de saúde</a></li>
-									<li><a href="blog-post_sidebar-left.html">Imunização</a></li>
-									<li><a href="blog-post_sidebar-left.html">Morbidade hospitalar</a></li>
-									<li><a href="blog-post_sidebar-left.html">Atendimento ambulatorial</a></li>
-									<li><a href="blog-post_sidebar-left.html">Atenção Básica</a></li>
-									<li><a href="blog-post_sidebar-left.html">Doenças e agravos de notificação</a></li>
-								</ul>
-							</li>
-							<li class="dropdown-submenu"><a href="javascript:void(0);">Previdência Social</a>
-								<ul class="dropdown-menu">
-									<li><a href="blog_sidebar-right.html">População</a></li>
-									<li><a href="blog_sidebar-left.html">Sidebar Left</a></li>
-									<li><a href="blog_sidebar-no.html"></a></li>
-								</ul>
-							</li>
-							<li class="dropdown-submenu"><a href="javascript:void(0);">Bens de Consumo</a>
-								<ul class="dropdown-menu">
-									<li><a href="blog_sidebar-left.html">Sidebar Left</a></li>
-									<li><a href="blog_sidebar-no.html">No Sidebar</a></li>
-								</ul>
-							</li>
-							<li class="dropdown-submenu"><a href="javascript:void(0);">Violência</a>
-								<ul class="dropdown-menu">
-									<li><a href="blog_sidebar-left.html">Sidebar Left</a></li>
-								</ul>
-							</li>
-							<li class="dropdown-submenu"><a href="javascript:void(0);">Inclusão Social</a>
-								<ul class="dropdown-menu">
-									<li><a href="blog_sidebar-right.html">População</a></li>
-									<li><a href="blog_sidebar-left.html">Sidebar Left</a></li>
-									<li><a href="blog_sidebar-no.html"></a></li>
-								</ul>
-							</li>
-							<li class="dropdown-submenu"><a href="javascript:void(0);">Habitação</a>
-								<ul class="dropdown-menu">
-									<li><a href="blog_sidebar-left.html">Sidebar Left</a></li>
-								</ul>
-							</li>
-						</ul>
+					<li class="dropdown"><a href="{% url 'assuntos' %}" class="dropdown-toggle">Assuntos <i class="fa fa-angle-down"></i></a>
 					</li>
 					<li class="dropdown"><a href="{% url 'servicos' %}" class="dropdown-toggle"
-						data-toggle="dropdown">Produtos <b class="caret"></b></a>
+						data-toggle="dropdown">Produtos <i class="fa fa-angle-down"></i></a>
 						<ul class="dropdown-menu">
 							<li><a href="portfolio.html">Avec Data</a></li>
 							<li><a href="portfolio-item.html">Avec View</a></li>
 						</ul>
 					</li>
-					<li class="dropdown"><a href="{% url 'quemsomos' %}" class="dropdown-toggle" data-toggle="dropdown">Quem Somos <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li class="dropdown-submenu"><a href="javascript:void(0);">Recurso Humanos</a>
-								<ul class="dropdown-menu">
-								<li><a href="blog_sidebar-right.html">Área de Estatística</a></li>
-									<li><a href="blog_sidebar-right.html">Financeiro</a></li>
-									<li><a href="blog_sidebar-no.html">Projetos</a></li>
-									<li><a href="blog_sidebar-left.html">Tecnologia</a></li>
-								</ul>
-							</li>
-						</ul>
+					<li class="dropdown"><a href="{% url 'quemsomos' %}" class="dropdown-toggle">Quem Somos <i class="fa fa-angle-down"></i></a>
 					</li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Planos <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="index_shop.html">Free</a></li>
-							<li><a href="shop_category.html">Standard</a></li>
-							<li><a href="shop_product.html">Professional</a></li>
-							<li><a href="shop_checkout.html">Corporate</a></li>
-						</ul>
+					<li class="dropdown"><a href="/#plans" class="dropdown-toggle">Planos <i class="fa fa-angle-down"></i></a>
 					</li>
 					
 					<!-- Mega menu -->
@@ -154,8 +66,8 @@
 						</li>
 				  	{% endif%}
 
-					<li class="hidden-xs avec-menu-item">
-						<a class="btn btn-avec-primary" href="/#plans">ASSINAR</a>
+					<li class="hidden-xs avec-menu-item avec-menu-subscription">
+						<a class="btn-avec-primary" href="/#plans">ASSINAR</a>
 					</li>
 
 					<li class="hidden-xs avec-menu-item"><a

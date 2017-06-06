@@ -65,8 +65,11 @@ def index(request):
     themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     subject_detail = Subject_detail.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-    return render(request, 'avec/index.html', {'subject': subject, 'themes': themes, 'subject_detail' : subject_detail, 'posts' : posts})
+    
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date').reverse()[:3]
+    simpledashs = SimpleDashboard.objects.filter().order_by('-published_date').reverse()[:3]
+    panels = Paineis.objects.filter().order_by('-published_date').reverse()[:3]
+    return render(request, 'avec/index.html', {'subject': subject, 'themes': themes, 'subject_detail' : subject_detail, 'posts' : posts, 'simpledashs': simpledashs, 'panels': panels})
 
 def ciencia_tecnologia(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')

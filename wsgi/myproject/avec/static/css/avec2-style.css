@@ -8,7 +8,7 @@
     padding: 10px 16px !important;
     -webkit-border-radius: 10px;
     -khtml-border-radius: 10px;
-    border-radius: 26px;
+    border-radius: 30px;
 }
 
 a.avec-link-login {
@@ -28,7 +28,7 @@ a.avec-link-login:before {
 }
 
 .btn-avec-primary {
-  background-color: #a6b3c2;
+  background-color: #a6b3c2 !important;
   border-color: rgba(0, 0, 0, 0.1);
   color: #f1f1f1 !important;
   -webkit-transition: all .05s linear;
@@ -41,20 +41,22 @@ a.avec-link-login:before {
   border-color: rgba(0, 0, 0, 0.15);
   color: white;
 }
+
 .btn-avec-primary:focus,
 .btn-avec-primary.focus,
 .btn-avec-primary:active,
-.btn-avec-primary:active:hover,
+.btn-avec-success:active:hover,
 .btn-avec-primary:active:focus,
 .btn-avec-primary.active,
 .btn-avec-primary.active:hover,
 .btn-avec-primary.active:focus {
   background: #91979e;
-  border-color: rgba(0, 0, 0, 0.125);
+  border-color: rgba(0, 0, 0, 0.15);
   -webkit-box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.125);
           box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.125);
   outline: none;
 }
+
 
 .btn-avec-success {
   background-color: #40c0cf !important;
@@ -70,6 +72,7 @@ a.avec-link-login:before {
   border-color: rgba(0, 0, 0, 0.15);
   color: white;
 }
+
 .btn-avec-success:focus,
 .btn-avec-success.focus,
 .btn-avec-success:active,
@@ -173,15 +176,34 @@ h1.avec-home-app:after {
 }
 
 .avec-relevant-data-row .index-3-features-2__heading {
+	width: 290px;
 	font-size: 18px;
+	margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 27px;
 }
 
 .avec-relevant-data-row .index-3-features-2__icon {
 	background-color: #61788e;
+	vertical-align: top;
+}
+
+.avec-icon-chart {
+	min-height: 100px;
+}
+
+.btn-avec-secundary {
+	width: 100px;
 }
 
 .avec-icon-pie-chart {
 	background-color: #3dc1d0 !important;
+	vertical-align: top;
+}
+
+.avec-icon-area-chart {
+	background-color: #999999 !important;
+	vertical-align: top;
 }
 
 .index-3-features-2__content {
@@ -189,10 +211,7 @@ h1.avec-home-app:after {
 }
 
 .price-table-item {
-	width: 267px;
 	background-color: #dde6ee;
-	
-	
 }
 
 .price-table-item .home-app-pricing__item {
@@ -300,13 +319,101 @@ h1.avec-home-app:after {
 	font-size: 44px;
 }
 
+.avec-container {
+	position: fixed !important;
+	background-color: #fff;
+	opacity: 0.9;
+}
+
+.section_centered .row {
+	height: 20%;
+}
 
 @media (max-width: 768px) {
 	h1.avec-title-home-app {
 	    font-size: 32px;
 	}
 	
-	.home-app__pricing .row > div[class*="col-"] {
+	/* .home-app__pricing .row > div[class*="col-"] {
 	    margin: 0px auto;
+	} */
+}
+
+@media screen and (min-width: 1600px) {
+	.navbar > .avec-container {
+		width: 100%;
+		padding: 0px 400px;
+	}
+	
+	.price-table-item {
+		width: 267px;
+	}
+}
+
+@media screen and (max-width: 1600px) {
+	.navbar > .avec-container {
+		width: 100%;
+		padding: 0px 244px;
+	}
+	
+	.home-app__pricing .row > .price-table-item {
+		width: 267px;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.navbar > .avec-container {
+		width: 100%;
+		padding: 0px 70px;
+	}
+	
+	.price-table-item {
+		width: 329px;
+		margin: 10px 96px;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.navbar > .avec-container {
+		width: 100%;
+		padding: 0px 50px;
+	}
+	
+	.home-app__pricing .row > .price-table-item {
+		width: 329px;
+    	margin: 10px 23px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.navbar > .avec-container {
+		padding: 0px;
+	}
+	
+	.navbar-nav > li.avec-menu-subscription {
+		display: none; 
+	}
+	
+	.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+	    margin-left: 5px;
+	}
+	
+	.home-app__pricing .row > .price-table-item {
+		width: 329px;
+    	margin: 10px 23px;
+	}
+}
+
+@media screen and (max-width: 420px) {
+	.navbar > .avec-container {
+		padding: 0px 15px;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	
+	.home-app__pricing .row > .price-table-item {
+		width: 267px;
+		margin: 10px 27px;
 	}
 }
