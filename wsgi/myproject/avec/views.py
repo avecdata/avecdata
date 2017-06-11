@@ -198,7 +198,8 @@ def servicos(request):
     return render(request, 'avec/servicos.html')
 
 def quemsomos(request):
-    return render(request, 'avec/quemsomos.html')    
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    return render(request, 'avec/quemsomos.html', {'themes': themes})    
 
 def dashboard(request):
 	dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()

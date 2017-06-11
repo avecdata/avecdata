@@ -6,8 +6,8 @@
 .btn-avec-success {
 	margin: 16px 0px;
     padding: 10px 16px !important;
-    -webkit-border-radius: 10px;
-    -khtml-border-radius: 10px;
+    -webkit-border-radius: 30px;
+    -khtml-border-radius: 30px;
     border-radius: 30px;
 }
 
@@ -20,6 +20,13 @@ a.avec-link-login:hover {
 	color: #333333 !important;
 }
 
+a.btn-avec-vagas {
+	font-size: 18px;
+	padding: 16px 40px;
+	-webkit-border-radius: 30px;
+	-khtml-border-radius: 30px;
+	border-radius: 30px;
+}
 
 a.btn-avec-primary:before,
 a.btn-avec-success:before,
@@ -89,6 +96,7 @@ a.avec-link-login:before {
 }
 
 .avec-menu-item {
+	text-align:center;
 	margin: 0px 20px 0px 0px;
 }
 
@@ -323,10 +331,47 @@ h1.avec-home-app:after {
 	position: fixed !important;
 	background-color: #fff;
 	opacity: 0.9;
+	padding: 0px
 }
 
 .section_centered .row {
 	height: 20%;
+}
+
+.home-app__container > .section:first-child {
+    margin-top: -15px;
+}
+
+.avec-navbar-left {
+	width: 337px;
+	float: left;
+}
+
+.avec-navbar-right {
+	width: 337px;
+	float: right;
+}
+
+.avec-menu-nav-right {
+	width: 418px;
+    float: none !important;
+    margin: 0px auto;
+}
+
+.avec-navbar-center {
+	width: 64%;
+	display: inline-block;
+	float: none;
+}
+
+.item-assuntos {
+	width: 100%;
+}
+
+.investidores-img {
+	width: 300px;
+	height: 300px;
+	margin: 0px 26px;
 }
 
 @media (max-width: 768px) {
@@ -339,60 +384,82 @@ h1.avec-home-app:after {
 	} */
 }
 
+
 @media screen and (min-width: 1600px) {
 	.navbar > .avec-container {
 		width: 100%;
-		padding: 0px 400px;
-	}
-	
-	.price-table-item {
-		width: 267px;
-	}
-}
-
-@media screen and (max-width: 1600px) {
-	.navbar > .avec-container {
-		width: 100%;
-		padding: 0px 244px;
+		/* padding: 0px 244px; */
 	}
 	
 	.home-app__pricing .row > .price-table-item {
 		width: 267px;
 	}
-}
-
-@media screen and (max-width: 1200px) {
+	
 	.navbar > .avec-container {
 		width: 100%;
-		padding: 0px 70px;
+		/* padding: 0px 400px; */
+	}
+	
+	.price-table-item {
+		width: 267px;
+	}
+	/* 
+	.avec-menu-plains {
+		width: 62%;
+	} */
+	
+	.avec-navbar-center {
+		width: 64%;
+	}
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+	
+	.navbar > .avec-container {
+		width: 100%;
+		padding: 0px 5px;
 	}
 	
 	.price-table-item {
 		width: 329px;
 		margin: 10px 96px;
 	}
+	
+	.avec-navbar-center {
+		width: 48%;
+	}
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (min-width: 992px) and (max-width: 1199px) {
 	.navbar > .avec-container {
 		width: 100%;
-		padding: 0px 50px;
+		padding: 0px 15px;
 	}
 	
 	.home-app__pricing .row > .price-table-item {
 		width: 329px;
     	margin: 10px 23px;
 	}
+	
+	.avec-navbar-center {
+		width: 42%;
+	}
+	
+	.avec-navbar-left {
+	    width: 237px;
+	}
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 991px) {
+	
 	.navbar > .avec-container {
+		width: 96%;
 		padding: 0px;
 	}
 	
-	.navbar-nav > li.avec-menu-subscription {
+	/* .navbar-nav > li.avec-menu-subscription {
 		display: none; 
-	}
+	} */
 	
 	.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
 	    margin-left: 5px;
@@ -402,11 +469,42 @@ h1.avec-home-app:after {
 		width: 329px;
     	margin: 10px 23px;
 	}
+	
+	.avec-navbar-center {
+		width: 48%;
+	}
+	
+	.avec-navbar-left {
+	    width: 125px;
+	}
+	
+	.avec-navbar-right {
+	    width: 200px;
+	}
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (min-width: 321px) and (max-width: 420px) {
 	.navbar > .avec-container {
-		padding: 0px 15px;
+		width: 100%;
+		padding: 0px 0px;
+	}
+	
+	.avec-navbar-left {
+	    width: 100%;
+	    float: none;
+	    margin-left: -5px !important;
+	}
+	
+	.avec-navbar-center li.dropdown {
+		width: 100%;
+	}
+	
+	.avec-navbar-center li.avec-menu-item {
+		width: 100%;
+	}
+	
+	.avec-navbar-center li.dropdown a {
+		text-align: center;
 	}
 }
 
@@ -415,5 +513,27 @@ h1.avec-home-app:after {
 	.home-app__pricing .row > .price-table-item {
 		width: 267px;
 		margin: 10px 27px;
+	}
+	
+	.navbar > .avec-container {
+		width: 100%;
+	}
+	
+	.avec-navbar-left {
+	    width: 100%;
+	    float: none;
+	    margin-left: -5px !important;
+	}
+	
+	.avec-navbar-center li.dropdown {
+		width: 320px;
+	}
+	
+	.avec-navbar-center li.avec-menu-item {
+		width: 320px;
+	}
+	
+	.avec-navbar-center li.dropdown a {
+		text-align: center;
 	}
 }

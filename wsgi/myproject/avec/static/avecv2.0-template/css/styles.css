@@ -5,7 +5,7 @@
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: sans-serif;
+  font-family: 'Lato', sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -1078,12 +1078,19 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 13px;
   line-height: 1.42857143;
   color: #333333;
   background-color: white;
 }
+
+.avec-quemsomos-title {
+	font-family: 'Lato-Light', sans-serif;
+	font-weight: normal;
+	font-size: 36px;
+}
+
 input,
 button,
 select,
@@ -8837,6 +8844,11 @@ footer:before {
   background-image: url(../img/home_8.jpg);
   margin-top: -18px;
 }
+
+.container-quemsomos > .section:first-child {
+    background-image: url(../img/home_9.jpg);
+}
+
 .home-app__container > .section:first-child::before {
   content: "";
   position: absolute;

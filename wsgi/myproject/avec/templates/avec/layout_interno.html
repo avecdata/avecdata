@@ -12,16 +12,23 @@
     <!--[if lt IE 9]> <script src="js/html5shiv.js"></script>
   	<script src="js/respond.min.js"></script> <![endif]-->
     <!-- Place favicon.ico in the root directory -->
-  	<!-- <link rel="icon" type="image/png" href="search.png"> -->
-  	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'min/stylesheets/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/jquery-confirm.min.css' %}">  
+    
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+    
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Lato:400,700'>
+	<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Questrial'>
+  	
+  	<link rel="stylesheet" href="{% static 'css/jquery-confirm.min.css' %}">
+    <link rel="stylesheet" href="{% static 'avecv2.0-template/plugins/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'avecv2.0-template/plugins/animate/animate.css' %}">
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
+    <link rel="stylesheet" href="{% static 'avecv2.0-template/css/styles.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/avec.style.css' %}">
     <link rel="stylesheet" type="text/css" id="jimdo_layout_css" href="{% static 'css/quemsomos.css' %}" />
-    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
-<style>
+    <link rel="stylesheet" href="{% static 'css/avec2-style.css' %}">
+<!-- <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,600,700');
-</style>	  
+</style> -->	  
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -44,13 +51,14 @@
     <!-- Start Header Section -->
     {% include "avec/_footer.html" %}
     <!-- End Header -->
-    <script src="{% static 'min/javascript/app.js' %}"></script>
+    <!-- <script src="{% static 'min/javascript/app.js' %}"></script> -->
 	<script type="text/javascript" src="{% static 'js/jquery.autocomplete.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/jquery-confirm.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/jquery.maskedinput.js' %}"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script>
-	<script type="text/javascript" src="{% static 'js/avec.script.js' %}"></script>
+	<script src="{% static 'js/avec.script.js' %}"></script>
+	<script src="{% static 'avecv2.0-template/js/custom.js' %}"></script>
 	
 
   </body>
