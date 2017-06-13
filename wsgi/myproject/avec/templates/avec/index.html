@@ -57,31 +57,31 @@
 				<div class="col-sm-2">
 					<div class="shop-index-features__item">
 						<img src="{% static 'img/brands/logo-ibge.svg' %}" alt="IBGE" />
-						<h4 class="shop-index-features__heading">IBGE</h4>
+						<!-- <h4 class="shop-index-features__heading">IBGE</h4> -->
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="shop-index-features__item">
 						<img src="{% static 'img/brands/logo-onu.svg' %}" alt="ONU" />
-						<h4 class="shop-index-features__heading">ONU</h4>
+						<!-- <h4 class="shop-index-features__heading">ONU</h4> -->
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="shop-index-features__item">
 						<img src="{% static 'img/brands/logo-fiesp.svg' %}" alt="FIESP" />
-						<h4 class="shop-index-features__heading">FIESP</h4>
+						<!-- <h4 class="shop-index-features__heading">FIESP</h4> -->
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="shop-index-features__item">
 						<img src="{% static 'img/brands/logo-cnpq.svg' %}" alt="CNPQ" />
-						<h4 class="shop-index-features__heading">CNPQ</h4>
+						<!-- <h4 class="shop-index-features__heading">CNPQ</h4> -->
 					</div>
 				</div>
 				<div class="col-sm-2">
 					<div class="shop-index-features__item">
 						<img src="{% static 'img/brands/logo-minis-saude.svg' %}" alt="Ministério da Saúde" />
-						<h4 class="shop-index-features__heading">Ministério da Saúde</h4>
+						<!-- <h4 class="shop-index-features__heading">Ministério da Saúde</h4> -->
 					</div>
 				</div>
 				<div class="col-sm-1"></div>
@@ -140,10 +140,7 @@
         <!-- Heading -->
         <div class="row">
           <div class="col-sm-12">
-            
-            <h1 class="avec-home-app text-center">Os dados mais relevantes do momento</h1>
-            
-
+            <h1 class="avec-home-app avec-title-home-app  text-center">Os dados mais relevantes do momento</h1>
           </div>
         </div> <!-- / .row -->
         <div class="row avec-relevant-data-row">
@@ -152,6 +149,7 @@
           
 	          {% for post in posts %}
 	          <div class="index-3-features-2__item avec-icon-chart">
+	          	  <a href="#" class="avec-icon-link">
 	              <div class="index-3-features-2__icon">
 	                <i class="fa fa-th-list"></i>
 	              </div>
@@ -161,6 +159,7 @@
 	              <div class="index-3-features-2__content">
 	                {{ post.text }}
 	              </div>
+	              </a>
 	          </div>
 	          {% endfor %}
           </div>
@@ -168,7 +167,8 @@
           
           	{% for simpledash in simpledashs %}
 	          <div class="index-3-features-2__item avec-icon-chart">
-	              <div class="index-3-features-2__icon avec-icon-pie-chart">
+	          	  <a href="#" class="avec-icon-link">
+	              <div class="index-3-features-2__icon">
 	                <i class="fa fa-pie-chart"></i>
 	              </div>
 	              <h4 class="index-3-features-2__heading">
@@ -177,6 +177,7 @@
 	              <div class="index-3-features-2__content">
 	                {{ simpledash.subject_detail.title }}
 	              </div>
+	              </a>
 	           </div>
 	        {% endfor %}
 
@@ -185,7 +186,8 @@
           
           	{% for panel in panels %}
           	<div class="index-3-features-2__item avec-icon-chart">
-              <div class="index-3-features-2__icon avec-icon-area-chart">
+          	  <a href="#" class="avec-icon-link">
+              <div class="index-3-features-2__icon">
                 <i class="fa fa-area-chart"></i>
               </div>
               <h4 class="index-3-features-2__heading">
@@ -194,6 +196,7 @@
               <div class="index-3-features-2__content">
                 {{ panel.subject_detail.title  }}
               </div>
+              </a>
             </div>
           	{% endfor %}
 
@@ -201,125 +204,134 @@
         </div> <!-- / .row -->
       </div> <!-- / .container -->
     </section>
-    
-    <div class="section" id="plans">
-			<div class="section__inner">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-12">
-							<h1 class="avec-home-app text-center">Um plano feito sob medida pra você</h1>
-						</div>
+
+	<div class="section" id="plans">
+		<div class="section__inner">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<h1 class="avec-home-app text-center">Um plano feito sob
+							medida para você</h1>
 					</div>
-					<!-- / .row -->
-					<div class="row">
-						<div class="col-sm-12">
-
-							<div class="home-app__pricing">
-								<div class="row">
-
-									<div class="col-xs-6 col-md-3 price-table-item">
-										<div class="home-app-pricing__item">
-											<div class="home-app-pricing__title">Free</div>
-											<div class="home-app-pricing__price">
-												Grátis
-											</div>
-											<div class="home-app-pricing__content">Infográficos Estatísticos</div>
-											
-											<div class="home-app-pricing__extra plans__item--no-selected">Painéis Interativos</div>
-											<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
-											<a {% if request.user|has_group:1 or request.user|has_group:2 or request.user|has_group:3 %} href="javascript:void(0)" disabled="disabled"{% else %} href="{% url 'accounts:register' %}" {% endif %} class="btn btn-default">Cadastre-se Grátis</a>
-										</div>
-									</div>
-
-									<div class="col-xs-6 col-md-3 price-table-item">
-										<div class="home-app-pricing__item">
-											<div class="home-app-pricing__title">Standard</div>
-											<div class="home-app-pricing__price">
-												<span>R$</span>30<span>/mês</span>
-											</div>
-											<div class="home-app-pricing__content">Infográficos Estatísticos</div>
-											<div class="home-app-pricing__extra">Painéis Interativos</div>
-											<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
-											{% if request.user.id %}
-								            	{% if request.user|has_group:2 or request.user|has_group:3 or request.user|has_group:5 %}
-									            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Adquira</a>
-									            {% else %}
-									            	<form action="{% url 'accounts:update_subscription' %}" method="post">
-								               			{% csrf_token %}
-								               			<input type="hidden" name="user_id" value="{{ request.user.id }}">
-								               			<input type="hidden" name="plan_id" value="5">
-								               			<button type="submit" class="btn btn-default"><i class="fa fa-pie-chart"></i> Atualizar agora</button>
-								               		</form>
-									            {% endif %}
-									        {% else %}
-									        	<a href="{% url 'accounts:register_standard_plan' %}" class="btn btn-secondary btn-avec-secundary" >Adquira</a>
-									        {% endif %}
-										</div>
-									</div>
-									<div class="col-xs-6 col-md-3 price-table-item">
-										<div class="index-3-features-2__icon avec-icon-bg-bolt">
-											<i class="fa fa-bolt"></i>
-										</div>
-										<div class="index-3-features-2__icon avec-icon-bolt" title="O mais popular" data-toggle="tooltip" data-placement="top"  >
-											<i class="fa fa-bolt"></i>
-										</div>
-										<div class="home-app-pricing__item">
-											<div class="home-app-pricing__title">Professional</div>
-											<div class="home-app-pricing__price">
-												<span>R$</span>80<span>/mês</span>
-											</div>
-											<div class="home-app-pricing__content">Infográficos Estatísticos</div>
-											<div class="home-app-pricing__extra">Painéis Interativos</div>
-											<div class="home-app-pricing__extra home-app-pricing__bottom_extra">Download PDF, JPEG, PNG, CSV e XLSX</div>
-											{% if request.user.id %}
-								            	{% if request.user|has_group:2 or request.user|has_group:3 %}
-									            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Adquira</a>
-									            {% else %}
-									            	<form action="{% url 'accounts:update_subscription' %}" method="post">
-								               			{% csrf_token %}
-								               			<input type="hidden" name="user_id" value="{{ request.user.id }}">
-								               			<input type="hidden" name="plan_id" value="2">
-								               			<button type="submit" class="btn btn-default"><i class="fa fa-graduation-cap"></i> Atualizar agora</button>
-								               		</form>
-									            {% endif %}
-									        {% else %}
-									        	<a href="{% url 'accounts:register_professional_plan' %}" class="btn btn-secondary btn-avec-secundary" >Adquira</a>
-									        {% endif %}
-										</div>
-									</div>
-									<div class="col-xs-6 col-md-3 price-table-item">
-										<div class="home-app-pricing__item">
-											<div class="home-app-pricing__title">Enterprise</div>
-											<div class="home-app-pricing__price">
-												<i class="fa fa-pencil" style="font-size: 40px;"></i>
-											</div>
-											<div class="home-app-pricing__extra" style="margin-bottom: 64px;">Construa seu próprio ambiente de visualização, integrando bases próprias com nossas bases setoriais.</div>
-											{% if request.user.id %}
-								            	{% if request.user|has_group:3 %}
-									            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Assine agora</a>
-									            {% else %}
-								               		<a href="{% url 'contact' %}" class="btn btn-default" >Entre em contato </a>
-									            {% endif %}
-									        {% else %}
-									        	<a href="{% url 'contact' %}" class="btn btn-default" >Entre em contato </a>
-									        {% endif %}
-										</div>
-									</div>
-
-								</div>
-								<!-- / .row -->
-							</div>
-							<!-- / .home-app__pricing -->
-
-						</div>
-					</div>
-					<!-- / .row -->
 				</div>
-				<!-- / .container -->
-			</div>
-			<!-- / .section__inner -->
-		</div>
-		<!-- / .section -->
+				<!-- / .row -->
+				<div class="row">
+					<div class="col-sm-6 col-md-3">
 
+						<div class="pricing-option">
+							<div class="pricing-option__inner">
+								<div class="home-app-pricing__title avec-pricing-title">Free</div>
+								<div class="home-app-pricing__price">
+									Grátis
+								</div>
+								<div class="pricing-option__body">
+									<div class="home-app-pricing__content">Infográficos Estatísticos</div>
+									<div class="home-app-pricing__extra plans__item--no-selected">Painéis Interativos</div>
+									<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
+									<a {% if request.user|has_group:1 or request.user|has_group:2 or request.user|has_group:3 %} href="javascript:void(0)" disabled="disabled"{% else %} href="{% url 'accounts:register' %}" {% endif %} class="btn btn-default">Cadastre-se Grátis</a>
+								</div>
+							</div>
+						</div>
+						<!-- / .pricing-option -->
+
+					</div>
+					<div class="col-sm-6 col-md-3">
+
+						<div class="pricing-option">
+							<div class="pricing-option__inner">
+								<div class="home-app-pricing__title avec-pricing-title">Standard</div>
+								<div class="home-app-pricing__price">
+									<span>R$</span>30<span>/mês</span>
+								</div>
+								<div class="pricing-option__body">
+									<div class="home-app-pricing__content">Infográficos Estatísticos</div>
+									<div class="home-app-pricing__extra">Painéis Interativos</div>
+									<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
+									{% if request.user.id %}
+						            	{% if request.user|has_group:2 or request.user|has_group:3 or request.user|has_group:5 %}
+							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Adquira</a>
+							            {% else %}
+							            	<form action="{% url 'accounts:update_subscription' %}" method="post">
+						               			{% csrf_token %}
+						               			<input type="hidden" name="user_id" value="{{ request.user.id }}">
+						               			<input type="hidden" name="plan_id" value="5">
+						               			<button type="submit" class="btn btn-default"><i class="fa fa-pie-chart"></i> Atualizar agora</button>
+						               		</form>
+							            {% endif %}
+							        {% else %}
+							        	<a href="{% url 'accounts:register_standard_plan' %}" class="btn btn-secondary btn-avec-secundary" >Adquira</a>
+							        {% endif %}
+								</div>
+							</div>
+						</div>
+						<!-- / .pricing-option -->
+
+					</div>
+					<div class="clearfix visible-sm"></div>
+					<div class="col-sm-6 col-md-3">
+
+						<div class="pricing-option pricing-option_popular">
+							<div class="pricing-option__inner">
+								<div class="home-app-pricing__title avec-pricing-title">Professional</div>
+								<div class="home-app-pricing__price">
+									<span>R$</span>80<span>/mês</span>
+								</div>
+								<div class="pricing-option__body">
+									<div class="home-app-pricing__content">Infográficos Estatísticos</div>
+									<div class="home-app-pricing__extra">Painéis Interativos</div>
+									<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
+									{% if request.user.id %}
+						            	{% if request.user|has_group:2 or request.user|has_group:3 or request.user|has_group:5 %}
+							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Adquira</a>
+							            {% else %}
+							            	<form action="{% url 'accounts:update_subscription' %}" method="post">
+						               			{% csrf_token %}
+						               			<input type="hidden" name="user_id" value="{{ request.user.id }}">
+						               			<input type="hidden" name="plan_id" value="5">
+						               			<button type="submit" class="btn btn-default"><i class="fa fa-pie-chart"></i> Atualizar agora</button>
+						               		</form>
+							            {% endif %}
+							        {% else %}
+							        	<a href="{% url 'accounts:register_standard_plan' %}" class="btn btn-secondary btn-avec-secundary" >Adquira</a>
+							        {% endif %}
+								</div>
+							</div>
+						</div>
+						<!-- / .pricing-option -->
+
+					</div>
+					<div class="col-sm-6 col-md-3">
+
+						<div class="pricing-option">
+							<div class="pricing-option__inner">
+								<div class="home-app-pricing__title avec-pricing-title">Enterprise</div>
+								<div class="home-app-pricing__price">
+									<i class="fa fa-pencil" style="font-size: 40px;"></i>
+								</div>
+								<div class="pricing-option__body">
+									<div class="home-app-pricing__extra" style="margin-bottom: 64px;">Construa seu próprio ambiente de visualização, integrando bases próprias com nossas bases setoriais.</div>
+									{% if request.user.id %}
+						            	{% if request.user|has_group:3 %}
+							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Assine agora</a>
+							            {% else %}
+						               		<a href="{% url 'contact' %}" class="btn btn-default" >Entre em contato </a>
+							            {% endif %}
+							        {% else %}
+							        	<a href="{% url 'contact' %}" class="btn btn-default" >Entre em contato </a>
+							        {% endif %}
+								</div>
+							</div>
+						</div>
+						<!-- / .pricing-option -->
+
+					</div>
+				</div>
+				<!-- / .row -->
+			</div>
+			<!-- / .container -->
+		</div>
+		<!-- / .section__inner -->
 	</div>
+
+</div>
 {% endblock %}

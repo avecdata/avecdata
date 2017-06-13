@@ -1087,7 +1087,7 @@ body {
 
 .avec-quemsomos-title {
 	font-family: 'Lato-Light', sans-serif;
-	font-weight: normal;
+	/* font-weight: 100; */
 	font-size: 36px;
 }
 

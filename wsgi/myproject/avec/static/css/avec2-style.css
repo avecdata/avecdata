@@ -2,6 +2,22 @@
     padding: 22.5px 15px;
 }
 
+.navbar > .avec-container {
+   box-shadow: 0px 0px 8px 2px #909090;
+}
+
+.avec-pricing-title {
+	padding-top: 40px;
+}
+
+.pricing-option_popular::before {
+    border-left: 60px solid rgba(61, 193, 208, 1);
+}
+
+.shop-index__heading {
+    font-family: 'Lato-Regular', sans-serif;
+}
+
 .btn-avec-primary,
 .btn-avec-success {
 	margin: 16px 0px;
@@ -146,11 +162,11 @@ h1.avec-home-app:after {
 }
 
 .interest_area h2 {
-	color: #8291aa;
+	color: #a7b4c3;
 }
 
 .interest_area h4 {
-	color: #8291aa;
+	color: #a7b4c3;
 }
 .avec-ft-list {
 	padding-top: 30px;
@@ -191,9 +207,46 @@ h1.avec-home-app:after {
     line-height: 27px;
 }
 
-.avec-relevant-data-row .index-3-features-2__icon {
+.avec-relevant-data-row a.avec-icon-link .index-3-features-2__icon {
 	background-color: #61788e;
 	vertical-align: top;
+}
+
+.avec-relevant-data-row a.avec-icon-link h4.index-3-features-2__heading {
+	color: #61788e;
+}
+
+.avec-relevant-data-row a.avec-icon-link h4.index-3-features-2__heading:hover {
+	color: #3dc1d0 !important;
+	text-decoration: none;
+}
+
+.avec-relevant-data-row a.avec-icon-link div.index-3-features-2__content {
+	color: #61788e;
+	text-decoration: none !important;
+}
+
+.avec-relevant-data-row a.avec-icon-link:hover {
+	text-decoration: none;
+}
+
+.avec-relevant-data-row a.avec-icon-link div.index-3-features-2__content:hover {
+	color: #3dc1d0 !important;
+	text-decoration: none;
+	text-decoration-style: none;
+}
+
+.pricing-option, .pricing-option__inner {
+	border-radius: 4px;
+}
+
+.index-3-features-2__icon:hover {
+	text-decoration: none;
+}
+
+.index-3-features-2__content span {
+	text-decoration: none;
+	text-decoration-style: none;
 }
 
 .avec-icon-chart {
@@ -204,8 +257,11 @@ h1.avec-home-app:after {
 	width: 100px;
 }
 
-.avec-icon-pie-chart {
+.avec-relevant-data-row .index-3-features-2__icon:hover {
 	background-color: #3dc1d0 !important;
+}
+
+.avec-icon-pie-chart {
 	vertical-align: top;
 }
 
@@ -289,6 +345,7 @@ h1.avec-home-app:after {
 
 .plans__item--no-selected {
 	color: #dde6ee;
+	text-decoration: line-through;
 }
 
 .footer__item span {
@@ -374,6 +431,38 @@ h1.avec-home-app:after {
 	margin: 0px 26px;
 }
 
+footer {
+    background-color: #f7fafe;
+}
+
+.avec-linkedin img.avec-center-block:hover {
+	opacity: 0.2;
+	cursor: pointer;
+}
+
+.avec-linkedin i {
+	width: 100%;
+	position: absolute;
+	padding: 50% 0px;
+    color: #a7b4c4;
+    left: 0;
+    visibility: hidden;
+}
+
+.avec-linkedin i span {
+	font-family: 'Lato', sans-serif;
+}
+
+.avec-linkedin:hover i {
+	visibility: visible;
+}
+
+.avec-icon-quemsomos {
+	font-size: 46px;
+	color: #3dc1d0;
+	display: block;
+}
+
 @media (max-width: 768px) {
 	h1.avec-title-home-app {
 	    font-size: 32px;
@@ -382,6 +471,13 @@ h1.avec-home-app:after {
 	/* .home-app__pricing .row > div[class*="col-"] {
 	    margin: 0px auto;
 	} */
+}
+
+@media (min-width: 768px) {
+	
+	.navbar-nav > li > .dropdown-menu:before, .dropdown-submenu > .dropdown-menu:before {
+	    border-top: none;
+	}
 }
 
 
