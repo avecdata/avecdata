@@ -2,7 +2,175 @@
 {% load staticfiles %}
 {% block content %}
 
+<style>
+a:hover {
+     text-decoration: none;!important;
+}
 
+.home-features-item__content > h4 > a{
+    color: #3e4c5b;!important;
+	font-family: Lato;
+	font-size: 20px;
+	letter-spacing: -0.7px;
+	text-align: center;
+	color: #3e4c5b;
+}
+
+.home-features-item__content p {
+	font-family: Lato;
+	font-size: 13px;
+	color: #8091a4;
+}
+
+.home-features__item .fa {
+    background: #61788e;
+}
+
+.topic .avec-h3 {
+    font-size: 18px;
+	color: #3e4c5b;
+}
+
+.breadcrumb > .avec-active {
+    color: #a7b4c3;
+}
+
+.panel-default > .panel-heading {
+	color: #3e4c5b;!important;
+}
+</style>
+
+    <!-- TOPIC HEADER
+    ================================================== -->
+    <div class="topic">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h3 class="avec-h3">{{mysubject.title}}</h3>
+          </div>
+          <div class="col-sm-8">
+            <ol class="breadcrumb pull-right hidden-xs">
+              <li><a href="index.html">Home</a></li>
+              <li class="avec-active">Assuntos</li>
+            </ol>
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
+    </div> <!-- / .topic -->
+
+
+    <!-- MAIN CONTENT
+    ================================================== -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+
+          <!-- Search -->
+          <form>
+            <div class="well">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Procure aqui...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </span>
+                  </div><!-- / .input-group -->
+                </div>
+              </div><!-- /.row -->
+            </div>
+          </form>
+
+          <!-- Categories -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Sub assuntos
+            </div>
+            <div class="panel-body">
+              <ul>
+				{% for sub in mysubdetail %}
+					<li><a href="{% url 'subsubject_detail'  pk=sub.pk %}">{{sub.title}}</a></li>
+				{% endfor %}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div class="section">
+            <p class="blog-tags">
+			{% for key in mykeywords %}
+				<a href="{% url 'keywords_detail' pk=key.pk %}">{{key.title}}</a>
+			{% endfor %}
+            </p>
+          </div>
+
+        </div>
+        <div class="col-sm-9">
+
+
+		<div class="row">
+        <div class="col-sm-12">
+
+          <h3 class="headline">
+            <span>Painéis</span>
+          </h3>
+
+
+        </div>
+        </div> <!-- / .row -->
+        <div class="row">
+
+		{% for dash in simpledash %}
+          <div class="col-sm-4">
+
+            <div class="home-features__item">
+              <i class="fa fa-area-chart"></i>
+              <div class="home-features-item__content">
+                <h4><a href="{% url 'simpleDash_detail' pk=dash.pk %}">{{ dash.title }}</a></h4>
+                <p>{{ dash.text }}</p>
+              </div>
+            </div>
+
+          </div>
+		{% endfor %}
+
+        </div> <!-- / .row -->
+		<div class="row">
+        <div class="col-sm-12">
+
+          <h3 class="headline">
+            <span>Infograficos</span>
+          </h3>
+
+
+        </div>
+        </div> <!-- / .row -->
+        <div class="row">
+
+		{% for post in posts %}
+          <div class="col-sm-4">
+
+            <div class="home-features__item">
+              <i class="fa fa-bar-chart"></i>
+              <div class="home-features-item__content">
+                <h4><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
+                <p>{{ post.text|linebreaksbr }}</p>
+              </div>
+            </div>
+
+          </div>
+		{% endfor %}
+
+        </div> <!-- / .row -->
+
+        </div>
+      </div> <!-- / .row -->
+    </div> <!-- / .container -->
+
+
+<!--
 
         <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
@@ -11,38 +179,33 @@
         <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-		<link rel="stylesheet" href="{% static 'min/stylesheets/style.css' %}">		
-		<link rel="stylesheet" href="{% static 'css/avec.style.css' %}">		
+		<link rel="stylesheet" href="{% static 'min/stylesheets/style.css' %}">
+		<link rel="stylesheet" href="{% static 'css/avec.style.css' %}">
 
-	
+
 <div class="row">
 			<div class="title_sec">
 				    <div class="internal__row">
 						<h1 class="internal__title">{{mysubject.title}}</h1>
 					</div>
-			</div>		
+			</div>
 			<div class="col-sm-8 ">
-			
-				<div class="sngl_blg">						
-					<!--<img src="http://cdn.shopify.com/s/files/1/1039/5466/files/blog-img2.jpg?10828543012475550494" alt=""/>
-					<div class="post_info">
-						<div class="post_intro">
-							<i class="fa fa-heartbeat"></i>									
-						</div>
-					</div>-->
+
+				<div class="sngl_blg">
+
 					<div class="post_content">
 						<p align=justify>{{mysubject.text|linebreaks}}
 						</p>
 					</div>
 				</div>
-				
-				<div class="author_info" style="width: 83.33333%;">				
+
+				<div class="author_info" style="width: 83.33333%;">
 				<div class="row" >
 					<div class="col-sm-12" >
-						Painéis recentes						
+						Painéis recentes
 					</div>
-				</div>				
-				<!---->
+				</div>
+
 					{% if not dashboards %}
 						{% if not simpledash %}
 							{% if not paineis %}
@@ -66,14 +229,13 @@
 								<div class="col-sm-10">
 								<div class="author_dec">
 									<a href="{% url dash.url dash.pk %}">{{ dash.title }}</a>
-									<!--<a href="{{dash.url}}"><p>{{ dash.url }}</p></a>-->
 									<p>publicado: {{ dash.published_date }}</p>
 								</div>
 							   </div>
 							</div>
 							{% endfor %}
-					{% endif %}	
-				<!---->					
+					{% endif %}
+
 
 					{% for dash in simpledash %}
 					<div class="row" style="padding-top: 20px">
@@ -83,7 +245,7 @@
 						<div class="col-sm-10">
 						<div class="author_dec">
 							<a href="{% url 'simpleDash_detail' pk=dash.pk %}">{{ dash.title }}</a>
-							<!--<a href="{{dash.url}}"><p>{{ dash.url }}</p></a>-->
+
 							<p>publicado: {{ dash.published_date }}</p>
 						</div>
 					   </div>
@@ -98,18 +260,17 @@
 						<div class="col-sm-10">
 						<div class="author_dec">
 							<a href="{% url 'paineis_detail' pk=dash.pk %}">{{ dash.title }}</a>
-							<!--<a href="{{dash.url}}"><p>{{ dash.url }}</p></a>-->
 							<p>publicado: {{ dash.published_date }}</p>
 						</div>
 					   </div>
 					</div>
-					{% endfor %}					
-				
+					{% endfor %}
+
 				</div>
 				<div class="author_info" style="width: 83.33333%;">
 					<div class="row">
 						<div class="col-sm-12">
-							Infograficos recentes						
+							Infograficos recentes
 						</div>
 					</div>
 					{% if not posts %}
@@ -137,13 +298,13 @@
 							   </div>
 							</div>
 							{% endfor %}
-					{% endif %}		
-					
-				</div>				
+					{% endif %}
+
+				</div>
 				<div class="author_info" style="width: 83.33333%;">
 					<div class="row">
 						<div class="col-sm-12">
-							Retratos recentes						
+							Retratos recentes
 						</div>
 					</div>
 					{% if not reports %}
@@ -171,25 +332,22 @@
 							   </div>
 							</div>
 							{% endfor %}
-					{% endif %}	
-				</div>				
+					{% endif %}
+				</div>
 
-			</div>				
-			
+			</div>
+
 			<div class="col-sm-4">
-				<div class="sidebar">						
-<!--					<div class="search_widget">
-						<input id="sr_bx" type="text" placeholder="Procure nessa categoria...."/>
-					</div>				-->
+				<div class="sidebar">
 					<div class="widget">
 						<h2>{{mysubject.title}}</h2>
 						<div class="title_br"></div>
 						<ul>
 							{% for sub in mysubdetail %}
 								<li><a href="{% url 'subsubject_detail'  pk=sub.pk %}">{{sub.title}}</a></li>
-							{% endfor %}	
+							{% endfor %}
 						</ul>
-					</div>					
+					</div>
 
 					<div class="widget">
 						<h2>palavras-chaves</h2>
@@ -199,8 +357,8 @@
 								<li><a href="{% url 'keywords_detail' pk=key.pk %}">{{key.title}}</a></li>
 							{% endfor %}
 						</ul>
-					</div>						
+					</div>
 				</div>
-			</div>	
-		</div>
+			</div>
+		</div>-->
 {% endblock content %}
