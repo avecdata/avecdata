@@ -113,7 +113,7 @@
       {% if forloop.last and forloop.counter >= 7%}
 
     </div> <!-- / .row demo collapse-->
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#vermaisP"> <span class="glyphicon glyphicon-collapse-down"></span>Ver Mais</button>
+    <button type="button" class="btn btn-info avec-btnP" data-toggle="collapse" data-target="#vermaisP"> <span class="glyphicon glyphicon-collapse-down"></span>Ver Mais</button>
       {% endif %}
 		{% endfor %}
 
@@ -154,7 +154,7 @@
       {% endif %}
       {% if forloop.last and forloop.counter >= 7%}
     </div> <!-- / .row demo collapse-->
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#vermais"> <span class="glyphicon glyphicon-collapse-down"></span>Ver Mais</button>
+    <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermais"> <span class="glyphicon glyphicon-collapse-down"></span>Ver Mais</button>
       {% endif %}
 
 		{% endfor %}
@@ -166,16 +166,16 @@
 <script>
 $(document).ready(function(){
   $("#vermais").on("hide.bs.collapse", function(){
-    $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Ver mais');
+    $(".avec-btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Ver mais');
   });
   $("#vermais").on("show.bs.collapse", function(){
-    $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Ver menos');
+    $(".avec-btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Ver menos');
   });
   $("#vermaisP").on("hide.bs.collapse", function(){
-    $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Ver mais');
+    $(".avec-btnP").html('<span class="glyphicon glyphicon-collapse-down"></span> Ver mais');
   });
   $("#vermaisP").on("show.bs.collapse", function(){
-    $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Ver menos');
+    $(".avec-btnP").html('<span class="glyphicon glyphicon-collapse-up"></span> Ver menos');
   });
 });
 </script>
