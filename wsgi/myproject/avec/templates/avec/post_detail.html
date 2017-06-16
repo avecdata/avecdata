@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
 		<link rel="stylesheet" href="{% static 'min/stylesheets/style.css' %}">-->
-
+  <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
 
 	<script>
 		var imguser = "{% static 'img/user/' %}";
@@ -110,7 +110,54 @@
 
 			</div>
 			</div> <!-- / .row -->
+			<!--inicio paineis e infograficos relacionados-->
 
+      <div class="row">
+          <div class="col-sm-12">
+
+            <h3 class="headline">
+              <span>Conteúdo Relacionado</span>
+            </h3>
+
+
+          </div>
+          </div> <!-- / .row -->
+          <div class="row">
+
+
+  		{% for dash in related_dashs %}
+            <div class="col-sm-4">
+
+              <div class="home-features__item">
+                <i class="fa fa-area-chart"></i>
+                <div class="home-features-item__content">
+                  <h4><a href="{% url 'simpleDash_detail' pk=dash.pk %}">{{ dash.title }}</a></h4>
+                  <p>{{ dash.text }}</p>
+                </div>
+              </div>
+
+            </div>
+  		{% endfor %}
+
+      {% for rel_inf in related_info %}
+            <div class="col-sm-4">
+
+              <div class="home-features__item">
+                <i class="fa fa-area-chart"></i>
+                <div class="home-features-item__content">
+                  <h4><a href="{% url 'post_detail' pk=rel_inf.pk %}">{{ rel_inf.title }}</a></h4>
+                  <p>{{ rel_inf.text }}</p>
+                </div>
+              </div>
+
+            </div>
+  		{% endfor %}
+
+
+          </div> <!-- / .row -->
+
+
+      <!--fim paineis e infograficos relacionados-->
 			</div>
 		</div> <!-- / .row -->
 	</div> <!-- / .container -->

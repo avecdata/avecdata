@@ -65,7 +65,7 @@ def index(request):
     themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     subject_detail = Subject_detail.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-    
+
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date').reverse()[:3]
     simpledashs = SimpleDashboard.objects.filter().order_by('-published_date').reverse()[:3]
     panels = Paineis.objects.filter().order_by('-published_date').reverse()[:3]
@@ -90,29 +90,36 @@ def permssao(request):
 def simpleDash_detail(request, pk):
     dash = SimpleDashboard.objects.get(pk=pk)
     mykeywords = dash.keywords.all()
+    myparent = dash.subject.all()
+    related = Subject_detail.objects.filter(subject=myparent)
+    related_dashs = SimpleDashboard.objects.filter(subject=myparent)
+    related_info = Post.objects.filter(subject=myparent)
     mytabs = dash.tabsimple_set.all().order_by('id')
-    return render(request, 'avec/simpleDash_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs})
+    return render(request, 'avec/simpleDash_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs, 'myparent' : myparent, 'related' : related, 'related_dashs' : related_dashs, 'related_info': related_info})
+
 
 def paineis_detail(request, pk):
     dash = Paineis.objects.get(pk=pk)
     mykeywords = dash.keywords.all()
     mytabs = dash.tabpaineis_set.all().order_by('id')
     return render(request, 'avec/paineis_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs})
-	
+
 def post_detail(request, pk):
-    
+
     groups = request.user.groups.all()
     group_user = utils.get_greater_group(groups)
-    
+
     post = Post.objects.get(pk=pk)
-    
+
     post_permission = utils.post_permission(group_user.id, post)
-    
+
     if post_permission:
         mykeywords = post.keywords.all()
         myparent = post.subject.all()
         related = Subject_detail.objects.filter(subject=myparent)
-        return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related})
+        related_dashs = SimpleDashboard.objects.filter(subject=myparent)
+        related_info = Post.objects.filter(subject=myparent)
+        return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related , 'related_dashs' : related_dashs, 'related_info': related_info})
     else:
         return render(request,'avec/permissao.html')
 
@@ -138,7 +145,7 @@ def subsubject_detail(request, pk):
     dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).filter(subject_detail=mysubject).order_by('published_date').reverse()
     myparent = mysubject.subject.subject_detail_set.all()
     simpledash = SimpleDashboard.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()
-    paineis = Paineis.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()	
+    paineis = Paineis.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()
     reports = Reports.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()
     return render(request, 'avec/subsubjects_detail.html', {'mysubject': mysubject, 'posts': posts, 'dashboards': dashboards , 'myparent': myparent, 'simpledash': simpledash, 'reports': reports, 'paineis': paineis})
 
@@ -156,7 +163,7 @@ def registrar(request):
         form = UserCreationForm(request.POST)
 
         if form.is_valid(): # se o formulario for valido
-            
+
             return render(request, "avec/logar.html", {"form": form})
         else:
             # mostra novamente o formulario de cadastro com os erros do formulario atual
@@ -174,7 +181,7 @@ def logar(request):
         if form.is_valid():
             #se o formulario for valido significa que o Django conseguiu encontrar o usuario no banco de dados
             #agora, basta logar o usuario e ser feliz.
-            
+
             login(request, form.get_user())
             return HttpResponseRedirect("/") # redireciona o usuario logado para a pagina inicial
         else:
@@ -189,7 +196,7 @@ def logout(request):
     logout(request)
 
 def assuntos(request):
-    
+
     themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('title')
     subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('title')
     return render(request, 'avec/assuntos.html', {'subject': subject, 'themes': themes})
@@ -199,7 +206,7 @@ def servicos(request):
 
 def quemsomos(request):
     themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-    return render(request, 'avec/quemsomos.html', {'themes': themes})    
+    return render(request, 'avec/quemsomos.html', {'themes': themes})
 
 def dashboard(request):
 	dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
@@ -210,11 +217,11 @@ def autocomplete(request):
 
 @csrf_exempt
 def lista(request):
-    
+
     resultado_json = {}
-    
+
     if request.method == 'POST':
-        
+
         #print("accesskey "+str(request.POST.get('query')))
         #posts = Post.objects.filter(Q(title__icontains=str(request.POST.get('query')))|Q(text__icontains=str(request.POST.get('query')))).order_by('published_date')
         #subjects = Subject.objects.filter(Q(title__icontains=str(request.POST.get('query')))|Q(text__icontains=str(request.POST.get('query')))).order_by('published_date')
@@ -222,67 +229,67 @@ def lista(request):
         subjects = Subject.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         reports = Reports.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         simpledashboards = SimpleDashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
-        paineis = Paineis.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')		
+        paineis = Paineis.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         dashboards = Dashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
-        
+
         posts_data = []
-        
+
         for post in posts:
             posts_data.append({ "value": post.title, "id" : post.id , "type": "post"})
 
         dashboards_data = []
-        
+
         for dashboard in dashboards:
             dashboards_data.append({ "value": dashboard.title, "id" : dashboard.url , "type": "dashboard"})
-            
+
         simpledashboards_data = []
-        
+
         for simpledashboard in simpledashboards:
             simpledashboards_data.append({ "value": simpledashboard.title, "id" : simpledashboard.id , "type": "simpledashboard"})
 
         paineis_data = []
-        
+
         for painel in paineis:
-            paineis_data.append({ "value": painel.title, "id" : painel.id , "type": "painel"})			
-            
+            paineis_data.append({ "value": painel.title, "id" : painel.id , "type": "painel"})
+
         subjects_data = []
-        
+
         for subject in subjects:
             subjects_data.append({ "value": subject.title, "id" : subject.id , "type": "subject"})
-            
+
         reports_data = []
-        
+
         for report in reports:
-            reports_data.append({ "value": report.title, "id" : report.id , "type": "report"})			
+            reports_data.append({ "value": report.title, "id" : report.id , "type": "report"})
 
         result = posts_data+dashboards_data+subjects_data+reports_data+simpledashboards_data+paineis_data
         response = {"query": "Unit", "suggestions": result}
         resultado_json = json.loads(json.dumps(response))
-    
+
     #print(json.dumps(resultado_json, indent=4, sort_keys=True))
-    
+
     return JsonResponse(resultado_json, safe=False)
 
 def contact(request):
-    
+
     form = ContactForm(request.POST or None)
 
     success = False
 
     if form.is_valid():
-        
+
         name = form.cleaned_data['name']
         email = form.cleaned_data['email']
         message = form.cleaned_data['message']
         phone = form.cleaned_data['phone']
         uf = form.cleaned_data['uf']
-        
+
 #         content_message = '<!-- [if gte mso 9]><style>.elemento_com_webfont { font-family: Arial, sans-serif !important; }</style><![endif]-->'
         content_message = '<font face="Helvetica, Arial, sans-serif" size="2" color="#000000"><div>################ <strong>AVECDATA - PLATAFORMA DE DADOS SETORIAIS</strong> ################ <br><br>'
         content_message += 'O Usuário abaixo: <br>Nome: {0}<br>E-mail: {1}<br>Telefone: {3}<br>UF: {4}<br>Nos enviou a seguinte mensagem de contato: <br>'.format(name, email, message, phone, uf)
         content_message += '-------------------------------------------------------------------------<br>'
         content_message += '{2}<br></div></font>'.format(name, email, message, phone, uf)
-        
+
         form.send_mail(content_message)
         success = True
         messages.success(request, 'Mensagem enviada com sucesso!')
@@ -309,84 +316,84 @@ def nescon(request):
         return render(request, 'avec/dashboards/nescon.html')
 
 def padrao1(request):
-        return render(request, 'avec/dashboards/padrao1.html')		
+        return render(request, 'avec/dashboards/padrao1.html')
 
 def padrao2(request):
         return render(request, 'avec/dashboards/padrao2.html')
 
 def comparaestados(request):
-        return render(request, 'avec/dashboards/comparaestados.html')		
+        return render(request, 'avec/dashboards/comparaestados.html')
 
-@login_required(login_url='/permissao/')        
+@login_required(login_url='/permissao/')
 def leptospirose(request, dashboard_id):
-    
+
     groups = request.user.groups.all()
     group_user = utils.get_greater_group(groups)
-    
+
     dashboard = Dashboard.objects.get(id=dashboard_id)
-    
+
     dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
-    
+
     if dsh_permission:
 
         return render(request, 'avec/dashboards/leptospirose.html')
     else:
         return render(request,'avec/permissao.html')
-        
-@login_required(login_url='/permissao/')        
+
+@login_required(login_url='/permissao/')
 def aids(request, dashboard_id):
-    
+
     groups = request.user.groups.all()
     group_user = utils.get_greater_group(groups)
-    
+
     dashboard = Dashboard.objects.get(id=dashboard_id)
-    
+
     dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
-    
+
     if dsh_permission:
         return render(request, 'avec/dashboards/aids.html')
     else:
         return render(request,'avec/permissao.html')
 
-@login_required(login_url='/permissao/')        
+@login_required(login_url='/permissao/')
 def sangue(request, dashboard_id):
-    
+
     groups = request.user.groups.all()
     group_user = utils.get_greater_group(groups)
-    
+
     dashboard = Dashboard.objects.get(id=dashboard_id)
-    
+
     dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
-    
+
     if dsh_permission:
         return render(request, 'avec/dashboards/sangue.html')
     else:
         return render(request,'avec/permissao.html')
 
-@login_required(login_url='/permissao/')        
+@login_required(login_url='/permissao/')
 def inovacao(request, dashboard_id):
-    
+
     groups = request.user.groups.all()
     group_user = utils.get_greater_group(groups)
     dashboard = Dashboard.objects.get(id=dashboard_id)
-    
+
     dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
 
-    
+
     if dsh_permission:
         return render(request, 'avec/dashboards/inovacao.html')
     else:
         return render(request,'avec/permissao.html')
 
-@login_required(login_url='/permissao/')        
+@login_required(login_url='/permissao/')
 def nascidosvivos(request, dashboard_id):
 
     groups = request.user.groups.all()
     group_user = utils.get_greater_group(groups)
-    
+
     dashboard = Dashboard.objects.get(id=dashboard_id)
     dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
-    
+
     if dsh_permission:
         return render(request, 'avec/dashboards/nascidosvivos.html')
     else:
@@ -396,7 +403,7 @@ def permissao(request):
 
 # @receiver(user_logged_in, dispatch_uid = 'facebook.connect')
 def social_login_avec_profile(sociallogin, user, **kwargs):
-    
+
     preferred_avatar_size_pixels=256
 
 #     picture_url = "http://www.gravatar.com/avatar/{0}?s={1}".format(
@@ -425,7 +432,7 @@ def social_login_avec_profile(sociallogin, user, **kwargs):
             #verified = sociallogin.account.extra_data['verified']
             picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(
                 sociallogin.account.uid, preferred_avatar_size_pixels)
-            
+
         if sociallogin.account.provider == 'google':
             f_name = sociallogin.account.extra_data['given_name']
             l_name = sociallogin.account.extra_data['family_name']
@@ -438,65 +445,65 @@ def social_login_avec_profile(sociallogin, user, **kwargs):
 
 @login_required
 def redirect_socialapp(request):
- 
+
     User = get_user_model()
- 
+
     user_logged = request.user
     user_social_logged = User.objects.get(id=user_logged.id)
-    
+
     social_ac = SocialAccount.objects.get(user_id=user_logged.id)
-    
+
     if(social_ac is not None):
         if((social_ac.provider == 'facebook') and (user_logged.is_from_socialnetwork == False)):
-        
+
             img_size_pixels=256
             picture_url = "http://graph.facebook.com/{0}/picture?width={1}&height={1}".format(social_ac.extra_data['id'], img_size_pixels)
-            
+
             user_social_logged.name = social_ac.extra_data['name']
             user_social_logged.is_from_socialnetwork = True
             user_social_logged.imgprofile = picture_url
             user_social_logged.gender = 'M' if social_ac.extra_data['gender'] == 'male' else 'F'
-            
+
             user_social_logged.save()
-            
+
         elif((social_ac.provider == 'google') and (user_logged.is_from_socialnetwork == False)):
-            
+
             user_social_logged.name = social_ac.extra_data['name']
             user_social_logged.email = social_ac.extra_data['email']
             user_social_logged.is_from_socialnetwork = True
             user_social_logged.imgprofile = social_ac.extra_data['picture']
-            
+
             user_social_logged.save()
-    
+
 #     print('teste---------------------0'+social_ac.extra_data['email'])
 #     print(social_ac)
-    
+
     return HttpResponseRedirect("/")
-    
+
 class AccountAdapter(DefaultAccountAdapter):
-    
+
     def get_login_redirect_url(self, request):
         return '/redirect-socialapp/'
-    
+
 class SocialAccountAdapter(DefaultSocialAccountAdapter):
-    
+
     def pre_social_login(self, request, sociallogin):
         email_address = sociallogin.account.extra_data['email']
         User = get_user_model()
         user_logged = []
-        
+
         try:
             user_logged = User.objects.get(email=email_address)
         except Exception as e:
             print('Social Login Exception: on avec.views '+str(e))
-            
+
 #         print(user_logged)
-#         
+#
         if user_logged:
             perform_login(request, user_logged, email_verification='optional')
         else:
             get_adapter(request).save_user(request, sociallogin, form=None)
             return complete_signup(request, sociallogin.user, 'optional', sociallogin.get_redirect_url(request), signal_kwargs={'sociallogin': sociallogin})
-        
+
 #         print('teste---------------------------')
         raise ImmediateHttpResponse(redirect(settings.LOGIN_REDIRECT_URL.format(id=request.user.id)))
