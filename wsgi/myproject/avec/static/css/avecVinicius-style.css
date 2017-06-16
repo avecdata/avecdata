@@ -1,3 +1,7 @@
+body{
+	font-family: 'Lato', light;
+}
+
 a:hover {
      text-decoration: none;!important;
 }
@@ -72,7 +76,7 @@ font-family: Lato light !important;
 .avec-headline >span {
   font-size: 20px;
   color : #3e4c5b;
-  font-family: Lato light !important;  
+  font-family: Lato light !important;
 }
 
 .avec-info{
