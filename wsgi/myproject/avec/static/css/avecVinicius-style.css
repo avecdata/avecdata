@@ -12,18 +12,19 @@ a:hover {
 }
 
 .home-features-item__content p {
-	font-family: Lato;
+	font-family: Lato light;
 	font-size: 13px;
 	color: #8091a4;
 }
 
-.home-features__item .fa {
-    background: #61788e;
-}
+
 
 .topic .avec-h3 {
-    font-size: 18px;
-	color: #3e4c5b;
+    font-size: 33px;
+	  color: #3e4c5b;
+    margin-top: 16px;
+    margin-bottom: 0px;
+    padding-top: 21px;
 }
 
 .breadcrumb > .avec-active {
@@ -32,4 +33,23 @@ a:hover {
 
 .panel-default > .panel-heading {
 	color: #3e4c5b;!important;
+}
+
+.btn-search, .avec-btnP, .avec-btn {
+  background-color: #40c0cf !important;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.btn-search:hover , .avec-btnP:hover, .avec-btn:hover {
+    background-color: #32a8b5 !important;
+    border-color: rgba(0, 0, 0, 0.15);
+    color: white;
+}
+
+.fa-avec{
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 4px !important;
+  background-color: #61788e !important;
+  line-height: 40px !important;
 }
