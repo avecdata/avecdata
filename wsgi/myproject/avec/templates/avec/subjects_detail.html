@@ -39,7 +39,7 @@
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Procure aqui...">
                     <span class="input-group-btn">
-                      <button class="btn btn-primary" type="button">
+                      <button class="btn btn-primary btn-search" type="button">
                         <i class="fa fa-search"></i>
                       </button>
                     </span>
@@ -99,7 +99,7 @@
             <div class="col-sm-4">
 
               <div class="home-features__item">
-                <i class="fa fa-area-chart"></i>
+                <i class="fa fa-cubes fa-avec"></i>
                 <div class="home-features-item__content">
                   <h4><a href="{% url 'simpleDash_detail' pk=dash.pk %}">{{ dash.title }}</a></h4>
                   <p>{{ dash.text }}</p>
@@ -113,7 +113,7 @@
       {% if forloop.last and forloop.counter >= 7%}
 
     </div> <!-- / .row demo collapse-->
-    <button type="button" class="btn btn-info avec-btnP" data-toggle="collapse" data-target="#vermaisP"> <span class="glyphicon glyphicon-collapse-down"></span>Ver Mais</button>
+    <button type="button" class="btn btn-info avec-btnP" data-toggle="collapse" data-target="#vermaisP"> </span>Ver Mais</button>
       {% endif %}
 		{% endfor %}
 
@@ -141,7 +141,7 @@
           <div class="col-sm-4">
 
             <div class="home-features__item">
-              <i class="fa fa-bar-chart"></i>
+              <i class="fa fa-pie-chart fa-avec"></i>
               <div class="home-features-item__content">
                 <h4><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
                 <p>{{ post.text|linebreaksbr }}</p>
@@ -154,7 +154,7 @@
       {% endif %}
       {% if forloop.last and forloop.counter >= 7%}
     </div> <!-- / .row demo collapse-->
-    <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermais"> <span class="glyphicon glyphicon-collapse-down"></span>Ver Mais</button>
+    <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermais"> <span ></span>Ver Mais</button>
       {% endif %}
 
 		{% endfor %}
@@ -166,16 +166,16 @@
 <script>
 $(document).ready(function(){
   $("#vermais").on("hide.bs.collapse", function(){
-    $(".avec-btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Ver mais');
+    $(".avec-btn").html('<span ></span> Ver mais');
   });
   $("#vermais").on("show.bs.collapse", function(){
-    $(".avec-btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Ver menos');
+    $(".avec-btn").html('<span ></span> Ver menos');
   });
   $("#vermaisP").on("hide.bs.collapse", function(){
-    $(".avec-btnP").html('<span class="glyphicon glyphicon-collapse-down"></span> Ver mais');
+    $(".avec-btnP").html('<span ></span> Ver mais');
   });
   $("#vermaisP").on("show.bs.collapse", function(){
-    $(".avec-btnP").html('<span class="glyphicon glyphicon-collapse-up"></span> Ver menos');
+    $(".avec-btnP").html('<span ></span> Ver menos');
   });
 });
 </script>

@@ -38,7 +38,7 @@
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="Procure aqui...">
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button">
+                  <button class="btn btn-primary btn-search" type="button">
                     <i class="fa fa-search"></i>
                   </button>
                 </span>
@@ -87,25 +87,33 @@
     </div> <!-- / .row -->
 
 
-{% for dash in simpledash %}
-  {% if forloop.counter|divisibleby:'3' %}
-    <div class="row">
-  {% endif %}
-      <div class="col-sm-4">
+    {% for dash in simpledash %}
+    {% if forloop.counter == 7 %}
+      <div id="vermaisP" class="collapse">
+    {% endif %}
+      {% if forloop.counter|divisibleby:'3' %}
+        <div class="row">
+      {% endif %}
+            <div class="col-sm-4">
 
-        <div class="home-features__item">
-          <i class="fa fa-area-chart"></i>
-          <div class="home-features-item__content">
-            <h4><a href="{% url 'simpleDash_detail' pk=dash.pk %}">{{ dash.title }}</a></h4>
-            <p>{{ dash.text }}</p>
-          </div>
-        </div>
+              <div class="home-features__item">
+                <i class="fa fa-cubes fa-avec"></i>
+                <div class="home-features-item__content">
+                  <h4><a href="{% url 'simpleDash_detail' pk=dash.pk %}">{{ dash.title }}</a></h4>
+                  <p>{{ dash.text }}</p>
+                </div>
+              </div>
 
-      </div>
-  {% if forloop.counter|divisibleby:'3' %}
-    </div> <!-- / .row -->
-  {% endif %}
-{% endfor %}
+            </div>
+      {% if forloop.counter|divisibleby:'3' %}
+        </div> <!-- / .row -->
+      {% endif %}
+      {% if forloop.last and forloop.counter >= 7%}
+
+    </div> <!-- / .row demo collapse-->
+    <button type="button" class="btn btn-info avec-btnP" data-toggle="collapse" data-target="#vermaisP"> </span>Ver Mais</button>
+      {% endif %}
+		{% endfor %}
 
 
 <div class="row">
@@ -120,25 +128,33 @@
     </div> <!-- / .row -->
 
 
-{% for post in posts %}
-  {% if forloop.counter|divisibleby:'3' %}
-    <div class="row">
-  {% endif %}
-      <div class="col-sm-4">
+    {% for post in posts %}
+    {% if forloop.counter == 7 %}
+      <div id="vermais" class="collapse">
+    {% endif %}
+    {% if forloop.counter|divisibleby:'3' %}
+      <div class="row">
+    {% endif %}
+          <div class="col-sm-4">
 
-        <div class="home-features__item">
-          <i class="fa fa-bar-chart"></i>
-          <div class="home-features-item__content">
-            <h4><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
-            <p>{{ post.text|linebreaksbr }}</p>
+            <div class="home-features__item">
+              <i class="fa fa-pie-chart fa-avec"></i>
+              <div class="home-features-item__content">
+                <h4><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
+                <p>{{ post.text|linebreaksbr }}</p>
+              </div>
+            </div>
+
           </div>
-        </div>
+      {% if forloop.counter|divisibleby:'3' %}
+        </div> <!-- / .row -->
+      {% endif %}
+      {% if forloop.last and forloop.counter >= 7%}
+    </div> <!-- / .row demo collapse-->
+    <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermais"> <span ></span>Ver Mais</button>
+      {% endif %}
 
-      </div>
-  {% if forloop.counter|divisibleby:'3' %}
-    </div> <!-- / .row -->
-  {% endif %}
-{% endfor %}
+		{% endfor %}
 
 
 

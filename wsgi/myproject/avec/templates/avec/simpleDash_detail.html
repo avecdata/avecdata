@@ -255,7 +255,7 @@ input:checked + label {
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Procure aqui...">
                   <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button">
+                    <button class="btn btn-primary btn-search" type="button">
                       <i class="fa fa-search"></i>
                     </button>
                   </span>
@@ -364,7 +364,7 @@ input:checked + label {
             <div class="col-sm-4">
 
               <div class="home-features__item">
-                <i class="fa fa-area-chart"></i>
+                <i class="fa fa-cubes fa-avec"></i>
                 <div class="home-features-item__content">
                   <h4><a href="{% url 'simpleDash_detail' pk=dash.pk %}">{{ dash.title }}</a></h4>
                   <p>{{ dash.text }}</p>
@@ -384,7 +384,7 @@ input:checked + label {
             <div class="col-sm-4">
 
               <div class="home-features__item">
-                <i class="fa fa-area-chart"></i>
+                <i class="fa fa-pie-chart fa-avec"></i>
                 <div class="home-features-item__content">
                   <h4><a href="{% url 'post_detail' pk=rel_inf.pk %}">{{ rel_inf.title }}</a></h4>
                   <p>{{ rel_inf.text }}</p>
