@@ -410,7 +410,22 @@ input:checked + label {
     </div> <!-- / .row -->
   </div> <!-- / .container -->
 
-
+  <script>
+  $(document).ready(function(){
+    $("#vermais").on("hide.bs.collapse", function(){
+      $(".avec-btn").html('<span ></span> Ver mais');
+    });
+    $("#vermais").on("show.bs.collapse", function(){
+      $(".avec-btn").html('<span ></span> Ver menos');
+    });
+    $("#vermaisP").on("hide.bs.collapse", function(){
+      $(".avec-btnP").html('<span ></span> Ver mais');
+    });
+    $("#vermaisP").on("show.bs.collapse", function(){
+      $(".avec-btnP").html('<span ></span> Ver menos');
+    });
+  });
+  </script>
 
 {% endblock %}
 
