@@ -125,36 +125,6 @@
 
 
 
-					{% for dash in related_dashs %}
-		      {% if forloop.counter == 7 %}
-		        <div id="vermaisP" class="collapse">
-		      {% endif %}
-		        {% if forloop.counter|divisibleby:'3' %}
-		          <div class="row">
-		        {% endif %}
-		              <div class="col-sm-4">
-
-		                <div class="home-features__item">
-		                  <i class="fa fa-cubes fa-avec"></i>
-		                  <div class="home-features-item__content">
-		                    <h4><a href="{% url 'simpleDash_detail' pk=dash.pk %}">{{ dash.title }}</a></h4>
-		                    <p>{{ dash.text }}</p>
-		                  </div>
-		                </div>
-
-		              </div>
-		        {% if forloop.counter|divisibleby:'3' %}
-		          </div> <!-- / .row -->
-		        {% endif %}
-		        {% if forloop.last and forloop.counter >= 7%}
-
-		      </div> <!-- / .row demo collapse-->
-		      <button type="button" class="btn btn-info avec-btnP" data-toggle="collapse" data-target="#vermaisP"> </span>Ver Mais</button>
-		        {% endif %}
-		  		{% endfor %}
-
-
-
 		      {% for post in related_info %}
 		        {% if forloop.counter == 7 %}
 		          <div id="vermais" class="collapse">
@@ -199,12 +169,7 @@
 	  $("#vermais").on("show.bs.collapse", function(){
 	    $(".avec-btn").html('<span ></span> Ver menos');
 	  });
-	  $("#vermaisP").on("hide.bs.collapse", function(){
-	    $(".avec-btnP").html('<span ></span> Ver mais');
-	  });
-	  $("#vermaisP").on("show.bs.collapse", function(){
-	    $(".avec-btnP").html('<span ></span> Ver menos');
-	  });
+
 	});
 	</script>
 
