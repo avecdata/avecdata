@@ -90,6 +90,9 @@
 
 
 		{% for dash in simpledash %}
+    {% if forloop.counter == 7 %}
+      <div id="vermaisP" class="collapse">
+    {% endif %}
       {% if forloop.counter|divisibleby:'3' %}
         <div class="row">
       {% endif %}
@@ -106,6 +109,11 @@
             </div>
       {% if forloop.counter|divisibleby:'3' %}
         </div> <!-- / .row -->
+      {% endif %}
+      {% if forloop.last and forloop.counter >= 7%}
+
+    </div> <!-- / .row demo collapse-->
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#vermaisP"> <span class="glyphicon glyphicon-collapse-down"></span>Ver Mais</button>
       {% endif %}
 		{% endfor %}
 
@@ -144,7 +152,7 @@
       {% if forloop.counter|divisibleby:'3' %}
         </div> <!-- / .row -->
       {% endif %}
-      {% if forloop.last %}
+      {% if forloop.last and forloop.counter >= 7%}
     </div> <!-- / .row demo collapse-->
     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#vermais"> <span class="glyphicon glyphicon-collapse-down"></span>Ver Mais</button>
       {% endif %}
@@ -161,6 +169,12 @@ $(document).ready(function(){
     $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Ver mais');
   });
   $("#vermais").on("show.bs.collapse", function(){
+    $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Ver menos');
+  });
+  $("#vermaisP").on("hide.bs.collapse", function(){
+    $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Ver mais');
+  });
+  $("#vermaisP").on("show.bs.collapse", function(){
     $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Ver menos');
   });
 });
