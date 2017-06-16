@@ -3,9 +3,9 @@ a:hover {
 }
 
 .home-features-item__content > h4 > a{
-    color: #3e4c5b;!important;
-	font-family: Lato;
-	font-size: 20px;
+    color: #3e4c5b !important;
+	font-family: Lato Light !important;
+	font-size: 18px;
 	letter-spacing: -0.7px;
 	text-align: center;
 	color: #3e4c5b;
@@ -57,6 +57,7 @@ a:hover {
 
 .nocontent {
     font-size: 13px;
+font-family: Lato light !important;
 }
 
 .nocontent-div {
@@ -66,4 +67,12 @@ a:hover {
 
 .fa-avec-exclamation{
   font-size: 40px;
+}
+
+.avec-headline >span {
+  font-size: 20px;
+}
+
+.avec-info{
+  color: #a7b4c3;
 }

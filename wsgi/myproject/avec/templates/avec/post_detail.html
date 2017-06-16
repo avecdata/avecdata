@@ -115,7 +115,7 @@
       <div class="row">
           <div class="col-sm-12">
 
-            <h3 class="headline">
+            <h3 class="headline avec-headline">
               <span>Conteúdo Relacionado</span>
             </h3>
 
@@ -148,7 +148,11 @@
 		          {% endif %}
 		          {% if forloop.last and forloop.counter >= 7%}
 		        </div> <!-- / .row demo collapse-->
-		        <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermais"> <span ></span>Ver Mais</button>
+						<div class="row">
+			        <div class="col-sm-12">
+			          <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermais"> <span ></span>Ver Mais</button>
+			        </div>
+			      </div>
 		          {% endif %}
 		  		{% endfor %}
 

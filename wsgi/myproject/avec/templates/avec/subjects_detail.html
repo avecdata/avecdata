@@ -79,7 +79,7 @@
 		<div class="row">
         <div class="col-sm-12">
 
-          <h3 class="headline">
+          <h3 class="headline avec-headline">
             <span>Painéis</span>
           </h3>
 
@@ -118,7 +118,11 @@
         {% if forloop.last and forloop.counter >= 7%}
 
       </div> <!-- / .row demo collapse-->
-      <button type="button" class="btn btn-info avec-btnP" data-toggle="collapse" data-target="#vermaisP"> </span>Ver Mais</button>
+      <div class="row">
+        <div class="col-sm-12">
+          <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermaisP"> <span ></span>Ver Mais</button>
+        </div>
+      </div>
         {% endif %}
   		{% endfor %}
     {% endif %}
@@ -127,7 +131,7 @@
 		<div class="row">
         <div class="col-sm-12">
 
-          <h3 class="headline">
+          <h3 class="headline avec-headline">
             <span>Infograficos</span>
           </h3>
 
@@ -164,7 +168,11 @@
         {% endif %}
         {% if forloop.last and forloop.counter >= 7%}
       </div> <!-- / .row demo collapse-->
-      <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermais"> <span ></span>Ver Mais</button>
+      <div class="row">
+        <div class="col-sm-12">
+          <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermais"> <span ></span>Ver Mais</button>
+        </div>
+      </div>
         {% endif %}
 
   		{% endfor %}
