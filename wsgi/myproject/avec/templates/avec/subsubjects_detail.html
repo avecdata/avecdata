@@ -85,9 +85,12 @@
 
     </div>
     </div> <!-- / .row -->
-    <div class="row">
+
 
 {% for dash in simpledash %}
+  {% if forloop.counter|divisibleby:'3' %}
+    <div class="row">
+  {% endif %}
       <div class="col-sm-4">
 
         <div class="home-features__item">
@@ -99,9 +102,12 @@
         </div>
 
       </div>
+  {% if forloop.counter|divisibleby:'3' %}
+    </div> <!-- / .row -->
+  {% endif %}
 {% endfor %}
 
-    </div> <!-- / .row -->
+
 <div class="row">
     <div class="col-sm-12">
 
@@ -112,9 +118,12 @@
 
     </div>
     </div> <!-- / .row -->
-    <div class="row">
+
 
 {% for post in posts %}
+  {% if forloop.counter|divisibleby:'3' %}
+    <div class="row">
+  {% endif %}
       <div class="col-sm-4">
 
         <div class="home-features__item">
@@ -126,9 +135,12 @@
         </div>
 
       </div>
+  {% if forloop.counter|divisibleby:'3' %}
+    </div> <!-- / .row -->
+  {% endif %}
 {% endfor %}
 
-    </div> <!-- / .row -->
+
 
     </div>
   </div> <!-- / .row -->

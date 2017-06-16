@@ -122,10 +122,13 @@
 
           </div>
           </div> <!-- / .row -->
-          <div class="row">
+
 
 
   		{% for dash in related_dashs %}
+				{% if forloop.counter|divisibleby:'3' %}
+					<div class="row">
+				{% endif %}
             <div class="col-sm-4">
 
               <div class="home-features__item">
@@ -137,9 +140,15 @@
               </div>
 
             </div>
+				{% if forloop.counter|divisibleby:'3' %}
+          </div> <!-- / .row -->
+        {% endif %}
   		{% endfor %}
 
       {% for rel_inf in related_info %}
+				{% if forloop.counter|divisibleby:'3' %}
+					<div class="row">
+				{% endif %}
             <div class="col-sm-4">
 
               <div class="home-features__item">
@@ -151,10 +160,13 @@
               </div>
 
             </div>
+				{% if forloop.counter|divisibleby:'3' %}
+          </div> <!-- / .row -->
+        {% endif %}
   		{% endfor %}
 
 
-          </div> <!-- / .row -->
+
 
 
       <!--fim paineis e infograficos relacionados-->
