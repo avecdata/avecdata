@@ -12,7 +12,7 @@ a:hover {
 }
 
 .home-features-item__content p {
-	font-family: Lato light;
+	font-family: Lato light !important;
 	font-size: 13px;
 	color: #8091a4;
 }
@@ -25,6 +25,7 @@ a:hover {
     margin-top: 16px;
     margin-bottom: 0px;
     padding-top: 21px;
+    font-family: Lato light !important;
 }
 
 .breadcrumb > .avec-active {
