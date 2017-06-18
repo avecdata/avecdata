@@ -157,12 +157,12 @@ h1.avec-home-app:after {
 }
 
 .stylish-input-group .input-group-addon{
-    background: #fff !important; 
+    background: #fff !important;
     border-radius: 0 46px 46px 0;
 }
 .stylish-input-group .form-control{
-	border-right:0; 
-	box-shadow:0 0 0; 
+	border-right:0;
+	box-shadow:0 0 0;
 	border-color:#ccc;
 	border-radius: 46px 0px 0px 46px;
 }
@@ -190,7 +190,7 @@ h1.avec-home-app:after {
 .avec-ft-list {
 	padding-top: 30px;
 }
-	
+
 .avec-ft-list li {
 	color: #3e4c5b;
 	font-size: 17px;
@@ -217,7 +217,7 @@ h1.avec-home-app:after {
 
 .avec-ft-produtos-list li:nth-child(odd) {
 	font-size: 23px;
-	text-align: left;
+	text-align: center;
 	font-weight: normal;
 }
 
@@ -577,26 +577,26 @@ p.avec-cargo-colaborador {
 	h1.avec-title-home-app {
 	    font-size: 32px;
 	}
-	
+
 	/* .home-app__pricing .row > div[class*="col-"] {
 	    margin: 0px auto;
 	} */
 }
 
 @media (min-width: 768px) {
-	
+
 	.navbar-nav > li > .dropdown-menu:before, .dropdown-submenu > .dropdown-menu:before {
 	    border-top: none;
 	}
-	
+
 	.section > .avec-section__inner {
 		padding: 55px 0 80px 0 !important;
 	}
-	
+
 	.section-quemsomos > .section__inner {
 	    padding: 100px 0 !important;
 	}
-	
+
 	.section-produtos > .section__inner {
 	    padding: 100px 0 !important;
 	}
@@ -608,51 +608,51 @@ p.avec-cargo-colaborador {
 		width: 100%;
 		/* padding: 0px 244px; */
 	}
-	
+
 	.home-app__pricing .row > .price-table-item {
 		width: 267px;
 	}
-	
+
 	.navbar > .avec-container {
 		width: 100%;
 		/* padding: 0px 400px; */
 	}
-	
+
 	.price-table-item {
 		width: 267px;
 	}
-	/* 
+	/*
 	.avec-menu-plains {
 		width: 62%;
 	} */
-	
+
 	.avec-navbar-center {
 		width: 62%;
 	}
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1599px) {
-	
+
 	.navbar > .avec-container {
 		width: 100%;
 		padding: 0px 5px;
 	}
-	
+
 	.price-table-item {
 		width: 329px;
 		margin: 10px 96px;
 	}
-	
+
 	.avec-navbar-center {
 		width: 46%;
 	}
-	
+
 	.avec-navbar-right {
 	    width: 344px;
 	}
-	
+
 	.avec-btn-nav-right {
-		
+
 	}
 }
 
@@ -661,49 +661,49 @@ p.avec-cargo-colaborador {
 		width: 100%;
 		padding: 0px 15px;
 	}
-	
+
 	.home-app__pricing .row > .price-table-item {
 		width: 329px;
     	margin: 10px 23px;
 	}
-	
+
 	.avec-navbar-center {
 		width: 42%;
 	}
-	
+
 	.avec-navbar-left {
 	    width: 237px;
 	}
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
-	
+
 	.navbar > .avec-container {
 		width: 96%;
 		padding: 0px;
 	}
-	
+
 	/* .navbar-nav > li.avec-menu-subscription {
-		display: none; 
+		display: none;
 	} */
-	
+
 	.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
 	    margin-left: 5px;
 	}
-	
+
 	.home-app__pricing .row > .price-table-item {
 		width: 329px;
     	margin: 10px 23px;
 	}
-	
+
 	.avec-navbar-center {
 		width: 48%;
 	}
-	
+
 	.avec-navbar-left {
 	    width: 125px;
 	}
-	
+
 	.avec-navbar-right {
 	    width: 200px;
 	}
@@ -714,51 +714,51 @@ p.avec-cargo-colaborador {
 		width: 100%;
 		padding: 0px 0px;
 	}
-	
+
 	.avec-navbar-left {
 	    width: 100%;
 	    float: none;
 	    margin-left: -5px !important;
 	}
-	
+
 	.avec-navbar-center li.dropdown {
 		width: 100%;
 	}
-	
+
 	.avec-navbar-center li.avec-menu-item {
 		width: 100%;
 	}
-	
+
 	.avec-navbar-center li.dropdown a {
 		text-align: center;
 	}
 }
 
 @media screen and (max-width: 320px) {
-	
+
 	.home-app__pricing .row > .price-table-item {
 		width: 267px;
 		margin: 10px 27px;
 	}
-	
+
 	.navbar > .avec-container {
 		width: 100%;
 	}
-	
+
 	.avec-navbar-left {
 	    width: 100%;
 	    float: none;
 	    margin-left: -5px !important;
 	}
-	
+
 	.avec-navbar-center li.dropdown {
 		width: 320px;
 	}
-	
+
 	.avec-navbar-center li.avec-menu-item {
 		width: 320px;
 	}
-	
+
 	.avec-navbar-center li.dropdown a {
 		text-align: center;
 	}
