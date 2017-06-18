@@ -8840,18 +8840,26 @@ footer:before {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.1);
 }
-.home-app__container > .section:first-child {
+.container-home > .section:first-child {
   position: relative;
   background-image: url(../img/home_8.jpg);
   margin-top: -18px;
 }
 
 .container-quemsomos > .section:first-child {
-    background-image: url(../img/home_9.jpg);
+	position: relative;
+    background: url(../img/home_9.jpg) no-repeat;
+    width: 100%;
+    background-size: 100%;
+    margin-top: -18px;
 }
 
 .container-produtos > .section:first-child {
-    background-image: url(../img/home_10.png);
+	position: relative;
+    background: url(../img/home_10.png) no-repeat;
+    width: 100%;
+    background-size: 100%;
+    margin-top: -18px;
 }
 
 .home-app__container > .section:first-child::before {

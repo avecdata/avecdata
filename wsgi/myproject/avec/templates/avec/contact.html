@@ -3,61 +3,71 @@
 {% load widget_tweaks %}
 {% load poll_extras %}
 {% block content %}
-
-<div class="container" style="padding-top: 50px;">
-
-	<form class="well form-horizontal" action=" " method="post" id="contact_form">
-		{% csrf_token %}
-		<fieldset>
-			{% if messages %}
-				{% for message in messages %}
-					{% if message.tags == 'error' %}
-					<div class="alert alert-danger">{{ message }}</div>
-					{% else %}
-					<div class="alert alert-{{ message.tags }}">{{ message }}</div>
-					{%endif %}
-				{% endfor %}	
-			{% endif %}
-			<!-- Form Name -->
-			<legend>Entre em contato!</legend>
-			{% if success %}
-			<div class="alert alert-success">Mensagem enviada com sucesso!</div>
-			{% endif %}
-
-			<div class="form-group">
-				<label class="col-md-4 control-label"> {{ form.name.label_tag }} </label>
-				<div class="col-md-4 inputGroupContainer">
-					<div class="input-group">
-						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> {% render_field form.name placeholder="digite seu nome e sobrenome"|add_class:"form-control" %}
-					</div>
-				</div>
+<div class="topic">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h3 style="font-size: 18px;">Avec Contato</h3>
 			</div>
-			<div class="form-group">
-				<label class="col-md-4 control-label">{{ form.email.label_tag }}</label>
-				<div class="col-md-4 inputGroupContainer">
-					<div class="input-group">
-						<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span> {% render_field form.email placeholder="digite seu email"|add_class:"form-control" %}
-					</div>
-				</div>
+			<div class="col-sm-8">
+				<ol class="breadcrumb pull-right hidden-xs" style="margin-top: 0px;">
+					<li><a href="{% url 'index' %}">Home</a></li>
+					<li class="active">Contato</li>
+				</ol>
 			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="section">
 
-			<div class="form-group">
-				<label class="col-md-4 control-label">Telefone</label>
-				<div class="col-md-4 inputGroupContainer">
-					<div class="input-group">
-						<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-						<input type="text" class="form-control phone" id="id_phone" name="phone"  placeholder="(61) 3333-1212">
+				<h3 class="headline">
+					<span>Contato</span>
+				</h3>
+
+				<p class="contact-us__intro">Fique a vontade para nos enviar Dúvidas, Sugestões ou Comentário</p>
+
+				<!-- Alert message -->
+				<div class="alert" id="form_message" role="alert"></div>
+
+				<!-- Please carefully read the README.txt file in order to setup
+                 the PHP contact form properly -->
+				<form id="form_sendemail" action=" " method="post">
+					{% csrf_token %}
+					{% if messages %}
+						{% for message in messages %}
+							{% if message.tags == 'error' %}
+							<div class="alert alert-danger">{{ message }}</div>
+							{% else %}
+							<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+							{%endif %}
+						{% endfor %}	
+					{% endif %}
+					<!-- Form Name -->
+					<legend>Entre em contato!</legend>
+					{% if success %}
+					<div class="alert alert-success">Mensagem enviada com sucesso!</div>
+					{% endif %}
+					<div class="form-group">
+						<label for="{{ form.name.auto_id }}">{{ form.name.label_tag }}</label>
+						<input type="text" name="{{ form.name.name }}" class="form-control" id="{{ form.name.auto_id }}" placeholder="Digite seu Nome e Sobrenome" data-original-title="Nome completo" title="Nome completo">
+						<span class="help-block"></span>
 					</div>
-				</div>
-			</div>
-
-
-			<div class="form-group">
-				<label class="col-md-4 control-label">Estado</label>
-				<div class="col-md-4 selectContainer">
-					<div class="input-group">
-						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-							<select class="form-control selectpicker" id="id_uf" name="uf" >
+					<div class="form-group">
+						<label for="{{ form.email.auto_id }}">{{ form.email.label_tag }}</label>
+						<input type="email" name="{{ form.email.name }}" class="form-control" id="{{ form.email.auto_id }}" placeholder="Informe seu E-mail" data-original-title="Informe seu E-mail" title="E-mail">
+						<span class="help-block"></span>
+					</div>
+					<div class="form-group">
+						<label for="{{ form.phone.auto_id }}">{{ form.phone.label_tag }}</label>
+						<input type="text" name="{{ form.phone.name }}" class="form-control phone" id="{{ form.phone.auto_id }}" placeholder="Informe seu telefone" data-original-title="Celular" title="Celular">
+						<span class="help-block"></span>
+					</div>
+					<div class="form-group">
+						<label for="{{ form.uf.auto_id }}">Estado</label>
+						<select class="form-control selectpicker" id="{{ form.uf.auto_id }}" name="{{ form.uf.name }}" >
 								<option value="">Selecione seu estado</option>
 								<option value="AC">Acre</option>
 								<option value="AL">Alagoas</option>
@@ -87,44 +97,72 @@
 								<option value="SE">Sergipe</option>
 								<option value="TO">Tocantins</option>
 							</select>
+						<span class="help-block"></span>
 					</div>
-				</div>
-			</div>
+					<div class="form-group">
+						<label for="{{ form.message.auto_id }}">Mensagem</label>
+						<textarea name="{{ form.message.name }}" class="form-control" rows="3" id="{{ form.message.auto_id }}" placeholder="Digite aqui sua sugestão, comentário, dúvida"></textarea>
+						<span class="help-block"></span>
+					</div>
+					<!-- reCAPTCHA -->
+					<div class="form-group" id="form-captcha">
 
-			<div class="form-group">
-				<label class="col-md-4 control-label">Mensagem</label>
-				<div class="col-md-4 inputGroupContainer">
-					<div class="input-group">
-						<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span> {% render_field form.message placeholder="digite aqui sua sugestão, comentário, dúvida" class="form-control" %}
-						
+						<div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+						<span class="help-block"></span>
 					</div>
-				</div>
+					<!-- /reCAPTCHA -->
+					<button type="submit" class="btn btn-lg btn-primary">Enviar</button>
+				</form>
+
 			</div>
-			<p class="bs-component">
-				<center>
-					<input class="btn btn-success btn-sm" type="submit" value="Enviar" />
-				</center>
-			</p>
-		</fieldset>
-	</form>
+			<!-- / .section -->
+		</div>
+		<div class="col-sm-4">
+			<div class="section">
+
+				<h3 class="headline">
+					<span>Nosso Endereço</span>
+				</h3>
+
+				<p>
+					Brasilia DF - Brasil<br /> SCS Q 06, Bl A, Sala 403, Ed. Carioca » Asa Sul<br /> Phone:  +55 61 99112-4562
+					<br />
+					Email: <a href="mailto:contato@avecdata.com">contato@avecdata.com</a>
+				</p>
+			</div>
+			<!-- / .section -->
+			<div class="section">
+
+				<h3 class="headline">
+					<span>Google Maps</span>
+				</h3>
+
+				<div class="embed-responsive embed-responsive-4by3" id="googleMap">
+				</div>
+
+			</div>
+			<!-- / .section -->
+		</div>
+	</div>
+	<!-- / .row -->
 </div>
 
 <!-- start located map Section -->
-<section id="ltd_map_sec" style="padding-bottom: 40px;">
+<!-- <section id="ltd_map_sec" style="padding-bottom: 40px;">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="map">
 					<div id="slidingDiv">
 						<div class="map_area">
-							<div id="googleMap" style="width: 100%; height: 300px;"></div>
+							<div id="googleMap1" style="width: 100%; height: 300px;"></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
 
 
 <!-- Google Map js -->

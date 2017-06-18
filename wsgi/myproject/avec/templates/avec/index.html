@@ -5,7 +5,7 @@
 {% load staticfiles %}
 
 {% block content %}
-<div class="home-app__container">
+<div class="home-app__container container-home">
 
 		<div class="section section_centered bg-parallax">
 			<div class="section__inner">
@@ -149,7 +149,7 @@
           
 	          {% for post in posts %}
 	          <div class="index-3-features-2__item avec-icon-chart">
-	          	  <a href="#" class="avec-icon-link">
+	          	  <a href="/post/{{ post.id }}" class="avec-icon-link">
 	              <div class="index-3-features-2__icon">
 	                <i class="fa fa-th-list"></i>
 	              </div>
@@ -167,7 +167,7 @@
           
           	{% for simpledash in simpledashs %}
 	          <div class="index-3-features-2__item avec-icon-chart">
-	          	  <a href="#" class="avec-icon-link">
+	          	  <a href="/simpleDash_detail/{{ simpledash.id }}" class="avec-icon-link">
 	              <div class="index-3-features-2__icon">
 	                <i class="fa fa-pie-chart"></i>
 	              </div>
@@ -186,7 +186,7 @@
           
           	{% for panel in panels %}
           	<div class="index-3-features-2__item avec-icon-chart">
-          	  <a href="#" class="avec-icon-link">
+          	  <a href="/paineis_detail/{{ panel.id }}" class="avec-icon-link">
               <div class="index-3-features-2__icon">
                 <i class="fa fa-area-chart"></i>
               </div>
