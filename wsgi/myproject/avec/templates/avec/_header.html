@@ -47,14 +47,10 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Produtos <i class="fa fa-angle-down"></i></a>
-						<ul class="dropdown-menu">
-							<li><a href="portfolio.html">Avec Data</a></li>
-							<li><a href="portfolio-item.html">Avec View</a></li>
-						</ul>
+						<a href="{% url 'produtos' %}" class="dropdown-toggle">Produtos </a>
 					</li>
-					<li class="dropdown"><a href="{% url 'quemsomos' %}"
-						class="dropdown-toggle">Quem Somos </a>
+					<li class="dropdown">
+						<a href="{% url 'quemsomos' %}" class="dropdown-toggle">Quem Somos </a>
 					</li>
 					<li class="dropdown avec-menu-plains">
 						<a href="/#plans" class="dropdown-toggle">Planos </a>
@@ -88,16 +84,16 @@
 						</div>
 					</li>
 					{% else %}
-					<li class="avec-menu-item hidden-sm hidden-md hidden-lg"><a class="dropdown-toggle" href="{% url 'logar' %}">ENTRAR</a></li>
+					<li class="avec-menu-item hidden-sm hidden-md hidden-lg" ><a class="dropdown-toggle" href="{% url 'logar' %}">ENTRAR</a></li>
 					{% endif%}
 	
 					<li class="avec-menu-item avec-menu-subscription hidden-sm hidden-md hidden-lg"><aclass="dropdown-toggle" href="/#plans">ASSINAR</a></li>
 	
-					<li class="avec-menu-item hidden-sm hidden-md hidden-lg"><a class="dropdown-toggle">EXPERIMENTAR</a></li>
+					<li class="avec-menu-item hidden-sm hidden-md hidden-lg"><a href="{% url 'accounts:register' %}" class="dropdown-toggle">EXPERIMENTAR</a></li>
 				</ul>
 			</div>
 			<div class="avec-navbar-right hidden-xs">
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right avec-btn-nav-right">
 					{% if user.is_authenticated %}
 					<li>
 						<div class="dropdown">
@@ -123,13 +119,13 @@
 						</div>
 					</li>
 					{% else %}
-					<li class="avec-menu-item"><a class="avec-link-login" href="{% url 'logar' %}">ENTRAR</a></li>
+					<li class="avec-menu-item" style="margin-right: 0px;"><a class="avec-link-login" href="{% url 'logar' %}">ENTRAR</a></li>
 					{% endif%}
 	
 					<li class="avec-menu-item avec-menu-subscription"><a
 						class="btn-avec-primary" href="/#plans">ASSINAR</a></li>
 	
-					<li class="avec-menu-item hidden-sm"><a class="btn btn-avec-success">EXPERIMENTAR</a></li>
+					<li class="avec-menu-item hidden-sm"><a class="btn btn-avec-success" href="{% url 'accounts:register' %}">EXPERIMENTAR</a></li>
 				</ul>
 			</div>
 			<!-- / .nav -->
@@ -140,5 +136,3 @@
 		<!--/.navbar-collapse -->
 	</div>
 </div>
-
-

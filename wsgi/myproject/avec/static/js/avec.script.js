@@ -6,7 +6,7 @@ $(document).ready(function () {
 	
 	//window.url_config = 'http://192.168.0.105:8080';
 	//window.url_config = 'http://www.avecdata.com';
-	window.url_config = 'http://ec2-52-26-198-7.us-west-2.compute.amazonaws.com';
+	window.url_config = 'http://ec2-34-211-223-88.us-west-2.compute.amazonaws.com';
 	
 	$('li.moment-data__item').mouseover(function() {
 		var imgpath = $(this).find('a').attr('data-image');
@@ -166,7 +166,7 @@ $(document).ready(function () {
 		   icon: 'fa fa-key', 
 		   title: 'Avec Data: Recuperar Senha',
 		   content: ''+
-		   '<form action="" class="formName"><div style="width: 100%; text-align: center; "><div class="form-group">'
+		   '<form action="" class="formName" method="post"><div style="width: 100%; text-align: center; "><div class="form-group">'
 		   +'<span style="margin-bottom: 10px; width: 100%; display: inline-block; text-align: left;">Informe o e-mail cadastrado. Você receberá um link de recuperação de senha:</span>'
 		   +'<input type="email" id="id_avec_email" class="form-control" name="avec_email" autocomplete="off" placeholder="E-mail" required="required" style="margin-bottom: 10px;">'
 		   +'</div></div></form>',

@@ -610,11 +610,11 @@ def reload_password_ws(request):
             if user_logged is not None:
                 
                 token = utils.account_activation_token.make_token(user_logged)
-#                 uidb64 = base64.b64encode(bytes(str(user_logged.id)+settings.SECRET_RECOVERY_EMAIL_KEY, encoding='ascii')).decode()
-                uidb64 = base64.b64encode(str(str(user_logged.id)+settings.SECRET_RECOVERY_EMAIL_KEY)).decode()
+                uidb64 = base64.b64encode(bytes(str(user_logged.id)+settings.SECRET_RECOVERY_EMAIL_KEY, encoding='ascii')).decode()
+#                 uidb64 = base64.b64encode(str(str(user_logged.id)+settings.SECRET_RECOVERY_EMAIL_KEY)).decode()
                 
-#                 url = 'http://www.avecdata.com/conta/esqueceu-senha'+'/'+uidb64+'/'+token+'/'
-                url = 'http://www.avecdata.com'+reverse('accounts:recovery_password', args={token, uidb64})
+                url = 'http://www.avecdata.com/conta/esqueceu-senha'+'/'+uidb64+'/'+token+'/'
+#                 url = 'http://www.avecdata.com'+reverse('accounts:recovery_password', args={token, uidb64})
                 
                 title = 'AVEC DATA - Recuperação de Senha'
                 name = user_logged.name

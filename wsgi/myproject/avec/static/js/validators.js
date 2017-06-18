@@ -3,10 +3,9 @@
  */
 $(document).ready(function () {
 	
-	//window.url_config = 'http://avecdatadomain.com:8080';
+	//window.url_config = 'http://192.168.0.105:8080';
 	//window.url_config = 'http://www.avecdata.com';
-	//window.url_config = 'http://avecdata.ddns.net:8080';
-	window.url_config = 'http://ec2-52-26-198-7.us-west-2.compute.amazonaws.com';
+	window.url_config = 'http://ec2-34-211-223-88.us-west-2.compute.amazonaws.com';
 	
 	//--formulario do plano de assinatura profissional/corporativo
 	$('#form-register').validate({

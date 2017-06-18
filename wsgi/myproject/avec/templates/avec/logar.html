@@ -12,47 +12,103 @@
 <p>Please login to see this page.</p>
     {% endif %}
 {% endif %}
-
+<div class="topic">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h3 style="font-size: 18px;">Avec Login</h3>
+			</div>
+			<div class="col-sm-8">
+				<ol class="breadcrumb pull-right hidden-xs" style="margin-top: 0px;">
+					<li><a href="{% url 'index' %}">Home</a></li>
+					<li class="active">Login</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="container">
-	<header>
-        <div class="mpt-container">
-            <div class="row" style="margin-left: 0px; margin-right: 0px;">
-				<div class="col-lg-4 col-lg-offset-4">
-                    <div class="intro-text" style="padding-top: 10%;">
-                    	<div class="card card-container card-webapp">
-                    		<span class="avec-login-title">AVEC Data</span>
-                    		<div class="avec-login-logo img-responsive">
-                    			<i class="fa fa-user-circle-o"></i>
-                    		</div>
-				            <hr>
-				            <form class="form-signin" role="form" action="{% url 'logar' %}" method="post">
-				            	{% csrf_token %}
-				                <span id="reauth-email" class="reauth-email"></span>
-				                
-				                <input type="text" id="{{ form.username.auto_id }}" class="form-control" name="{{ form.username.name }}" placeholder="Usuário" required="required" autofocus="autofocus">
-				                
-				                <input type="password" id="{{ form.password.auto_id }}" class="form-control" name="{{ form.password.name }}" placeholder="Senha" required="required">
-				                
-				                <div id="remember" class="checkbox">
-				                    <label>
-				                        <!-- <input type="checkbox" value="remember-me"> Manter conectado -->
-				                    </label>
-				                </div>
-				                <button type="submit" class="btn btn-lg btn-primary btn-block btn-signin btn-mpt" value="Entrar"><i class="fa fa-key" aria-hidden="true"></i>Entrar</button>
-				                <a href="#" id="btn-forgot-password" class="forgot-password">Esqueceu a senha?</a>
-				                <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-facebook" ><i class="fa fa-facebook"></i>Login com Facebook</a>
-				                <a href="{% provider_login_url 'google' method='oauth2' %}" class="btn btn-google-plus" ><i class="fa fa-google-plus"></i>Login com Google</a>
-				                <input type="hidden" name="next" value="{{ next }}" />
-				                {% if form.errors %}
-									<div class="alert alert-danger" style="margin-bottom: 0px;">Usuário e/ou senha inválidos. Tente novamente.</div>
-								{% endif %}
-				            </form>
-				        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+
+			<div class="sign__form">
+
+				<h3 class="sign-form__title">Use Sua Conta AVEC</h3>
+
+				 <form role="form" action="{% url 'logar' %}" method="post">
+				 	{% csrf_token %}
+					<!-- Email -->
+					<div class="form-group">
+						<label for="{{ form.username.auto_id }}" class="sr-only">Usuário</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user"></i></span>
+							<input type="text" id="{{ form.username.auto_id }}" class="form-control" name="{{ form.username.name }}" required="required" autofocus="autofocus">
+						</div>
+					</div>
+					<!-- / .form-group -->
+
+					<!-- Password -->
+					<div class="form-group">
+						<label for="{{ form.password.auto_id }}" class="sr-only">Senha</label>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+							<input type="password" id="{{ form.password.auto_id }}" class="form-control" name="{{ form.password.name }}" required="required">
+						</div>
+					</div>
+					<!-- / .form-group -->
+
+					<!-- Remember me -->
+					<div class="form-group">
+						<div class="checkbox">
+							<!-- <label> <input type="checkbox"> Remember me </label> -->
+						</div>
+					</div>
+					<!-- / .form-group -->
+
+					<!-- Submit -->
+					 {% if form.errors %}
+					 <div class="alert alert-danger" style="margin-bottom: 10px;">Usuário e/ou senha inválidos. Tente novamente.</div>
+					 {% endif %}
+					<button type="submit" class="btn btn-primary">Entrar</button>
+					<hr>
+				</form>
+
+				<!-- Sign up link -->
+				
+				<a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-facebook" ><i class="fa fa-facebook"></i>Login com Facebook</a>
+                <a href="{% provider_login_url 'google' method='oauth2' %}" class="btn btn-google-plus" ><i class="fa fa-google-plus"></i>Login com Google</a>
+                <input type="hidden" name="next" value="{{ next }}" />
+				<hr>
+				<p>
+					Não tem uma conta? <a href="{% url 'accounts:register' %}">Crie uma!</a>
+				</p>
+
+				<p>Esqueceu senha Senha? <a href="#lost-password__form" id="btn-forgot-password" data-toggle="collapse" aria-expanded="false" aria-controls="lost-password__form"> Clique aqui para Recuperar. </a></p>
+
+				<!-- <div class="collapse" id="lost-password__form">
+
+					<p class="text-muted">Enter your email address below and we
+						will send you a link to reset your password.</p>
+
+					Lost password
+					<form class="form-inline">
+						<div class="form-group">
+							<label class="sr-only" for="lost-password__email">Email
+								address</label> <input type="email" class="form-control"
+								id="lost-password__email" placeholder="Enter email">
+						</div>
+						<button type="submit" class="btn btn-secondary">Send</button>
+					</form>
+
+				</div> -->
+				<!-- lost-password__form -->
+
+			</div>
+			<!-- / .sign__form -->
+
+		</div>
+	</div>
+	<!-- / .row -->
 </div>
 
 {% endblock %}

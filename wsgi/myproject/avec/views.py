@@ -175,6 +175,8 @@ def registrar(request):
 
 # pagina de login do jogador
 def logar(request):
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST) # Veja a documentacao desta funcao
 
@@ -188,7 +190,7 @@ def logar(request):
             return render(request, "avec/logar.html", {"form": form})
 
     #se nenhuma informacao for passada, exibe a pagina de login com o formulario
-    return render(request, "avec/logar.html", {"form": AuthenticationForm()})
+    return render(request, "avec/logar.html", {"form": AuthenticationForm(), 'themes': themes})
 
 def logout(request):
     request.session.items = []
@@ -203,6 +205,10 @@ def assuntos(request):
 
 def servicos(request):
     return render(request, 'avec/servicos.html')
+
+def produtos(request):
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    return render(request, 'avec/produtos.html', {'themes': themes})
 
 def quemsomos(request):
     themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()

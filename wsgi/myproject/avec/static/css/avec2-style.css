@@ -7,7 +7,12 @@
 }
 
 .avec-pricing-title {
+	color: #3E4C5B;
 	padding-top: 40px;
+}
+
+.pricing-option {
+	border: 15px solid #DDE6EE;
 }
 
 .pricing-option_popular::before {
@@ -16,6 +21,11 @@
 
 .shop-index__heading {
     font-family: 'Lato-Regular', sans-serif;
+}
+
+footer:before {
+   -webkit-box-shadow: none;
+   box-shadow: none;
 }
 
 .btn-avec-primary,
@@ -37,11 +47,20 @@ a.avec-link-login:hover {
 }
 
 a.btn-avec-vagas {
+	background-color: #3DC1D0;
+	background-color: #40c0cf !important;
+    border-color: rgba(0, 0, 0, 0.1);
 	font-size: 18px;
 	padding: 16px 40px;
 	-webkit-border-radius: 30px;
 	-khtml-border-radius: 30px;
 	border-radius: 30px;
+}
+
+a.btn-avec-vagas:hover {
+  background-color: #32a8b5 !important;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: white;
 }
 
 a.btn-avec-primary:before,
@@ -113,14 +132,14 @@ a.avec-link-login:before {
 
 .avec-menu-item {
 	text-align:center;
-	margin: 0px 20px 0px 0px;
+	margin: 0px 8px 0px 0px;
 }
 
 h1.avec-home-app {
 	color: #3e4c5b;
 	display: block;
 	margin-bottom: 40px !important;
-	font-weight: 100 !important;
+	font-weight: 300 !important;
 	white-space: normal;
 }
 
@@ -189,6 +208,61 @@ h1.avec-home-app:after {
 .avec-ft-list li:nth-child(odd) {
 	font-weight: bold;
 	padding-top: 12px;
+}
+
+.avec-ft-produtos-list li {
+	font-size: 18px;
+	text-align: center;
+}
+
+.avec-ft-produtos-list li:nth-child(odd) {
+	font-size: 23px;
+	text-align: left;
+	font-weight: normal;
+}
+
+.avec-ft-produtos-list {
+	border: 1px solid #dde6ee;
+    padding: 70px 68px 75px  68px;
+    border-radius: 8px;
+}
+
+.avec-ft-produtos-list > li:before {
+    content: "\f140";
+    font-size: 24px;
+}
+
+.avec-ft-produtos-list li:nth-child(odd):before {
+	font-size: 23px;
+}
+
+span.avec-produtos-icon-description {
+	display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 54px;
+    margin-bottom: 35px;
+}
+
+span.avec-produtos-icon-description i {
+	color: #3dc1d0;
+	font-size: 36px;
+}
+
+.avec-produtos-title-description {
+	width: 100%;
+	display: inline-block;
+	color: #3e4c5b;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 27px;
+}
+
+.avec-produtos-content-description {
+	color: #3e4c5b;
+    font-size: 18px;
+	text-align: center;
 }
 
 .avec-relevant-section {
@@ -336,7 +410,7 @@ h1.avec-home-app:after {
 .home-app-pricing__extra {
 	border-bottom: 2px solid #dde6ee;
 	margin-bottom: 0px;
-    padding: 15px 0px;
+    padding: 15px 10px;
 }
 
 .home-app-pricing__bottom_extra {
@@ -381,7 +455,19 @@ h1.avec-home-app:after {
 }
 
 .avec-title-home-app {
+	color: #3E4C5B;
 	font-size: 44px;
+}
+
+.avec-title-nosso-time {
+	color: #3E4C5B !important;
+	font-family: 'Lato-Light', sans-serif;
+	font-size: 18px !important;
+}
+
+.avec-index-3-features-2__content {
+	color: #3E4C5B !important;
+	font-size: 17px;
 }
 
 .avec-container {
@@ -400,7 +486,7 @@ h1.avec-home-app:after {
 }
 
 .avec-navbar-left {
-	width: 337px;
+	width: 375px;
 	float: left;
 }
 
@@ -410,13 +496,13 @@ h1.avec-home-app:after {
 }
 
 .avec-menu-nav-right {
-	width: 418px;
+	width: 395px;
     float: none !important;
     margin: 0px auto;
 }
 
 .avec-navbar-center {
-	width: 64%;
+	width: 62%;
 	display: inline-block;
 	float: none;
 }
@@ -444,7 +530,7 @@ footer {
 	width: 100%;
 	position: absolute;
 	padding: 50% 0px;
-    color: #a7b4c4;
+    color: #3E4C5B;
     left: 0;
     visibility: hidden;
 }
@@ -463,6 +549,30 @@ footer {
 	display: block;
 }
 
+span.avec-nome-colaborador {
+	color: #3E4C5B;
+	font-size: 20px;
+}
+
+p.avec-cargo-colaborador {
+	color: #8091A4;
+	font-size: 13px;
+}
+
+.avec-index-3-features-2__heading {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.footer__copyright {
+	font-family: 'Lato-Light', sans-serif;
+	font-size: 12px;
+}
+
+.footer__social > li > a {
+    background-color: #DDE5EE;
+}
+
 @media (max-width: 768px) {
 	h1.avec-title-home-app {
 	    font-size: 32px;
@@ -477,6 +587,14 @@ footer {
 	
 	.navbar-nav > li > .dropdown-menu:before, .dropdown-submenu > .dropdown-menu:before {
 	    border-top: none;
+	}
+	
+	.section > .avec-section__inner {
+		padding: 55px 0 80px 0 !important;
+	}
+	
+	.section-quemsomos > .section__inner {
+	    padding: 100px 0 !important;
 	}
 }
 
@@ -505,7 +623,7 @@ footer {
 	} */
 	
 	.avec-navbar-center {
-		width: 64%;
+		width: 62%;
 	}
 }
 
@@ -522,7 +640,15 @@ footer {
 	}
 	
 	.avec-navbar-center {
-		width: 48%;
+		width: 46%;
+	}
+	
+	.avec-navbar-right {
+	    width: 344px;
+	}
+	
+	.avec-btn-nav-right {
+		
 	}
 }
 
