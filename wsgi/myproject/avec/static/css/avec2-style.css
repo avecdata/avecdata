@@ -762,4 +762,9 @@ p.avec-cargo-colaborador {
 	.avec-navbar-center li.dropdown a {
 		text-align: center;
 	}
+  .avec-foto{
+
+      width: 100% !important;
+
+  }
 }
