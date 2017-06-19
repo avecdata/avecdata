@@ -95,14 +95,20 @@ def simpleDash_detail(request, pk):
     related_dashs = SimpleDashboard.objects.filter(subject=myparent)
     related_info = Post.objects.filter(subject=myparent)
     mytabs = dash.tabsimple_set.all().order_by('id')
-    return render(request, 'avec/simpleDash_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs, 'myparent' : myparent, 'related' : related, 'related_dashs' : related_dashs, 'related_info': related_info})
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    return render(request, 'avec/simpleDash_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs, 'myparent' : myparent, 'related' : related, 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
 
 
 def paineis_detail(request, pk):
     dash = Paineis.objects.get(pk=pk)
     mykeywords = dash.keywords.all()
+    myparent = dash.subject.all()
+    related = Subject_detail.objects.filter(subject=myparent)
+    related_dashs = SimpleDashboard.objects.filter(subject=myparent)
+    related_info = Post.objects.filter(subject=myparent)
     mytabs = dash.tabpaineis_set.all().order_by('id')
-    return render(request, 'avec/paineis_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs})
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    return render(request, 'avec/paineis_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs, 'myparent' : myparent, 'related' : related, 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
 
 def post_detail(request, pk):
 
@@ -119,7 +125,8 @@ def post_detail(request, pk):
         related = Subject_detail.objects.filter(subject=myparent)
         related_dashs = SimpleDashboard.objects.filter(subject=myparent)
         related_info = Post.objects.filter(subject=myparent)
-        return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related , 'related_dashs' : related_dashs, 'related_info': related_info})
+        themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+        return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related , 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
     else:
         return render(request,'avec/permissao.html')
 
@@ -137,7 +144,8 @@ def subject_detail(request, pk):
     simpledash = SimpleDashboard.objects.filter(subject=mysubject).order_by('published_date').reverse()
     paineis = Paineis.objects.filter(subject=mysubject).order_by('published_date').reverse()
     reports  = Reports.objects.filter(published_date__lte=timezone.now()).filter(subject=mysubject).order_by('published_date').reverse()
-    return render(request, 'avec/subjects_detail.html', {'posts': posts, 'dashboards': dashboards, 'mysubject': mysubject, 'mykeywords': mykeywords, 'mysubdetail': mysubdetail, 'reports': reports, 'simpledash': simpledash, 'paineis': paineis})
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    return render(request, 'avec/subjects_detail.html', {'posts': posts, 'dashboards': dashboards, 'mysubject': mysubject, 'mykeywords': mykeywords, 'mysubdetail': mysubdetail, 'reports': reports, 'simpledash': simpledash, 'paineis': paineis, 'themes': themes})
 
 def subsubject_detail(request, pk):
     mysubject = Subject_detail.objects.get(pk=pk)
@@ -147,13 +155,15 @@ def subsubject_detail(request, pk):
     simpledash = SimpleDashboard.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()
     paineis = Paineis.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()
     reports = Reports.objects.filter(subject_detail=mysubject).order_by('published_date').reverse()
-    return render(request, 'avec/subsubjects_detail.html', {'mysubject': mysubject, 'posts': posts, 'dashboards': dashboards , 'myparent': myparent, 'simpledash': simpledash, 'reports': reports, 'paineis': paineis})
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    return render(request, 'avec/subsubjects_detail.html', {'mysubject': mysubject, 'posts': posts, 'dashboards': dashboards , 'myparent': myparent, 'simpledash': simpledash, 'reports': reports, 'paineis': paineis, 'themes' : themes})
 
 def keywords_detail(request, pk):
     mykeywords = Keywords.objects.get(pk=pk)
     posts = Post.objects.filter(published_date__lte=timezone.now()).filter(keywords=mykeywords).order_by('published_date')
     dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).filter(keywords=mykeywords).order_by('published_date')
-    return render(request, 'avec/keywords.html', {'mykeywords': mykeywords, 'posts': posts, 'dashboards': dashboards})
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    return render(request, 'avec/keywords.html', {'mykeywords': mykeywords, 'posts': posts, 'dashboards': dashboards, 'themes' : themes})
 
 # pagina de cadastro de cliente
 def registrar(request):
@@ -176,7 +186,7 @@ def registrar(request):
 # pagina de login do jogador
 def logar(request):
     themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-    
+
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST) # Veja a documentacao desta funcao
 
