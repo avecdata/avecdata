@@ -162,8 +162,10 @@ def keywords_detail(request, pk):
     mykeywords = Keywords.objects.get(pk=pk)
     posts = Post.objects.filter(published_date__lte=timezone.now()).filter(keywords=mykeywords).order_by('published_date')
     dashboards = Dashboard.objects.filter(published_date__lte=timezone.now()).filter(keywords=mykeywords).order_by('published_date')
+    simpledash = SimpleDashboard.objects.filter(keywords=mykeywords).order_by('published_date').reverse()
+    paineis = Paineis.objects.filter(keywords=mykeywords).order_by('published_date').reverse()
     themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-    return render(request, 'avec/keywords.html', {'mykeywords': mykeywords, 'posts': posts, 'dashboards': dashboards, 'themes' : themes})
+    return render(request, 'avec/keywords.html', {'mykeywords': mykeywords, 'posts': posts, 'dashboards': dashboards, 'themes' : themes, 'simpledash' : simpledash, 'paineis' : paineis})
 
 # pagina de cadastro de cliente
 def registrar(request):

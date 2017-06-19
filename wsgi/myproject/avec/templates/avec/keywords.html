@@ -2,84 +2,335 @@
 {% load staticfiles %}
 {% block content %}
 
+   <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>AVEC - Ciência de dados</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
-        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
-        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-		<link rel="stylesheet" href="{% static 'min/stylesheets/style.css' %}">		
-		
-<div class="row">
-			<div class="title_sec">
-				    <div class="internal__row">
-						<h1 class="internal__title">{{mykeywords.title}}</h1>
-					</div>
-			</div>				
-			<div class="col-sm-8 ">
-			
-				<div class="sngl_blg">						
-				
-				<!--	<div class="post_info">
-						<div class="post_intro">
-							<h2>{{mysubject.title}}</h2>
-							<i class="fa fa-heartbeat"></i>
-									</br></br>
-						</div>
-					</div>-->
-				</div>
-				
+	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 
-				<div class="author_info" style="width: 83.33333%;">
-					<div class="row">
-						<div class="col-sm-12">
-							Infograficos recentes						
-						</div>
-					</div>
-					{% if posts.count > 0 %}
-						{% for post in posts %}
-							
-								<div class="row" style="padding-top: 20px">
-									<div class="col-sm-2">
-									<a href="{{post.link}}"><img src="{% static 'img/fs-line.png' %}" alt="" style="width:30%"/></a>
-									</div>
-									<div class="col-sm-10">
-									<div class="author_dec">
-										<a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
-										<a href="{{post.link}}"><p>{{ post.text|linebreaksbr }}</p></a>
-										<p>published: {{ post.published_date }}</p>
-									</div>
-								   </div>
-								</div>
-							
-						{% endfor %}
-					{% else%}	
-						<p></p>
-						<p>Não existem infográficos com a palavra chave <b>{{mykeywords.title}}</b></p>
-					{% endif %}		
-				</div>				
-					
+  <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
+   <link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
 
-			</div>		
-			
-			<div class="col-sm-4">
-				<div class="sidebar">						
-			
-					<div class="widget">
-						<h2>{{mysubject.subject}}</h2>
-						<div class="title_br"></div>
-						<ul>
-							{% for par in myparent %}
-								<li><a href="{% url 'subsubject_detail' pk=par.pk %}">{{par.title}}</a></li>
-							{% endfor %}	
-						</ul>
-					</div>					
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>
+	<script type="text/javascript" src="{% static dash.external_files %}"></script>
 
-					
-				</div>
-			</div>	
-		</div>
-		
-{% endblock content %}
+  <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+  <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+  <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+  <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+  <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+
+
+	<script>
+		var imguser = "{% static 'img/user/' %}";
+		var img = "{% static 'img/' %}";
+
+	</script>
+
+	<style>
+
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
+
+
+#chartdiv, #chartdiv2, #chartdiv3, #chartdiv4  {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}
+svg {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16b'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09, #chart-10,  #chart-11,  #chart-12,  #chart-13{
+        background: #899296;
+        width: 100%;
+        font-size: 64px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 100px;
+        height: 40px;
+        line-height: normal;
+		margin-bottom: 15px;
+      }
+
+.avec-glyphicon{
+    float: right;
+}
+
+	</style>
+
+  <!-- TOPIC HEADER
+  ================================================== -->
+  <div class="topic">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <h3 class="avec-h3">{{mykeywords.title}}</h3>
+        </div>
+        <div class="col-sm-8">
+          <ol class="breadcrumb pull-right hidden-xs">
+            <li><a href="index.html">Home</a></li>
+            <li class="avec-active">Assuntos</li>
+            <li class="avec-active">Sub assuntos</li>
+          </ol>
+        </div>
+      </div> <!-- / .row -->
+    </div> <!-- / .container -->
+  </div> <!-- / .topic -->
+
+
+
+
+  <!-- MAIN CONTENT
+  ================================================== -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+
+        <!-- Search -->
+        <form>
+          <div class="well">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Procure aqui...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary btn-search" type="button">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </span>
+                </div><!-- / .input-group -->
+              </div>
+            </div><!-- /.row -->
+          </div>
+        </form>
+
+        <!-- Categories -->
+
+
+
+      </div>
+      <div class="col-sm-9">
+
+
+  <div class="row">
+
+
+      <!--inicio paineis e infograficos relacionados-->
+
+      <div class="row">
+          <div class="col-sm-12">
+
+            <h3 class="headline avec-headline">
+              <span>Painéis</span>
+            </h3>
+
+
+          </div>
+          </div> <!-- / .row -->
+
+
+      {% if not simpledash %}
+      <div class="col-sm-12 nocontent-div">
+        <i class="fa fa-exclamation-triangle fa-avec-exclamation" aria-hidden="true"></i>
+        <p class="nocontent"> No momento não há item disponível para esse assunto.</p>
+      </div>
+      {% else %}
+    		{% for dash in simpledash %}
+        {% if forloop.counter == 7 %}
+          <div id="vermaisP" class="collapse">
+        {% endif %}
+          {% if forloop.counter|divisibleby:'3' %}
+            <div class="row">
+          {% endif %}
+                <div class="col-sm-4">
+
+                  <div class="home-features__item">
+                    <i class="fa fa-cubes fa-avec"></i>
+                    <div class="home-features-item__content">
+                      <h4><a href="{% url 'simpleDash_detail' pk=dash.pk %}">{{ dash.title }}</a></h4>
+                      <p>{{ dash.text }}</p>
+                    </div>
+                  </div>
+
+                </div>
+          {% if forloop.counter|divisibleby:'3' %}
+            </div> <!-- / .row -->
+          {% endif %}
+          {% if forloop.last and forloop.counter >= 7%}
+
+        </div> <!-- / .row demo collapse-->
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermaisP"> <span ></span>Ver Mais</button>
+          </div>
+        </div>
+          {% endif %}
+    		{% endfor %}
+      {% endif %}
+
+
+  		<div class="row">
+          <div class="col-sm-12">
+
+            <h3 class="headline avec-headline">
+              <span>Infograficos</span>
+            </h3>
+
+
+          </div>
+          </div> <!-- / .row -->
+
+      {% if not posts %}
+      <div class="col-sm-12 nocontent-div">
+        <i class="fa fa-exclamation-triangle fa-avec-exclamation" aria-hidden="true"></i>
+        <p class="nocontent"> No momento não há item disponível para esse assunto.</p>
+      </div>
+      {% else %}
+    		{% for post in posts %}
+        {% if forloop.counter == 7 %}
+          <div id="vermais" class="collapse">
+        {% endif %}
+        {% if forloop.counter|divisibleby:'3' %}
+          <div class="row">
+        {% endif %}
+              <div class="col-sm-4">
+
+                <div class="home-features__item">
+                  <i class="fa fa-pie-chart fa-avec"></i>
+                  <div class="home-features-item__content">
+                    <h4><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
+                    <p>{{ post.text|linebreaksbr }}</p>
+                  </div>
+                </div>
+
+              </div>
+          {% if forloop.counter|divisibleby:'3' %}
+            </div> <!-- / .row -->
+          {% endif %}
+          {% if forloop.last and forloop.counter >= 7%}
+        </div> <!-- / .row demo collapse-->
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermais"> <span ></span>Ver Mais</button>
+          </div>
+        </div>
+          {% endif %}
+
+    		{% endfor %}
+      {% endif %}
+          </div>
+        </div> <!-- / .row -->
+
+      <!--fim paineis e infograficos relacionados-->
+
+
+      </div>
+
+
+    </div> <!-- / .row -->
+  </div> <!-- / .container -->
+
+  <script>
+  $(document).ready(function(){
+    $("#vermaisP").on("hide.bs.collapse", function(){
+      $(".avec-btnP").html('<span ></span> Ver mais');
+    });
+    $("#vermaisP").on("show.bs.collapse", function(){
+      $(".avec-btnP").html('<span ></span> Ver menos');
+    });
+  });
+  </script>
+
+{% endblock %}
+
+{% block other %}
+
+
+
+{% endblock %}
