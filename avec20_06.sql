@@ -2701,7 +2701,7 @@ COPY accounts_user (id, password, last_login, is_superuser, username, name, emai
 3	pbkdf2_sha256$24000$jNEdGd7CYGoi$/SOKa+sr2pqxbfETuF036s4wqY3B19fXgdnyV5BYexo=	2017-06-19 18:29:11.089852+00	t	daniel	Daniel	costaporangaba@gmail.com	t	t	2017-03-13 17:46:05.98292+00	2017-03-25 15:42:14+00	\N	M		f	\N
 67	pbkdf2_sha256$24000$nJwGxd4YVOFe$wbqYWF2Uyy05vbzp41uTzOxNlKd9vOFXDLXnQic/pL0=	2017-04-20 13:47:35.042925+00	f	grzf	Greyson	greyson.rampazo@99saves.com	f	t	2017-04-20 13:47:32.301343+00	2017-04-20 13:47:32.261273+00	(11) 91111-1111	\N		f	\N
 69	!6Rnj9rHL5PBhLx2Qg5lQJtlAIaKE5nK9tmxxeXls	2017-04-22 23:39:23.323551+00	f	nataliasneves	Natália Neves	nataliasneves@gmail.com	f	t	2017-04-22 23:35:08.233618+00	2017-04-22 23:35:08.169859+00	\N	\N	https://lh4.googleusercontent.com/-WdkaTKuQnjY/AAAAAAAAAAI/AAAAAAAAAPs/wdoEuNiwHxA/photo.jpg	t	\N
-4	pbkdf2_sha256$24000$geiiKEfbQkU3$3orRCvFLlmFmeg/XXkS0lmRuvMVlOkN14xMdWTkdwOY=	2017-06-14 01:23:14.384913+00	t	vinicius	Vinicius	viuaraujo@gmail.com	t	t	2017-03-13 18:10:51.771195+00	2017-03-25 15:42:14+00	\N	M		f	2
+4	pbkdf2_sha256$24000$geiiKEfbQkU3$3orRCvFLlmFmeg/XXkS0lmRuvMVlOkN14xMdWTkdwOY=	2017-06-20 10:44:45.88121+00	t	vinicius	Vinicius	viuaraujo@gmail.com	t	t	2017-03-13 18:10:51.771195+00	2017-03-25 15:42:14+00	\N	M		f	2
 11	pbkdf2_sha256$24000$V9kO47R7t7Br$3or7MJv5mr4ShJA6ym/nCAxacbqxQgrJTuELKXPcQsw=	2017-03-20 20:38:40+00	f	Acme	José Francisco	josecarlosestevesf@gmail.com	f	t	2017-03-20 20:37:13.646801+00	2017-03-25 15:42:14+00	\N	M		f	\N
 5	pbkdf2_sha256$24000$it4Mbvc3JADY$dvqFgWkE4CZuVviM+CsK4V5429aRc4K6rr+mF4ADQYA=	\N	f	filipe.manhaes	Filipe	pinhobsb@gmail.com	f	t	2017-03-13 18:41:33.45911+00	2017-03-25 15:42:14+00	\N	m		f	\N
 70	!vuPf7BONgHAvwIevauCgqwrEYLBKVz4nPuHuVRo9	2017-05-10 19:14:59.484978+00	f	contato		contato@avecdata.com	f	t	2017-05-10 19:14:55.207938+00	2017-05-10 19:14:55.183846+00	\N	\N		f	\N
@@ -3349,7 +3349,8 @@ COPY avec_order (id, status, payment_option, order_key, amount, created, modifie
 50	0	paypal	vdrdjquc3dztg8nug1mv6827518cav5l	30.00	2017-06-18 12:13:04.642756+00	2017-06-18 12:13:04.68204+00	9	65
 51	0	paypal	5wlwt3rex7717iclkh2or8ni6s9nco4h	80.00	2017-06-19 17:01:23.236028+00	2017-06-19 17:02:03.927632+00	3	74
 52	0	paypal	5wlwt3rex7717iclkh2or8ni6s9nco4h	80.00	2017-06-19 17:03:08.783374+00	2017-06-19 17:03:08.786494+00	3	74
-53	0	paypal	5wlwt3rex7717iclkh2or8ni6s9nco4h	80.00	2017-06-19 22:46:08.494976+00	2017-06-19 22:46:08.499182+00	3	74
+53	0	paypal	5wlwt3rex7717iclkh2or8ni6s9nco4h	80.00	2017-06-19 22:46:08.494976+00	2017-06-20 03:08:28.904167+00	3	74
+54	0	paypal	5wlwt3rex7717iclkh2or8ni6s9nco4h	80.00	2017-06-20 03:11:47.344528+00	2017-06-20 03:11:47.347397+00	3	74
 \.
 
 
@@ -3357,7 +3358,7 @@ COPY avec_order (id, status, payment_option, order_key, amount, created, modifie
 -- Name: avec_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: adminqppeacq
 --
 
-SELECT pg_catalog.setval('avec_order_id_seq', 53, true);
+SELECT pg_catalog.setval('avec_order_id_seq', 54, true);
 
 
 --
@@ -10264,6 +10265,7 @@ si6kw1qawg4kadoa8ehhvrvev6zk8ick	MjRhMmEzNzBjYmE3YTk0NGE3OWNiNzA4ZWJlOGFmMTg1MmY
 ypxa04bp6sbtlwamt5b2ivxadedetkkn	ZWNiN2RjMWQ5YjE5MDYxZTE1MTFjZTlhMDJlNDMwZDQ0ZTBlNDI5Yjp7InNvY2lhbGFjY291bnRfc3RhdGUiOlt7InByb2Nlc3MiOiJsb2dpbiIsInNjb3BlIjoiIiwiYXV0aF9wYXJhbXMiOiIifSwiMnZxdHJVaTNUZkVOIl19	2017-06-28 19:47:39.611633+00
 bcg7icru4kxg02j98yi6soi2vipvupj3	MmRhYTM4MGRjNTA4ZDg2YmZlMDViYjc0OWY2ZTQ2OWQ0MzNlZWI1Nzp7Il9hdXRoX3VzZXJfaGFzaCI6IjFlNTJjYzk1MWYzMDc5OWJiNTI5YWVhNGI5Yzk2MmRiM2E3ZjM1MGEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIyIn0=	2017-06-29 19:41:36.668663+00
 5wlwt3rex7717iclkh2or8ni6s9nco4h	YWZmNTJiMzZmN2M0NmRiYTUwNmFiOTNmOTdkZmE1MTUxMTFiNzNiNzp7Il9hdXRoX3VzZXJfaGFzaCI6ImViNjgxMmM5ZmRkNmUzMzY4Y2RmMWU3MTk1YmFiYWNiOTRmMTBlMzciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiI3NCJ9	2017-07-03 17:01:23.274996+00
+0i2u45pytqfdc62rlwajxumrwrhl70mx	YmVkZjkzNTcwMzdlN2IzYTkxMTI4Y2JmYWY1NmIxMWE0ZTg4Nzk2ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjM0ODlhZDVlZjM0ZmIzMDY1ZDAwOWZjODQ5ZTcxYWEyNDAxMWVkNzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJhY2NvdW50cy5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoiNCJ9	2017-07-04 10:44:45.886054+00
 1h46p02o5wil542wmdi03dhzvhd0qpn0	NTQwZjJmOGRjZGM1NjNiMTM2ODQyNTAyMTM0YWQyZWIwODFlOTg0Zjp7Il9hdXRoX3VzZXJfaGFzaCI6IjFlNTJjYzk1MWYzMDc5OWJiNTI5YWVhNGI5Yzk2MmRiM2E3ZjM1MGEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJhY2NvdW50cy5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoiMiJ9	2017-06-14 10:20:18.977173+00
 zpf5j91d7b4zr6zohhmrzoxf955jmon5	MTBjMDAwNjM1MmIwZTg3ZWI3Y2E1YjEyYzZlNmU2MTIxNjI3MWRlNTp7InNvY2lhbGFjY291bnRfc3RhdGUiOlt7InByb2Nlc3MiOiJsb2dpbiIsInNjb3BlIjoiIiwiYXV0aF9wYXJhbXMiOiIifSwidXR1YXVXWWF5SVQ0Il19	2017-06-22 08:05:09.436908+00
 bmgwjolh160lokmmigi3skmn5zf93mz8	YmVkZjkzNTcwMzdlN2IzYTkxMTI4Y2JmYWY1NmIxMWE0ZTg4Nzk2ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjM0ODlhZDVlZjM0ZmIzMDY1ZDAwOWZjODQ5ZTcxYWEyNDAxMWVkNzMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJhY2NvdW50cy5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoiNCJ9	2017-06-28 01:23:14.387782+00
