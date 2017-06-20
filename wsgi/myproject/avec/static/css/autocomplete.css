@@ -1,4 +1,4 @@
-strong { font-weight: bold; } 
+strong { font-weight: bold; }
 
 /** typography **/
 h1 {
@@ -24,11 +24,11 @@ h1:after {
   vertical-align: middle;
   background: #f0f0f0;
 }
-h1:before {    
+h1:before {
   left: -.5em;
   margin: 0 0 0 -50%;
 }
-h1:after {    
+h1:after {
   left: .5em;
   margin: 0 -50% 0 0;
 }
@@ -141,6 +141,6 @@ a:hover { text-decoration: underline; }
 
 
 .autocomplete-suggestions { border: 1px solid #999; background: #fff; cursor: default; overflow: auto; }
-.autocomplete-suggestion { padding: 10px 5px; font-size: 1.2em; white-space: nowrap; overflow: hidden; }
+.autocomplete-suggestion { padding: 10px 5px; font-size: 1.2em; white-space: nowrap; overflow: hidden; color: #3e4c5b; }
 .autocomplete-selected { background: #f0f0f0; }
 .autocomplete-suggestions strong { font-weight: normal; color: #3399ff; }

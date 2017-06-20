@@ -150,14 +150,16 @@
 	          {% for post in posts %}
 	          <div class="index-3-features-2__item avec-icon-chart">
 	          	  <a href="/post/{{ post.id }}" class="avec-icon-link">
-	              <div class="index-3-features-2__icon">
+	              <div class="index-3-features-2__icon col-sm-2">
 	                <i class="fa fa-th-list"></i>
 	              </div>
-	              <h4 class="index-3-features-2__heading">
-	                {{ post.title }}
-	              </h4>
-	              <div class="index-3-features-2__content">
-	                {{ post.text }}
+	              <div class="col-sm-10">
+									<h4 class="index-3-features-2__heading">
+		                {{ post.title }}
+		              </h4>
+									<div class="index-3-features-2__content">
+	                	{{ post.text }}
+									</div>
 	              </div>
 	              </a>
 	          </div>
@@ -227,7 +229,7 @@
 									<div class="home-app-pricing__content">Infográficos Estatísticos</div>
 									<div class="home-app-pricing__extra plans__item--no-selected">Painéis Interativos</div>
 									<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
-									<a {% if request.user|has_group:1 or request.user|has_group:2 or request.user|has_group:3 %} href="javascript:void(0)" disabled="disabled"{% else %} href="{% url 'accounts:register' %}" {% endif %} class="btn btn-default">Cadastre-se Grátis</a>
+									<a {% if request.user|has_group:1 or request.user|has_group:2 or request.user|has_group:3 %} href="javascript:void(0)" disabled="disabled"{% else %} href="{% url 'accounts:register' %}" {% endif %} class="btn btn-default btn-avec-cadastrar">Cadastre-se Grátis</a>
 								</div>
 							</div>
 						</div>
@@ -254,11 +256,11 @@
 						               			{% csrf_token %}
 						               			<input type="hidden" name="user_id" value="{{ request.user.id }}">
 						               			<input type="hidden" name="plan_id" value="5">
-						               			<button type="submit" class="btn btn-default"><i class="fa fa-pie-chart"></i> Atualizar agora</button>
+						               			<button type="submit" class="btn btn-default "><i class="fa fa-pie-chart"></i> Atualizar agora</button>
 						               		</form>
 							            {% endif %}
 							        {% else %}
-							        	<a href="{% url 'accounts:register_standard_plan' %}" class="btn btn-secondary btn-avec-secundary" >Adquira</a>
+							        	<a href="{% url 'accounts:register_standard_plan' %}" class="btn btn-secondary btn-avec-secundary " >Adquira</a>
 							        {% endif %}
 								</div>
 							</div>
@@ -313,10 +315,10 @@
 						            	{% if request.user|has_group:3 %}
 							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Assine agora</a>
 							            {% else %}
-						               		<a href="{% url 'contact' %}" class="btn btn-default" >Entre em contato </a>
+						               		<a href="{% url 'contact' %}" class="btn btn-default btn-avec-cadastrar" >Entre em contato </a>
 							            {% endif %}
 							        {% else %}
-							        	<a href="{% url 'contact' %}" class="btn btn-default" >Entre em contato </a>
+							        	<a href="{% url 'contact' %}" class="btn btn-default btn-avec-cadastrar" >Entre em contato </a>
 							        {% endif %}
 								</div>
 							</div>

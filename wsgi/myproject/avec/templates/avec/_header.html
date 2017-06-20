@@ -22,42 +22,42 @@
 		<div class="collapse navbar-collapse">
 			<div class="avec-navbar-center">
 				<ul class="nav navbar-nav navbar-right avec-menu-nav-right">
-	
+
 					<!-- General links -->
-	
+
 					<li class="dropdown">
-						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Assuntos <i class="fa fa-angle-down"></i></a>
+						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Assuntos <i class="fa fa-angle-down"></i></a>
 						<ul class="dropdown-menu" >
-						{% for th in themes %}	
+						{% for th in themes %}
 							<li class="dropdown-submenu">
-								<a href="javascript:void(0);">{{ th.title }}</a>
+								<a class="avec-dropdown" href="javascript:void(0);">{{ th.title }}</a>
 								<!-- <input id="{{ forloop.counter }}" type="checkbox"> -->
 								<!-- <label for="{{ forloop.counter }}">{{ th.title }} <span class="icon"></span></label> -->
 								<!-- <div class="content"> -->
 									<ul class="dropdown-menu item-assuntos">
 									{% for subj in th.subject_set.all|dictsort:"title" %}
-									  <li><a href="{% url 'subject_detail' pk=subj.pk %}">{{ subj.title }}</a></li>
-									{% endfor %}  
+									  <li class="avec-dropdown"><a class="avec-dropdown" href="{% url 'subject_detail' pk=subj.pk %}">{{ subj.title }}</a></li>
+									{% endfor %}
 									</ul>
 								<!-- </div> -->
-							</li>    
+							</li>
 						{% endfor %}
 							<!-- <li><a href="portfolio.html">Avec Data</a></li>
 							<li><a href="portfolio-item.html">Avec View</a></li> -->
 						</ul>
 					</li>
-					<li class="dropdown">
-						<a href="{% url 'produtos' %}" class="dropdown-toggle">Produtos </a>
+					<li class="dropdown ">
+						<a href="{% url 'produtos' %}" class="dropdown-toggle avec-dropdown">Produtos </a>
 					</li>
-					<li class="dropdown">
-						<a href="{% url 'quemsomos' %}" class="dropdown-toggle">Quem Somos </a>
+					<li class="dropdown avec-dropdown">
+						<a href="{% url 'quemsomos' %}" class="dropdown-toggle avec-dropdown">Quem Somos </a>
 					</li>
 					<li class="dropdown avec-menu-plains">
-						<a href="/#plans" class="dropdown-toggle">Planos </a>
+						<a href="/#plans" class="dropdown-toggle avec-dropdown">Planos </a>
 					</li>
-	
+
 					<!-- Mega menu -->
-	
+
 					<!-- Navbar Search -->
 					{% if user.is_authenticated %}
 					<li class="hidden-md hidden-lg">
@@ -86,9 +86,9 @@
 					{% else %}
 					<li class="avec-menu-item hidden-sm hidden-md hidden-lg" ><a class="dropdown-toggle" href="{% url 'logar' %}">ENTRAR</a></li>
 					{% endif%}
-	
+
 					<li class="avec-menu-item avec-menu-subscription hidden-sm hidden-md hidden-lg"><aclass="dropdown-toggle" href="/#plans">ASSINAR</a></li>
-	
+
 					<li class="avec-menu-item hidden-sm hidden-md hidden-lg"><a href="{% url 'accounts:register' %}" class="dropdown-toggle">EXPERIMENTAR</a></li>
 				</ul>
 			</div>
@@ -121,10 +121,10 @@
 					{% else %}
 					<li class="avec-menu-item" style="margin-right: 0px;"><a class="avec-link-login" href="{% url 'logar' %}">ENTRAR</a></li>
 					{% endif%}
-	
+
 					<li class="avec-menu-item avec-menu-subscription"><a
 						class="btn-avec-primary" href="/#plans">ASSINAR</a></li>
-	
+
 					<li class="avec-menu-item hidden-sm"><a class="btn btn-avec-success" href="{% url 'accounts:register' %}">EXPERIMENTAR</a></li>
 				</ul>
 			</div>
