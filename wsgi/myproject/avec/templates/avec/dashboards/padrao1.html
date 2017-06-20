@@ -1,4 +1,4 @@
-{% extends "avec/layout_interno.html" %}
+{% extends "avec/layout.html" %}
 
 {% load poll_extras %}
 
@@ -7,13 +7,93 @@
 {% block content %}
       
 <link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
+<script src="//cdnjs.cloudflare.com/ajax/libs/geojson2svg/1.0.2/geojson2svg.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js" />	
+<!-- amCharts includes -->
+<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/pie.js"></script>
+
+<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/dc.js' %}"></script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+
+<!--leaflet-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.css" />
+<link rel="stylesheet" href="http://keen.github.io/dashboards/assets/css/keen-dashboards.css" />
+
+
+
+
+<link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-panel-layers/src/leaflet-panel-layers.css" />
+<link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-panel-layers/examples/icons.css" />
+<link rel="stylesheet" href="{% static 'data/paineis/ocdf/style.css' %}" />
+
+<script src="http://labs.easyblog.it/maps/leaflet/dist/leaflet.js"></script>
+<script src="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.js"></script>
+
+<script src="http://labs.easyblog.it/maps/leaflet-panel-layers/src/leaflet-panel-layers.js"></script>
+
+
+<script src="http://maps.google.com/maps/api/js?v=3.2&key=AIzaSyC42lmrMxjPPzfASOCAVfLvHDBt6rrhaQA"></script>
+<script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
+	
+
+<!-- GEOJSON DATA -->
+
+<script type="text/javascript" src="{% static 'data/paineis/ocdf/bar.js' %}"></script>
+<script type="text/javascript" src="{% static 'data/paineis/ocdf/drinking_water.js' %}"></script>
+<script src="http://labs.easyblog.it/maps/leaflet-panel-layers/examples/data/fuel.js"></script>
+<script src="http://labs.easyblog.it/maps/leaflet-panel-layers/examples/data/parking.js"></script>
+
+<!--leaflet-->
 
 <style>
+
+.number-display {
+	font-size: 64px;
+	text-align: center;
+	padding-top: 63px;
+	padding-bottom: 63px;
+	line-height: normal;
+}
+	  
+.divider {
+  height: 1px;
+  width:100%;
+  display:block; /* for use on default inline elements like span */
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
 .chartdiv {
-  width: 90%;
+  width: 100%;
+  max-width: 100%;
+  height: 450px;
+  
+}
+
+.charmultitdiv {
+ 
   max-width: 100%;
   height: 375px;
-  border: 1px solid #eee;
+  
+}
+
+.charmultitdiv2 {
+ 
+  max-width: 100%;
+  height: 250px;
+  
 }
 
 select {
@@ -38,7 +118,7 @@ ul li { display: inline;
 }
 
 .text-right, .counter, .magnitude, .number {
-    color: white!important;
+    olor: #61788e;!important
 	
 }
 
@@ -50,7 +130,158 @@ ul li { display: inline;
     height: auto;
 
 }
+
+#autocomplete2{
+    height: 63px;!important	
+}
+
+.banner-search__input-search {
+	box-shadow: none;!important
+}
+
+.nescon__title {   
+	font-family: 'Roboto', sans-serif;
+	font-size: 24px;
+	letter-spacing: -0.8px;
+	text-align: left;
+	color: rgb(97, 120, 142);	
+	margin-bottom: 0px;!important
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+    background: linear-gradient(#fcfcfc 90%, #3dc1d0 10%);
+	font-family: Lato;
+	font-size: 14px;
+	font-weight: 900;
+	letter-spacing: -0.5px;
+	text-align: left;
+    float: none;
+    clear: left;	
+	color: #61788e; !important;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {    
+    background-color: #F7FAFD;!important
+}
+
+.nav>li, .nav>li>a {
+  color: #a7b4c3; !important;
+  
+}
+
+.nav-stacked{
+    padding-left: 0px;
+}
+
+
+.leaflet-map-pane {
+    z-index: 2 !important;
+}
+
+.leaflet-google-layer {
+    z-index: 1 !important;
+} 
+
+.menu{
+border-bottom: solid 1px #dfe4e9;
+}
+
+.banner-search__input-search {
+    background-color: white;!important
+}
+
+.fa{
+    float: right;
+	padding-right: 15px;
+}
+
+#compare{
+	color: #61788e;
+	font-weight : bold;!important;
+
+}
+
+#select{
+	color: #61788e;
+}
+
+.amChartsCompareList {
+	padding-top : 10px;
+}
+
+.amcharts-data-set-select{
+	margin-top: 10px;
+}
+
+.amcharts-bg, .amcharts-plot-area {
+  display: none;
+}
+
+.lateral_div{
+	border-radius: 2px 0px 0px 0px;
+    box-shadow: 1px 0px 0px 0px rgba(170,179,179,0.5);   
+} 
+
+.fa-2 {
+    font-size: 1.5em;
+	color: #DFE4E9;
+}
+
+.fa-2:hover{
+    font-size: 1.5em;
+	color: #A7B4C3;
+}
+	
 </style>
+
+
+<style>
+
+.tab-slider {
+    padding:0 40px;
+}
+.tab-slider .btn-icon {
+    position: absolute;
+    top: 5px;
+}
+#goPrev {
+    left:0;
+}
+#goNext {
+    right:0;
+}
+.wrap {
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    width: 100%;
+    font-size: 0;
+}
+
+.wrap>.nav-pills {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.wrap>.nav-pills>li {
+    background: #fff;
+    display: inline-block;
+    position: relative;
+    white-space: normal;
+    float: none;
+    font-size: 14px;
+}
+
+.amcharts-compare-item-div {
+    box-sizing: content-box;!important;
+}
+
+</style>
+
 <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
 <script src="https://www.amcharts.com/lib/3/pie.js"></script>
@@ -66,411 +297,344 @@ ul li { display: inline;
 <!-- amCharts plugins -->
 <script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">  
 
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
-<!--	<script type="text/javascript" src="{% static 'js/recife.js' %}"></script>-->
+	<script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>		
+	
+	<script type="text/javascript" src="{% static 'data/paineis/click_hover.js' %}"></script>
+<link rel="stylesheet" href="{% static 'data/paineis/tree_frog_vertical.css' %}" />	
 
 
-<form action="" class="banner-search__form" style = "padding-top:100px;">		 
+	
 
-<input list="browsers" type="text" id="autocomplete2" class="banner-search__input-search"  placeholder="Encontre o munícipio que deseja consultar">
+<span class="portrait dv-bra-2ba hidden-xs"></span>
+<div class="avec-content">
 
-</form>
+<div class="container-fluid" style = " background-color:#fff; padding-top:70px;">
+	<div class="container" id="mycontainer" >
+{% if view_client.search_field %}
+	<form action="" class="banner-search__form" ">		 
 
-	<div class="container-fluid" id="summary-box" style=" background-color: rgba(0,0,0,0.6); opacity: 0.6; padding-top:5px; ">
+	<input list="browsers" type="text" id="autocomplete2" class="banner-search__input-search"  placeholder="Procure aqui uma cidade">
+
+	</form>
+{% endif %}	
+	</div>
+</div>
+
+	<div class="container-fluid" id="summary-box" style=" padding-top:44.5px; border-top: solid 1px #dfe4e9;">
+	<div class="container" >
 		<div class="row">
-		<div class="col-sm-8">
-		    <span class="portrait dv-bra-2ba hidden-xs"></span>
-            <img id="mapa" src="" alt="Mapa do estado" style="float:left; padding-right:5px;">
-            <h1 id="cidade" style="text-align:left; font-size:20px; color:white; padding-bottom:5px; padding-top:5px;" class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 p-w-xs">     
-				Teste  			
-            </h1>
+		<div class="col-sm-12">	
+			<img id="mapa4" src="{% static 'img/nescon/oval-salvar.svg' %}" alt="Mapa do estado" style="float:right; padding-right:10px;">
+			<img id="mapa3" src="{% static 'img/nescon/oval-baixar.svg' %}" alt="Mapa do estado" style="float:right; padding-right:10px;">
+			<img id="mapa2" src="{% static 'img/nescon/oval-imprimir.svg' %}" alt="Mapa do estado" style="float:right; padding-right:10px;">			
+			<!--<img id="mapa" src="{% static 'img/nescon/box-minas-gerais.svg' %}" alt="Mapa do estado" style="float:right; padding-right:10px;">-->
+			
+			<p class="nescon__title">{{view_client.title}}</p>
+			
+            <h2 id="cidade" style="text-align:left; font-size:18px;  color: #61788e; padding-bottom:50px; padding-top:5px;" >     
+				  			
+            </h2>			
+       
 
-            <span class="clearfix"></span>
 		</div>	
-		  <div class="col-sm-2">
-
-		  </div>
+	
 		</div>
-		<div class="row" style="padding-bottom:10px;">
-			<div class="col-sm-2">
-			<div class="widget">
-								<h3 class="text-right text-uppercase">PIB (2016) </h3>
-								<div class="number">
-									R$ <strong id="pib" class="counter"></strong><br>
-									<!---<small class="magnitude">Bilhões</small>-->
-								</div>
-							</div>
-			</div>					
-			<div class="col-sm-2">
-			<div class="widget">
-								<h3 class="text-right text-uppercase">População </h3>
-								<div class="number">
-									<strong id="populacao" class="counter"></strong><br>									
-								</div>
-							</div>
-			</div>								
-			<div class="col-sm-2">
-			<div class="widget">
-								<h3 class="text-right text-uppercase">Expectativa de vida </h3>
-								<div class="number">
-									<strong id="exp" class="counter"></strong><br>
-									<small class="magnitude">anos</small>									
-								</div>
-							</div>
-			</div>								
-			<div class="col-sm-2">
-			<div class="widget">
-								<h3 class="text-right text-uppercase">IDH </h3>
-								<div class="number">
-									R$ <strong id="idh" class="counter"></strong><br>
-									<small class="magnitude">pontos</small>									
-								</div>
-							</div>
-			</div>											
-			<div class="col-sm-2">
-			<div class="widget">
-								<h3 class="text-right text-uppercase">PIB per capita</h3>
-								<div class="number">								
-									R$ <strong id="pibpercap" class="counter"></strong><br>
-									<!--<small class="magnitude">mil</small>-->
-								</div>
-							</div>
-			</div>								
-										
-		</div>				
+		<div class="row">
+		<div  class="col-sm-1" id="back" style="display: none; width:5%;padding-right: 15px;padding-left: 15px; ">	
+			<ul class="nav nav-pills" >
+				<i id="goPrev" class="fa fa-chevron-circle-left fa-2" aria-hidden="true"></i>
+			</ul>
+		</div>					
+		<div class="col-sm-10" style="width:90%;padding-left: 15px;padding-right: 0px;">
+		<div class="wrap" >
+		
+			  <ul class="nav nav-pills" id="menus">
+			  {% for theme in view_themes %}
+				{% if  forloop.counter  == 1 %}
+					  <li class="active" style="text-transform: uppercase;"><a data-toggle="tab" href="#home">{{theme.title}}</a></li>
+				{% else %}		  
+					  <li style="text-transform: uppercase;"><a data-toggle="tab" href="#menu{{forloop.counter}}">{{theme.title}}</a></li>
+				{% endif %}	  
+			  {% endfor %} 
+							  
+			  </ul>	
+		
+		</div>
+		</div>
+		<div  class="col-sm-1" style="width:5%;padding-left: 15px;padding-right: 15px; float: right;">	
+			<ul class="nav nav-pills" >
+				<!--<li ><a style="display: none; padding-top:0;!important" data-toggle="tab" id="goPrev">Voltar</a></li>
+				<li "><a style="text-transform: uppercase; padding-top:0;!important" data-toggle="tab" id="goNext">Mais +</a></li>-->
+				
+                    <i id="goNext" class="fa fa-chevron-circle-right fa-2" aria-hidden="true"></i>
+                			
+			</ul>
+		</div>	
+		</div>
+
+			
+	  </div>
 	</div>
 
+<div class="container-fluid" style = "padding-bottom:30px; padding-top:60px;  border-top: solid 1px #dfe4e9; background-color:#f7fafd; min-height: 400px;">
+<div class="container" >
+  <div class="tab-content">
+  		  {% for theme in view_themes %}
+				{% if  forloop.counter  == 1 %}
+					 <div id="home" class="tab-pane fade in active">
+
+						<div class="col-sm-3">
+							<div>
+							<div id="outer">							
+								<ul id="{{theme.title}}" class="lateral_menu">							
+									{% for subj in theme.view_subject_set.all %}												
+										{% if  forloop.counter  == 1 %}	
+				
+											<li class="sub click"><a  style=" font-size:14px; padding-left: 10px; font-weight: bold;">{{subj.title}}<i class="fa fa-chevron-down" aria-hidden="true"></i></a>									
+										{% else %}
+											<li class="sub"><a  style=" font-size:14px; padding-left: 10px; font-weight: bold;">{{subj.title}}</a>										
+										{% endif %}										
+											<ul>
+												{% for subj_det in subj.view_subject_detail_set.all %}												
+													<li class="interno"><a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal; ">{{subj_det.title}}</a></li>
+												{% endfor %}									
+											</ul>
+										</li>										
+									{% endfor %}  
+								</ul>							
+							</div>	
+						
+							</div>
+						</div>
+					  <div class="col-sm-9">
+							<div class="banner-section" id="img-container">    </div>
+									{% for subj in theme.view_subject_set.all %}	
+											{% for subj_det in subj.view_subject_detail_set.all %}												
+												<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;"></div>																			    
+											{% endfor %}									
+									
+									{% endfor %}  						
+					  </div>
+					</div>
+				{% else %}		  
+					 <div id="menu{{forloop.counter}}" class="tab-pane fade">
+							<div class="col-sm-3">
+								<div>
+									<div id="outer">
+										<ul id="{{theme.title}}" class="lateral_menu">
+											{% for subj in theme.view_subject_set.all %}
+												{% if  forloop.counter  == 1 %}											
+													<li class="sub click"><a  style=" font-size:14px; padding-left: 10px; font-weight: bold;">{{subj.title}}<i class="fa fa-chevron-down" aria-hidden="true"></i></a>										
+												{% else %}
+													<li class="sub"><a  style=" font-size:14px; padding-left: 10px; font-weight: bold;">{{subj.title}}<i class="fa fa-chevron-left" aria-hidden="true"></i></a>										
+												{% endif %}
+												<ul>
+													{% for subj_det in subj.view_subject_detail_set.all %}												
+														<li class="interno"><a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a></li>
+													{% endfor %}									
+												</ul>
+												</li>										
+											{% endfor %}  
+										</ul>
+									</div>		
+								</div>
+							</div>
+						  <div class="col-sm-9">
+								<div class="banner-section" id="img-container">    </div>
+										{% for subj in theme.view_subject_set.all %}	
+												{% for subj_det in subj.view_subject_detail_set.all %}												
+													<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;"></div>																			    
+												{% endfor %}									
+										
+										{% endfor %}  						
+						  </div>
+					</div>
+				{% endif %}	  
+			  {% endfor %}   
+			  
+  </div>
+ </div>
+ </div>
+ 
+</div>
     <script src="{% static 'min/javascript/app.js' %}"></script>
 	
 	<script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/jquery.autocomplete.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/jquery-confirm.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/avec.script.js' %}"></script>
+	
+	<script type="text/javascript" src="{% static view_client.script %}"></script>
 
+	
 <script>
-$(document).ready(function () {
-	
-		$("#summary-box").hide();
-	
-  var currencies =  
-[{value: 'Recife', id: 3 , type: "{% static 'js/recife.js' %}"}, {value: 'Salvador', id: 4 , type: "{% static 'js/salvador.js' %}"}
+
+currencies =  
+[
+{value: 'Baldim' , type: "{% static 'js/Baldim.js' %}"},
+{value: 'Belo Horizonte' , type: "{% static 'data/paineis/nescon/Belo Horizonte.js' %}"},
+{value: 'Brumadinho' , type: "{% static 'data/paineis/nescon/Brumadinho.js' %}"},
+{value: 'Caeté' , type: "{% static 'data/paineis/nescon/Caeté.js' %}"},
+{value: 'Capim Branco' , type: "{% static 'data/paineis/nescon/Capim Branco.js' %}"},
+{value: 'Confins' , type: "{% static 'data/paineis/nescon/Confins.js' %}"},
+{value: 'Contagem' , type: "{% static 'data/paineis/nescon/Contagem.js' %}"},
+{value: 'Esmeraldas' , type: "{% static 'data/paineis/nescon/Esmeraldas.js' %}"},
+{value: 'Florestal' , type: "{% static 'data/paineis/nescon/Florestal.js' %}"},
+{value: 'Ibirité' , type: "{% static 'data/paineis/nescon/Ibirité.js' %}"},
+{value: 'Igarapé' , type: "{% static 'data/paineis/nescon/Igarapé.js' %}"},
+{value: 'Itaguara' , type: "{% static 'data/paineis/nescon/Itaguara.js' %}"},
+{value: 'Itatiaiuçu' , type: "{% static 'data/paineis/nescon/Itatiaiuçu.js' %}"},
+{value: 'Jaboticatubas' , type: "{% static 'data/paineis/nescon/Jaboticatubas.js' %}"},
+{value: 'Juatuba' , type: "{% static 'data/paineis/nescon/Juatuba.js' %}"},
+{value: 'Lagoa Santa' , type: "{% static 'data/paineis/nescon/Lagoa Santa.js' %}"},
+{value: 'Mário Campos' , type: "{% static 'data/paineis/nescon/Mário Campos.js' %}"},
+{value: 'Mateus Leme' , type: "{% static 'data/paineis/nescon/Mateus Leme.js' %}"},
+{value: 'Matozinhos' , type: "{% static 'data/paineis/nescon/Matozinhos.js' %}"},
+{value: 'Nova Lima' , type: "{% static 'data/paineis/nescon/Nova Lima.js' %}"},
+{value: 'Nova União' , type: "{% static 'data/paineis/nescon/Nova União.js' %}"},
+{value: 'Pedro Leopoldo' , type: "{% static 'data/paineis/nescon/Pedro Leopoldo.js' %}"},
+{value: 'Raposos' , type: "{% static 'data/paineis/nescon/Raposos.js' %}"},
+{value: 'Ribeirão das Neves' , type: "{% static 'data/paineis/nescon/Ribeirão das Neves.js' %}"},
+{value: 'Rio Acima' , type: "{% static 'data/paineis/nescon/Rio Acima.js' %}"},
+{value: 'Rio Manso' , type: "{% static 'data/paineis/nescon/Rio Manso.js' %}"},
+{value: 'Sabará' , type: "{% static 'data/paineis/nescon/Sabará.js' %}"},
+{value: 'Santa Luzia' , type: "{% static 'data/paineis/nescon/Santa Luzia.js' %}"},
+{value: 'Santa Luzia' , type: "{% static 'data/paineis/nescon/Santa Luzia.js' %}"},
+{value: 'São Joaquim de Bicas' , type: "{% static 'data/paineis/nescon/São Joaquim de Bicas.js' %}"},
+{value: 'São José da Lapa' , type: "{% static 'data/paineis/nescon/São José da Lapa.js' %}"},
+{value: 'Sarzedo' , type: "{% static 'data/paineis/nescon/Sarzedo.js' %}"},
+{value: 'Taquaraçu de Minas' , type: "{% static 'data/paineis/nescon/Taquaraçu de Minas.js' %}"},
+{value: 'Vespasiano' , type: "{% static 'data/paineis/nescon/Vespasiano.js' %}"},
+{value: 'Central BH' , type: "{% static 'data/paineis/nescon/Central BH.js' %}"}
 ]  
 
-$('#autocomplete2').autocomplete({
-    lookup: currencies,
-    onSelect: function (ui) {
-		get(ui.type);
-		$("#summary-box").hide();
-		$("#summary-box").show(1000);		
-		city(ui.value);		
+$(document).ready(function () {
+
+/*
+  window.onload = function() {
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    var code = 'alert("{{view_client.title}}");';
+    try {
+      s.appendChild(document.createTextNode(code));
+      document.body.appendChild(s);
+    } catch (e) {
+      s.text = code;
+      document.body.appendChild(s);
     }
-		
+  }
+	*/
+	{% for theme in view_themes %}		
+		posts_count	= "{{ theme.title }}";		
+		clickMenu(posts_count);		
+	{% endfor %}
+
+	iniciar2();	
+	
+
 });
-
-});	
-
-function city(par) {
-   $('#cidade').text(par)
-   
-};
 
 
 </script>
 
-<script>
-function get(par) {
-$.getScript( par, function(  textStatus ) {
-var inlinePib = dc.numberDisplay("#pib"),
-	inlinePopulacao = dc.numberDisplay("#populacao"),
-	inlineExp = dc.numberDisplay("#exp"),
-	inlineIdh = dc.numberDisplay("#idh"),
-	inlinePibpercap = dc.numberDisplay("#pibpercap")	
-	
-	data.forEach( function(obj) {
-	  var img = new Image();
-	  img.src = obj.imagem;
-	  img.setAttribute("class", "banner-img");
-	  img.setAttribute("alt", "effy");
-	  document.getElementById("mapa").src = img.src ;
-	});
-	
-	var ndx            = crossfilter(data),
-	
-  cityDim  = ndx.dimension(function(d) {return d['cidade'];})
-	  	var total = cityDim.groupAll().reduce(
-				//add
-				function(p, v) {
-					++p.count;
-					p.pib += +v['PIB'];
-					p.populacao += +v['Populacao'];
-					p.exp += +v['Expectativa de Vida'];
-					p.idh += +v['IDH'];
-					p.pibpercap += +v['PIB per capita'];					
-					return p;
-				},
-				//remove
-				function(p, v) {
-					--p.count;
-					p.pib -= +v['PIB'];
-					p.populacao -= +v['Populacao'];
-					p.exp -= +v['Expectativa de Vida'];
-					p.idh -= +v['IDH'];
-					p.pibpercap -= +v['PIB per capita'];					
-					return p;
-				},
-				//init
-				function() {
-					return {pib:0, populacao:0, exp:0, idh:0, pibpercap:0};
-				}
-		);
-				
-	var nPib = function(d){
-		return (d.pib) ;
-	};
-	var nPopulacao = function(d){
-		return (d.populacao) ;
-	};	
-	var nExp = function(d){
-		return (d.exp) ;
-	};
-	var nIdh = function(d){
-		return (d.idh) ;
-	};
-	var npibpercap = function(d){
-		return (d.pibpercap) ;
-	};	
-	
-	inlinePib
-		  .formatNumber(d3.format("s"))
-		  .valueAccessor(nPib)
-		  .group(total);
-	inlinePopulacao
-		  .formatNumber(d3.format("s"))
-		  .valueAccessor(nPopulacao)
-		  .group(total);		  
-	inlineExp
-		  .formatNumber(d3.format("s"))
-		  .valueAccessor(nExp)
-		  .group(total);
-	inlineIdh
-		  .formatNumber(d3.format(".3s"))
-		  .valueAccessor(nIdh)
-		  .group(total);
-	inlinePibpercap
-		  .formatNumber(d3.format(".3s"))
-		  .valueAccessor(npibpercap)
-		  .group(total);		  
-		  
-	
-	dc.renderAll();	  
-
-
-AmCharts.makeChart("chartdiv1", {
-  "type": "serial",
-  "theme": "light",
-  "dataProvider": teste,
-  "startDuration": 1,
-  "graphs": [{
-    "balloonText": "[[category]]: <b>[[value]]</b>",
-    "fillAlphas": 0.8,
-    "lineAlpha": 0.2,
-    "type": "column",
-    "valueField": "visits"
-  }],
- export: {
-	enabled: true
- },
-  
-  "categoryField": "country",
-  "categoryAxis": {
-    "gridPosition": "start",
-    "gridAlpha": 0
-  }
-
-});
-
-/**
- * Add chart #2
- */
-AmCharts.makeChart("chartdiv2", {
-	"type": "pie",
-	"theme": "light",
-	"dataProvider": teste,
-	"valueField": "visits",
-	"titleField": "country",
-	"legend": {
-		"enabled": true,
-		"align": "center",
-		"markerType": "circle"
-	},
-	"balloon": {
-	"fixedPosition": true
-	}, export: {
-		enabled: true
-	}
-});
-
-/**
- * Add chart #3
- */
-AmCharts.makeChart("chartdiv3", {
-	"type": "serial",
-	"categoryField": "category",
-	"startDuration": 1,
-	"categoryAxis": {
-		"gridPosition": "start"
-	},
-	 export: {
-		enabled: true
-	},
-
-	"trendLines": [],
-	"graphs": [
-		{
-			"balloonText": "[[title]] of [[category]]:[[value]]",
-			"bullet": "round",
-			"id": "AmGraph-1",
-			"title": "graph 1",
-			"valueField": "column-1"
-		},
-		{
-			"balloonText": "[[title]] of [[category]]:[[value]]",
-			"bullet": "square",
-			"id": "AmGraph-2",
-			"title": "graph 2",
-			"valueField": "column-2"
-		}
-	],
-	"guides": [],
-	"valueAxes": [
-		{
-			"id": "ValueAxis-1",
-			"title": "Axis title"
-		}
-	],
-	"allLabels": [],
-	"balloon": {},
-	"legend": {
-		"enabled": true,
-		"useGraphSettings": true
-	},
-	"titles": [
-		{
-			"id": "Title-1",
-			"size": 15,
-			"text": "Chart Title"
-		}
-	],
-	"dataProvider": serie
-});
-
-/**
- * Add chart #4
- */
-AmCharts.makeChart( "chartdiv4", {
-  "type": "map",
-  "theme": "light",
-  "dataProvider": {
-    "map": "worldLow",
-    "getAreasFromMap": true
-  },
-   export: {
-	enabled: true
-	},
-  "areasSettings": {
-    "autoZoom": true,
-    "selectedColor": "#CC0000"
-  }
-} );
-
-  
-});
-};
-</script>
-	
-	
-	<div class="container-fluid" style = "padding-top:5px;">
-    <div class="row">
-      <div class="col-sm-4">
-            <div>
-                <ul id="liste-categories">
-					<li class="agriculture-alimentation"><figure>
-					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/agriculture-alimentation.gif" ></a>
-					<figcaption></figcaption></figure></li>
-					<li class="economie-entreprises"><figure>
-					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/economie-entreprises.gif" ></a>
-					<figcaption></figcaption></figure></li><li class="education-recherche">
-					<figure>
-					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/environnement-ressources-naturelles-energie.gif"  class="thematique-vide">
-					<figcaption></figcaption></figure></li>
-					<li class="agriculture-alimentation"><figure>
-					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/gouvernement-finances.gif" ></a>
-					<figcaption></figcaption></figure></li>
-					<li class="economie-entreprises"><figure>
-					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/infrastructures.gif" ></a>
-					<figcaption></figcaption></figure></li><li class="education-recherche">
-					<figure>
-					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/loi-justice-securite-publique.gif"  class="thematique-vide">
-					<figcaption></figcaption></figure></li>
-					<li class="agriculture-alimentation"><figure>
-					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/politiques-sociales.gif" ></a>
-					<figcaption></figcaption></figure></li>
-					<li class="economie-entreprises"><figure>
-					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/sante.gif" ></a>
-					<figcaption></figcaption></figure></li><li class="education-recherche">
-					<figure>
-					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/societe-culture.gif"  class="thematique-vide">
-					<figcaption></figcaption></figure></li>
-					<li class="agriculture-alimentation"><figure>
-					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/tourisme-sports-loisirs.gif" ></a>
-					<figcaption></figcaption></figure></li>
-					<li class="economie-entreprises"><figure>
-					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/transport.gif" ></a>
-					<figcaption></figcaption></figure></li><li class="education-recherche">
-					<figure>
-					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/education-recherche.gif"  class="thematique-vide">
-					<figcaption></figcaption></figure></li>
-					
-				</ul>
-			</div>		
-      </div>
-	  <div class="col-sm-8">
-			<div class="banner-section" id="img-container">    </div>
-			<div id="chartdiv1" class="chartdiv" style="display: none;"></div>
-			<div id="chartdiv2" class="chartdiv" style="display: none;"></div>
-			<div id="chartdiv3" class="chartdiv" style="display: none;"></div>			      
-      </div>
-	</div>
-	
-	
-	
-	
-    <div class="row">
-      
-	</div>
-	</div>
 	
 <script>
 /**
  * Add chart #1
  */
 var currentChart;
-function showChart( divid ) {
-
-  if (currentChart !== undefined){
+function showChart( divid, h ) {
+	h = h || "375px";
+  if (currentChart !== undefined){	
     currentChart.style.display = "none";
-	}
-  if ( divid ) {
-    currentChart = document.getElementById(divid);
-    currentChart.style.display = "block";	
+	};
+  if ( divid ) {    
+	if ( divid == 'chartdivSérie histórica'){
+		h = "1400px";
+	}	
+	currentChart = document.getElementById(divid);	
+	currentChart.style.display = "block";
+	currentChart.style.height = h;
   }
   else {
     currentChart = undefined;
   }
+  
+  if ( divid == 'chartdivResumo por código' ){		
+		//console.log(document.querySelector('#mora_resumo_por_codigo .amcharts-chart-div').childNodes[1].text);
+	} 
+	
 } 
+
+  if (window.location.hash === '#menu2') {    
+	$.noConflict();
+    
+		$('.nav-pills a[href="#menu2"]').tab('show');	
+		
+	var dateSpan = document.createElement('span')
+	dateSpan.id = "test";
+	dateSpan.innerHTML = ' <style> table {     font-family: arial, sans-serif;     border-collapse: collapse;     width: 100%; }  td, th {     border: 1px solid #dddddd;     text-align: left;     padding: 8px; }  tr:nth-child(even) {     background-color: #dddddd; } </style> <h2 style="">Coop. Agropecuária de São Sebastião Ltda</h2> </br> <table>   <tr>     <th>Company</th>     <th>Contact</th>     <th>Country</th>   </tr>   <tr>     <td>Alfreds Futterkiste</td>     <td>Maria Anders</td>     <td>Germany</td>   </tr>   <tr>     <td>Centro comercial Moctezuma</td>     <td>Francisco Chang</td>     <td>Mexico</td>   </tr>   <tr>     <td>Ernst Handel</td>     <td>Roland Mendel</td>     <td>Austria</td>   </tr>   <tr>     <td>Island Trading</td>     <td>Helen Bennett</td>     <td>UK</td>    </tr>   <tr>     <td>Laughing Bacchus Winecellars</td>     <td>Yoshi Tannamuri</td>     <td>Canada</td>   </tr>  <tr>     <td>Magazzini Alimentari Riuniti</td>     <td>Giovanni Rovelli</td>     <td>Italy</td>   </tr> </table> ';
+	
+	document.getElementById("chartdivCopas-Coop. Agropecuária de São Sebastião Ltda").appendChild(dateSpan);		
+    
+      showChart('chartdivCopas-Coop. Agropecuária de São Sebastião Ltda');
+  }
+
 
 </script>
 
+<script>
+/*$('li').click(function () {
+	console($(this).elem.firstChild);
+    $(this).removeClass('fa-chevron-left');
+    $(this).addClass('fa-chevron-down');
+});*/
+/*
+$('li').click(function () {
+	console.log($(this).children(0).children(0));
+	if  ($(this).children(0).children(0).hasClass('fa-chevron-down'))	{
+		$(this).children(0).children(0).removeClass('fa-chevron-down');
+		$(this).children(0).children(0).addClass('fa-chevron-left');
+		$(this).children(0).children(0).find("interno").removeClass('fa-chevron-left');
+	}
+	else{
+		$(this).children(0).children(0).addClass('fa-chevron-down');
+		$(this).children(0).children(0).removeClass('fa-chevron-left');
+		$(this).children(0).children(0).find("interno").removeClass('fa-chevron-down');
+	}
+});*/
+
+var menus = $("#menus"), menuWidth = menus.parent().outerWidth();
+    var menupage = Math.ceil(menus[0].scrollWidth / menuWidth), currPage = 1;
+    if (menupage > 1) {
+        $("#goNext").click(function () {
+			var loading = document.getElementById("back");
+			loading.style.display = "block" ;
+            currPage < menupage && menus.stop(true).animate({				
+                "left": -menuWidth * currPage
+            }, "slow") && currPage++
+        });
+        $("#goPrev").click(function () {
+			if (currPage == 2){ 
+				var loading = document.getElementById("back");
+				loading.style.display = "none" ;
+			};
+            currPage > 1 && menus.stop(true).animate({
+                "left": -menuWidth * (currPage - 2)
+            }, "slow") && currPage--;
+        });
+        $(window).on("resize", function () {
+            menuWidth = menus.parent().outerWidth();
+            menupage = Math.ceil(menus[0].scrollWidth / menuWidth);
+            currPage = Math.ceil(-parseInt(menus.css("left")) / menuWidth) + 1;
+        });
+    }
+	
+</script>
+
+<!--<script type="text/javascript" src="{% static 'data/paineis/ocdf/ocdf.js' %}"></script>-->
 {% endblock %}

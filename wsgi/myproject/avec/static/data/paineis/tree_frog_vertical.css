@@ -1,0 +1,65 @@
+/* ================================================================ 
+This copyright notice must be untouched at all times.
+
+The original version of this stylesheet and the associated (x)html
+is available at http://www.stunicholls.com/menu/tree_frog_vertical.html
+Copyright (c) 2005-2007 Stu Nicholls. All rights reserved.
+This stylesheet and the associated (x)html may be modified in any 
+way to fit your requirements.
+=================================================================== */
+
+#outer {width:504px; height:510px; position:relative; }
+
+#outer #content {clear:left; position:absolute; left:230px; top:10px; width:250px; z-index:10;}
+
+.lateral_menu {list-style-type:none; padding:0; margin:0; width:210px;  top:70px; left:0;  border-top:1px solid #e3e9ee; border-width:0 1px 1px; z-index:100;}
+.lateral_menu ul {list-style-type:none; padding:0; margin:0; width:210px;}
+.lateral_menu li {float:left; background:#e3e9ee; position:relative;  border-top:1px solid #e3e9ee;}
+
+
+.lateral_menu li.sub {background:#f7fafd;}
+
+.sub{
+	padding: 0px 0px;
+}
+
+.lateral_menu li, .lateral_menu li a {display:block; color:#61788e;!important font-family:Lato, sans-serif; font-size:14px; line-height:24px; width:210px; text-decoration:none;  cursor:pointer; font-weight:normal; padding-top: 5px;
+    padding-bottom: 5px;}
+
+.lateral_menu li.interno{
+display:inline-flex;!important  font-family:Lato, sans-serif; font-size:14px; line-height:24px; width:210px; text-decoration:none;  cursor:pointer; font-weight:normal; border-top: 1px solid #black;!important;
+}
+
+.lateral_menu li.interno a{
+color: #61788e;
+}
+
+.lateral_menu ul,
+.lateral_menu li.click ul ul,
+.lateral_menu li.click ul li.hover ul ul {display:none; color:#61788e;!important}
+
+.lateral_menu li.hover {color:#61788e;!important z-index:500;}
+.lateral_menu li.click {color:#61788e;!important}
+
+.lateral_menu li.click ul {display:block;}
+.lateral_menu li.click ul li.hover ul, 
+.lateral_menu li.click ul li.hover ul li.hover ul {display:block; position:absolute; left:110px; top:-1px; border:1px solid #61788e; border-width:0 1px 1px; color:#61788e;!important}
+
+.lateral_menu li.click ul li.fly {background: #ccd7e2 url(frog_arrow.gif) no-repeat top right; color:#61788e;!important}
+.lateral_menu li.click ul li.hover {background:#ccd7e2;}
+.lateral_menu li.click ul li.unclick {background:#ccd7e2;}
+.lateral_menu li.click ul li.hover a{color:#61788e;!important}
+
+.lateral_menu li.click ul li.hover ul li {background:#ccd7e2;}
+.lateral_menu li.click ul li.hover ul li.hover ul li {background:#ccd7e2; z-index:500; color:#61788e;!important}
+
+
+.lateral_menu li.click ul li.hover ul li.fly {background: #ccd7e2 url(frog_arrow.gif) no-repeat top right; color:#61788e;!important}
+.lateral_menu li.click ul li.hover ul li.hover {z-index:500; background:#ccd7e2; color:#61788e;!important}
+.lateral_menu li.click ul li.hover ul li.hover a {color:#61788e;!important}
+
+.lateral_menu li.click ul li.hover ul li.hover ul li.hover {background:#ccd7e2; color:#61788e;!important}
+.lateral_menu li.click ul li.hover ul li.hover ul li.hover a {color:#61788e;!important}
+
+#outer img {display:block; float:right;}
+#outer p {margin:0px; padding:17px 0 0 0; color:#61788e;!important font-size:12px; font-family:Lato, sans-serif; text-align:justify;}

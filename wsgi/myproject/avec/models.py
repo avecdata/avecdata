@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class Keywords(models.Model):
     title = models.CharField(max_length=200)
-    
+
     def publish_keyword(self):
         self.published_date = timezone.now()
         self.save()
@@ -45,7 +45,7 @@ class Subject(models.Model):
             blank=True, null=True)
     keywords = models.ManyToManyField(Keywords, blank=True)
     theme = models.ForeignKey(Themes)
-    
+
     def publish_subject(self):
         self.published_date = timezone.now()
         self.save()
@@ -69,7 +69,7 @@ class Subject_detail(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title			
+        return self.title
 
 class Post(models.Model):
     #author = models.ForeignKey('auth.User')
@@ -81,7 +81,7 @@ class Post(models.Model):
             default=timezone.now)
     published_date = models.DateTimeField(
             blank=True, null=True)
-    subject = models.ManyToManyField(Subject , related_name='subparent')			
+    subject = models.ManyToManyField(Subject , related_name='subparent')
     subject_detail = models.ManyToManyField(Subject_detail , related_name='subchild')
     keywords = models.ManyToManyField(Keywords, blank=True)
     group = models.ManyToManyField(Group)
@@ -93,11 +93,11 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-		
+
 class Dashboard(models.Model):
     title = models.CharField(max_length=200)
     url = models.CharField(max_length=200)
-    description = models.TextField(blank=True)	
+    description = models.TextField(blank=True)
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
@@ -107,7 +107,7 @@ class Dashboard(models.Model):
     keywords = models.ManyToManyField(Keywords, blank=True, related_name='keywords_dash')
     group = models.ManyToManyField(Group)
     open = models.BooleanField()
-	
+
     def publish_dashboard(self):
         self.published_date = timezone.now()
         self.save()
@@ -117,11 +117,12 @@ class Dashboard(models.Model):
 
 class SimpleDashboard(models.Model):
     title = models.CharField(max_length=200)
+    text = models.TextField()
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
             blank=True, null=True)
-    subject = models.ManyToManyField(Subject , related_name='subparent_simple')			
+    subject = models.ManyToManyField(Subject , related_name='subparent_simple')
     subject_detail = models.ManyToManyField(Subject_detail , related_name='subchild_simple')
     keywords = models.ManyToManyField(Keywords, blank=True)
     group = models.ManyToManyField(Group)
@@ -134,28 +135,39 @@ class SimpleDashboard(models.Model):
 
     def __str__(self):
         return self.title
-		
+
 class tabSimple(models.Model):
     simpleDashboard = models.ForeignKey(SimpleDashboard, verbose_name=("SimpleDashboard"), on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=200)
     footer = models.TextField(blank=True)
     html = models.TextField(blank=True)
-
+    titulo = models.TextField(blank=True)
+    indicador = models.TextField(blank=True)
+    descricao = models.TextField(blank=True)
+    fonte = models.TextField(blank=True)
+    metodo_calculo = models.TextField(blank=True)
+    categorizacao = models.TextField(blank=True)
+    periodicidade = models.TextField(blank=True)
+    periodos_disponiveis = models.TextField(blank=True)
+    notas = models.TextField(blank=True)
+    elaboracao = models.TextField(blank=True)
+    origem = models.TextField(blank=True)
     class Meta:
         verbose_name = _("tabSimple")
         verbose_name_plural = _("tabSimples")
 
     def __str__(self):
-        return self.title	
-		
+        return self.title
+
 class Paineis(models.Model):
     title = models.CharField(max_length=200)
+    text = models.TextField()
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
             blank=True, null=True)
-    subject = models.ManyToManyField(Subject , related_name='subparent_painel')			
+    subject = models.ManyToManyField(Subject , related_name='subparent_painel')
     subject_detail = models.ManyToManyField(Subject_detail , related_name='subchild_painel')
     keywords = models.ManyToManyField(Keywords, blank=True)
     group = models.ManyToManyField(Group)
@@ -168,7 +180,7 @@ class Paineis(models.Model):
 
     def __str__(self):
         return self.title
-		
+
 class tabPaineis(models.Model):
     painel = models.ForeignKey(Paineis, verbose_name=("Paineis"), on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
@@ -181,9 +193,9 @@ class tabPaineis(models.Model):
         verbose_name_plural = _("tabPaineis")
 
     def __str__(self):
-        return self.title	
-		
-		
+        return self.title
+
+
 class Reports(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
@@ -203,29 +215,29 @@ class Reports(models.Model):
 
     def __str__(self):
         return self.title
-    
+
 class Price(models.Model):
-    
+
     country_code = models.IntegerField(default=0, verbose_name='Cód. do país')
     country_name = models.CharField(max_length=150, verbose_name='Nome do país', null=False)
     country_slug = models.CharField(max_length=160, verbose_name='Abreviação', null=False)
     pvalue = models.DecimalField(default=0.0, max_digits=10, decimal_places=2, verbose_name='Valor do Plano')
     created_date = models.DateTimeField(default=timezone.now, verbose_name='Data de criação')
     published_date = models.DateTimeField(blank=True, null=True, verbose_name='Data de modificação')
-    
+
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='group_price', verbose_name='Plano de assinatura')
 
     def publish_price(self):
         self.published_date = timezone.now()
         self.save()
-    
+
     class Meta:
         verbose_name = 'Preço'
         verbose_name_plural = 'Preços dos Planos'
 
     def __str__(self):
         return self.group.name
-    
+
 #     def __str__(self):
 #         return '{} [{}] {} {}'.format(self.country_code, self.country_name, self.pvalue, self.group.name)
 
@@ -263,21 +275,21 @@ class Order(models.Model):
         return 'Pedido #{}'.format(self.pk)
 
     def total(self):
-        
-        #--this will be used when the system is multi-language---------------- 
+
+        #--this will be used when the system is multi-language----------------
 #         country_slug = settings.LANGUAGE_CODE.split("-")[1]
 #         group_id = self.group.id
-#         
+#
 #         price = Price.objects.filter(Q(country_slug=country_slug) & Q(group_id=group_id))
 #         result = price[0].pvalue if price.count() > 1 else 0
-        
+
 #         result = self.price.pvalue
         result = self.amount
-        
+
         return result
-    
+
     def complete(self):
-        
+
         try:
             User = get_user_model()
             user_payment = User.objects.get(id=self.user_id)
@@ -286,29 +298,29 @@ class Order(models.Model):
             user_payment.date_expiration = utils.add_months(now, 1)
 #             user_payment.name = 'Theogenes F Duarte'
             user_payment.save()
-            
+
             #--adding user to group--------
             group_id = self.price.group_id
             group = Group.objects.get(id=group_id)
             group.user_set.add(user_payment)
         except:
             pass
-        
+
         self.status = 1
         self.save()
-        
+
         return self.status
-    
+
     def paypal(self):
         self.payment_option = 'paypal'
         self.save()
         subscription_name = ""
-        
+
         try:
             subscription_name = str(self.price)
         except:
             pass
-        
+
         paypal_dict = {
             'upload': '1',
             'business': settings.PAYPAL_EMAIL,
@@ -324,14 +336,96 @@ class Order(models.Model):
             'currency_code': 'BRL',
             'charset': 'utf-8',
         }
-            
+
         return paypal_dict
 
 # def post_save_order(instance, **kwargs):
 #     if instance.quantity < 1:
 #         instance.delete()
-# 
-# 
+#
+#
 # models.signals.post_save.connect(
 #      post_save_order, sender=CartItem, dispatch_uid='post_save_order'
 # )
+
+class View_Client(models.Model):
+    title = models.CharField(max_length=200)
+    image = models.ImageField( blank=True)
+    nickname = models.CharField(max_length=200, blank=True)
+    script  = models.CharField(max_length=200, blank=True)
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+    search_field = models.BooleanField()
+
+    def publish_viewclient(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+class View_Themes(models.Model):
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+    client = models.ForeignKey(View_Client)
+
+    def publish_viewthemes(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+class View_Subject(models.Model):
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+    theme = models.ForeignKey(View_Themes)
+    search_field = models.BooleanField()
+
+    def publish_viewsubject(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+class View_Subject(models.Model):
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+    theme = models.ForeignKey(View_Themes)
+
+    def publish_viewsubject(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+class View_Subject_detail(models.Model):
+    title = models.CharField(max_length=200)
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+    subject = models.ForeignKey(View_Subject)
+
+    def publish_view_subject_detail(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title

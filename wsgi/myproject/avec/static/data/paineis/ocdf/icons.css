@@ -1,0 +1,61 @@
+.icon {
+	display: inline-block;
+	margin: 2px;
+	height: 32px;
+	width: 32px;
+	background-color: #ccc;
+}
+
+/* ICONS */
+.icon-Agropecuario {
+	background: url('Agropecuario.png') center center no-repeat;
+}
+.icon-Credito {
+	background: url('Credito.png') center center no-repeat;
+}
+.icon-Consumo {
+	background: url('Consumo.png') center center no-repeat;
+}
+.icon-Educacional {
+	background: url('Educacional.png') center center no-repeat;
+}
+.icon-Especial {
+	background: url('Especial.png') center center no-repeat;
+}
+.icon-Habitacional {
+	background: url('Habitacional.gif') center center no-repeat;
+}
+.icon-Producao {
+	background: url('Producao.png') center center no-repeat;
+}
+.icon-Saude {
+	background: url('Saude.png') center center no-repeat;
+}
+.icon-Trabalho {
+	background: url('Trabalho.png') center center no-repeat;
+}
+.icon-Transporte {
+	background: url('Transporte.png') center center no-repeat;
+}
+.icon-Turismo {
+	background: url('Turismo.png') center center no-repeat;
+}
+
+
+/* MARKERS */
+.leaflet-marker-icon {
+	padding: 2px;
+	text-align: center;
+}
+.marker-Agropecuário {
+	background: url('Agropecuario.png') center center no-repeat;
+}
+.marker-Credito {
+	background: url('Credito.png') center center no-repeat;
+}
+.marker-parking {
+	background: url('../images/markers/parking.png') center center no-repeat;
+}
+.marker-drinking_water {
+	background: url('../images/markers/drinking_water.png') center center no-repeat;
+}

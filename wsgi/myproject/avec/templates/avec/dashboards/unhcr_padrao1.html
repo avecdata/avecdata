@@ -1,0 +1,476 @@
+{% extends "avec/layout_interno.html" %}
+
+{% load poll_extras %}
+
+{% load staticfiles %}
+
+{% block content %}
+      
+<link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
+
+<style>
+.chartdiv {
+  width: 90%;
+  max-width: 100%;
+  height: 375px;
+  border: 1px solid #eee;
+}
+
+select {
+  font-size: 15px;
+  padding: 5px 10px;
+  margin-bottom: 15px;
+}
+
+figure {
+	width: 80px;
+}
+
+ul {
+    padding-left: 20px;
+	padding-top: 10px;
+}
+
+ul li { display: inline; 
+	padding: 2px 10px;
+    display: inline-block;
+
+}
+
+.text-right, .counter, .magnitude, .number {
+    color: white!important;
+	
+}
+
+#mapa{
+
+    max-width:150px;
+    max-height:80px;
+    width: auto;
+    height: auto;
+
+}
+</style>
+<script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/ammap_amcharts_extension.js"></script>
+<script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    
+	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dc.js' %}"></script>		
+	
+<!-- amCharts plugins -->
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css">
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+<!--	<script type="text/javascript" src="{% static 'js/recife.js' %}"></script>-->
+
+
+<form action="" class="banner-search__form" style = "padding-top:100px;">		 
+
+<input list="browsers" type="text" id="autocomplete2" class="banner-search__input-search"  placeholder="Encontre o munícipio que deseja consultar">
+
+</form>
+
+	<div class="container-fluid" id="summary-box" style=" background-color: rgba(0,0,0,0.6); opacity: 0.6; padding-top:5px; ">
+		<div class="row">
+		<div class="col-sm-8">
+		    <span class="portrait dv-bra-2ba hidden-xs"></span>
+            <img id="mapa" src="" alt="Mapa do estado" style="float:left; padding-right:5px;">
+            <h1 id="cidade" style="text-align:left; font-size:20px; color:white; padding-bottom:5px; padding-top:5px;" class="col-xs-offset-0 col-sm-offset-0 col-md-offset-0 p-w-xs">     
+				Teste  			
+            </h1>
+
+            <span class="clearfix"></span>
+		</div>	
+		  <div class="col-sm-2">
+
+		  </div>
+		</div>
+		<div class="row" style="padding-bottom:10px;">
+			<div class="col-sm-2">
+			<div class="widget">
+								<h3 class="text-right text-uppercase">PIB (2016) </h3>
+								<div class="number">
+									R$ <strong id="pib" class="counter"></strong><br>
+									<!---<small class="magnitude">Bilhões</small>-->
+								</div>
+							</div>
+			</div>					
+			<div class="col-sm-2">
+			<div class="widget">
+								<h3 class="text-right text-uppercase">População </h3>
+								<div class="number">
+									<strong id="populacao" class="counter"></strong><br>									
+								</div>
+							</div>
+			</div>								
+			<div class="col-sm-2">
+			<div class="widget">
+								<h3 class="text-right text-uppercase">Expectativa de vida </h3>
+								<div class="number">
+									<strong id="exp" class="counter"></strong><br>
+									<small class="magnitude">anos</small>									
+								</div>
+							</div>
+			</div>								
+			<div class="col-sm-2">
+			<div class="widget">
+								<h3 class="text-right text-uppercase">IDH </h3>
+								<div class="number">
+									R$ <strong id="idh" class="counter"></strong><br>
+									<small class="magnitude">pontos</small>									
+								</div>
+							</div>
+			</div>											
+			<div class="col-sm-2">
+			<div class="widget">
+								<h3 class="text-right text-uppercase">PIB per capita</h3>
+								<div class="number">								
+									R$ <strong id="pibpercap" class="counter"></strong><br>
+									<!--<small class="magnitude">mil</small>-->
+								</div>
+							</div>
+			</div>								
+										
+		</div>				
+	</div>
+
+    <script src="{% static 'min/javascript/app.js' %}"></script>
+	
+	<script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.autocomplete.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery-confirm.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/avec.script.js' %}"></script>
+
+<script>
+$(document).ready(function () {
+	
+		$("#summary-box").hide();
+	
+  var currencies =  
+[{value: 'Recife', id: 3 , type: "{% static 'js/recife.js' %}"}, {value: 'Salvador', id: 4 , type: "{% static 'js/salvador.js' %}"}
+]  
+
+$('#autocomplete2').autocomplete({
+    lookup: currencies,
+    onSelect: function (ui) {
+		get(ui.type);
+		$("#summary-box").hide();
+		$("#summary-box").show(1000);		
+		city(ui.value);		
+    }
+		
+});
+
+});	
+
+function city(par) {
+   $('#cidade').text(par)
+   
+};
+
+
+</script>
+
+<script>
+function get(par) {
+$.getScript( par, function(  textStatus ) {
+var inlinePib = dc.numberDisplay("#pib"),
+	inlinePopulacao = dc.numberDisplay("#populacao"),
+	inlineExp = dc.numberDisplay("#exp"),
+	inlineIdh = dc.numberDisplay("#idh"),
+	inlinePibpercap = dc.numberDisplay("#pibpercap")	
+	
+	data.forEach( function(obj) {
+	  var img = new Image();
+	  img.src = obj.imagem;
+	  img.setAttribute("class", "banner-img");
+	  img.setAttribute("alt", "effy");
+	  document.getElementById("mapa").src = img.src ;
+	});
+	
+	var ndx            = crossfilter(data),
+	
+  cityDim  = ndx.dimension(function(d) {return d['cidade'];})
+	  	var total = cityDim.groupAll().reduce(
+				//add
+				function(p, v) {
+					++p.count;
+					p.pib += +v['PIB'];
+					p.populacao += +v['Populacao'];
+					p.exp += +v['Expectativa de Vida'];
+					p.idh += +v['IDH'];
+					p.pibpercap += +v['PIB per capita'];					
+					return p;
+				},
+				//remove
+				function(p, v) {
+					--p.count;
+					p.pib -= +v['PIB'];
+					p.populacao -= +v['Populacao'];
+					p.exp -= +v['Expectativa de Vida'];
+					p.idh -= +v['IDH'];
+					p.pibpercap -= +v['PIB per capita'];					
+					return p;
+				},
+				//init
+				function() {
+					return {pib:0, populacao:0, exp:0, idh:0, pibpercap:0};
+				}
+		);
+				
+	var nPib = function(d){
+		return (d.pib) ;
+	};
+	var nPopulacao = function(d){
+		return (d.populacao) ;
+	};	
+	var nExp = function(d){
+		return (d.exp) ;
+	};
+	var nIdh = function(d){
+		return (d.idh) ;
+	};
+	var npibpercap = function(d){
+		return (d.pibpercap) ;
+	};	
+	
+	inlinePib
+		  .formatNumber(d3.format("s"))
+		  .valueAccessor(nPib)
+		  .group(total);
+	inlinePopulacao
+		  .formatNumber(d3.format("s"))
+		  .valueAccessor(nPopulacao)
+		  .group(total);		  
+	inlineExp
+		  .formatNumber(d3.format("s"))
+		  .valueAccessor(nExp)
+		  .group(total);
+	inlineIdh
+		  .formatNumber(d3.format(".3s"))
+		  .valueAccessor(nIdh)
+		  .group(total);
+	inlinePibpercap
+		  .formatNumber(d3.format(".3s"))
+		  .valueAccessor(npibpercap)
+		  .group(total);		  
+		  
+	
+	dc.renderAll();	  
+
+
+AmCharts.makeChart("chartdiv1", {
+  "type": "serial",
+  "theme": "light",
+  "dataProvider": teste,
+  "startDuration": 1,
+  "graphs": [{
+    "balloonText": "[[category]]: <b>[[value]]</b>",
+    "fillAlphas": 0.8,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "valueField": "visits"
+  }],
+ export: {
+	enabled: true
+ },
+  
+  "categoryField": "country",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "gridAlpha": 0
+  }
+
+});
+
+/**
+ * Add chart #2
+ */
+AmCharts.makeChart("chartdiv2", {
+	"type": "pie",
+	"theme": "light",
+	"dataProvider": teste,
+	"valueField": "visits",
+	"titleField": "country",
+	"legend": {
+		"enabled": true,
+		"align": "center",
+		"markerType": "circle"
+	},
+	"balloon": {
+	"fixedPosition": true
+	}, export: {
+		enabled: true
+	}
+});
+
+/**
+ * Add chart #3
+ */
+AmCharts.makeChart("chartdiv3", {
+	"type": "serial",
+	"categoryField": "category",
+	"startDuration": 1,
+	"categoryAxis": {
+		"gridPosition": "start"
+	},
+	 export: {
+		enabled: true
+	},
+
+	"trendLines": [],
+	"graphs": [
+		{
+			"balloonText": "[[title]] of [[category]]:[[value]]",
+			"bullet": "round",
+			"id": "AmGraph-1",
+			"title": "graph 1",
+			"valueField": "column-1"
+		},
+		{
+			"balloonText": "[[title]] of [[category]]:[[value]]",
+			"bullet": "square",
+			"id": "AmGraph-2",
+			"title": "graph 2",
+			"valueField": "column-2"
+		}
+	],
+	"guides": [],
+	"valueAxes": [
+		{
+			"id": "ValueAxis-1",
+			"title": "Axis title"
+		}
+	],
+	"allLabels": [],
+	"balloon": {},
+	"legend": {
+		"enabled": true,
+		"useGraphSettings": true
+	},
+	"titles": [
+		{
+			"id": "Title-1",
+			"size": 15,
+			"text": "Chart Title"
+		}
+	],
+	"dataProvider": serie
+});
+
+/**
+ * Add chart #4
+ */
+AmCharts.makeChart( "chartdiv4", {
+  "type": "map",
+  "theme": "light",
+  "dataProvider": {
+    "map": "worldLow",
+    "getAreasFromMap": true
+  },
+   export: {
+	enabled: true
+	},
+  "areasSettings": {
+    "autoZoom": true,
+    "selectedColor": "#CC0000"
+  }
+} );
+
+  
+});
+};
+</script>
+	
+	
+	<div class="container-fluid" style = "padding-top:5px;">
+    <div class="row">
+      <div class="col-sm-4">
+            <div>
+                <ul id="liste-categories">
+					<li class="agriculture-alimentation"><figure>
+					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/agriculture-alimentation.gif" ></a>
+					<figcaption></figcaption></figure></li>
+					<li class="economie-entreprises"><figure>
+					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/economie-entreprises.gif" ></a>
+					<figcaption></figcaption></figure></li><li class="education-recherche">
+					<figure>
+					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/environnement-ressources-naturelles-energie.gif"  class="thematique-vide">
+					<figcaption></figcaption></figure></li>
+					<li class="agriculture-alimentation"><figure>
+					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/gouvernement-finances.gif" ></a>
+					<figcaption></figcaption></figure></li>
+					<li class="economie-entreprises"><figure>
+					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/infrastructures.gif" ></a>
+					<figcaption></figcaption></figure></li><li class="education-recherche">
+					<figure>
+					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/loi-justice-securite-publique.gif"  class="thematique-vide">
+					<figcaption></figcaption></figure></li>
+					<li class="agriculture-alimentation"><figure>
+					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/politiques-sociales.gif" ></a>
+					<figcaption></figcaption></figure></li>
+					<li class="economie-entreprises"><figure>
+					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/sante.gif" ></a>
+					<figcaption></figcaption></figure></li><li class="education-recherche">
+					<figure>
+					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/societe-culture.gif"  class="thematique-vide">
+					<figcaption></figcaption></figure></li>
+					<li class="agriculture-alimentation"><figure>
+					<img onclick="showChart('chartdiv1')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/tourisme-sports-loisirs.gif" ></a>
+					<figcaption></figcaption></figure></li>
+					<li class="economie-entreprises"><figure>
+					<img onclick="showChart('chartdiv2')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/transport.gif" ></a>
+					<figcaption></figcaption></figure></li><li class="education-recherche">
+					<figure>
+					<img onclick="showChart('chartdiv3')" src="http://donnees.ville.montreal.qc.ca/portail/wp-content/themes/donneesouvertes4/images/thematiques/gif/133/education-recherche.gif"  class="thematique-vide">
+					<figcaption></figcaption></figure></li>
+					
+				</ul>
+			</div>		
+      </div>
+	  <div class="col-sm-8">
+			<div class="banner-section" id="img-container">    </div>
+			<div id="chartdiv1" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv2" class="chartdiv" style="display: none;"></div>
+			<div id="chartdiv3" class="chartdiv" style="display: none;"></div>			      
+      </div>
+	</div>
+	
+	
+	
+	
+    <div class="row">
+      
+	</div>
+	</div>
+	
+<script>
+/**
+ * Add chart #1
+ */
+var currentChart;
+function showChart( divid ) {
+
+  if (currentChart !== undefined){
+    currentChart.style.display = "none";
+	}
+  if ( divid ) {
+    currentChart = document.getElementById(divid);
+    currentChart.style.display = "block";	
+  }
+  else {
+    currentChart = undefined;
+  }
+} 
+
+</script>
+
+{% endblock %}

@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -333,8 +333,13 @@ def privacy_statement(request):
 def nescon(request):
         return render(request, 'avec/dashboards/nescon.html')
 
-def padrao1(request):
-        return render(request, 'avec/dashboards/padrao1.html')
+def client(request, client):
+    print(client.title);
+    view_client = View_Client.objects.get(nickname=client)
+    view_themes = View_Themes.objects.filter(published_date__lte=timezone.now()).filter(client=view_client).order_by('published_date')
+    view_subject = View_Subject.objects.filter(published_date__lte=timezone.now()).order_by('title')
+    view_subject_detail = View_Subject_detail.objects.filter(published_date__lte=timezone.now()).order_by('title')
+    return render(request, 'avec/dashboards/padrao1.html', {'view_client' : view_client ,'view_subject': view_subject, 'view_subject_detail': view_subject_detail, 'view_themes': view_themes})
 
 def padrao2(request):
         return render(request, 'avec/dashboards/padrao2.html')

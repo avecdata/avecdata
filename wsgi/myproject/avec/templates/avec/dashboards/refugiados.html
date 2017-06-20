@@ -1,0 +1,614 @@
+{% extends 'avec/base_dashboard.html' %}
+{% load staticfiles %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>AVEC - Ciência de dados</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />		
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap.css' %}"/>	  	
+
+   <!-- <link href="css/style2.css" rel="stylesheet">-->
+   
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>	
+   
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>	
+    <script src="{% static 'js/colorbrewer.js' %}"></script>
+    <script src="{% static 'data/world-countries.json' %}"></script>
+	
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/d3.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/crossfilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dc.js' %}"></script>		
+	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+	<script src="{% static 'js/cloud.js' %}"></script>
+
+   <!--<script type="text/javascript" src="http://www.kunalbabre.com/projects/table2CSV.js" > </script> 	-->
+
+   <script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>
+	<!--  <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" href="{% static 'css/dc.css' %}" />
+
+	
+<style>
+	
+	
+	@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
+
+*,:after,:before{box-sizing:content-box;!important}
+
+#chartdiv, #chartdiv2, #chartdiv3, #chartdiv4  {
+	width		: 100%;
+	height		: 700px;
+	font-size	: 11px;
+}							
+
+.amChartsCompareList -compare-div{
+	height		: 400px;	
+}
+
+svg {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+h1 {
+  padding: 50px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16b'; }
+label[for*='4']:before { content: '\f1a9'; }
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
+
+	#chart-06,  #chart-07,  #chart-08,  #chart-09, #chart-10,  #chart-11,  #chart-12,  #chart-13{
+        background: #899296;
+        width: 100%;
+        font-size: 64px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 100px;
+        height: 40px;
+        line-height: normal;
+		margin-bottom: 15px;
+      }
+
+	  .amcharts-compare-item-div{
+			padding: 8px; position: relative; height: 20px;
+	  }
+	</style>
+    </head>
+<body>
+
+<div class="title_sec">
+		<div class="internal__row">
+			<h1 class="internal__title">Refugiados</h1>
+		</div>
+</div>	
+
+  <input id="tab1" type="radio" name="tabs">
+  <label for="tab1">Mundo</label>
+  <input id="tab2" type="radio" name="tabs" checked>
+  <label for="tab2">Destinos</label> 
+  <input id="tab3" type="radio" name="tabs">
+  <label for="tab3">Origem</label>    
+
+
+
+<section id="content1">
+	<div class="tab-pane " id="a_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica -  Destino dos refugiados 
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			  				<div id="chartdiv"></div>	
+			
+          </div>
+          <div class="chart-notes">
+            Fonte: UNHCR </br>			
+          </div>
+        </div>
+      </div>
+	</div>
+	</div>
+</section>	
+
+<section id="content2">
+ 	<form action="" class="banner-search__form" style = "padding-top:70px;">		 
+
+<input list="browsers" type="text" id="autocomplete2" class="banner-search__input-search"  placeholder="Procure aqui uma cidade">
+
+</form>
+	<div class="tab-pane " id="b_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica -  Destino dos refugiados 
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			<div id="chartdiv2"></div>	
+			
+          </div>
+          <div class="chart-notes">
+             Fonte: UNHCR </br>
+          </div>
+        </div>
+      </div>
+	</div>	
+
+	</div>
+</section>	
+
+<section id="content3">
+	<div class="tab-pane " id="c_tab">
+ <div class="container-fluid" style = "padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="chart-wrapper" id="graph">
+          <div class="chart-title">
+             Série Histórica -  Origem dos refugiados 
+          </div>
+          <div class="chart-stage">
+			  <!--<h4>Teste</h4>-->
+			<div id="chartdiv3"></div>	
+			
+          </div>
+          <div class="chart-notes">
+             Fonte: UNHCR </br>
+          </div>
+        </div>
+      </div>
+	</div>	
+
+	</div>
+</section>	
+
+<!-- Chart Sangue -->
+<script>
+get("{% static 'data/paineis/direitos humanos/refugiados/Brasil.js' %}");
+function get(par) {
+$.getScript( par, function(  textStatus ) {
+
+	
+var first = Object.keys(Brasil[0])[0];
+var second = Object.keys(Brasil[0])[1];
+var third = Object.keys(Brasil[0])[2];
+var fourth = Object.keys(Brasil[0])[3];
+var fifth = Object.keys(Brasil[0])[4];
+
+
+					
+AmCharts.makeChart("chartdiv2", {
+    type: "stock",
+	"colors": [
+		"#3dc1d0",
+		"#91d5df",
+		"#dde6ee"
+	],	
+    theme: "light",
+	
+	dataDateFormat : "YYYY",
+	extendToFullPeriod : true,
+    pathToImages: "http://www.amcharts.com/lib/3/images/",
+
+    panelsSettings: {
+        recalculateToPercents: "never"
+    },
+
+    dataSets: [
+	{
+        title: "Brasil",
+        fieldMappings: [{
+            fromField: first,
+            toField: first
+        },
+		{
+            fromField: second,
+            toField: second
+        },
+		{
+            fromField: third,
+            toField: third
+        },
+		{
+            fromField: fourth,
+            toField: fourth
+        },
+		{
+            fromField: fifth,
+            toField: fifth
+        }
+		],
+        dataProvider: Brasil,
+        categoryField: "Year"
+    },
+ 	{
+        title: 'Síria',
+        fieldMappings: [{
+            fromField: first,
+            toField: first
+        },
+		{
+            fromField: second,
+            toField: second
+        },
+		{
+            fromField: third,
+            toField: third
+        },
+		{
+            fromField: fourth,
+            toField: fourth
+        },
+		{
+            fromField: fifth,
+            toField: fifth
+        }
+		],
+        dataProvider: Brasil,
+        categoryField: "Year"
+    }  
+	],
+
+    panels: [
+	 
+	{
+
+        title: first,
+        stockGraphs: [{
+			"dataDateFormat": "YYYY",
+			"theme": "default",
+			"categoryAxis": {
+				"minPeriod": "YYYY",
+				"parseDates": true,
+				"startOnAxis": true,
+				"showLastLabel": false	
+			},
+			"chartCursor": {
+				"enabled": true,
+				"animationDuration": 0,
+				"categoryBalloonDateFormat": "YYYY"
+			},	
+			type: "line",
+            id: first,
+            valueField: first,
+            lineThickness: 3,
+			fillAlphas: 0.3,
+            title: "",			
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+
+        stockLegend: {
+            useGraphSettings: false
+        }
+	},
+	{
+
+        title: second,
+
+        stockGraphs: [{
+			"dataDateFormat": "YYYY",
+			"theme": "default",
+
+			type: "line",
+            id: second,
+            valueField: second,
+            lineThickness: 3,
+			fillAlphas: 0.3,
+            title: "",			
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	},
+	{
+
+        title: third,
+
+        stockGraphs: [{
+			"dataDateFormat": "YYYY",
+			"theme": "default",
+
+			type: "line",
+            id: third,
+            valueField: third,
+            lineThickness: 3,
+			fillAlphas: 0.3,
+            title: "",			
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	},
+	{
+
+        title: fourth,
+
+        stockGraphs: [{
+			"dataDateFormat": "YYYY",
+			"theme": "default",
+
+			type: "line",
+            id: fourth,
+            valueField: fourth,
+            lineThickness: 3,
+			fillAlphas: 0.3,
+            title: "",			
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	},
+	{
+
+        title: fifth,
+
+        stockGraphs: [{
+			"dataDateFormat": "YYYY",
+			"theme": "default",
+
+			type: "line",
+            id: fifth,
+            valueField: fifth,
+            lineThickness: 3,
+			fillAlphas: 0.3,
+            title: "",			
+            balloonText: "[[title]]:<b>[[value]]</b>",
+            compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
+			minPeriod: "YYYY",
+            comparable: true
+        }],
+		
+        stockLegend: {
+            useGraphSettings: true
+        }
+		
+	}
+	
+	],
+ 
+    chartScrollbarSettings: {
+        graph: ["Brasil"]
+    },
+	
+    chartCursorSettings: {
+        valueBalloonsEnabled: true,
+        fullWidth: true,		
+		categoryBalloonEnabled : true,
+        cursorAlpha: 0.1,		
+        valueLineBalloonEnabled: true,
+        valueLineEnabled: true,
+        valueLineAlpha: 0.5	,
+		"cursorColor": "#61788e"	
+    },
+
+  
+"export": {
+  "enabled": true
+}
+	
+});
+
+			
+AmCharts.makeChart("chartdiv",
+				{
+					"type": "serial",
+					"categoryField": "category",
+					"startDuration": 1,
+					"categoryAxis": {			
+						"startOnAxis": true
+					},
+					"dataDateFormat": "YYYY",
+					"theme": "default",
+					"chartCursor": {
+						"enabled": true,
+						"animationDuration": 0,
+						"categoryBalloonDateFormat": "YYYY",
+						"cursorPosition": "mouse"						
+					},
+
+					"trendLines": [],
+					"graphs": [
+						{
+							"balloonText": "[[title]] of [[category]]:[[value]]",
+							"fillAlphas": 0.6,
+							"id": "AmGraph-1",
+							"lineAlpha": 0.5,
+							"title": "graph 1",
+							"valueField": "column-1"
+						},
+						{
+							"balloonText": "[[title]] of [[category]]:[[value]]",
+							"fillAlphas": 0.6,
+							"id": "AmGraph-2",
+							"lineAlpha": 0.5,
+							"title": "graph 2",
+							"valueField": "column-2"
+						}
+					],
+					"guides": [],
+					"valueAxes": [
+						{
+							"id": "ValueAxis-1",
+							"title": "Axis title"
+						}
+					],
+					"allLabels": [],
+					"balloon": {},
+					"legend": {
+						"enabled": true
+					},
+					"titles": [
+						{
+							"id": "Title-1",
+							"size": 15,
+							"text": "Chart Title"
+						}
+					],
+					"dataProvider": [
+						{
+							"category": "2008",
+							"column-1": 8,
+							"column-2": 5
+						},
+						{
+							"category": "2009",
+							"column-1": 6,
+							"column-2": 7
+						},
+						{
+							"category": "2010",
+							"column-1": 2,
+							"column-2": 3
+						},
+						{
+							"category": "2011",
+							"column-1": 1,
+							"column-2": 3
+						},
+						{
+							"category": "2012",
+							"column-1": 2,
+							"column-2": 1
+						},
+						{
+							"category": "2013",
+							"column-1": 3,
+							"column-2": 2
+						},
+						{
+							"category": "2014",
+							"column-1": 6,
+							"column-2": 8
+						}
+					]
+				}
+			);
+});
+};
+</script>
+
+
+
+</body>
+</html>
+{% endblock %}
