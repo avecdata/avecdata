@@ -93,7 +93,8 @@
     	<div class="container">
     		<div class="row">
     			<div class="col-sm-12">
-    				<h1 class="avec-home-app avec-title-home-app  text-center">Conheça os Painéis Interativos</h1>
+    				<h1 class="avec-home-app avec-title-home-app  text-center">Plataforma de dados</h1>
+						<h1 class="avec-home-app avec-subtitle-home-app  text-center">Explore, descubra e compartilhe</h1>
     			</div>
 				</div>
 				<div class="row">
@@ -173,12 +174,14 @@
 	              <div class="index-3-features-2__icon">
 	                <i class="fa fa-cubes"></i>
 	              </div>
-	              <h4 class="index-3-features-2__heading">
-	               {{ simpledash.title }}
-	              </h4>
-	              <div class="index-3-features-2__content">
-	                {{ simpledash.subject_detail.title }}
-	              </div>
+								<div class="col-sm-10" style="float : right;">
+									<h4 class="index-3-features-2__heading">
+										{{ simpledash.title }}
+									</h4>
+									<div class="index-3-features-2__content">
+										{{ simpledash.text }}
+									</div>
+								</div>
 	              </a>
 	           </div>
 	        {% endfor %}
@@ -192,12 +195,14 @@
               <div class="index-3-features-2__icon">
                 <i class="fa fa-area-chart"></i>
               </div>
-              <h4 class="index-3-features-2__heading">
-               {{ panel.title  }}
-              </h4>
-              <div class="index-3-features-2__content">
-                {{ panel.subject_detail.title  }}
-              </div>
+							<div class="col-sm-10" style="float : right;">
+								<h4 class="index-3-features-2__heading">
+									{{ panel.title }}
+								</h4>
+								<div class="index-3-features-2__content">
+									{{ panel.text }}
+								</div>
+							</div>
               </a>
             </div>
           	{% endfor %}
@@ -226,7 +231,7 @@
 									Grátis
 								</div>
 								<div class="pricing-option__body">
-									<div class="home-app-pricing__content">Infográficos Estatísticos</div>
+									<div class="home-app-pricing__content">Infográficos Estatísticos*</div>
 									<div class="home-app-pricing__extra plans__item--no-selected">Painéis Interativos</div>
 									<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
 									<a {% if request.user|has_group:1 or request.user|has_group:2 or request.user|has_group:3 %} href="javascript:void(0)" disabled="disabled"{% else %} href="{% url 'accounts:register' %}" {% endif %} class="btn btn-default btn-avec-cadastrar">Cadastre-se Grátis</a>
@@ -246,7 +251,7 @@
 								</div>
 								<div class="pricing-option__body">
 									<div class="home-app-pricing__content">Infográficos Estatísticos</div>
-									<div class="home-app-pricing__extra">Painéis Interativos</div>
+									<div class="home-app-pricing__extra">Painéis Interativos*</div>
 									<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
 									{% if request.user.id %}
 						            	{% if request.user|has_group:2 or request.user|has_group:3 or request.user|has_group:5 %}
@@ -280,7 +285,7 @@
 								<div class="pricing-option__body">
 									<div class="home-app-pricing__content">Infográficos Estatísticos</div>
 									<div class="home-app-pricing__extra">Painéis Interativos</div>
-									<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
+									<div class="home-app-pricing__extra">Download PDF, JPEG, PNG, CSV e XLSX</div>
 									{% if request.user.id %}
 						            	{% if request.user|has_group:2 or request.user|has_group:3 or request.user|has_group:5 %}
 							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Adquira</a>
