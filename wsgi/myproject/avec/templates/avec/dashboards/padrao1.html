@@ -311,19 +311,19 @@ border-bottom: solid 1px #dfe4e9;
 
 <span class="portrait dv-bra-2ba hidden-xs"></span>
 <div class="avec-content">
-
+{% if view_client.search_field %}
 <div class="container-fluid" style = " background-color:#fff; padding-top:70px;">
 	<div class="container" id="mycontainer" >
-{% if view_client.search_field %}
-	<form action="" class="banner-search__form" ">
+
+	<form action="" class="banner-search__form">
 
 	<input list="browsers" type="text" id="autocomplete2" class="banner-search__input-search"  placeholder="Procure aqui uma cidade">
 
 	</form>
-{% endif %}
+
 	</div>
 </div>
-
+{% endif %}
 	<div class="container-fluid" id="summary-box" style=" padding-top:44.5px; border-top: solid 1px #dfe4e9;">
 	<div class="container" >
 		<div class="row">
@@ -473,7 +473,7 @@ border-bottom: solid 1px #dfe4e9;
   {% for cliente in view_client %}
     <script type="text/javascript" src="{% static cliente.script %}"></script>
   {% endfor %}
-  
+
 
 
 
