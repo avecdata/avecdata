@@ -83,7 +83,7 @@
 					<div class="panel-body">
 						<ul>
 							{% for par in myparent %}
-								<li><a href="{% url 'subsubject_detail' pk=par.pk %}">{{par.title}}</a></li>
+								<li><a href="{% url 'subject_detail' pk=par.pk %}">{{par.title}}</a></li>
 							{% endfor %}
 						</ul>
 					</div>
