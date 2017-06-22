@@ -611,6 +611,75 @@ p.avec-cargo-colaborador {
     background-color: #DDE5EE;
 }
 
+.contaniner-pagamento > .section:first-child::before {
+    background-color: #dde6ee;
+}
+
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.avec-pagamento-title {
+	font-family: 'Lato', sans-serif;
+	color: #3e4c5b;
+	font-weight: 300;
+	font-size: 36px;
+	margin: 0px;
+}
+
+.avec-plain-selected {
+	font-family: 'Lato', sans-serif;
+	font-weight: 500;
+	width: 100%;
+	padding: 15px 25px;
+    font-size: 23px;
+    display: inline-block;
+    color: #3e4c5b;
+    background-color: #fff;
+}
+
+.avec-plain-selected i {
+	float: right;
+    margin-top: 10px;
+    color: #3dc1d0;
+}
+
+.avec-pagamento-service-list {
+	margin: 24px 6px;
+    font-size: 18px;
+}
+
+ul.avec-pagamento-service-list li {
+	list-style-type: none;
+	margin-bottom: 10px;
+}
+
+.avec-pagamento-informacoes-footer {
+	font-size: 13px;
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	margin: 0px 30px;
+    width: 360px;
+    display: block;
+}
+
+.avec-form-control {
+	line-height: 45px;
+    font-size: 18px;
+    height: 53px;
+    background-color: #fff !important;
+    border-radius: 4px;
+}
+
+.avec-pagamento-link-back a {
+	color: #3e4c5b;
+}
+
+.avec-pagamento-link-back i {
+	margin-right: 10px;
+}
+
 @media (max-width: 768px) {
 	h1.avec-title-home-app {
 	    font-size: 32px;

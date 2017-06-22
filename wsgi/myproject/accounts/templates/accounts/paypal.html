@@ -8,12 +8,80 @@ Pagamento via Paypal
 {% load widget_tweaks %}
 {% block content %}
 
-<ol class="breadcrumb">
+<!-- <ol class="breadcrumb">
   <li><a href="{% url 'index' %}">Início</a></li>
   <li><a href="{% url 'accounts:payment' %}">Pagamento</a></li>
   <li class="active">Pagamento via Paypal</li>
-</ol>
-<div class="container">
+</ol> -->
+<div class="topic">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h3 style="font-size: 18px;">Avec Pagamento</h3>
+			</div>
+			<div class="col-sm-8">
+				<ol class="breadcrumb pull-right hidden-xs" style="margin-top: 0px;">
+				<li><a href="{% url 'index' %}">Home</a></li>
+					<li><a href="{% url 'index' %}#plans">Planos</a></li>
+					<li class="active">Pagamanento</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="home-app__container contaniner-pagamento">
+	<div class="section" style="margin-top: 40px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5" style="background-color: #f7fafe; padding: 27px 33px 59px 32px;">
+					<span class="avec-pagamento-link-back"><a href="{% url 'index' %}#plans"><i class="fa fa-chevron-left"></i> VOLTAR PARA PLANOS</a></span>
+					<h2 class="avec-pagamento-title" style="margin: 40px 0;">Resumo do Pedido</h2>
+					<span class="avec-plain-selected">Plano  {{ plan_type }} <i class="fa fa-check" aria-hidden="true"></i></span>
+					<ul class="avec-pagamento-service-list">
+						<li>Estatísticas e infográficos básico</li>
+						<li>Estatísticas e infográficos premium</li>
+						<li>Download de conteúdos</li>
+						<li class="{% if tipoplano_id == 5 %} plans__item--no-selected {% endif %}">Painéis Interativos - Básicos</li>
+					</ul>
+					<div class="home-app-pricing__price" style="color: #3e4c5b; margin: 10px 44px;">
+						<span style="display: block; font-weight: 600;">Valor</span>
+						<span>R$</span>{{ order_amount }}<span style="font-size: 20px;">/mês</span>
+					</div>
+					<span class="avec-pagamento-informacoes-footer" >O valor cobrado é por recorrência mensal, <strong>você pode cancelar no momento que desejar.</strong></span>
+				</div>
+				<div class="col-md-7" style="background-color: #fff; padding: 27px 32px 59px 33px;">
+					<h2 class="avec-pagamento-title" style="margin-top: 0px; margin-bottom: 36px;">Seus Dados</h2>
+					<div class="form-group" >
+						<label for="id_username">Usuário</label>
+						<input type="text" class="form-control avec-form-control" id="id_username" value="{{ customer_username }}" data-toggle="popover" data-placement="left" data-trigger="focus" data-original-title="Usuário" readonly="readonly">
+					</div>
+					<div class="form-group" >
+						<label for="id_name">Nome</label>
+						<input type="text" class="form-control avec-form-control" id="id_name" value="{{ customer_name }}" data-toggle="popover" data-placement="left" data-original-title="Nome" readonly="readonly">
+					</div>
+					<div class="form-group" >
+						<label for="id_email">E-mail</label>
+						<input type="text" class="form-control avec-form-control" id="id_email" value="{{ customer_email }}" data-toggle="popover" data-placement="left" data-original-title="E-mail" readonly="readonly">
+					</div>
+					<div class="form-group" >
+						<label for="id_phone">Telefone</label>
+						<input type="text" class="form-control avec-form-control" id="id_phone" value="{{ customer_phone }}" data-toggle="popover" data-placement="left" data-original-title="E-mail" readonly="readonly">
+					</div>
+					<div class="cb-avec-content">
+            			<input type="checkbox" id="payment_accept" class="cb-avec" name="payment_accept" value="1" required="required" >
+            			<label for="payment_accept">Eu <strong>ACEITO</strong> os <a href="{% url 'terms_conditions' %}" target="_blank">Termos e Condições Gerais</a>
+            			(<a href="{% static 'termsofuse/avec-termos-condicoes-gerais.pdf' %}" target="_blank">PDF</a>) e a <a href="{% url 'privacy_statement' %}" target="_blank">Política de Privacidade</a>
+            			(<a href="{% static 'termsofuse/avec-politica-privacidade.pdf' %}" target="_blank">PDF</a>)</label>
+            		</div>
+            		<div id="paypal" class="row disabledbutton" >
+					    {{ form.render }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <div class="container">
 	<div class="form-group">
 		<div class="form-group">
 			<div class="col-md-8 col-md-offset-2">
@@ -38,9 +106,7 @@ Pagamento via Paypal
 						<div class="page-header" style="margin-top: 0px;">
 						    <h4 style="font-family: Helvetica, Arial, sans-serif; font-weight: bold;">Clique no botão abaixo<br>Para realizar o Pagamento via Paypal...</h4>
 						</div>
-						<div id="paypal" class="row">
-						    {{ form.render }}
-						</div>
+						
 					</div>
 				</div>
 				<hr height="1" style="height:1px; border:0 none; color: #76899a; background-color: #76899a; margin-top: 0.5em; margin-bottom:1.5em;">
@@ -54,12 +120,22 @@ Pagamento via Paypal
 		</div>
 	</div>
 </div>
-{% endblock %}
-
+ -->
 {% block scripts %}
 <script type="text/javascript">
-    $(function(){
+$(document).ready(function () {
+    /* $(function(){
         $("#paypal form").submit();
+    }); */
+    
+    $('#payment_accept').click(function(){
+    	if($('#payment_accept').is(':checked') == false) {
+    		$('#paypal').addClass('disabledbutton');
+    	} else {
+    		$('#paypal').removeClass('disabledbutton');
+    	}
     });
+});
 </script>
+{% endblock %}
 {% endblock %}

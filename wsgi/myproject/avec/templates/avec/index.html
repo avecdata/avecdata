@@ -260,7 +260,7 @@
 						               		</form>
 							            {% endif %}
 							        {% else %}
-							        	<a href="{% url 'accounts:register_standard_plan' %}" class="btn btn-secondary btn-avec-secundary " >Adquira</a>
+							        	<a href="{% url 'accounts:register_avec_plan' 'plano-padrao' %}" class="btn btn-secondary btn-avec-secundary " >Adquira</a>
 							        {% endif %}
 								</div>
 							</div>
@@ -280,20 +280,20 @@
 								<div class="pricing-option__body">
 									<div class="home-app-pricing__content">Infográficos Estatísticos</div>
 									<div class="home-app-pricing__extra">Painéis Interativos</div>
-									<div class="home-app-pricing__extra home-app-pricing__bottom_extra plans__item--no-selected">Download PDF, JPEG, PNG, CSV e XLSX</div>
+									<div class="home-app-pricing__extra home-app-pricing__bottom_extra">Download PDF, JPEG, PNG, CSV e XLSX</div>
 									{% if request.user.id %}
-						            	{% if request.user|has_group:2 or request.user|has_group:3 or request.user|has_group:5 %}
+						            	{% if request.user|has_group:2 or request.user|has_group:3 %}
 							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Adquira</a>
 							            {% else %}
 							            	<form action="{% url 'accounts:update_subscription' %}" method="post">
 						               			{% csrf_token %}
 						               			<input type="hidden" name="user_id" value="{{ request.user.id }}">
-						               			<input type="hidden" name="plan_id" value="5">
-						               			<button type="submit" class="btn btn-default"><i class="fa fa-pie-chart"></i> Atualizar agora</button>
+						               			<input type="hidden" name="plan_id" value="2">
+						               			<button type="submit" class="btn btn-default"><i class="fa fa-graduation-cap"></i> Atualizar agora</button>
 						               		</form>
 							            {% endif %}
 							        {% else %}
-							        	<a href="{% url 'accounts:register_standard_plan' %}" class="btn btn-secondary btn-avec-secundary" >Adquira</a>
+							        	<a href="{% url 'accounts:register_avec_plan' 'plano-profissional' %}" class="btn btn-secondary btn-avec-secundary" >Adquira</a>
 							        {% endif %}
 								</div>
 							</div>
@@ -313,7 +313,7 @@
 									<div class="home-app-pricing__extra" style="margin-bottom: 42px;">Construa seu próprio ambiente de visualização, integrando bases próprias com nossas bases setoriais.</div>
 									{% if request.user.id %}
 						            	{% if request.user|has_group:3 %}
-							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Assine agora</a>
+							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Entre em contato</a>
 							            {% else %}
 						               		<a href="{% url 'contact' %}" class="btn btn-default btn-avec-cadastrar" >Entre em contato </a>
 							            {% endif %}

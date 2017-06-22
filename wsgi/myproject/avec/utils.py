@@ -191,7 +191,7 @@ def send_mail(title, content_message, receivers):
 def get_content_subscription_email(name, plan_type, item_list):
     
     content_message = '<font face="Helvetica, Arial, sans-serif" size="2" color="#000000">'
-    content_message += '<img src="http://www.avecdata.com/static/img/logo-avec-dark@2x.png"><br>'
+    content_message += '<img src="http://www.avecdata.com/static/avecv2.0-template/img/avec-logo.svg"><br>'
     content_message += '<hr height="1" style="height:1px; border:0 none; color: #76899a; background-color: #76899a; margin-top: 0.5em; margin-bottom:1.5em;">'
     content_message += '<br>'
     content_message += '<span>Olá '+name+',</span><br>'
@@ -224,7 +224,7 @@ def get_content_subscription_email(name, plan_type, item_list):
 def get_content_update_register(name, plan_type):
     
     content_message = '<font face="Helvetica, Arial, sans-serif" size="2" color="#000000">'
-    content_message += '<img src="http://www.avecdata.com/static/img/logo-avec-dark@2x.png"><br>'
+    content_message += '<img src="http://www.avecdata.com/static/avecv2.0-template/img/avec-logo.svg"><br>'
     content_message += '<hr height="1" style="height:1px; border:0 none; color: #76899a; background-color: #76899a; margin-top: 0.5em; margin-bottom:1.5em;">'
     content_message += '<br>'
     content_message += '<span>Olá '+name+',</span><br>'
@@ -244,7 +244,7 @@ def get_content_update_register(name, plan_type):
 def get_content_update_subscription_email(name, plan_type, item_list):
     
     content_message = '<font face="Helvetica, Arial, sans-serif" size="2" color="#000000">'
-    content_message += '<img src="http://www.avecdata.com/static/img/logo-avec-dark@2x.png"><br>'
+    content_message += '<img src="http://www.avecdata.com/static/avecv2.0-template/img/avec-logo.svg"><br>'
     content_message += '<hr height="1" style="height:1px; border:0 none; color: #76899a; background-color: #76899a; margin-top: 0.5em; margin-bottom:1.5em;">'
     content_message += '<br>'
     content_message += '<span>Olá '+name+',</span><br>'
@@ -272,7 +272,7 @@ def get_content_update_subscription_email(name, plan_type, item_list):
 def get_content_recovery_password(name, url):
     
     content_message = '<font face="Helvetica, Arial, sans-serif" size="2" color="#000000">'
-    content_message += '<img src="http://www.avecdata.com/static/img/logo-avec-dark@2x.png"><br>'
+    content_message += '<img src="http://www.avecdata.com/static/avecv2.0-template/img/avec-logo.svg"><br>'
     content_message += '<hr height="1" style="height:1px; border:0 none; color: #76899a; background-color: #76899a; margin-top: 0.5em; margin-bottom:1.5em;">'
     content_message += '<br>'
     content_message += '<span>Olá '+name+',</span><br>'

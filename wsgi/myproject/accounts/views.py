@@ -5,6 +5,7 @@ from paypal.standard.ipn.signals import valid_ipn_received
 
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import (CreateView, TemplateView, UpdateView, FormView)
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
@@ -212,6 +213,129 @@ def preferences_user(request, pk):
         print('Update data user Exception: only get access ')
     
     return render(request, 'accounts/preferences_user.html', context)
+
+def register_avec_plan(request, tipoconta):
+    
+#     print(tipoconta+'*********************')
+    context = {}
+    
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password1')
+        phone = request.POST.get('phone')
+        group_id = request.POST.get('plan_type')
+        
+        user = User.objects.create_user(name, email, password)
+        user.name = name
+        user.username = username
+        user.phone = phone
+        user.is_active = True
+        user.is_staff = False
+        now = timezone.now()
+        user.date_expiration = now
+        
+        user.save()
+        
+        #---assign user to basic group-------
+        try:
+            basic_group = Group.objects.get(id=1)
+            basic_group.user_set.add(user)
+            
+            #---sendmail to confirm subscription----------
+            title = 'AVEC DATA - Confirmação de Cadastro'
+            plan_type = 'Básico'
+            item_list = ['Estatísticas e infográficos básico']
+            
+            if group_id == '5':
+                plan_type = 'Padrão'
+                item_list = ['Estatísticas e infográficos básico', 'Estatísticas e infográficos premium', 'Download de conteúdos']
+            elif group_id == '2':
+                plan_type = 'Profissional'
+                item_list = ['Estatísticas e infográficos básico', 'Estatísticas e infográficos premium', 'Download de conteúdos', 'Painéis Interativos - Básicos']
+            elif group_id == '3':
+                plan_type = 'Corporativo'
+                item_list = ['Estatísticas e infográficos básico', 'Estatísticas e infográficos premium', 'Download de conteúdos', 'Painéis Interativos - Básicos', 'Painéis Interativos - Avançados', 'Retratos setoriais', 'Integração com bases próprias']
+            
+            to = [email]
+            content_message = utils.get_content_subscription_email(name, plan_type, item_list)
+            utils.send_mail(title, content_message, to)
+        except Exception as e:
+            print("Basic group definition register Exception:"+str(e))
+        
+        user_auth = authenticate(username=username, password=password)
+        
+        if user_auth is not None:
+            login(request, user_auth)
+            
+        currency = 'R$ '
+        service_list = []
+        subscription_name = 'Plano Básico de Assinatura'
+        
+        if group_id == '5':
+            plan_type = 'Plano Padrão de Assinatura'
+            service_list = ['Estatísticas e infográficos básico', 'Estatísticas e infográficos premium', 'Download de conteúdos']
+        elif group_id == '2':
+            plan_type = 'Plano Profissional de Assinatura'
+            service_list = ['Estatísticas e infográficos básico', 'Estatísticas e infográficos premium', 'Download de conteúdos', 'Painéis Interativos - Básicos']
+        elif group_id == '3':
+            subscription_name = 'Plano Corporativo de Assinatura'
+            service_list = ['Estatísticas e infográficos básico', 'Estatísticas e infográficos premium', 'Download de conteúdos', 'Painéis Interativos - Básicos', 'Painéis Interativos - Avançados', 'Retratos setoriais', 'Integração com bases próprias']
+
+            
+        country_slug = settings.LANGUAGE_CODE.split("-")[1]  
+        price = Price.objects.get(Q(country_slug=country_slug) & Q(group_id=group_id))
+        pvalue = price.pvalue if price is not None else 0
+        
+        if request.session.session_key is None:
+            request.session.save()
+        
+        order = Order.objects.create(user=user, price=price, status=0, payment_option='paypal', order_key=request.session.session_key, amount=price.pvalue)
+        order.save()
+        
+        context = {
+            'username': username,
+            'name': name,
+            'email': email,
+            'phone': phone,
+            'plano': subscription_name,
+            'annual_cost': currency+str((pvalue*12)),
+            'pvalue': pvalue,
+            'pvalue_text': currency+str(pvalue),
+            'service_list': service_list,
+            'order': order.id if order is not None else 0
+        }
+        
+#         context = {
+#             'username': 'theo.duarte',
+#             'name': 'Theogenes',
+#             'email': 'teocomp@gmail.com',
+#             'phone': '(61) 98188-7403',
+#             'plano': 'Plano Profissional de Assinatura',
+#             'annual_cost': currency+str((pvalue*12)),
+#             'pvalue': pvalue,
+#             'pvalue_text': currency+str(pvalue),
+#             'service_list': service_list,
+#             'order': 2
+#         }
+
+        #return render(request, 'accounts/payment.html', context)
+        return HttpResponseRedirect(reverse('accounts:paypal_view', kwargs={'pk': order.id if order is not None else 0, 'num': 0}))
+    
+    else:
+
+        tipoplano_id = 5
+        
+        if(tipoconta == 'plano-profissional'):
+            tipoplano_id = 2
+        
+        context = {
+                'form': UserAdminCreationForm(),
+                'tipoplano_id': tipoplano_id
+            }
+        
+        return render(request, 'accounts/register_avec_plan.html', context)
 
 def activate_account(request, uidb64, token):
     
@@ -561,6 +685,8 @@ def update_subscription(request):
             'service_list': service_list,
             'order': order.id if order is not None else 0
         }
+        
+        return HttpResponseRedirect(reverse('accounts:paypal_view', kwargs={'pk': order.id if order is not None else 0, 'num': 0}))
 
     return render(request, 'accounts/payment.html', context)
 
@@ -642,6 +768,8 @@ class PaypalView(LoginRequiredMixin, TemplateView):
             Order.objects.filter(user=self.request.user), pk=order_pk
         )
         customer_name = ''
+        customer_username = ''
+        customer_phone = ''
         plan_type = ''
         order_date = ''
         order_amount = ''
@@ -668,10 +796,13 @@ class PaypalView(LoginRequiredMixin, TemplateView):
                 order.save()
             
             customer_name = order.user.name
+            customer_username = order.user.username
             email = order.user.email
+            customer_phone = order.user.phone
             plan_type = order.price
             order_date = order.modified.strftime('%d/%m/%Y')
-            order_amount = 'R$ '+str(order.amount)
+#             order_amount = 'R$ '+str(order.amount)
+            order_amount = str(order.amount)
             order_contry = 'Brasil'
             order_flag = 'pt_br'
             group_id = order.price.group_id
@@ -698,7 +829,7 @@ class PaypalView(LoginRequiredMixin, TemplateView):
             
             to = [email]
             content_message = utils.get_content_update_subscription_email(customer_name, plan_type, item_list)
-            utils.send_mail(title, content_message, to)
+#             utils.send_mail(title, content_message, to)
         except Exception as e:
             print("Basic group definition register Exception:"+str(e))
             
@@ -714,8 +845,12 @@ class PaypalView(LoginRequiredMixin, TemplateView):
             reverse('accounts:paypal-ipn')
         )
         context['form'] = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
+        context['customer_username'] = customer_username
         context['customer_name'] = customer_name
+        context['customer_email'] = email
+        context['customer_phone'] = customer_phone
         context['plan_type'] = plan_type
+        context['tipoplano_id'] = group_id
         context['order_date'] = order_date
         context['order_amount'] = order_amount
         context['order_contry'] = order_contry

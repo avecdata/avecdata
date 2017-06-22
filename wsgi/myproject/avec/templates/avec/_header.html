@@ -42,11 +42,9 @@
 								<!-- </div> -->
 							</li>
 						{% endfor %}
-							<!-- <li><a href="portfolio.html">Avec Data</a></li>
-							<li><a href="portfolio-item.html">Avec View</a></li> -->
 						</ul>
 					</li>
-					<li class="dropdown ">
+					<li class="dropdown">
 						<a href="{% url 'produtos' %}" class="dropdown-toggle avec-dropdown">Produtos </a>
 					</li>
 					<li class="dropdown avec-dropdown">
@@ -60,72 +58,50 @@
 
 					<!-- Navbar Search -->
 					{% if user.is_authenticated %}
-					<li class="hidden-md hidden-lg">
-						<div class="dropdown">
-							<button type="button" id="dropdownMenu1"
-								class="btn btn-sucesst dropdown-toggle" data-toggle="dropdown"
-								style="padding-left: 20px;">
-								Sua Conta <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu dropdown-user-menu" role="menu"
-								aria-labelledby="dropdownMenu1">
-								<li><i class="fa fa-address-card" aria-hidden="true"></i>
-									Meu Perfil</li>
-								<li class="divider"></li>
-								<li><i class="fa fa-cog" aria-hidden="true"></i><a
-									href="{% url 'accounts:preferences_user' user.pk %}">Preferências</a></li>
-								<li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a
-									class="btn-change-password" href="#" id="btn-change-password"
-									user_pk="{{ user.username }}">Alterar Senha</a></li>
-								<li class="divider"></li>
-								<li><i class="fa fa-sign-out" aria-hidden="true"></i><a
-									href="{% url 'logout' %}">Sair</a></li>
+					<li class="hidden-sm hidden-md hidden-lg">
+						<li class="dropdown hidden-sm hidden-md hidden-lg">
+							<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Sua Conta <i class="fa fa-angle-down"></i></a>
+							<ul class="dropdown-menu" >
+								<li class="dropdown-submenu">
+									<li class="avec-dropdown"><a class="avec-dropdown" href="#">Meu Perfil</a></li>
+									<li class="avec-dropdown"><a class="avec-dropdown" href="{% url 'accounts:preferences_user' user.pk %}"><i class="fa fa-address-card" aria-hidden="true"></i> Preferências</a></li>
+									<li class="avec-dropdown"><a class="avec-dropdown btn-change-password" id="btn-change-password" href="#" user_pk="{{ user.username }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Alterar Senha</a></li>
+									<li class="avec-dropdown"><a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
+								</li>
 							</ul>
-						</div>
+						</li>
 					</li>
 					{% else %}
 					<li class="avec-menu-item hidden-sm hidden-md hidden-lg" ><a class="dropdown-toggle" href="{% url 'logar' %}">ENTRAR</a></li>
-					{% endif%}
-
-					<li class="avec-menu-item avec-menu-subscription hidden-sm hidden-md hidden-lg"><aclass="dropdown-toggle" href="/#plans">ASSINAR</a></li>
+					
+					<li class="avec-menu-item avec-menu-subscription hidden-sm hidden-md hidden-lg"><a class="dropdown-toggle" href="/#plans">ASSINAR</a></li>
 
 					<li class="avec-menu-item hidden-sm hidden-md hidden-lg"><a href="{% url 'accounts:register' %}" class="dropdown-toggle">EXPERIMENTAR</a></li>
+					{% endif%}
 				</ul>
 			</div>
 			<div class="avec-navbar-right hidden-xs">
 				<ul class="nav navbar-nav navbar-right avec-btn-nav-right">
 					{% if user.is_authenticated %}
-					<li>
-						<div class="dropdown">
-							<button type="button" id="dropdownMenu1"
-								class="btn btn-sucesst dropdown-toggle" data-toggle="dropdown"
-								style="padding-left: 20px;">
-								Sua Conta <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu dropdown-user-menu" role="menu"
-								aria-labelledby="dropdownMenu1">
-								<li><i class="fa fa-address-card" aria-hidden="true"></i>
-									Meu Perfil</li>
-								<li class="divider"></li>
-								<li><i class="fa fa-cog" aria-hidden="true"></i><a
-									href="{% url 'accounts:preferences_user' user.pk %}">Preferências</a></li>
-								<li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a
-									class="btn-change-password" href="#" id="btn-change-password"
-									user_pk="{{ user.username }}">Alterar Senha</a></li>
-								<li class="divider"></li>
-								<li><i class="fa fa-sign-out" aria-hidden="true"></i><a
-									href="{% url 'logout' %}">Sair</a></li>
-							</ul>
-						</div>
+					<li class="dropdown">
+						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Sua Conta <i class="fa fa-angle-down"></i></a>
+						<ul class="dropdown-menu" >
+							<li class="dropdown-submenu">
+								<li class="avec-dropdown"><a class="avec-dropdown" href="#">Meu Perfil</a></li>
+								<li class="avec-dropdown"><a class="avec-dropdown" href="{% url 'accounts:preferences_user' user.pk %}"><i class="fa fa-address-card" aria-hidden="true"></i> Preferências</a></li>
+								<li class="avec-dropdown"><a class="avec-dropdown btn-change-password" id="btn-change-password" href="#" user_pk="{{ user.username }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Alterar Senha</a></li>
+								<li class="avec-dropdown"><a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
+							</li>
+						</ul>
 					</li>
 					{% else %}
 					<li class="avec-menu-item" style="margin-right: 0px;"><a class="avec-link-login" href="{% url 'logar' %}">ENTRAR</a></li>
-					{% endif%}
-
-					<li class="avec-menu-item avec-menu-subscription"><a
-						class="btn-avec-primary" href="/#plans">ASSINAR</a></li>
+					
+					<li class="avec-menu-item avec-menu-subscription"><a class="btn-avec-primary" href="/#plans">ASSINAR</a></li>
 
 					<li class="avec-menu-item hidden-sm"><a class="btn btn-avec-success" href="{% url 'accounts:register' %}">EXPERIMENTAR</a></li>
+					
+					{% endif%}
 				</ul>
 			</div>
 			<!-- / .nav -->

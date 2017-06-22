@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^plano-padrao/$', views.register_standard_plan, name='register_standard_plan'),
     url(r'^plano-profissional/$', views.register_professional_plan, name='register_professional_plan'),
     url(r'^plano-corporativo/$', views.register_corporate_plan, name='register_corporate_plan'),
+    url(r'^assinar/(?P<tipoconta>[\w\-]+)$', views.register_avec_plan, name='register_avec_plan'),
     url(r'^pagamento/', views.payment, name='payment'),
     url(r'^finalizando/(?P<pk>\d+)/paypal/(?P<num>\d+)$', views.paypal_view, name='paypal_view'),
     url(r'^payment-failed/$', views.payment_failed, name='payment_failed'),
