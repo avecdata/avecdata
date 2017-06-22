@@ -79,7 +79,7 @@ def register(request):
                 'avec_message': avec_message
             }
             
-            return render(request, 'accounts/register.html', context)
+            return render(request, 'avec/logar.html', context)
     
     return render(request, 'accounts/register.html', {"form": UserAdminCreationForm() })
 

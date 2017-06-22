@@ -87,12 +87,20 @@
 					</div>
 
 					<!-- Terms of services -->
-					<div class="checkbox">
-						<label> <input type="checkbox"> Eu CONCORDO com os <a href="{% url 'terms_conditions' %}">Termos e Condições Gerais</a> e <a href="{% url 'privacy_statement' %}">Política de Privacidade</a> </label>
+					<div class="cb-avec-content">
+						<!-- <label for="terms_accept"> <input type="checkbox" id="terms_accept" name="terms_accept" value="1" required="required" > Eu CONCORDO com os <a href="{% url 'terms_conditions' %}">Termos e Condições Gerais</a> e <a href="{% url 'privacy_statement' %}">Política de Privacidade</a> </label> -->
+						<div class="cb-avec-content" style="height: 20px;">
+		            			<input type="checkbox" id="terms_accept" class="cb-avec" name="plan_accept" value="1" required="required" >
+		            			<label for="terms_accept">Eu <strong>ACEITO</strong> os <a href="{% url 'terms_conditions' %}" target="_blank">Termos e Condições Gerais</a>
+		            			(<a href="{% static 'termsofuse/avec-termos-condicoes-gerais.pdf' %}" target="_blank">PDF</a>) e a <a href="{% url 'privacy_statement' %}" target="_blank">Política de Privacidade</a>
+		            			(<a href="{% static 'termsofuse/avec-politica-privacidade.pdf' %}" target="_blank">PDF</a>)</label>
+		            		</div>
 					</div>
 					
 					<!-- Submit -->
-					<button type="submit" class="btn btn-primary">Registrar</button>
+					<div class="form-group disabledbutton" id="avec-create-account-content">
+						<button type="submit" class="btn btn-primary">Registrar</button>
+					</div>
 					
 					<hr>
 					<div class="form-group">
@@ -110,4 +118,18 @@
 		</div>
 	</div>
 </div>
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function () {
+    
+    $('#terms_accept').click(function(){
+    	if($('#terms_accept').is(':checked') == false) {
+    		$('#avec-create-account-content').addClass('disabledbutton');
+    	} else {
+    		$('#avec-create-account-content').removeClass('disabledbutton');
+    	}
+    });
+});
+</script>
+{% endblock %}
 {% endblock %}

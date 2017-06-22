@@ -73,9 +73,11 @@
 					</li>
 					{% else %}
 					<li class="avec-menu-item hidden-sm hidden-md hidden-lg" ><a class="dropdown-toggle" href="{% url 'logar' %}">ENTRAR</a></li>
+					{% endif%}
 					
 					<li class="avec-menu-item avec-menu-subscription hidden-sm hidden-md hidden-lg"><a class="dropdown-toggle" href="/#plans">ASSINAR</a></li>
-
+					
+					{% if not user.is_authenticated %}
 					<li class="avec-menu-item hidden-sm hidden-md hidden-lg"><a href="{% url 'accounts:register' %}" class="dropdown-toggle">EXPERIMENTAR</a></li>
 					{% endif%}
 				</ul>
@@ -96,11 +98,13 @@
 					</li>
 					{% else %}
 					<li class="avec-menu-item" style="margin-right: 0px;"><a class="avec-link-login" href="{% url 'logar' %}">ENTRAR</a></li>
+										
+					{% endif%}
 					
 					<li class="avec-menu-item avec-menu-subscription"><a class="btn-avec-primary" href="/#plans">ASSINAR</a></li>
-
-					<li class="avec-menu-item hidden-sm"><a class="btn btn-avec-success" href="{% url 'accounts:register' %}">EXPERIMENTAR</a></li>
 					
+					{% if not user.is_authenticated %}
+					<li class="avec-menu-item hidden-sm"><a class="btn btn-avec-success" href="{% url 'accounts:register' %}">EXPERIMENTAR</a></li>
 					{% endif%}
 				</ul>
 			</div>
