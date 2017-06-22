@@ -108,6 +108,9 @@ class Dashboard(models.Model):
     group = models.ManyToManyField(Group)
     open = models.BooleanField()
 
+    class Meta:
+        managed = False
+
     def publish_dashboard(self):
         self.published_date = timezone.now()
         self.save()
@@ -358,6 +361,7 @@ class View_Client(models.Model):
     published_date = models.DateTimeField(
             blank=True, null=True)
     search_field = models.BooleanField()
+    open = models.BooleanField(blank=True)
 
     def publish_viewclient(self):
         self.published_date = timezone.now()

@@ -311,7 +311,8 @@ border-bottom: solid 1px #dfe4e9;
 
 <span class="portrait dv-bra-2ba hidden-xs"></span>
 <div class="avec-content">
-{% if view_client.search_field %}
+{% for client in view_client%}
+{% if client.search_field %}
 <div class="container-fluid" style = " background-color:#fff; padding-top:70px;">
 	<div class="container" id="mycontainer" >
 
@@ -324,6 +325,7 @@ border-bottom: solid 1px #dfe4e9;
 	</div>
 </div>
 {% endif %}
+{% endfor %}
 	<div class="container-fluid" id="summary-box" style=" padding-top:44.5px; border-top: solid 1px #dfe4e9;">
 	<div class="container" >
 		<div class="row">
@@ -332,9 +334,9 @@ border-bottom: solid 1px #dfe4e9;
 			<img id="mapa3" src="{% static 'img/nescon/oval-baixar.svg' %}" alt="Mapa do estado" style="float:right; padding-right:10px;">
 			<img id="mapa2" src="{% static 'img/nescon/oval-imprimir.svg' %}" alt="Mapa do estado" style="float:right; padding-right:10px;">
 			<!--<img id="mapa" src="{% static 'img/nescon/box-minas-gerais.svg' %}" alt="Mapa do estado" style="float:right; padding-right:10px;">-->
-
-			<p class="nescon__title">{{view_client.title}}</p>
-
+			{% for client in view_client%}
+			<p class="nescon__title">{{client.title}}</p>
+			{% endfor %}
             <h2 id="cidade" style="text-align:left; font-size:18px;  color: #61788e; padding-bottom:50px; padding-top:5px;" >
 
             </h2>
@@ -393,7 +395,7 @@ border-bottom: solid 1px #dfe4e9;
 							<div id="outer">
 
 								<ul id="{{theme.title}}" class="lateral_menu">
-									{% for subj in theme.view_subject_set.all %}
+									{% for subj in theme.view_subject_set.all|dictsort:"published_date" %}
 										{% if  forloop.counter  == 1 %}
 
 											<li class="sub click"><a  style=" font-size:14px; padding-left: 10px; font-weight: bold;">{{subj.title}}<i class="fa fa-chevron-down" aria-hidden="true"></i></a>
@@ -401,7 +403,7 @@ border-bottom: solid 1px #dfe4e9;
 											<li class="sub"><a  style=" font-size:14px; padding-left: 10px; font-weight: bold;">{{subj.title}}</a>
 										{% endif %}
 											<ul>
-												{% for subj_det in subj.view_subject_detail_set.all %}
+												{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 													<li class="interno"><a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal; ">{{subj_det.title}}</a></li>
 												{% endfor %}
 											</ul>

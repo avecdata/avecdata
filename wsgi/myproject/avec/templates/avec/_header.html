@@ -48,9 +48,11 @@
 						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Cadernos especiais<i class="fa fa-angle-down"></i></a>
 						<ul class="dropdown-menu" >
 						{% for cl in view_client %}
-							<li class="dropdown-submenu">
-								<a class="avec-dropdown" href="{% url 'client' client=cl.nickname %}">{{ cl.title }}</a>
-							</li>
+							{% if cl.open %}
+								<li class="dropdown-submenu">
+									<a class="avec-dropdown" href="{% url 'client' client=cl.nickname %}">{{ cl.title }}</a>
+								</li>
+							{% endif %}
 						{% endfor %}
 						</ul>
 					</li>
