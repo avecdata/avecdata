@@ -539,7 +539,7 @@ span.avec-produtos-icon-description i {
 }
 
 .avec-menu-nav-right {
-	width: 395px;
+	width: 550px !important;
     float: none !important;
     margin: 0px auto;
 }

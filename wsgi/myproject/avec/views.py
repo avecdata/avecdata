@@ -65,11 +65,11 @@ def index(request):
     themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     subject = Subject.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     subject_detail = Subject_detail.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-
+    view_client = View_Client.objects.all()
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')[:3]
     simpledashs = SimpleDashboard.objects.filter().order_by('-published_date')[:3]
     panels = Paineis.objects.filter().order_by('-published_date')[:3]
-    return render(request, 'avec/index.html', {'subject': subject, 'themes': themes, 'subject_detail' : subject_detail, 'posts' : posts, 'simpledashs': simpledashs, 'panels': panels})
+    return render(request, 'avec/index.html', {'subject': subject, 'themes': themes, 'subject_detail' : subject_detail, 'posts' : posts, 'simpledashs': simpledashs, 'panels': panels, 'view_client' : view_client})
 
 def ciencia_tecnologia(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -192,10 +192,9 @@ def logar(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST) # Veja a documentacao desta funcao
 
-        if form.is_valid():
             #se o formulario for valido significa que o Django conseguiu encontrar o usuario no banco de dados
             #agora, basta logar o usuario e ser feliz.
-
+        if form.is_valid():
             login(request, form.get_user())
             return HttpResponseRedirect("/") # redireciona o usuario logado para a pagina inicial
         else:
@@ -334,8 +333,7 @@ def nescon(request):
         return render(request, 'avec/dashboards/nescon.html')
 
 def client(request, client):
-    print(client.title);
-    view_client = View_Client.objects.get(nickname=client)
+    view_client = View_Client.objects.filter(nickname=client)
     view_themes = View_Themes.objects.filter(published_date__lte=timezone.now()).filter(client=view_client).order_by('published_date')
     view_subject = View_Subject.objects.filter(published_date__lte=timezone.now()).order_by('title')
     view_subject_detail = View_Subject_detail.objects.filter(published_date__lte=timezone.now()).order_by('title')

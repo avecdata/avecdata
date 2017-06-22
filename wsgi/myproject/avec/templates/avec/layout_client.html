@@ -1,0 +1,72 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  	<title>AVEC - Ciência de dados</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!--[if lt IE 9]> <script src="js/html5shiv.js"></script>
+  	<script src="js/respond.min.js"></script> <![endif]-->
+    <!-- Place favicon.ico in the root directory -->
+  	<link rel="icon" type="image/png" href="search.png">
+
+  	<!-- <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800'> -->
+  	<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Lato:100,200,300,400,600,700,800'>
+	<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Questrial'>
+
+    <link rel="stylesheet" href="{% static 'avecv2.0-template/plugins/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'avecv2.0-template/plugins/animate/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-confirm.min.css' %}">
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
+    <link rel="stylesheet" href="{% static 'avecv2.0-template/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/avec2-style.css' %}">
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-93646204-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </head>
+  <body >
+    <!-- Start Header Section -->
+    {% include "avec/_header_client.html" %}
+    <!-- End Header -->
+
+  	{% block content %}{% endblock %}
+
+    <!-- Start Header Section -->
+    {% include "avec/_footer.html" %}
+    <!-- End Header -->
+    <!-- <script src="{% static 'min/javascript/app.js' %}"></script> -->
+
+	<!-- <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.autocomplete.min.js' %}"></script>
+	<!--<script type="text/javascript" src="{% static 'js/currency-autocomplete.js' %}"></script>-->
+
+	<script src="{% static 'avecv2.0-template/bootstrap/js/bootstrap.min.js' %}"></script>
+
+	<!-- JS Plugins -->
+	<script src="{% static 'avecv2.0-template/plugins/scrolltopcontrol/scrolltopcontrol.js' %}"></script>
+	<script src="{% static 'avecv2.0-template/plugins/smoothscroll/smoothscroll.js' %}"></script>
+
+	<!-- JS Custom -->
+	<script type="text/javascript" src="{% static 'js/jquery-confirm.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/avec.script.js' %}"></script>
+	<script src="{% static 'avecv2.0-template/js/custom.js' %}"></script>
+
+	<!--<script src="{% static 'js/jquery-ui.js' %}"></script>  -->
+
+
+  </body>
+</html>
