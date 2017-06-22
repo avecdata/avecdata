@@ -1,12 +1,12 @@
 /**
- * 
+ *
  */
 $(document).ready(function () {
-	
+
 	//window.url_config = 'http://192.168.0.105:8080';
-	//window.url_config = 'http://www.avecdata.com';
-	window.url_config = 'http://ec2-34-211-223-88.us-west-2.compute.amazonaws.com';
-	
+	window.url_config = 'http://www.avecdata.com';
+	//window.url_config = 'http://ec2-34-211-223-88.us-west-2.compute.amazonaws.com';
+
 	//--formulario do plano de assinatura profissional/corporativo
 	$('#form-register').validate({
 	    rules: {
@@ -96,7 +96,7 @@ $(document).ready(function () {
 	    	plan_accept: '<span style="color: #a94442;"><i class="fa fa-arrow-up"></i> Marque esta caixa se deseja continuar</span>'
 	    }
 	});
-	
+
 	//--formulario de atualizacao dos dados do usuario
 	$('#form-update-user').validate({
 	    rules: {

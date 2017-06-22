@@ -1,35 +1,35 @@
 /**
- * 
+ *
  */
 
 $(document).ready(function () {
-	
+
 	//window.url_config = 'http://192.168.0.105:8080';
-	//window.url_config = 'http://www.avecdata.com';
-	window.url_config = 'http://ec2-34-211-223-88.us-west-2.compute.amazonaws.com';
-	
+	window.url_config = 'http://www.avecdata.com';
+	//window.url_config = 'http://ec2-34-211-223-88.us-west-2.compute.amazonaws.com';
+
 	$('li.moment-data__item').mouseover(function() {
 		var imgpath = $(this).find('a').attr('data-image');
 		$('div.moment-data__graphic').find('figure').find('img').attr('src', imgpath);
 	});
-	
+
 	$('#avec-search-input').focus(function(){
 		//alert('teste');
 		$(this).parent().css('border-color', '#40c0cf');
 	});
-	
+
 	$('#avec-search-input').blur(function(){
 		$(this).parent().css('border-color', '#fff');
 	});
-	
+
 	try {
 		$(".phone").mask("(99) 9?9999-9999");
 	} catch (e) {
 		console.log(e.message);
 	}
-	
+
 	var csrftoken = getCookie('csrftoken');
-	
+
 	$.ajaxSetup({
 	    beforeSend: function(xhr, settings) {
 	        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
@@ -37,7 +37,7 @@ $(document).ready(function () {
 	        }
 	    }
 	});
-	
+
 	$('#autocomplete').autocomplete({
 		type:'post',
 		dataType: 'json',
@@ -47,36 +47,36 @@ $(document).ready(function () {
 	    onSelect: function (ui) {
 			if (ui.type=='subject' ){
 				window.location.href = '/subject/'+ui.id;
-			}		
+			}
 			if (ui.type=='post' ){
 				window.location.href = '/post/'+ui.id;
 			}
 			if (ui.type=='dashboard' ){
 				window.location.href = '/'+ui.id;
 			}
-			if (ui.type=='report' ){				
+			if (ui.type=='report' ){
 				window.location.href = '/report/'+ui.id;
 			}
-			if (ui.type=='simpledashboard' ){				
+			if (ui.type=='simpledashboard' ){
 				window.location.href = '/simpleDash_detail/'+ui.id;
-			}			
-			if (ui.type=='painel' ){				
+			}
+			if (ui.type=='painel' ){
 				window.location.href = '/paineis_detail/'+ui.id;
-			}			
+			}
 	    }
 	});
-	
+
 	$('.avec-form-group').find('button').click(function(){
 		$(this).parent().parent().find('input').removeAttr('readonly');
 	});
-	
+
 	$('#btn-profile-change-password').click(function(){
 		$('.bp-change-password').removeAttr('readonly');
 	});
-	
+
 	$('.btn-change-password').click(function(){
 		$.confirm({
-		   icon: 'fa fa-key', 
+		   icon: 'fa fa-key',
 		   title: 'Avec Data: Alterar Senha',
 		   content: ''+
 		   '<form action="" class="formName"><div style="width: 100%; text-align: center; "><div class="form-group">'
@@ -94,14 +94,14 @@ $(document).ready(function () {
 		          		  title: '',
 		          		  content: '<div style="width: 100%; text-align: center; font-size: 32px;"><i class="fa fa-spin fa-spinner" aria-hidden="true"></i><br><span style="font-size: 16px;">Processando...</span></div>',
 		          		});
-		          	
+
 		            	var username = $('#avec_username').html();
     					var current_password = $('#id_avec_password').val();
     					var password1 = $('#id_avec_password1').val();
     					var password2 = $('#id_avec_password2').val();
-		            	
+
 		            	var csrftoken = getCookie('csrftoken');
-		            	
+
 		            	$.ajaxSetup({
 		            	    beforeSend: function(xhr, settings) {
 		            	        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
@@ -109,9 +109,9 @@ $(document).ready(function () {
 		            	        }
 		            	    }
 		            	});
-		            	
+
 		            	$.ajax({
-		            		   type:'post', 
+		            		   type:'post',
 		            		   dataType:'json',
 		            		   url: window.url_config+'/conta/update-password/',
 		            		   data: {"username": username, "current_password": current_password, "password1": password1, "password2": password2 },
@@ -120,7 +120,7 @@ $(document).ready(function () {
 		            			   //alert(r.messagem);
 		            			   if(r == true) {
 		            				   $.alert({
-		            					   	icon: 'fa fa-exclamation-triangle', 
+		            					   	icon: 'fa fa-exclamation-triangle',
 		            					   	title: 'AVEC DATA',
 			            				    content: '<div style="width: 100%; text-align: center; font-size: 16px;">Sua Senha foi Atualizada com Sucesso!</div>',
 			            				});
@@ -160,10 +160,10 @@ $(document).ready(function () {
 		    }
 		});
 	});
-	
+
 	$('#btn-forgot-password').click(function(){
 		$.confirm({
-		   icon: 'fa fa-key', 
+		   icon: 'fa fa-key',
 		   title: 'Avec Data: Recuperar Senha',
 		   content: ''+
 		   '<form action="" class="formName" method="post"><div style="width: 100%; text-align: center; "><div class="form-group">'
@@ -179,11 +179,11 @@ $(document).ready(function () {
 		          		  title: '',
 		          		  content: '<div style="width: 100%; text-align: center; font-size: 32px;"><i class="fa fa-spin fa-spinner" aria-hidden="true"></i><br><span style="font-size: 16px;">Processando...</span></div>',
 		          		});
-		          	
+
 		            	var email = $('#id_avec_email').val();
-		            	
+
 		            	var csrftoken = getCookie('csrftoken');
-		            	
+
 		            	$.ajaxSetup({
 		            	    beforeSend: function(xhr, settings) {
 		            	        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
@@ -191,9 +191,9 @@ $(document).ready(function () {
 		            	        }
 		            	    }
 		            	});
-		            	
+
 		            	$.ajax({
-		            		   type:'post', 
+		            		   type:'post',
 		            		   dataType:'json',
 		            		   url: window.url_config+'/conta/reload-password/',
 		            		   data: {"email": email },
@@ -202,7 +202,7 @@ $(document).ready(function () {
 		            			   //alert(r.messagem);
 		            			   if(r == true) {
 		            				   $.alert({
-		            					   	icon: 'fa fa-exclamation-triangle', 
+		            					   	icon: 'fa fa-exclamation-triangle',
 		            					   	title: 'AVEC DATA',
 			            				    content: '<div style="width: 100%; text-align: center; font-size: 16px;">Uma mensagem foi enviada para seu E-mail</div>',
 			            				});
@@ -242,9 +242,9 @@ $(document).ready(function () {
 		    }
 		});
 	});
-	
+
 	/*$.dialog({
-	   icon: 'fa fa-clock-o', 
+	   icon: 'fa fa-clock-o',
 	   title: 'Avec Data',
 	   content: '<div style="width: 100%; text-align: center; font-size: 32px;"><i class="fa fa-spin fa-spinner" aria-hidden="true"></i><br><span style="font-size: 14px;">Você está sendo redirecionado para a página do PayPal. Aguarde...</span></div>',
 	});*/
@@ -291,14 +291,14 @@ function onlyNumbers(evt) {
 
 	var keychar = String.fromCharCode(key);
 	//alert(keychar);
-	var keycheck =  /^[0-9_\b]+$/;  
+	var keycheck =  /^[0-9_\b]+$/;
 
 	if(!(key == 8 ||  key == 9 ||  key == 17 ||  key == 27  || key == 44 || key == 46  || key == 37 || key == 39 ) ) {
-		if ( !keycheck.test(keychar) ) {       
+		if ( !keycheck.test(keychar) ) {
 	        theEvent.returnValue = false;//for IE
 		   	if (theEvent.preventDefault) {
 			   	theEvent.preventDefault();//Firefox
 		   	}
 		}
-	}  
+	}
 }
