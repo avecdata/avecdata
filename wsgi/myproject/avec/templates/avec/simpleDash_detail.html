@@ -185,7 +185,8 @@ input:checked + label {
 <!--modal
 
 <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+{% for tabs in mytabs %}
+  <div class="modal fade" id="myModal{{forloop.counter}}" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -210,7 +211,7 @@ input:checked + label {
                 <td class="text-right">{{ tabs.descricao }}</td>
               </tr>
               <tr><td>Fonte</td>
-                <td class="text-right">{{ tabs.fonte }}</td>
+                <td class="text-right">{{ mytabs.fonte }}</td>
               </tr>
               <tr><td>Método cálculo</td>
                 <td class="text-right">{{ tabs.metodo_calculo }}</td>
@@ -243,6 +244,7 @@ input:checked + label {
 
     </div>
   </div>
+{% endfor %}
 
 
   <!-- MAIN CONTENT
@@ -331,7 +333,7 @@ input:checked + label {
         				</div>
         			  </div>
         			  <div class="chart-notes">
-        				      <a data-toggle="modal" data-target="#myModal">   <span class="avec-info">Fonte <i class="fa fa-info-circle"></i></span>
+        				      <a data-toggle="modal" data-target="#myModal{{forloop.counter}}">   <span class="avec-info">Fonte <i class="fa fa-info-circle"></i></span>
         			  </div>
         			  </div>
         			</div>
