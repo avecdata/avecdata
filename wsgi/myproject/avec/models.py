@@ -190,6 +190,17 @@ class tabPaineis(models.Model):
     subtitle = models.CharField(max_length=200)
     footer = models.TextField(blank=True)
     html = models.TextField(blank=True)
+    titulo = models.TextField(blank=True)
+    indicador = models.TextField(blank=True)
+    descricao = models.TextField(blank=True)
+    fonte = models.TextField(blank=True)
+    metodo_calculo = models.TextField(blank=True)
+    categorizacao = models.TextField(blank=True)
+    periodicidade = models.TextField(blank=True)
+    periodos_disponiveis = models.TextField(blank=True)
+    notas = models.TextField(blank=True)
+    elaboracao = models.TextField(blank=True)
+    origem = models.TextField(blank=True)
 
     class Meta:
         verbose_name = _("tabPainel")
