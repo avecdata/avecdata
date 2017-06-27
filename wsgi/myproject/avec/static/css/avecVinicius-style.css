@@ -6,6 +6,11 @@ a:hover {
      text-decoration: none;!important;
 }
 
+.chart-wrapper .chart-title {
+    color: black !important;
+    font-weight: 300 !important;
+}
+
 .home-features-item__content > h4 > a{
     color: #3e4c5b !important;
 	font-family: Lato Light !important;

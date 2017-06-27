@@ -28,7 +28,7 @@
 					<li class="dropdown">
 						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Assuntos <i class="fa fa-angle-down"></i></a>
 						<ul class="dropdown-menu" >
-						{% for th in themes %}
+						{% for th in themes|dictsort:"title" %}
 							<li class="dropdown-submenu">
 								<a class="avec-dropdown" href="javascript:void(0);">{{ th.title }}</a>
 								<!-- <input id="{{ forloop.counter }}" type="checkbox"> -->
