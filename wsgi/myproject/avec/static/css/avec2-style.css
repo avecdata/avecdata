@@ -880,3 +880,102 @@ ul.avec-pagamento-service-list li {
 
   }
 }
+
+.avec-permission{
+    padding: none;
+    border: none;
+    outline: none;
+}
+
+.avec-permissao-form__title{
+  color: #ffffff;
+  font-family: 'Lato-Light', sans-serif;
+	font-size: 18px !important;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+.avec-permission-login{
+  width: 100%;
+  font-size: 18px;
+}
+
+.form-control{
+     border:0 solid transparent;
+     background:transparent;
+}
+
+.avec-input-group-addon{
+  border: 0 solid transparent;
+  background:transparent;
+}
+
+.input-group-avec-user{
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 5px;
+  border-top-right-radius : 5px;
+}
+
+.input-group-avec-password{
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.form-group-avec{
+    height: 33px;
+    margin-bottom: 0px;
+}
+
+ .fa-icon-avec{
+   color: #cfd8e3;
+ }
+
+.avec-crie-conta{
+    color: #3e4c5b;
+    font-family: 'Lato-Light', sans-serif;
+    font-size: 14px !important;
+    font-weight: 400;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 30px;
+}
+
+.avec-forgot-password{
+  color: #3e4c5b;
+  font-family: 'Lato-Light', sans-serif;
+  font-size: 10px !important;
+  float: right !important;
+  letter-spacing: -0.5px;
+}
+
+.avec-remember-me{
+  color: #3e4c5b;
+  font-family: 'Lato-Light', sans-serif;
+  font-size: 10px !important;
+  float: left !important;
+  letter-spacing: -0.5px;
+}
+
+.checkbox-avec{
+  padding-bottom: 30px;
+}
+
+.avec-acesso-completo-title{
+  color: #3e4c5b;
+  font-family: 'Lato-Light', sans-serif;
+  font-size: 18px !important;
+  font-weight: 400;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 30px;
+}
+
+.avec-acesso-completo-content{
+  color: #3e4c5b;
+  font-family: 'Lato-Light', sans-serif;
+  font-size: 14px !important;
+  font-weight: 300;
+  text-align: center;
+  padding-top: 15px;
+}

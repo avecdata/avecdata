@@ -52,7 +52,7 @@ $(document).ready(function () {
 				window.location.href = '/post/'+ui.id;
 			}
 			if (ui.type=='dashboard' ){
-				window.location.href = '/'+ui.id;
+				window.location.href = '/'+ui.id/+'1';
 			}
 			if (ui.type=='report' ){
 				window.location.href = '/report/'+ui.id;
