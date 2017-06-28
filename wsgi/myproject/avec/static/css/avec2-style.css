@@ -698,6 +698,7 @@ ul.avec-pagamento-service-list li {
 
 @media (min-width: 768px) {
 
+
 	.navbar-nav > li > .dropdown-menu:before, .dropdown-submenu > .dropdown-menu:before {
 	    border-top: none;
 	}
@@ -797,6 +798,9 @@ ul.avec-pagamento-service-list li {
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
 
+  .form-register-avec{
+    width: 100% !important;
+  }
 
 	.navbar > .avec-container {
 		width: 96%;
@@ -834,6 +838,10 @@ ul.avec-pagamento-service-list li {
 		width: 100%;
 		padding: 0px 0px;
 	}
+
+  .form-register-avec{
+    width: 100% !important;
+  }
 
 	.avec-navbar-left {
 	    width: 100%;
