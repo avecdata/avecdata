@@ -690,6 +690,7 @@ ul.avec-pagamento-service-list li {
 	    font-size: 32px;
 	}
 
+
 	/* .home-app__pricing .row > div[class*="col-"] {
 	    margin: 0px auto;
 	} */
@@ -712,10 +713,15 @@ ul.avec-pagamento-service-list li {
 	.section-produtos > .section__inner {
 	    padding: 100px 0 !important;
 	}
+
+
+
 }
 
 
 @media screen and (min-width: 1600px) {
+
+
 	.navbar > .avec-container {
 		width: 100%;
 		/* padding: 0px 244px; */
@@ -744,6 +750,7 @@ ul.avec-pagamento-service-list li {
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1599px) {
+
 
 	.navbar > .avec-container {
 		width: 100%;
@@ -789,6 +796,7 @@ ul.avec-pagamento-service-list li {
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
+
 
 	.navbar > .avec-container {
 		width: 96%;
@@ -844,9 +852,18 @@ ul.avec-pagamento-service-list li {
 	.avec-navbar-center li.dropdown a {
 		text-align: center;
 	}
+
 }
 
 @media screen and (max-width: 320px) {
+
+  .form-register-avec{
+    width: 100% !important;
+  }
+
+  .avec-btn-facebook, .avec-btn-google-plus{
+      width: 90% !important;
+  }
 
 	.home-app__pricing .row > .price-table-item {
 		width: 267px;
@@ -993,4 +1010,66 @@ ul.avec-pagamento-service-list li {
 
 .avec-award2{
 
+}
+
+
+.avec-register{
+    padding: none;
+    border: none;
+    outline: none;
+}
+
+.avec-register-title {
+	text-align: center;
+  border-bottom: none !important;
+  padding-top: 15px;
+  padding-bottom: 30px;
+}
+
+.avec-btn-facebook, .avec-btn-google-plus{
+  width: 60%;
+}
+
+.avec-row-social{
+  text-align: center;
+}
+
+.avec-possui-conta{
+  text-align: -moz-center;
+  padding-top: 20px;
+}
+
+.avec-possui-conta-Fa {
+  width: 196px;
+  height: 45px;
+  font-family: Lato;
+  font-size: 16px;
+  line-height: 2.81;
+  letter-spacing: -0.4px;
+  text-align: center;
+  color: #8091a4;
+  color: var(--blue-grey);
+}
+
+.avec-possui-conta-Fa .avec-text-style-1 {
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  color: #3dc1d0 !important;
+  color: var(--TurqAvec);
+}
+
+.input-group-avec-user-register{
+    width: 100%;
+    height: inherit !important;
+    border-radius: 5px;
+}
+
+.avec-register-input{
+    height: inherit !important;
+}
+
+.form-group-avec-register{
+  width: 100%;
+  height: 54px !important;
+  padding-bottom: 10px !important;
 }

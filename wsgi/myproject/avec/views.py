@@ -198,12 +198,12 @@ def logar(request):
             #agora, basta logar o usuario e ser feliz.
         if form.is_valid():
             login(request, form.get_user())
-            next = request.session.get('next', None)
-            if next:
+            #next = request.session.get('next', None)
+            #if next:
                 # See caution note below!
-                return redirect(next)
-            else:
-                return redirect('/')
+            #    return redirect(next)
+            #else:
+            return redirect('/')
         else:
             return render(request, "avec/logar.html", {"form": form})
 
