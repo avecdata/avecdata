@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
 from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail
@@ -110,6 +110,7 @@ def paineis_detail(request, pk):
     themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     return render(request, 'avec/paineis_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs, 'myparent' : myparent, 'related' : related, 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
 
+
 def post_detail(request, pk):
 
     groups = request.user.groups.all()
@@ -128,7 +129,7 @@ def post_detail(request, pk):
         themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
         return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related , 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
     else:
-        return render(request,'avec/permissao.html')
+        return HttpResponsePermanentRedirect("/permissao/")
 
 def reports_detail(request, pk):
     report = Reports.objects.get(pk=pk)
@@ -419,8 +420,23 @@ def nascidosvivos(request, dashboard_id):
         return render(request, 'avec/dashboards/nascidosvivos.html')
     else:
         return render(request,'avec/permissao.html')
+
 def permissao(request):
-    return render(request,'avec/permissao.html')
+    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST) # Veja a documentacao desta funcao
+
+            #se o formulario for valido significa que o Django conseguiu encontrar o usuario no banco de dados
+            #agora, basta logar o usuario e ser feliz.
+        if form.is_valid():
+            login(request, form.get_user())
+            return HttpResponseRedirect("/") # redireciona o usuario logado para a pagina inicial
+        else:
+            return render(request, "avec/permissao.html", {"form": form})
+
+    #se nenhuma informacao for passada, exibe a pagina de login com o formulario
+    return render(request, "avec/permissao.html", {"form": AuthenticationForm(), 'themes': themes})
 
 # @receiver(user_logged_in, dispatch_uid = 'facebook.connect')
 def social_login_avec_profile(sociallogin, user, **kwargs):

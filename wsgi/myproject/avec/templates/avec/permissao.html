@@ -1,5 +1,6 @@
 {% extends 'avec/layout_interno.html' %}
 {% load socialaccount %}
+{% load staticfiles %}
 {% block content %}
 
 {% if next %}
@@ -32,13 +33,13 @@
 
 <div class="container">
 	<div class="row">
-    <div class="col-md-4"></div>
+    <div class="col-md-4" style=""></div>
 		<div class="col-md-4" style="background-color: #ffffff;">
 
       <div class="row" style="background-color: #3dc1d0;height: 110px; text-align: center; padding-top: 26px;" >
-          <span class="icon-award2 avec-award2"></span>
+          <span class="avec-award2"><img src="{% static 'icomoon/icon-award2.svg' %}"/></span>
       </div>
-      <div class="row" style="background-color: #67c9d5;height: 50px;">
+      <div class="row" style="background-color: #67c9d5;height: 52px;">
           <h3 class="avec-permissao-form__title">EXCLUSIVO PARA ASSINANTES</h3>
       </div>
 			<div class="sign__form avec-permission">
@@ -49,12 +50,14 @@
 
 
 				<p class="avec-crie-conta">
-					ou entre com o login
+					ou entre com o login {{next_url}}
 				</p>
 
 
 
-				 <form role="form" action="{% url 'logar' %}" method="post">
+				 <form role="form" action="{% url 'permissao' %}" method="post">
+         <input type="hidden" name="next" value='{{next_url}}'>
+
 				 	{% csrf_token %}
 					<!-- Email -->
 					<div class="form-group form-group-avec">
@@ -85,11 +88,6 @@
 						</div>
 					</div>
 
-
-
-
-
-
 					<!-- / .form-group -->
 
 					<!-- Submit -->
@@ -109,14 +107,27 @@
         <p class="avec-acesso-completo-content">
           Estatísticas e infográficos básicos
         </p>
+        <p class="avec-acesso-completo-content2 avec-acesso-completo-content2">
+          <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </p>
         <p class="avec-acesso-completo-content">
           Estatísticas e infográficos premium
+        </p>
+        <p class="avec-acesso-completo-content2 avec-acesso-completo-content2">
+          <i class="fa fa-angle-double-down" aria-hidden="true"></i>
         </p>
         <p class="avec-acesso-completo-content">
           Download de conteúdo
         </p>
+        <p class="avec-acesso-completo-content2 avec-acesso-completo-content2">
+          <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </p>
         <p class="avec-acesso-completo-content">
           Acesso a todos painéis interativos
+        </p>
+        <hr>
+        <p class="avec-acesso-completo-content">
+          <b>Ver Plano</b>
         </p>
 			</div>
 			<!-- / .sign__form -->
