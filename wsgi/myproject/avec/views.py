@@ -117,7 +117,7 @@ def post_detail(request, pk):
     group_user = utils.get_greater_group(groups)
 
     post = Post.objects.get(pk=pk)
-
+    request.session['next'] = '/post/'+pk
     post_permission = utils.post_permission(group_user.id, post)
 
     if post_permission:
@@ -129,7 +129,8 @@ def post_detail(request, pk):
         themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
         return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related , 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
     else:
-        return HttpResponsePermanentRedirect("/permissao/")
+        #return HttpResponsePermanentRedirect("/permissao/")
+        return HttpResponseRedirect('/permissao?next=/post/%s' % pk)
 
 def reports_detail(request, pk):
     report = Reports.objects.get(pk=pk)
@@ -431,7 +432,12 @@ def permissao(request):
             #agora, basta logar o usuario e ser feliz.
         if form.is_valid():
             login(request, form.get_user())
-            return HttpResponseRedirect("/") # redireciona o usuario logado para a pagina inicial
+            next = request.session.get('next', None)
+            if next:
+                # See caution note below!
+                return redirect(next)
+            else:
+                return redirect('/')
         else:
             return render(request, "avec/permissao.html", {"form": form})
 
