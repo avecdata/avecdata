@@ -525,8 +525,14 @@ def redirect_socialapp(request):
 
 #     print('teste---------------------0'+social_ac.extra_data['email'])
 #     print(social_ac)
+    next = request.session.get('next', None)
+    if next:
+        # See caution note below!
+        return HttpResponseRedirect(next)
+    else:
+        return HttpResponseRedirect('/')
 
-    return HttpResponseRedirect("/")
+    #return HttpResponseRedirect("/")
 
 class AccountAdapter(DefaultAccountAdapter):
 
