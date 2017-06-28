@@ -1040,8 +1040,6 @@ ul.avec-pagamento-service-list li {
 }
 
 .avec-possui-conta-Fa {
-  width: 196px;
-  height: 45px;
   font-family: Lato;
   font-size: 16px;
   line-height: 2.81;
@@ -1072,4 +1070,8 @@ ul.avec-pagamento-service-list li {
   width: 100%;
   height: 54px !important;
   padding-bottom: 10px !important;
+}
+
+.avec-terms-agree{
+  font-size: 13px;
 }

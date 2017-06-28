@@ -126,21 +126,26 @@
                   </div>
   							</div>
 
-      					<!-- Terms of services -->
-      					<div class="cb-avec-content">
-      						<!-- <label for="terms_accept"> <input type="checkbox" id="terms_accept" name="terms_accept" value="1" required="required" > Eu CONCORDO com os <a href="{% url 'terms_conditions' %}">Termos e Condições Gerais</a> e <a href="{% url 'privacy_statement' %}">Política de Privacidade</a> </label> -->
-      						<div class="cb-avec-content" style="height: 20px;">
-      		            			<input type="checkbox" id="terms_accept" class="cb-avec" name="plan_accept" value="1" required="required" >
-      		            			<label for="terms_accept">Eu <strong>ACEITO</strong> os <a href="{% url 'terms_conditions' %}" target="_blank">Termos e Condições Gerais</a>
-      		            			(<a href="{% static 'termsofuse/avec-termos-condicoes-gerais.pdf' %}" target="_blank">PDF</a>) e a <a href="{% url 'privacy_statement' %}" target="_blank">Política de Privacidade</a>
-      		            			(<a href="{% static 'termsofuse/avec-politica-privacidade.pdf' %}" target="_blank">PDF</a>)</label>
-      		            		</div>
+      					<!-- Submit -->
+      					<div class="form-group" id="avec-create-account-content">
+      						<button type="submit" class="btn btn-avec-success avec-permission-login">Registrar</button>
       					</div>
 
-      					<!-- Submit -->
-      					<div class="form-group disabledbutton" id="avec-create-account-content">
-      						<button type="submit" class="btn btn-primary">Registrar</button>
-      					</div>
+                <!-- Terms of services -->
+
+                  <div class="row">
+                  <p class="avec-possui-conta-Fa avec-terms-agree"> Clicando no botão acima você concorda com nossos
+                    <a class="avec-possui-conta-Fa avec-text-style-1 avec-terms-agree" href="{% url 'terms_conditions' %}"
+                      target="_blank">Termos de uso</a>
+                  </p>
+                     <!-- Esqueceu a senha -->
+
+
+                  <!--<label for="terms_accept">Eu <strong>ACEITO</strong> os <a href="{% url 'terms_conditions' %}" target="_blank">Termos e Condições Gerais</a>
+                  (<a href="{% static 'termsofuse/avec-termos-condicoes-gerais.pdf' %}" target="_blank">PDF</a>) e a <a href="{% url 'privacy_statement' %}" target="_blank">Política de Privacidade</a>
+                  (<a href="{% static 'termsofuse/avec-politica-privacidade.pdf' %}" target="_blank">PDF</a>)</label>-->
+                </div>
+
       				</form>
       			</div>
       		</div>
@@ -151,7 +156,7 @@
 </div>
 {% block scripts %}
 <script type="text/javascript">
-$(document).ready(function () {
+/*$(document).ready(function () {
 
     $('#terms_accept').click(function(){
     	if($('#terms_accept').is(':checked') == false) {
@@ -160,7 +165,7 @@ $(document).ready(function () {
     		$('#avec-create-account-content').removeClass('disabledbutton');
     	}
     });
-});
+});*/
 </script>
 {% endblock %}
 {% endblock %}
