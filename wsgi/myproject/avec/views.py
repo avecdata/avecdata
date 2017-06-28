@@ -198,7 +198,12 @@ def logar(request):
             #agora, basta logar o usuario e ser feliz.
         if form.is_valid():
             login(request, form.get_user())
-            return HttpResponseRedirect("/") # redireciona o usuario logado para a pagina inicial
+            next = request.session.get('next', None)
+            if next:
+                # See caution note below!
+                return redirect(next)
+            else:
+                return redirect('/')
         else:
             return render(request, "avec/logar.html", {"form": form})
 
