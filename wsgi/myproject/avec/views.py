@@ -93,7 +93,11 @@ def simpleDash_detail(request, pk):
 
     dash = SimpleDashboard.objects.get(pk=pk)
     request.session['next'] = '/simpleDash_detail/'+pk
-    simpledashboard_permission = utils.simpledashboard_permission(group_user.id, dash)
+
+    if groups:
+        simpledashboard_permission = utils.simpledashboard_permission(group_user.id, dash)
+    else:
+        simpledashboard_permission = False
 
     if simpledashboard_permission:
         dash = SimpleDashboard.objects.get(pk=pk)
@@ -104,7 +108,7 @@ def simpleDash_detail(request, pk):
         related_info = Post.objects.filter(subject=myparent)
         mytabs = dash.tabsimple_set.all().order_by('id')
         themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-        return render(request, 'avec/simpleDash_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs, 'myparent' : myparent, 'related' : related, 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
+        return render(request, 'avec/simpleDash_detail.html', {'groups' : groups ,'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs, 'myparent' : myparent, 'related' : related, 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
     else:
         return HttpResponseRedirect('/conta/registro')
 
@@ -127,7 +131,12 @@ def post_detail(request, pk):
 
     post = Post.objects.get(pk=pk)
     request.session['next'] = '/post/'+pk
-    post_permission = utils.post_permission(group_user.id, post)
+
+    if groups:
+        post_permission = utils.post_permission(group_user.id, post)
+    else:
+        post_permission = False
+
 
     if post_permission:
         mykeywords = post.keywords.all()
