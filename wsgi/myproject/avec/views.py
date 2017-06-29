@@ -274,6 +274,7 @@ def lista(request):
         simpledashboards = SimpleDashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         paineis = Paineis.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         dashboards = Dashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
+        keywords = Keywords.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
 
         posts_data = []
 
@@ -305,7 +306,12 @@ def lista(request):
         for report in reports:
             reports_data.append({ "value": report.title, "id" : report.id , "type": "report"})
 
-        result = posts_data+dashboards_data+subjects_data+reports_data+simpledashboards_data+paineis_data
+        keywords_data = []
+
+        for keyword in Keywords:
+            keywords_data.append({ "value": keyword.title, "id" : keyword.id , "type": "keyword"})
+
+        result = posts_data+dashboards_data+subjects_data+reports_data+simpledashboards_data+paineis_data+keywords_data
         response = {"query": "Unit", "suggestions": result}
         resultado_json = json.loads(json.dumps(response))
 
