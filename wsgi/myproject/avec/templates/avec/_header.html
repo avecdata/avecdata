@@ -75,7 +75,7 @@
 							<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Sua Conta <i class="fa fa-angle-down"></i></a>
 							<ul class="dropdown-menu" >
 								<li class="dropdown-submenu">
-									<li class="avec-dropdown"><a class="avec-dropdown" href="#">Meu Perfil</a></li>
+									<!--<li class="avec-dropdown"><a class="avec-dropdown" href="#">Meu Perfil</a></li>-->
 									<li class="avec-dropdown"><a class="avec-dropdown" href="{% url 'accounts:preferences_user' user.pk %}"><i class="fa fa-address-card" aria-hidden="true"></i> Preferências</a></li>
 									<li class="avec-dropdown"><a class="avec-dropdown btn-change-password" id="btn-change-password" href="#" user_pk="{{ user.username }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Alterar Senha</a></li>
 									<li class="avec-dropdown"><a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
@@ -101,7 +101,7 @@
 						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Sua Conta <i class="fa fa-angle-down"></i></a>
 						<ul class="dropdown-menu" >
 							<li class="dropdown-submenu">
-								<li class="avec-dropdown"><a class="avec-dropdown" href="#">Meu Perfil</a></li>
+								<!--<li class="avec-dropdown"><a class="avec-dropdown" href="#">Meu Perfil</a></li>-->
 								<li class="avec-dropdown"><a class="avec-dropdown" href="{% url 'accounts:preferences_user' user.pk %}"><i class="fa fa-address-card" aria-hidden="true"></i> Preferências</a></li>
 								<li class="avec-dropdown"><a class="avec-dropdown btn-change-password" id="btn-change-password" href="#" user_pk="{{ user.username }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Alterar Senha</a></li>
 								<li class="avec-dropdown"><a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a></li>
