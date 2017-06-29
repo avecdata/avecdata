@@ -27,90 +27,104 @@
 		</div>
 	</div>
 </div>
-<div class="container">
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+<div class="home-app__container contaniner-pagamento" >
+	<div class="section" style="margin-top: 40px;">
 
-			<div class="sign__form">
+    <div class="container">
+        	<div class="row">
+            <div class="col-md-3" style="width:30%;"></div>
+              <div class="col-md-5 form-register-avec" style="width:40%; background-color: #ffffff;">
 
-				<h3 class="sign-form__title">Use Sua Conta AVEC</h3>
+    			<div class="sign__form avec-register">
 
-				 <form role="form" action="{% url 'logar' %}" method="post">
-				 	{% csrf_token %}
-					<!-- Email -->
-					<div class="form-group">
-						<label for="{{ form.username.auto_id }}" class="sr-only">Usuário</label>
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" id="{{ form.username.auto_id }}" class="form-control" name="{{ form.username.name }}" required="required" autofocus="autofocus">
-						</div>
-					</div>
-					<!-- / .form-group -->
+    				<h3 class="sign-form__title avec-pagamento-title avec-register-title">Login</h3>
 
-					<!-- Password -->
-					<div class="form-group">
-						<label for="{{ form.password.auto_id }}" class="sr-only">Senha</label>
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-							<input type="password" id="{{ form.password.auto_id }}" class="form-control" name="{{ form.password.name }}" required="required">
-						</div>
-					</div>
-					<!-- / .form-group -->
+    				 <form role="form" action="{% url 'logar' %}" method="post">
+    				 	{% csrf_token %}
 
-					<!-- Remember me -->
-					<div class="form-group">
-						<div class="checkbox">
-							<!-- <label> <input type="checkbox"> Remember me </label> -->
-						</div>
-					</div>
-					<!-- / .form-group -->
+              <!-- Already have account -->
+              <div class="avec-possui-conta avec-nao-possui-conta">
+                <div class="row">
+                <p class="avec-possui-conta-Fa"> Não tem uma conta ainda? <a class="avec-possui-conta-Fa avec-text-style-1" href="{% url 'accounts:register' %}">Registre-se agora! É gratuito!</a> </p>
+                   <!-- Esqueceu a senha -->
 
-					<!-- Submit -->
-					 {% if form.errors %}
-					 <div class="alert alert-danger" style="margin-bottom: 10px;">Usuário e/ou senha inválidos. Tente novamente.</div>
-					 {% endif %}
-					<button type="submit" class="btn btn-primary">Entrar</button>
-					<hr>
-				</form>
+                </div>
+              </div>
 
-				<!-- Sign up link -->
+              <!-- Sign up link -->
+              <div class="row avec-row-social" style="padding-bottom:30px;">
+                <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-facebook avec-btn-facebook" ><i class="fa fa-facebook"></i>Login com Facebook</a>
+                <a href="{% provider_login_url 'google' method='oauth2' %}" class="btn btn-google-plus avec-btn-google-plus" ><i class="fa fa-google-plus"></i>Login com Google</a>
+              </div>
 
-				<a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-facebook" ><i class="fa fa-facebook"></i>Login com Facebook</a>
-                <a href="{% provider_login_url 'google' method='oauth2' %}" class="btn btn-google-plus" ><i class="fa fa-google-plus"></i>Login com Google</a>
-                <input type="hidden" name="next" value="{{ next }}" />
-				<hr>
-				<p>
-					Não tem uma conta? <a href="{% url 'accounts:register' %}">Crie uma!</a>
-				</p>
 
-				<p>Esqueceu senha Senha? <a href="#lost-password__form" id="btn-forgot-password" data-toggle="collapse" aria-expanded="false" aria-controls="lost-password__form"> Clique aqui para Recuperar. </a></p>
+    					<!-- Email -->
+    					<div class="form-group form-group-avec form-group-avec-register">
+    						<label for="{{ form.username.auto_id }}" class="sr-only">Usuário</label>
+    						<div class="input-group input-group-avec-user input-group-avec-user-register">
+    							<span class="input-group-addon"><i class="fa fa-user"></i></span>
+    							<input type="text" id="{{ form.username.auto_id }}" class="form-control avec-register-input" name="{{ form.username.name }}" required="required" autofocus="autofocus">
+    						</div>
+    					</div>
+    					<!-- / .form-group -->
 
-				<!-- <div class="collapse" id="lost-password__form">
+    					<!-- Password -->
+    					<div class="form-group form-group-avec form-group-avec-register">
+    						<label for="{{ form.password.auto_id }}" class="sr-only">Senha</label>
+    						<div class="input-group input-group-avec-user input-group-avec-user-register">
+    							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+    							<input type="password" id="{{ form.password.auto_id }}" class="form-control avec-register-input" name="{{ form.password.name }}" required="required">
+    						</div>
+    					</div>
+    					<!-- / .form-group -->
 
-					<p class="text-muted">Enter your email address below and we
-						will send you a link to reset your password.</p>
+              <!-- Remember me -->
+    					<div class="form-group">
+    						<div class="checkbox checkbox-avec">
+    							 <label class="avec-remember-me"> <input type="checkbox"> Remember me </label>
+                   <!-- Esqueceu a senha -->
+                 <a href="#lost-password__form" id="btn-forgot-password" class="avec-forgot-password" data-toggle="collapse" aria-expanded="false" aria-controls="lost-password__form">Esqueceu senha Senha?</a>
+    						</div>
+    					</div>
 
-					Lost password
-					<form class="form-inline">
-						<div class="form-group">
-							<label class="sr-only" for="lost-password__email">Email
-								address</label> <input type="email" class="form-control"
-								id="lost-password__email" placeholder="Enter email">
-						</div>
-						<button type="submit" class="btn btn-secondary">Send</button>
-					</form>
+              <!-- Submit -->
+    					 {% if form.errors %}
+    					 <div class="alert alert-danger" style="margin-bottom: 10px;">Usuário e/ou senha inválidos. Tente novamente.</div>
+    					 {% endif %}
+               <div class="form-group">
+    					        <button type="submit" class="btn btn-avec-success avec-permission-login">ENTRAR</button>
+               </div>
 
-				</div> -->
-				<!-- lost-password__form -->
+    				</form>
 
-			</div>
-			<!-- / .sign__form -->
+    				<!-- <div class="collapse" id="lost-password__form">
 
-		</div>
-	</div>
-	<!-- / .row -->
+    					<p class="text-muted">Enter your email address below and we
+    						will send you a link to reset your password.</p>
+
+    					Lost password
+    					<form class="form-inline">
+    						<div class="form-group">
+    							<label class="sr-only" for="lost-password__email">Email
+    								address</label> <input type="email" class="form-control"
+    								id="lost-password__email" placeholder="Enter email">
+    						</div>
+    						<button type="submit" class="btn btn-secondary">Send</button>
+    					</form>
+
+    				</div> -->
+    				<!-- lost-password__form -->
+
+    			</div>
+    			<!-- / .sign__form -->
+
+    		</div>
+    	</div>
+    	<!-- / .row -->
+    </div>
+  </div>
+ </div>
 </div>
-
 {% endblock %}
 
 {% block javascript %}
