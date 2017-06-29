@@ -88,16 +88,25 @@ def permssao(request):
     return render(request,'avec/permissao.html')
 
 def simpleDash_detail(request, pk):
-    dash = SimpleDashboard.objects.get(pk=pk)
-    mykeywords = dash.keywords.all()
-    myparent = dash.subject.all()
-    related = Subject_detail.objects.filter(subject=myparent)
-    related_dashs = SimpleDashboard.objects.filter(subject=myparent)
-    related_info = Post.objects.filter(subject=myparent)
-    mytabs = dash.tabsimple_set.all().order_by('id')
-    themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
-    return render(request, 'avec/simpleDash_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs, 'myparent' : myparent, 'related' : related, 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
+    groups = request.user.groups.all()
+    group_user = utils.get_greater_group(groups)
 
+    dash = SimpleDashboard.objects.get(pk=pk)
+    request.session['next'] = '/simpleDash_detail/'+pk
+    simpledashboard_permission = utils.simpledashboard_permission(group_user.id, dash)
+
+    if simpledashboard_permission:
+        dash = SimpleDashboard.objects.get(pk=pk)
+        mykeywords = dash.keywords.all()
+        myparent = dash.subject.all()
+        related = Subject_detail.objects.filter(subject=myparent)
+        related_dashs = SimpleDashboard.objects.filter(subject=myparent)
+        related_info = Post.objects.filter(subject=myparent)
+        mytabs = dash.tabsimple_set.all().order_by('id')
+        themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+        return render(request, 'avec/simpleDash_detail.html', {'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs, 'myparent' : myparent, 'related' : related, 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
+    else:
+        return HttpResponseRedirect('/conta/registro')
 
 def paineis_detail(request, pk):
     dash = Paineis.objects.get(pk=pk)
@@ -130,12 +139,13 @@ def post_detail(request, pk):
         return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related , 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
     else:
         #return HttpResponsePermanentRedirect("/permissao/")
-        return HttpResponseRedirect('/permissao?next=/post/%s' % pk)
+        return HttpResponseRedirect('/conta/registro')
 
 def reports_detail(request, pk):
     report = Reports.objects.get(pk=pk)
     myparent = report.subject.all()
     return render(request, 'avec/reports_detail.html', {'report': report, 'myparent': myparent})
+
 
 def subject_detail(request, pk):
     mysubject = Subject.objects.get(pk=pk)
