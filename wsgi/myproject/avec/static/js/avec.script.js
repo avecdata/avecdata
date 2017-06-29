@@ -4,7 +4,7 @@
 
 $(document).ready(function () {
 
-	//window.url_config = 'http://localhost:8080';
+	//window.url_config = 'http://192.168.0.105:8080';
 	window.url_config = 'http://www.avecdata.com';
 	//window.url_config = 'http://ec2-34-211-223-88.us-west-2.compute.amazonaws.com';
 
@@ -62,9 +62,6 @@ $(document).ready(function () {
 			}
 			if (ui.type=='painel' ){
 				window.location.href = '/paineis_detail/'+ui.id;
-			}
-			if (ui.type=='keyword' ){
-				window.location.href = '/keyword/'+ui.id;
 			}
 	    }
 	});
