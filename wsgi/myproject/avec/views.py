@@ -110,7 +110,7 @@ def simpleDash_detail(request, pk):
         themes = Themes.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
         return render(request, 'avec/simpleDash_detail.html', {'groups' : groups ,'dash': dash, 'mykeywords' : mykeywords, 'mytabs' : mytabs, 'myparent' : myparent, 'related' : related, 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
     else:
-        return HttpResponseRedirect('/conta/registro')
+        return HttpResponseRedirect('/logar/')
 
 def paineis_detail(request, pk):
     dash = Paineis.objects.get(pk=pk)
@@ -148,7 +148,7 @@ def post_detail(request, pk):
         return render(request, 'avec/post_detail.html', {'post': post, 'mykeywords' : mykeywords, 'myparent' : myparent, 'related' : related , 'related_dashs' : related_dashs, 'related_info': related_info, 'themes' : themes})
     else:
         #return HttpResponsePermanentRedirect("/permissao/")
-        return HttpResponseRedirect('/conta/registro')
+        return HttpResponseRedirect('/logar/')
 
 def reports_detail(request, pk):
     report = Reports.objects.get(pk=pk)
@@ -274,7 +274,8 @@ def lista(request):
         simpledashboards = SimpleDashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         paineis = Paineis.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         dashboards = Dashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
-        
+        keywords = Keywords.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
+
         posts_data = []
 
         for post in posts:
@@ -305,7 +306,12 @@ def lista(request):
         for report in reports:
             reports_data.append({ "value": report.title, "id" : report.id , "type": "report"})
 
-        result = posts_data+dashboards_data+subjects_data+reports_data+simpledashboards_data+paineis_data
+        keywords_data = []
+
+        for keyword in keywords:
+            keywords_data.append({ "value": keyword.title, "id" : keyword.id , "type": "keyword"})
+
+        result = posts_data+dashboards_data+subjects_data+reports_data+simpledashboards_data+paineis_data+keywords_data
         response = {"query": "Unit", "suggestions": result}
         resultado_json = json.loads(json.dumps(response))
 
