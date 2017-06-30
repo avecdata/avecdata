@@ -63,6 +63,9 @@ $(document).ready(function () {
 			if (ui.type=='painel' ){
 				window.location.href = '/paineis_detail/'+ui.id;
 			}
+			if (ui.type=='keyword' ){
+				window.location.href = '/keyword/'+ui.id;
+			}
 	    }
 	});
 

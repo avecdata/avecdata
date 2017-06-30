@@ -274,7 +274,7 @@ def lista(request):
         simpledashboards = SimpleDashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         paineis = Paineis.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
         dashboards = Dashboard.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
-        keywords = Keywords.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('published_date')
+        keywords = Keywords.objects.filter(title__unaccent__icontains=str(request.POST.get('query'))).order_by('title')
 
         posts_data = []
 
