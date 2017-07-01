@@ -64,7 +64,7 @@ $(document).ready(function () {
 	        $(element).closest('.col-md-6').removeClass('has-error');
 	    },
 	    errorElement: 'span',
-	    errorClass: 'help-block',
+	    errorClass: 'help-tip',
 	    errorPlacement: function(error, element) {
 	        if(element.parent('.cb-avec-content').length) {
 	            error.insertAfter(element.parent());

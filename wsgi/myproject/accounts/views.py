@@ -66,13 +66,15 @@ def register(request):
                     to = [user_logged.email]
                     content_message = utils.get_content_subscription_email(name, plan_type, item_list)
                     utils.send_mail(title, content_message, to)
-
-                login(request, user_logged)
-                success = True
-                avec_message = 'Cadastro Realizado com sucesso!'
+                    
             except Exception as e:
                 print('Register Exception: on accounts.views '+str(e))
-
+                
+            #login(request, user_logged)
+            success = True
+            avec_message = 'Cadastro Realizado com sucesso!'
+            print('##########'+avec_message+'############');
+                
             context = {
                 'form': form,
                 'success': success,

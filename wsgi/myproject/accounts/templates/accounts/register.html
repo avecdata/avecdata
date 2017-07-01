@@ -41,8 +41,8 @@
 
     <div class="container">
     	<div class="row">
-        <div class="col-md-3" style="width:30%;"></div>
-          <div class="col-md-5 form-register-avec" style="width:40%; background-color: #ffffff;">
+        <div class="col-md-3"></div>
+          <div class="col-md-5 form-register-avec" style="background-color: #ffffff;">
 
             <!--<div class="row" style="background-color: #f7fafe; height: 156px;  padding-top: 60px; text-align: center !important;" >
               <a  href="{% url 'index' %}">
@@ -80,7 +80,7 @@
                     <label for="{{ form.username.auto_id }}" class="sr-only">{{form.username.label }}</label>
         						<!--<input type="text" class="form-control avec-register-input" id="{{ form.username.auto_id }}" name="{{ form.username.name }}" placeholder="{{ form.username.label }}" maxlength="150" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Informe o seu Login" data-original-title="{{ form.username.label }}"-->
                     <input type="text" class="form-control avec-register-input" id="{{ form.username.auto_id }}" name="{{ form.username.name }}" placeholder="{{ form.username.label }}" maxlength="150" >
-        						<input type="hidden" name="user_id" value="0"> {% for error in form.username.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+        						<input type="hidden" name="user_id" value="0"> {% for error in form.username.errors %}<span class="help-tip">{{ error }}</span>{% endfor %}
       						</div>
       					</div>
 
@@ -90,7 +90,7 @@
         						<label for="{{ form.name.auto_id }}" class="sr-only">{{ form.name.label }}</label>
         						<!--<input type="text" class="form-control avec-register-input" id="{{ form.name.auto_id }}" name="{{ form.name.name }}" placeholder="{{ form.name.label }}" maxlength="150" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Informe seu Nome" data-original-title="{{ form.name.label }}"-->
                     <input type="text" class="form-control avec-register-input" id="{{ form.name.auto_id }}" name="{{ form.name.name }}" placeholder="{{ form.name.label }}" maxlength="150">
-        						{% for error in form.name.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+        						{% for error in form.name.errors %}<span class="help-tip">{{ error }}</span>{% endfor %}
                   </div>
       					</div>
 
@@ -100,7 +100,7 @@
         						<label for="{{ form.email.auto_id }}" class="sr-only">{{ form.email.label }}</label>
         						<!--<input type="email" class="form-control avec-register-input" id="{{ form.email.auto_id }}" name="{{ form.email.name }}" placeholder="{{ form.email.label }}" maxlength="150" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Informe seu E-mail" data-original-title="{{ form.email.label }}">-->
                     <input type="email" class="form-control avec-register-input" id="{{ form.email.auto_id }}" name="{{ form.email.name }}" placeholder="{{ form.email.label }}" maxlength="150" >
-        						{% for error in form.email.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+        						{% for error in form.email.errors %}<span class="help-tip">{{ error }}</span>{% endfor %}
                   </div>
       					</div>
 
@@ -110,7 +110,7 @@
                     <label for="{{ form.phone.auto_id }}" class="sr-only">{{ form.phone.label }}</label>
         						<!--<input type="tel" id="{{ form.phone.auto_id }}" class="form-control phone avec-register-input" name="{{ form.phone.name }}" placeholder="{{ form.phone.label }}" maxlength="28" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Informe seu Celular" data-original-title="{{ form.phone.label }}">-->
                     <input type="tel" id="{{ form.phone.auto_id }}" class="form-control phone avec-register-input" name="{{ form.phone.name }}" placeholder="{{ form.phone.label }}" maxlength="28">
-        						{% for error in form.phone.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+        						{% for error in form.phone.errors %}<span class="help-tip">{{ error }}</span>{% endfor %}
                   </div>
       					</div>
 
@@ -120,7 +120,7 @@
                     <label for="{{ form.password1.auto_id }}" class="sr-only">{{ form.password1.label }}</label>
     								<!--<input type="password" class="form-control margin-bottom-xs avec-register-input" id="{{ form.password1.auto_id }}" name="{{ form.password1.name }}" autocomplete="off" placeholder="{{ form.password1.label }}" maxlength="150" required="required" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Informe sua Senha" data-original-title="{{ form.password1.label }}">-->
                     <input type="password" class="form-control margin-bottom-xs avec-register-input" id="{{ form.password1.auto_id }}" name="{{ form.password1.name }}" autocomplete="off" placeholder="{{ form.password1.label }}" maxlength="150" required="required">
-                    {% for error in form.password1.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+                    {% for error in form.password1.errors %}<span class="help-tip">{{ error }}</span>{% endfor %}
                   </div>
                 </div>
   							<div class="form-group{% if form.password2.errors %} has-error{% endif %} form-group-avec form-group-avec-register">
@@ -128,7 +128,7 @@
     								<label for="{{ form.password2.auto_id }}" class="sr-only">{{ form.password2.label }}</label>
     								<!--<input type="password" class="form-control avec-register-input" id="{{ form.password2.auto_id }}" name="{{ form.password2.name }}" autocomplete="off" placeholder="{{ form.password2.label }}" maxlength="150" required="required" data-toggle="popover" data-trigger="focus" data-content="Confirme sua Senha" data-original-title="{{ form.password2.label }}">-->
                     <input type="password" class="form-control avec-register-input" id="{{ form.password2.auto_id }}" name="{{ form.password2.name }}" autocomplete="off" placeholder="{{ form.password2.label }}" maxlength="150" required="required">
-                    {% for error in form.password2.errors %}<span class="help-block">{{ error }}</span>{% endfor %}
+                    {% for error in form.password2.errors %}<span class="help-tip">{{ error }}</span>{% endfor %}
                   </div>
   							</div>
 

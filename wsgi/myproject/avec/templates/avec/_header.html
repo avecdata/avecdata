@@ -113,10 +113,10 @@
 
 					{% endif%}
 
-					<li class="avec-menu-item avec-menu-subscription"><a class="btn-avec-primary" href="/#plans">ASSINAR</a></li>
+					<li class="avec-menu-item hidden-sm avec-menu-subscription"><a class="btn-avec-primary" href="/#plans">ASSINAR</a></li>
 
 					{% if not user.is_authenticated %}
-					<li class="avec-menu-item hidden-sm"><a class="btn btn-avec-success" href="{% url 'accounts:register' %}">EXPERIMENTAR</a></li>
+					<li class="avec-menu-item hidden-sm avec-menu-try-it"><a class="btn btn-avec-success" href="{% url 'accounts:register' %}">EXPERIMENTAR</a></li>
 					{% endif%}
 				</ul>
 			</div>
