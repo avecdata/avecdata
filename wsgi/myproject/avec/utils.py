@@ -321,7 +321,7 @@ def post_permission(group_user_id, avec_post):
         return True
     elif group_post.id == 5 and (group_user_id == 2 or group_user_id == 3 or group_user_id == 5):
         return True
-    elif group_user_id == 1:
+    elif group_user_id == 1 or group_user_id == 2  or group_user_id == 5:
         return True
     else:
         False
@@ -339,7 +339,7 @@ def simpledashboard_permission(group_user_id, avec_simpledashboard):
         return True
     elif group_simple.id == 5 and (group_user_id == 2 or group_user_id == 3 or group_user_id == 5):
         return True
-    elif group_user_id == 1:
+    elif group_user_id == 1 or group_user_id == 2  or group_user_id == 5:
         return True
     else:
         False
