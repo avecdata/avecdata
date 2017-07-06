@@ -39,7 +39,7 @@
 <div class="home-app__container contaniner-pagamento" >
 	<div class="section" style="margin-top: 40px;">
 
-    <div class="container">
+    <div class="container container-pagamento">
     	<div class="row">
         <div class="col-md-3"></div>
           <div class="col-md-5 form-register-avec" style="background-color: #ffffff;">
@@ -85,7 +85,7 @@
       					</div>
 
       					<!-- Name -->
-      					<div class="form-group{% if form.name.errors %} has-error{% endif %} form-group-avec form-group-avec-register" >
+      					<div class="form-group{% if form.name.errors %} has-error{% endif %} form-group-avec form-group-avec-register form-group-avec-register-bottom">
                   <div class="input-group input-group-avec-user input-group-avec-user-register">
         						<label for="{{ form.name.auto_id }}" class="sr-only">{{ form.name.label }}</label>
         						<!--<input type="text" class="form-control avec-register-input" id="{{ form.name.auto_id }}" name="{{ form.name.name }}" placeholder="{{ form.name.label }}" maxlength="150" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Informe seu Nome" data-original-title="{{ form.name.label }}"-->
@@ -95,7 +95,7 @@
       					</div>
 
       					<!-- Email -->
-      					<div class="form-group{% if form.email.errors %} has-error{% endif %} form-group-avec form-group-avec-register">
+      					<div class="form-group{% if form.email.errors %} has-error{% endif %} form-group-avec form-group-avec-register form-group-avec-register-bottom2" >
                   <div class="input-group input-group-avec-user input-group-avec-user-register">
         						<label for="{{ form.email.auto_id }}" class="sr-only">{{ form.email.label }}</label>
         						<!--<input type="email" class="form-control avec-register-input" id="{{ form.email.auto_id }}" name="{{ form.email.name }}" placeholder="{{ form.email.label }}" maxlength="150" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Informe seu E-mail" data-original-title="{{ form.email.label }}">-->
@@ -105,7 +105,7 @@
       					</div>
 
       					<!-- Phone -->
-      					<div class="form-group{% if form.phone.errors %} has-error{% endif %} form-group-avec form-group-avec-register">
+      					<div class="form-group{% if form.phone.errors %} has-error{% endif %} form-group-avec form-group-avec-register form-group-avec-register-bottom3">
                   <div class="input-group input-group-avec-user input-group-avec-user-register">
                     <label for="{{ form.phone.auto_id }}" class="sr-only">{{ form.phone.label }}</label>
         						<!--<input type="tel" id="{{ form.phone.auto_id }}" class="form-control phone avec-register-input" name="{{ form.phone.name }}" placeholder="{{ form.phone.label }}" maxlength="28" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Informe seu Celular" data-original-title="{{ form.phone.label }}">-->
@@ -115,7 +115,7 @@
       					</div>
 
       					<!-- Password -->
-  							<div class="form-group{% if form.password1.errors %} has-error{% endif %} form-group-avec form-group-avec-register">
+  							<div class="form-group{% if form.password1.errors %} has-error{% endif %} form-group-avec form-group-avec-register form-group-avec-register-bottom4">
                   <div class="input-group input-group-avec-user input-group-avec-user-register">
                     <label for="{{ form.password1.auto_id }}" class="sr-only">{{ form.password1.label }}</label>
     								<!--<input type="password" class="form-control margin-bottom-xs avec-register-input" id="{{ form.password1.auto_id }}" name="{{ form.password1.name }}" autocomplete="off" placeholder="{{ form.password1.label }}" maxlength="150" required="required" data-toggle="popover" data-placement="left" data-trigger="focus" data-content="Informe sua Senha" data-original-title="{{ form.password1.label }}">-->
@@ -123,7 +123,7 @@
                     {% for error in form.password1.errors %}<span class="help-tip">{{ error }}</span>{% endfor %}
                   </div>
                 </div>
-  							<div class="form-group{% if form.password2.errors %} has-error{% endif %} form-group-avec form-group-avec-register">
+  							<div class="form-group{% if form.password2.errors %} has-error{% endif %} form-group-avec form-group-avec-register form-group-avec-register-bottom5">
                   <div class="input-group input-group-avec-user input-group-avec-user-register">
     								<label for="{{ form.password2.auto_id }}" class="sr-only">{{ form.password2.label }}</label>
     								<!--<input type="password" class="form-control avec-register-input" id="{{ form.password2.auto_id }}" name="{{ form.password2.name }}" autocomplete="off" placeholder="{{ form.password2.label }}" maxlength="150" required="required" data-toggle="popover" data-trigger="focus" data-content="Confirme sua Senha" data-original-title="{{ form.password2.label }}">-->

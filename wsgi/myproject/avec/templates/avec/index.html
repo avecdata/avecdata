@@ -15,7 +15,7 @@
 						<div class="col-sm-12 col-md-11">
 							<div class="row avec-row-search">
 								<div class="col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
-									<h1 class="avec-home-app text-center">Conheça a realidade. Construa conhecimento.</h1>
+									<h1 class="avec-home-app avec-title-home-conheca text-center">Conheça a realidade. Construa conhecimento.</h1>
 								</div>
 							</div>
 
@@ -23,7 +23,7 @@
 								<div class="col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
 									<form class="avec-search-results">
 										<div class="input-group stylish-input-group">
-											<input type="text" id="autocomplete" class="form-control" placeholder="Encontre estatísticas, dados e estudos">
+											<input type="text" id="autocomplete" class="form-control avec-auto-complete" placeholder="Encontre estatísticas, dados e estudos">
 											<span class="input-group-addon avec-input-group-addon">
 												<button type="submit" class="btn-avec-success btn-search-data">
 													<i class="fa fa-search"></i>
@@ -56,7 +56,7 @@
 				<div class="col-sm-1"></div>
 				<div class="col-sm-2">
 					<div class="shop-index-features__item">
-						<img src="{% static 'img/brands/logo-ibge.svg' %}" alt="IBGE" />
+						<img src="{% static 'img/brands/logo-ibge.svg' %}" alt="IBGE" style="padding-top: 10%;"/>
 						<!-- <h4 class="shop-index-features__heading">IBGE</h4> -->
 					</div>
 				</div>
@@ -108,7 +108,7 @@
 								<li>Insights e séries históricas</li>
 								<li>Indicadores e séries históricas como suporte à decisões e insights.</li>
 								<li>Integração de dados</li>
-								<li>Integre dados de diversas fontes oficiais e diferentes setores</li>
+								<li>Integre dados de diversas fontes oficiais e diferentes setores.</li>
 								<li>Estudos e dossiês – Retratos setoriais</li>
 								<li>Análises sobre dados setoriais com escopo definido pelo cliente.</li>
 								<li>Democratização do conhecimento</li>
@@ -221,6 +221,7 @@
 					</div>
 				</div>
 				<!-- / .row -->
+
 				<div class="row">
 					<div class="col-sm-6 col-md-3">
 
@@ -318,7 +319,7 @@
 									<div class="home-app-pricing__extra" style="margin-bottom: 42px;">Construa seu próprio ambiente de visualização, integrando bases próprias com nossas bases setoriais.</div>
 									{% if request.user.id %}
 						            	{% if request.user|has_group:3 %}
-							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-secundary">Entre em contato</a>
+							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-cadastrar">Entre em contato</a>
 							            {% else %}
 						               		<a href="{% url 'contact' %}" class="btn btn-default btn-avec-cadastrar" >Entre em contato </a>
 							            {% endif %}

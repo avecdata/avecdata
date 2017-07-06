@@ -27,10 +27,10 @@
 		</div>
 	</div>
 </div>
-<div class="home-app__container contaniner-pagamento" >
+<div class="home-app__container contaniner-pagamento">
 	<div class="section" style="margin-top: 40px;">
 
-    <div class="container">
+    <div class="container container-logar">
         	<div class="row">
             <div class="col-md-3"></div>
               <div class="col-md-5 form-register-avec" style="background-color: #ffffff;">
@@ -61,7 +61,7 @@
     					<!-- Email -->
     					<div class="form-group form-group-avec form-group-avec-register">
     						<label for="{{ form.username.auto_id }}" class="sr-only">Usuário</label>
-    						<div class="input-group input-group-avec-user input-group-avec-user-register">
+    						<div class="input-group input-group-avec-user input-group-avec-user-register" >
     							<span class="input-group-addon"><i class="fa fa-user"></i></span>
     							<input type="text" id="{{ form.username.auto_id }}" class="form-control avec-register-input" name="{{ form.username.name }}" placeholder="{{ form.username.label }}" required="required" autofocus="autofocus">
     						</div>
@@ -69,9 +69,9 @@
     					<!-- / .form-group -->
 
     					<!-- Password -->
-    					<div class="form-group form-group-avec form-group-avec-register">
+    					<div class="form-group form-group-avec form-group-avec-register form-group-avec-register-bottom">
     						<label for="{{ form.password.auto_id }}" class="sr-only">Senha</label>
-    						<div class="input-group input-group-avec-user input-group-avec-user-register">
+    						<div class="input-group input-group-avec-user input-group-avec-user-register" >
     							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
     							<input type="password" id="{{ form.password.auto_id }}" class="form-control avec-register-input" name="{{ form.password.name }}"  placeholder="{{ form.password.label }}" required="required">
     						</div>
@@ -81,7 +81,7 @@
               <!-- Remember me -->
     					<div class="form-group">
     						<div class="checkbox checkbox-avec">
-    							 <label class="avec-remember-me"> <input type="checkbox"> Remember me </label>
+    							 <label class="avec-remember-me"> <input type="checkbox"> Lembrar senha </label>
                    <!-- Esqueceu a senha -->
                  <a href="#lost-password__form" id="btn-forgot-password" class="avec-forgot-password" data-toggle="collapse" aria-expanded="false" aria-controls="lost-password__form">Esqueceu senha Senha?</a>
     						</div>

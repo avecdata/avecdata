@@ -26,10 +26,10 @@
 					<!-- General links -->
 
 					<li class="dropdown">
-						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Assuntos <i class="fa fa-angle-down"></i></a>
-						<ul class="dropdown-menu" >
+						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Assuntos <i class="fa fa-angle-down avec-fa-angle-down"></i></a>
+						<ul class="dropdown-menu avec-dropdown-menu" >
 						{% for th in themes|dictsort:"title" %}
-							<li class="dropdown-submenu">
+							<li class="dropdown-submenu avec-dropdown-submenu">
 								<a class="avec-dropdown" href="javascript:void(0);">{{ th.title }}</a>
 								<!-- <input id="{{ forloop.counter }}" type="checkbox"> -->
 								<!-- <label for="{{ forloop.counter }}">{{ th.title }} <span class="icon"></span></label> -->
@@ -45,11 +45,11 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Cadernos especiais<i class="fa fa-angle-down"></i></a>
-						<ul class="dropdown-menu" >
+						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Cadernos especiais<i class="fa fa-angle-down avec-fa-angle-down"></i></a>
+						<ul class="dropdown-menu avec-dropdown-menu" >
 						{% for cl in view_client %}
 							{% if cl.open %}
-								<li class="dropdown-submenu">
+								<li class="dropdown-submenu avec-dropdown-submenu">
 									<a class="avec-dropdown" href="{% url 'client' client=cl.nickname %}">{{ cl.title }}</a>
 								</li>
 							{% endif %}
@@ -72,7 +72,7 @@
 					{% if user.is_authenticated %}
 					<li class="hidden-sm hidden-md hidden-lg">
 						<li class="dropdown hidden-sm hidden-md hidden-lg">
-							<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Sua Conta <i class="fa fa-angle-down"></i></a>
+							<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Sua Conta <i class="fa fa-angle-down avec-fa-angle-down"></i></a>
 							<ul class="dropdown-menu" >
 								<li class="dropdown-submenu">
 									<!--<li class="avec-dropdown"><a class="avec-dropdown" href="#">Meu Perfil</a></li>-->
@@ -98,7 +98,7 @@
 				<ul class="nav navbar-nav navbar-right avec-btn-nav-right">
 					{% if user.is_authenticated %}
 					<li class="dropdown">
-						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Sua Conta <i class="fa fa-angle-down"></i></a>
+						<a href="javascript:void(0);" class="dropdown-toggle avec-dropdown" data-toggle="dropdown">Sua Conta <i class="fa fa-angle-down avec-fa-angle-down"></i></a>
 						<ul class="dropdown-menu" >
 							<li class="dropdown-submenu">
 								<!--<li class="avec-dropdown"><a class="avec-dropdown" href="#">Meu Perfil</a></li>-->

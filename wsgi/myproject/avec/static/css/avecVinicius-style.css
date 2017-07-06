@@ -1,5 +1,6 @@
 body{
-	font-family: 'Lato', light;
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
 }
 
 a:hover {
@@ -87,4 +88,17 @@ font-family: Lato light !important;
 .avec-info{
   color: #a7b4c3;
   font-family: Lato light !important;
+}
+
+.form-control{
+	background: #ffffff !important;
+	color: #3e4c5b;
+}
+
+.blog-tags{
+	color: #3e4c5b;
+}
+
+.blog-tags > a {
+	color: #3e4c5b;
 }

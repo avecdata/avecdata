@@ -7,23 +7,23 @@
   <li><a href="{% url 'index' %}">Início</a></li>
   <li><a href="{% url 'accounts:payment' %}">Pagamento</a></li>
 </ol>
-<div class="container" style="padding-top: 5px;">
+<div class="container" style="padding-top: 5px; border-radius: 4px;">
 
-	
-		
+
+
 		<fieldset>
 			{% if messages %}
 				{% for message in messages %}
 					<div class="alert alert-{{ message.tags }}">{{ message }}</div>
-				{% endfor %}	
+				{% endfor %}
 			{% endif %}
 			<!-- Form Name -->
-			
+
 			<legend><strong>Resumo do Pedido:</strong> {{ plano }}</legend>
 			{% if success %}
 			<div class="alert alert-success">Mensagem enviada com sucesso!</div>
 			{% endif %}
-			
+
 			<table class="table table-bordered table-striped table-hover">
         		<tr>
         			<td>
@@ -41,7 +41,7 @@
 			                 	<input type="number" class="form-control" id="num_subscription" name="num_subscription" value="10" onkeypress="onlyNumbers(event)" style="width: 60px;" min="10">
 			                 	{% endif %}
 			                </div>
-			            </div>	
+			            </div>
         			</td>
         		</tr>
         		<tr>
@@ -84,19 +84,19 @@
         			<td>
         				<div class="form-group">
 							<div class="col-md-12"><p>&nbsp;</p></div>
-			            </div>	
+			            </div>
         			</td>
         		</tr>
         		<tr>
         			<td>
         				<div class="form-group">
 							<div class="col-md-12"><span><strong>Seus dados:</strong></span></div>
-			            </div>	
+			            </div>
         			</td>
         		</tr>
         		<tr>
         			<td>
-        				
+
         				<div class="form-group">
 							<div class="col-md-6">
 								<span><strong>Usuário:</strong></span><br>{{ username }}<br><br>
@@ -138,7 +138,7 @@
         			</td>
         		</tr>
         	</table>
-            
+
 			<p class="bs-component">
 				<!-- <center>
 					<input class="btn btn-success btn-sm" type="submit" value="Enviar" /> -->
@@ -150,7 +150,7 @@
 				<!-- </center> -->
 			</p>
 		</fieldset>
-	
+
 </div>
 <script>
 $(document).ready(function () {
@@ -158,34 +158,33 @@ $(document).ready(function () {
 	//var url = "{% url 'accounts:paypal_view' order 10 %}";
 	var order_id = "{{ order }}";
 	var url = "/conta/finalizando/"+order_id+"/paypal/"+num;
-	
+
 	$('#num_subscription').change(function(){
 		num = parseInt($(this).val())-10;
 		var pvalue = 1500+(num*150)
 		$('.avec_pvalue').html('<strong>R$ '+pvalue+',00</strong>');
 		url = "/conta/finalizando/"+order_id+"/paypal/"+num;
 	});
-	
+
 	$('#btn-submit').click(function(){
 		if($('#payment_accept').is(':checked') == false) {
 			$('#payment_accept').parent().append('<span class="cb-message" style="color: #a94442; display: block;"><i class="fa fa-arrow-up"></i> Marque esta caixa se deseja continuar</span>');
 		}
-		
+
 		if($('#terms_conditions_accept').is(':checked') == false) {
 			$('#terms_conditions_accept').parent().append('<span class="cb-message" style="color: #a94442; display: block;"><i class="fa fa-arrow-up"></i> Marque esta caixa se deseja continuar</span>');
 		}
-		
+
 		if($('#payment_accept').is(':checked') & $('#terms_conditions_accept').is(':checked')) {
 			window.location.href = url;
 		}
 	});
-	
+
 	$('.cb-avec').change(function(){
 		$(this).parent().find('.cb-message').remove();
 	});
-	
-	
+
+
 });
 </script>
 {% endblock %}
-
