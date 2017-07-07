@@ -320,9 +320,9 @@
 									<div class="home-app-pricing__extra home-app-pricing__extra-enterprise" style="margin-bottom: 42px;">Construa seu próprio ambiente de visualização, integrando bases próprias com nossas bases setoriais.</div>
 									{% if request.user.id %}
 						            	{% if request.user|has_group:3 %}
-							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-cadastrar">Entre em contato</a>
+							            	<a  href="javascript:void(0)" disabled="disabled" class="btn btn-secondary btn-avec-contato">Entre em contato</a>
 							            {% else %}
-						               		<a href="{% url 'contact' %}" class="btn btn-default btn-avec-cadastrar" >Entre em contato </a>
+						               		<a href="{% url 'contact' %}" class="btn btn-secondary btn-avec-contato" >Entre em contato </a>
 							            {% endif %}
 							        {% else %}
 							        	<a href="{% url 'contact' %}" class="btn btn-default btn-avec-cadastrar" >Entre em contato </a>
