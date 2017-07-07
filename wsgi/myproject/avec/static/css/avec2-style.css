@@ -4,7 +4,7 @@
 
 .navbar > .avec-container {
    /*box-shadow: 0px 0px 8px 2px #909090;*/
-   box-shadow: 0px 0px 3px 2px rgba(144,144,144,0.9) !important;
+   box-shadow: 0px 0px 3px 2px rgba(144,144,144,0.05) !important;
 }
 
 .avec-pricing-title {
@@ -164,7 +164,7 @@ a.avec-link-login:before {
 h1.avec-home-app {
 	color: #3e4c5b;
 	display: block;
-	margin-bottom: 40px !important;
+	margin-bottom: 40px;
 	font-weight: 300 !important;
 	white-space: normal;
 }
@@ -452,6 +452,10 @@ span.avec-produtos-icon-description i {
     padding: 15px 10px;
 }
 
+.home-app-pricing__extra-enterprise {
+	border-bottom: none;
+}
+
 .home-app-pricing__bottom_extra {
 	border-bottom: none;
 }
@@ -493,8 +497,13 @@ span.avec-produtos-icon-description i {
 	margin: 0 5px; padding: 22px !important;
 }
 
+.avec-title-home-conheca-top{
+  margin-bottom: 0px !important;
+}
+
 .avec-title-home-conheca{
   font-size: 36px;
+  margin-top: 0px !important;
 }
 
 .avec-title-home-app {
@@ -564,6 +573,17 @@ span.avec-produtos-icon-description i {
     box-shadow: none !important;
     border: none !important;
 }
+
+.item-assuntos{
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.navbar-nav > li > .dropdown-menu > li > a, .dropdown-submenu > .dropdown-menu > li > a {
+    padding: 8px 15px !important;
+    border-bottom: none;
+}
+
 
 .avec-menu-nav-right {
 	width: 600px !important;
@@ -881,6 +901,7 @@ ul.avec-pagamento-service-list li {
 
 .avec-register-input{
     height: inherit !important;
+    border: none;
 }
 
 .form-group-avec-register{
@@ -1222,31 +1243,35 @@ footer {
      padding: 10px 0;
 }
 
-.avec-quemsomos-title{
-  line-height: 1.28;
+.avec-quemsomos-title, .avec-title-nosso-time{
+  line-height: 1.50;
 }
 
 .checkbox label:before {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .form-group-avec-register-bottom{
-  padding-top: 5px;
-}
-.form-group-avec-register-bottom2{
   padding-top: 10px;
 }
-.form-group-avec-register-bottom3{
-  padding-top: 15px;
-}
-.form-group-avec-register-bottom4{
+.form-group-avec-register-bottom2{
   padding-top: 20px;
 }
+.form-group-avec-register-bottom3{
+  padding-top: 30px;
+}
+.form-group-avec-register-bottom4{
+  padding-top: 40px;
+}
 .form-group-avec-register-bottom5{
-  padding-top: 25px;
+  padding-top: 50px;
+}
+
+.checkbox-avec{
+  padding-top: 10px;
 }
 #avec-create-account-content{
-  padding-top: 40px;
+  padding-top: 80px;
 }
 
 .avec-login-footer, .avec-register-footer {
@@ -1262,9 +1287,13 @@ footer {
 }
 
 .col-login5{
-    width: 41.66% !important;
+    width: 41.66%;
 }
 
 .col-login3{
-    width: 29.17%  !important;
+    width: 29.17%;
+}
+
+.blog-tags > a:before{
+  color: #3e4c5b !important;
 }
