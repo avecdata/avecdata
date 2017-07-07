@@ -540,7 +540,7 @@ span.avec-produtos-icon-description i {
 }
 
 .avec-container {
-	position: fixed !important;
+	position: fixed;
 	background-color: #fff;
 	opacity: 0.9;
 	padding: 0px
@@ -1061,6 +1061,7 @@ span.help-tip:before{
 	.navbar > .avec-container {
 		width: 100%;
 		padding: 0px 15px;
+    position: absolute; !important;
 	}
 
 	.home-app__pricing .row > .price-table-item {
@@ -1090,6 +1091,7 @@ span.help-tip:before{
 	.navbar > .avec-container {
 		width: 100%;
 		padding: 0px;
+    position: absolute; !important;
 	}
 
 	/* .navbar-nav > li.avec-menu-subscription {
@@ -1126,6 +1128,7 @@ span.help-tip:before{
 
 	.navbar > .avec-container {
 		width: 100%;
+    position: absolute; !important;
 	}
 
 	.avec-navbar-left {
@@ -1140,6 +1143,7 @@ span.help-tip:before{
 	.avec-navbar-center {
 	    width: 100%;
 	}
+
 }
 
 
@@ -1147,7 +1151,9 @@ span.help-tip:before{
 	.navbar > .avec-container {
 		width: 100%;
 		padding: 0px 0px;
+    position: absolute; !important;
 	}
+
 
   .form-register-avec{
     width: 100% !important;
@@ -1183,6 +1189,10 @@ span.help-tip:before{
 
   .form-register-avec{
     width: 100% !important;
+  }
+
+  .avec-container {
+  	position: absolute; !important;
   }
 
   .avec-btn-facebook, .avec-btn-google-plus{
