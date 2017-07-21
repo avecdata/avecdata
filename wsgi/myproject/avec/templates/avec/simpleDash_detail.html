@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>
+
 	<script type="text/javascript" src="{% static dash.external_files %}"></script>
 
   <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
@@ -28,10 +29,38 @@
   <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
 
+  <link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.css" />
+
+  <link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-panel-layers/src/leaflet-panel-layers.css" />
+  <link rel="stylesheet" href="{% static 'data/paineis/ocdf/icons.css' %}" />
+
+
+  <script src="http://labs.easyblog.it/maps/leaflet/dist/leaflet.js"></script>
+  <script src="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.js"></script>
+
+  <script src="http://labs.easyblog.it/maps/leaflet-panel-layers/src/leaflet-panel-layers.js"></script>
+
+
+  <script src="http://maps.google.com/maps/api/js?v=3.27&sensor=false&key=AIzaSyC42lmrMxjPPzfASOCAVfLvHDBt6rrhaQA"></script>
+  <script src="{% static 'js/leaflet-google.js' %}"></script>
+
+  <!-- GEOJSON DATA -->
+  <script type="text/javascript" src="{% static 'data/paineis/ocdf/ocdf.js' %}"></script>
+  <script type="text/javascript" src="{% static 'data/paineis/ocdf/bar.js' %}"></script>
+  <script type="text/javascript" src="{% static 'data/paineis/ocdf/Credito.js' %}"></script>
+  <script type="text/javascript" src="{% static 'data/paineis/ocdf/producao.js' %}"></script>
+  <script type="text/javascript" src="{% static 'data/paineis/ocdf/habitacao.js' %}"></script>
+  <script type="text/javascript" src="{% static 'data/paineis/ocdf/comercializacao.js' %}"></script>
+  <script type="text/javascript" src="{% static 'data/paineis/ocdf/trabalho.js' %}"></script>
+
+  <script src="http://labs.easyblog.it/maps/leaflet-panel-layers/examples/data/parking.js"></script>
+
 
 	<script>
 		var imguser = "{% static 'img/user/' %}";
 		var img = "{% static 'img/' %}";
+    var iconurl = "{% static 'url' %}";
 
 	</script>
 

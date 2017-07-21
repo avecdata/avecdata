@@ -15,7 +15,7 @@
 
     <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-       
+
 
 
    	<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Lato:100,200,300,400,600,700,800'>
@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/avec.style.css' %}">
     <link rel="stylesheet" type="text/css" id="jimdo_layout_css" href="{% static 'css/quemsomos.css' %}" />
     <link rel="stylesheet" href="{% static 'css/avec2-style.css' %}">
+
 <!-- <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,600,700');
 </style> -->
@@ -67,10 +68,10 @@
 	{% if success %}
 	<script type="text/javascript">
 	$(document).ready(function () {
-		
+
 		try {
 			$.alert({
-			   icon: 'fa fa-info-circle', 
+			   icon: 'fa fa-info-circle',
 			   title: 'Avec Data',
 			   content: '<div style="width: 100%; text-align: center; font-size: 32px;"><span style="font-size: 16px;">{{ avec_message }}</span></div>',
 			});
