@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -21,6 +21,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from avec import utils
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from chartit import DataPool, Chart
+from .decorators import add_source_code_and_doc
+from django.shortcuts import render_to_response
 
 # adicionados para o formulario de contato c/ envio de email
 from .forms import ContactForm
@@ -374,6 +379,95 @@ def client(request, client):
 def padrao2(request):
         return render(request, 'avec/dashboards/padrao2.html')
 
+def chartit(_):
+    city='Brasil'
+    filtro=12
+    ds = DataPool(
+        series=[{
+            'options': {
+                'source': Price.objects.filter()
+            },
+            'terms': [
+                'pvalue',
+                'country_name',
+                'country_slug'
+            ]
+        }]
+    )
+
+    def monthname(month_num):
+        names = {1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
+                 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'}
+        return names[month_num]
+
+    chart_1 = Chart(
+        datasource=ds,
+        series_options=[{
+            'options': {
+                'type': 'line',
+                'stacking': False,
+            },
+            'terms': {
+                'country_name' : [
+                    'pvalue'
+                ]
+            }
+        }],
+      chart_options =
+        {'chart':{
+            'backgroundColor': '#FFFFFF',
+            'borderWidth': 0,
+            'title': {
+                'text': 'Actual versus Wx Adjusted Production Data'}},
+         'subtitle': {
+            'text': 'eport_range'},
+         'credits': {
+            'enabled': False},
+         'xAxis': {
+            'title': {
+                'text': 'Group:Sites'}}
+        },
+        #x_sortf_mapf_mts=(None, country_name, False)
+        )
+
+    chart_2 = Chart(
+        datasource=ds,
+        series_options=[{
+            'options': {
+                'type': 'bar',
+                'stacking': False,
+            },
+            'terms': {
+                'country_name' : [
+                    'pvalue'
+                ]
+            }
+        }],
+      chart_options =
+        {'chart':{
+            'backgroundColor': '#FFFFFF',
+            'borderWidth': 0,
+            'title': {
+                'text': 'Actual versus Wx Adjusted Production Data'}},
+         'subtitle': {
+            'text': 'eport_range'},
+         'credits': {
+            'enabled': False},
+         'xAxis': {
+            'title': {
+                'text': 'Group:Sites'}}
+        },
+        #x_sortf_mapf_mts=(None, country_name, False)
+        )
+
+    return render_to_response('avec/dashboards/chartit.html', {'chart_list': [chart_1, chart_2] })
+    #return render(request, 'avec/dashboards/chartit.html',
+#                 {
+#                    'charts' : [chart_1, chart_2],
+#                 }
+#             )
+
+
 def comparaestados(request):
         return render(request, 'avec/dashboards/comparaestados.html')
 
@@ -586,3 +680,25 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 
 #         print('teste---------------------------')
         raise ImmediateHttpResponse(redirect(settings.LOGIN_REDIRECT_URL.format(id=request.user.id)))
+
+def deputado(request, nome_abrev):
+    deputado = v_emendas_autor.objects.filter(nome_abrev=nome_abrev)
+    emendas = v_emendas_emendas.objects.filter(cod_autor=deputado).order_by('num_emenda').reverse()[:5]
+    return render(request, 'avec/deputado.html', {'deputado': deputado, 'emendas' : emendas})
+
+def emenda(request, cod_emenda):
+    emendas = v_emendas_emendas.objects.filter(cod_emenda=cod_emenda)
+    emenda_proposta = v_emendas_emenda_proposta.objects.filter(cod_emenda=cod_emenda)
+    proposta = v_emendas_proposta.objects.filter(id_proposta__in=emenda_proposta)
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(proposta, 3)
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+
+    return render(request, 'avec/emenda.html', {'emendas' : emendas, 'proposta' : proposta})

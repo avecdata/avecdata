@@ -1,0 +1,374 @@
+{% extends 'avec/layout_interno.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+
+
+    <style>
+    .chartdiv {
+    	width		: 100%;
+    	height		: 350px;
+    	font-size	: 6px;
+      padding-right: 0px;
+      padding-left: 0px;
+      padding-top: 20px;
+    }
+
+    .mychartdiv {
+      padding-top: 0px;
+    }
+
+    .avec-panel{
+      margin-top: -18px;
+    }
+    .funclass {
+      margin: 0 0 0.6em 0;
+      &:before {
+        content: "​​\25B6";
+        float: left;
+        margin-right: 0.5em;
+        transform: rotate(0deg);
+        transition: transform 0.3s ease-out;
+      }
+      &:after {
+        content: "Show details";
+        float: right;
+        opacity: 0;
+
+        transition: opacity 0.8s;
+      }
+      &:hover:after {
+        opacity: 0.7;
+      }
+      &:focus { outline: none; }
+    }
+    .avec-summary-content{
+        padding: 10px 10px;
+    }
+    .summary {
+      display: inline-block;
+      width: auto;
+      cursor: pointer;
+      border-radius: 0.3em;
+      user-select: none;
+      .details-open-indicator { position: absolute; visibility: hidden; }
+      &::-webkit-details-marker { display: none; }
+      &:before {
+        content: "​​\25B6";
+        float: left;
+        margin-right: 0.5em;
+        transform: rotate(0deg);
+        transition: transform 0.3s ease-out;
+      }
+      &:after {
+        content: "Show details";
+        float: right;
+        opacity: 0;
+
+        transition: opacity 0.8s;
+      }
+      &:hover:after {
+        opacity: 0.7;
+      }
+      &:focus { outline: none; }
+    }
+
+    &[open] {
+      summary {
+
+        text-shadow: none;
+
+        border-radius: 0.3em 0.3em 0 0 ;
+        &:before {
+          transform: rotate(90deg);
+        }
+        &:after {
+          content: "Hide details";
+        }
+      }
+
+    }
+
+    </style>
+
+    <style>
+
+#chartdiv, #chartdiv2{
+  margin-top: -20px;
+}
+
+</style>
+
+    <script>
+
+    var iconurl = "{% static 'url' %}";
+
+
+    {% for emenda in emendas %}
+      var value1 = {{emenda.saldo}};
+      value1 = value1/40000;
+    {% endfor %}
+    var chart = AmCharts.makeChart("chartdiv", {
+      "theme": "light",
+      "type": "gauge",
+      "axes": [{
+        "topTextFontSize": 18,
+        "topTextYOffset": 70,
+        "color" : "#61788e",
+        "topTextColor" : "#61788e",
+        "axisColor": "#61788e",
+        "axisThickness": 1,
+        "endValue": 100,
+        "gridInside": true,
+        "inside": true,
+        "radius": "60%",
+        "valueInterval": 10,
+        "tickColor": "#61788e",
+        "startAngle": -90,
+        "endAngle": 90,
+        "unit": "%",
+        "topText" : value1 + "%",
+        "bandOutlineAlpha": 0,
+        "bottomTextColor" : "#61788e",
+        "labelOffset" : 0,
+        "bands": [{
+          "color": "#91d5df",
+          "endValue": 100,
+          "innerRadius": "105%",
+          "radius": "170%",
+          "gradientRatio": [0.5, 0, -0.5],
+          "startValue": 0
+
+        }, {
+          "color": "#3dc1d0",
+          "endValue": 0,
+          "innerRadius": "105%",
+          "radius": "170%",
+          "gradientRatio": [0.5, 0, -0.5],
+          "startValue": 0,
+          "endValue" : value1
+        }]
+      }],
+      "arrows": [{
+        "alpha": 1,
+        "innerRadius": "35%",
+        "nailRadius": 0,
+        "color" : "#61788e",
+        "radius": "170%",
+        "value" : value1
+      }]
+    });
+
+
+    </script>
+
+
+
+<style>
+.avec-deputado-resume{
+    font-size: 11px;
+    text-transform: capitalize;
+}
+
+.avec-table-resume{
+    padding: 0px !important;
+    border-top: none !important;
+}
+
+.avec-monetary:before {
+   content:'R$';
+}
+</style>
+
+
+    <!-- TOPIC HEADER
+    ================================================== -->
+    <div class="topic">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h3 class="avec-h3"></h3>
+          </div>
+          <div class="col-sm-8">
+            <ol class="breadcrumb pull-right hidden-xs">
+              <li><a href="/">Home</a></li>
+              <li class="avec-active">Emenda</li>
+            </ol>
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
+    </div> <!-- / .topic -->
+
+    <!-- MAIN CONTENT
+    ================================================== -->
+{% for emenda in emendas %}
+    <div class="container">
+      <div class="row">
+
+        <h3 class="headline">
+          <span>Emenda </span>
+        </h3>
+
+        <!-- Emendas mais recentes -->
+
+        <table class="table section">
+          <tbody>
+
+
+              <tr>
+                <td>{{ emenda.cod_emenda }}<td>
+                <td>{{ emenda.funcional }}</td>
+                <td>{{ emenda.nom_orgao }}</td>
+                <td class="avec-monetary" > {{ emenda.val_acrec }}</td>
+                <td class="avec-monetary" > {{ emenda.saldo }}</td>
+              </tr>
+
+
+          </tbody>
+        </table>
+
+        <!-- Recent items -->
+        <h3 class="headline">
+          <span>Dados da proposta/Convênio</span>
+        </h3>
+
+        <div class="col-sm-9">
+
+          <!-- Search Form -->
+          <form class="search-results__form">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Localize um convênio/proposta..." value="">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Search</button>
+              </span>
+            </div>
+          </form>
+
+          <!-- Search filter -->
+          <div class="search-results__filter">
+            <div class="row">
+              <div class="col-sm-6">
+
+                <div class="text-muted">
+                  Busca retornou (27 resultados)
+                </div>
+
+              </div>
+              <div class="col-sm-6">
+
+                <ul class="search-results-filter__sort">
+                  <li class="text-muted">Ordenar por :</li>
+                  <li class="active"><a href="#">valor</a></li>
+                  <li><a href="#">data</a></li>
+                  <li><a href="#">vencimento</a></li>
+                </ul>
+
+              </div>
+            </div>
+          </div> <!-- / .search-results__filter -->
+
+          <!-- Search results links
+
+          {% if forloop.counter <= 3 %}
+          {% endif %}
+         -->
+          <ul class="search-results__links">
+            {% for prop in proposta %}
+            <details class="funclass" close>
+              <summary class="summary panel panel-default">
+
+                 <p class=" panel-heading">
+                    Emenda: {{ emenda.cod_emenda }} - Proposta: {{ prop.id_proposta }}
+                </p>
+                <div class="avec-summary-content">
+                  <strong>UF:</strong> {{prop.uf_proponente}} - <strong>Municipio</strong> {{prop.munic_proponente}} -
+                  <strong>Orgão Superior</strong> {{prop.desc_orgao_sup}}
+                  - <strong>Dia proposta:</strong> {{prop.dia_proposta}} - <strong>Orgão:</strong> {{prop.desc_orgao}} -
+                  <strong>Modalidade:</strong> {{prop.modalidade}}
+                </div>
+              </summary>
+              <article class="panel panel-default panel-body avec-panel">
+
+                      <h5><strong>situacao_conta : </strong>{{prop.situacao_conta}}</h5>
+                      <h5><strong>sit proj basico : </strong>{{prop.situacao_projeto_basico}}</h5>
+                      <h5><strong>sit proposta : </strong>{{prop.sit_proposta}}</h5>
+                      <h5><strong>Objeto proposta : </strong>{{prop.objeto_proposta}}</h5>
+                      <td><strong>Valor global : </strong>R${{prop.vl_global_prop}}<td>
+                      <td><strong>Valor repasse : </strong>R${{prop.vl_repasse_prop}}<td>
+                      <td><strong>Valor contrapartida : </strong>R${{prop.vl_contrapartida_prop}}<td>
+
+            </article>
+            </details>
+            {% endfor %}<!--
+            {% for prop in proposta %}
+            <li>
+              <a href="#" class="search-results-links__title">
+                  Emenda: {{ emenda.cod_emenda }} - Proposta: {{ prop.id_proposta }}
+              </a>
+              <div class="search-results-links__snippet">
+                <strong>UF:</strong> {{prop.uf_proponente}} - <strong>Municipio</strong> {{prop.munic_proponente}} -
+                <strong>Orgão Superior</strong> {{prop.desc_orgao_sup}}
+                - <strong>Dia proposta:</strong> {{prop.dia_proposta}} - <strong>Orgão:</strong> {{prop.desc_orgao}} -
+                <strong>Modalidade:</strong> {{prop.modalidade}}
+              </div>
+              <div class="search-results-links__url">
+                <strong>situacao_conta : </strong>{{prop.situacao_conta}}
+                <strong>sit proj basico : </strong>{{prop.situacao_projeto_basico}}
+                <strong>sit proposta : </strong>{{prop.sit_proposta}}
+                <strong>Objeto proposta : </strong>{{prop.objeto_proposta}}
+                <strong>Valor global : </strong>R${{prop.vl_global_prop}}
+                <strong>Valor repasse : </strong>R${{prop.vl_repasse_prop}}
+                <strong>Valor contrapartida : </strong>R${{prop.vl_contrapartida_prop}}
+              </div>
+            </li>
+              {% endfor %}-->
+          </ul> <!-- / .search-results__links -->
+
+          <!-- Pagination -->
+
+         <ul class="pagination">
+            <li><a href="#">«</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">»</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-3">
+          <div class="chartdiv" id="chartdiv"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-8">
+
+        </div>
+      </div>
+      <div class="row">
+
+      </div>
+
+    </div> <!-- / .container -->
+{% endfor %}
+
+
+{% endblock %}
+
+  <!-- Google Tag Manager -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDBL3P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>

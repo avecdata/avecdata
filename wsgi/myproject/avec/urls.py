@@ -46,4 +46,7 @@ urlpatterns = [
     url(r'^social-accounts/social/login/cancelled/$', views.logar, name='logar'),
     url(r'^social-accounts/', include('allauth.urls')),
     url(r'^redirect-socialapp/', views.redirect_socialapp, name='redirect_socialapp'),
+    url(r'^deputado/(?P<nome_abrev>.+)/$', views.deputado, name='deputado'),
+    url(r'^emenda/(?P<cod_emenda>.+)/$', views.emenda, name='emenda'),
+    url(r'^chartit/$', views.chartit, name='chartit'),
 ]

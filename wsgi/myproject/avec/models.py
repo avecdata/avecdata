@@ -444,3 +444,180 @@ class View_Subject_detail(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class v_emendas_autor(models.Model):
+    idecadastro  = models.IntegerField(blank=True, null=True)
+    cod_autor = models.IntegerField(primary_key=True, blank=True)
+    condicao = models.CharField(max_length=200 , null=True)
+    nome = models.CharField(max_length=200 , null=True)
+    nome_parlamentar = models.CharField(max_length=200 , null=True)
+    nome_abrev = models.CharField(max_length=100 , null=True)
+    url_foto = models.CharField(max_length=300 , null=True)
+    sexo = models.CharField(max_length=200 , null=True)
+    uf = models.CharField(max_length=200 , null=True)
+    partido = models.CharField(max_length=200 , null=True)
+    gabinete = models.CharField(max_length=200 , null=True)
+    anexo = models.CharField(max_length=200, null=True)
+    fone = models.CharField(max_length=40 , null=True)
+    email = models.CharField(max_length=100 , null=True)
+
+    def publish_v_emendas_autor(self):
+        self.save()
+
+    def __str__(self):
+        return self.nome
+
+class v_emendas_orgao(models.Model):
+    cod_orgao = models.IntegerField(primary_key=True, blank=True)
+    nom_orgao = models.CharField(max_length=150 , null=True)
+    nom_abrev_orgao = models.CharField(max_length=150 , null=True)
+    sgl_orgao = models.CharField(max_length=50 , null=True)
+    cod_poder = models.CharField(max_length=30 , null=True)
+
+    def publish_v_emendas_orgao(self):
+        self.save()
+
+    def __str__(self):
+        return self.nom_orgao
+
+class v_emendas_programa(models.Model):
+    cod_programa = models.IntegerField(primary_key=True, blank=True)
+    des_programa = models.CharField(max_length=400 , null=True)
+    txt_objetivo_programa = models.CharField(max_length=3500 , null=True)
+
+    def publish_v_emendas_programa(self):
+        self.save()
+
+    def __str__(self):
+        return self.des_programa
+
+
+class v_emendas_emendas(models.Model):
+    cod_autor = models.ForeignKey(v_emendas_autor)
+    num_emenda = models.CharField(max_length=8 , null=True)
+    cod_emenda = models.IntegerField(primary_key=True, blank=True)
+    cod_orgao = models.ForeignKey(v_emendas_orgao, db_column='cod_orgao', null=True)
+    nom_orgao = models.CharField(max_length=400 , null=True)
+    funcional = models.CharField(max_length=300 , null=True)
+    cod_programa = models.ForeignKey(v_emendas_programa, db_column='cod_programa')
+    cod_acao = models.CharField(max_length=10 , null=True)
+    cod_subtitulo = models.CharField(max_length=10 , null=True)
+    val_acrec = models.CharField(max_length=20 , null=True)
+    val_canc = models.CharField(max_length=20, null=True)
+    saldo = models.CharField(max_length=20 , null=True)
+
+    def publish_v_emendas_emendas(self):
+        self.save()
+
+    def __str__(self):
+        return self.num_emenda
+
+
+class v_emendas_proposta(models.Model):
+    id_proposta = models.IntegerField(primary_key=True)
+    uf_proponente = models.CharField(max_length=2, blank=True)
+    munic_proponente = models.CharField(max_length=200, blank=True)
+    cod_munic_ibge = models.IntegerField(null=True)
+    cod_orgao_sup = models.IntegerField(null=True)
+    desc_orgao_sup = models.CharField(max_length=500, null=True)
+    natureza_juridica = models.CharField(max_length=200, null=True)
+    nr_proposta = models.CharField(max_length=20, null=True)
+    dia_prop = models.CharField(max_length=6, null=True)
+    mes_prop = models.CharField(max_length=6, null=True)
+    ano_prop = models.CharField(max_length=6, null=True)
+    dia_proposta = models.DateTimeField(null=True)
+    cod_orgao = models.CharField(max_length=200, null=True)
+    desc_orgao = models.CharField(max_length=200, null=True)
+    modalidade = models.CharField(max_length=200, null=True)
+    identif_proponente = models.CharField(max_length=25, null=True)
+    nm_proponente = models.CharField(max_length=200, null=True)
+    cep_proponente = models.CharField(max_length=15, null=True)
+    endereco_proponente = models.CharField(max_length=500, null=True)
+    bairro_proponente = models.CharField(max_length=200, null=True)
+    nm_banco = models.CharField(max_length=100, null=True)
+    situacao_conta = models.CharField(max_length=100, null=True)
+    situacao_projeto_basico = models.CharField(max_length=250, null=True)
+    sit_proposta = models.CharField(max_length=150, null=True)
+    dia_inic_vigencia_proposta = models.DateTimeField(null=True)
+    dia_fim_vigencia_proposta = models.DateTimeField(null=True)
+    objeto_proposta =  models.CharField(max_length=8000, null=True)
+    vl_global_prop = models.CharField(max_length=30, null=True)
+    vl_repasse_prop = models.CharField(max_length=30, null=True)
+    vl_contrapartida_prop = models.CharField(max_length=30, null=True)
+
+    #subject = models.ForeignKey(View_Subject)
+
+    def publish_v_emendas_proposta(self):
+        self.save()
+
+    def __str__(self):
+        return self.nr_proposta
+
+class v_emendas_emenda_proposta(models.Model):
+    id_proposta = models.ForeignKey(v_emendas_proposta, db_column='id_proposta', null=False)
+    cod_emenda =   models.CharField(max_length=15 , null=True)
+
+    def publish_v_emendas_emenda_proposta(self):
+        self.save()
+
+    def __str__(self):
+        return self.cod_emenda
+
+class v_emendas_convenio(models.Model):
+    id_proposta = models.ForeignKey(v_emendas_proposta, db_column='id_proposta')
+    nr_convenio = models.CharField(primary_key=True, max_length=10)
+
+    def publish_v_emendas_convenio(self):
+        self.save()
+
+    def __str__(self):
+        return self.nr_convenio
+
+class v_emendas_dados_cadastrais(models.Model):
+    ano_selecao = models.CharField(max_length=20, null=True)
+    ano_contratacao = models.CharField(max_length=20, null=True)
+    exercicio_orcamentario = models.CharField(max_length=20, null=True)
+    data_assinatura = models.CharField(max_length=40, null=True)
+    data_vigencia = models.CharField(max_length=40, null=True)
+    n_convenio_siconv = models.CharField(max_length=40, null=True)
+    n_convenio_siafi = models.ForeignKey(v_emendas_convenio, db_column='n_convenio_siafi', null=True)
+    uf = models.CharField(max_length=5, null=True)
+    gidur = models.CharField(max_length=200, null=True)
+    redur = models.CharField(max_length=200, null=True)
+    operacao = models.CharField(max_length=200, null=True)
+    dv = models.CharField(max_length=200, null=True)
+    valor_contrapartida = models.CharField(max_length=20, null=True)
+    valor_repasse = models.CharField(max_length=20, null=True)
+    total_investimento = models.CharField(max_length=20, null=True)
+    valor_desembolsado = models.CharField(max_length=20, null=True)
+    prazo_execucao = models.CharField(max_length=200, null=True)
+    populacao_beneficiada = models.CharField(max_length=200, null=True)
+    gestor = models.CharField(max_length=200, null=True)
+    programa = models.CharField(max_length=200, null=True)
+    cod_modalidade = models.CharField(max_length=200, null=True)
+    modalidade = models.CharField(max_length=200, null=True)
+    cod_objetivo = models.CharField(max_length=200, null=True)
+    objetivo = models.CharField(max_length=8000, null=True)
+    objeto = models.CharField(max_length=8000, null=True)
+    convenente = models.CharField(max_length=200, null=True)
+    cnpj_convenente = models.CharField(max_length=200, null=True)
+    cod_municipio = models.CharField(max_length=200, null=True)
+    tomador = models.CharField(max_length=200, null=True)
+    municipio_beneficiado = models.CharField(max_length=200, null=True)
+    emenda_parlamentar = models.CharField(max_length=200, null=True)
+    comunidade_solidaria = models.CharField(max_length=200, null=True)
+    calamidade_publica = models.CharField(max_length=200, null=True)
+    cod_cosif = models.CharField(max_length=200, null=True)
+    cod_programa = models.CharField(max_length=200, null=True)
+    cod_situacao_contrato = models.CharField(max_length=200, null=True)
+    situacao_contrato = models.CharField(max_length=500, null=True)
+    cod_situacao_obra = models.CharField(max_length=200, null=True)
+    situacao_obra = models.CharField(max_length=800, null=True)
+    contador = models.CharField(max_length=200, null=True)
+
+    def publish_v_emendas_dados_cadastrais(self):
+        self.save()
+
+    def __str__(self):
+        return self.n_convenio_siconv

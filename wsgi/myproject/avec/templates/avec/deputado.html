@@ -1,0 +1,860 @@
+{% extends 'avec/layout_interno.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+
+    <link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.css" />
+
+    <link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-panel-layers/src/leaflet-panel-layers.css" />
+    <link rel="stylesheet" href="{% static 'data/paineis/ocdf/icons.css' %}" />
+
+
+    <script src="http://labs.easyblog.it/maps/leaflet/dist/leaflet.js"></script>
+<!--    <script src="{% static 'js/leaflet/leaflet-src.js' %}"></script>-->
+    <script src="{% static 'js/leaflet/leaflet.featuregroup.subgroup-src.js' %}"></script>
+    <script src="{% static 'js/leaflet/leaflet.markercluster-src.js' %}"></script>
+
+
+
+
+
+    <script src="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.js"></script>
+
+    <script src="http://labs.easyblog.it/maps/leaflet-panel-layers/src/leaflet-panel-layers.js"></script>
+
+
+    <script src="http://maps.google.com/maps/api/js?v=3.27&sensor=false&key=AIzaSyC42lmrMxjPPzfASOCAVfLvHDBt6rrhaQA"></script>
+    <script src="{% static 'js/leaflet-google.js' %}"></script>
+
+
+
+    <script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup-src.js"></script>
+
+
+    <!-- GEOJSON DATA -->
+    <script type="text/javascript" src="{% static 'data/paineis/ocdf/ocdf.js' %}"></script>
+    <script type="text/javascript" src="{% static 'data/paineis/ocdf/Credito.js' %}"></script>
+<!--    <script type="text/javascript" src="{% static 'data/paineis/ocdf/bar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'data/paineis/ocdf/Credito.js' %}"></script>
+    <script type="text/javascript" src="{% static 'data/paineis/ocdf/producao.js' %}"></script>
+    <script type="text/javascript" src="{% static 'data/paineis/ocdf/habitacao.js' %}"></script>
+    <script type="text/javascript" src="{% static 'data/paineis/ocdf/comercializacao.js' %}"></script>
+    <script type="text/javascript" src="{% static 'data/paineis/ocdf/trabalho.js' %}"></script>-->
+
+
+    <style>
+    .chartdiv {
+    	width		: 100%;
+    	height		: 350px;
+    	font-size	: 6px;
+      padding-right: 0px;
+      padding-left: 0px;
+      padding-top: 20px;
+    }
+
+    .row {
+      margin-left: 0px !important;
+      margin-right: 0px !important;
+    }
+    </style>
+
+    <style>
+
+#chartdiv{
+  margin-top: 0px;
+}
+
+.leaflet-panel-layers-title{
+padding: 0 0 0 0;
+}
+
+.chart-wrapper .chart-stage{
+padding: 0 0 0 0;
+}
+
+.container-fluid{
+padding-right: 0px;
+padding-left: 0px;
+
+}
+
+.leaflet-map-pane {
+    z-index: 20 !important;
+}
+
+.leaflet-google-layer {
+    z-index: 1 !important;
+}
+
+.leaflet-panel-layers-item .leaflet-panel-layers-title {
+    display: block;
+    white-space: nowrap;
+    float: none;
+    cursor: pointer;
+    text-align: right;!important
+}
+
+.span {
+    padding-right: 5px;!important
+}
+
+.leaflet-panel-layers-overlays .leaflet-panel-layers-item {
+    height: 45px;!important;
+    width: 180px;important;
+}
+
+.leaflet-panel-layers-icon {
+    width: 40px!important;
+}
+
+.leaflet-panel-layers-overlays .leaflet-panel-layers-item.active{
+	border: 2px solid #61788e!important;
+}
+
+.leaflet-panel-layers-icon{
+	padding-right:60px;
+}
+.leaflet-panel-layers.expanded .leaflet-panel-layers-overlays input {
+    display: none!important;
+}
+#map {
+    background-color:rgba(255,0,0,0.0);
+}
+.popup-title{
+ background-color : #f5f5f5;
+ height: 25px;
+}
+</style>
+
+    <script>
+
+    var iconurl = "{% static 'url' %}";
+
+    AmCharts.makeChart("chartdiv",
+      {
+        "type": "serial",
+        "categoryField": "Ano",
+        "marginRight": 19,
+        "sequencedAnimation": false,
+        "startDuration": 1,
+        "backgroundAlpha": 0.8,
+        "decimalSeparator": ",",
+        "fontFamily": "LATO",
+        "thousandsSeparator": ".",
+        "export": {
+          "enabled": true
+        },
+        "categoryAxis": {
+          "gridPosition": "start",
+          "axisThickness": 2,
+          "boldLabels": true,
+          "gridThickness": 0
+        },
+        "chartCursor": {
+          "enabled": true,
+          "categoryBalloonText": " ",
+          "cursorColor": "#8091A4"
+        },
+        "chartScrollbar": {
+          "enabled": true,
+          "oppositeAxis": false
+        },
+        "trendLines": [],
+        "graphs": [
+          {
+            "balloonText": "<span style='font-family:roboto;font-size:16px;'>[[value]]</span style></b> ",
+            "bullet": "round",
+            "fillColors": "#88D2DE",
+            "gapPeriod": 1,
+            "id": "HD",
+            "lineColor": "#3DC1D0",
+            "lineThickness": 3,
+            "title": "Turistas",
+            "type": "smoothedLine",
+            "valueField": "Passageiros pagos"
+          }
+        ],
+        "guides": [],
+        "valueAxes": [
+          {
+            "id": "ValueAxis-1",
+            "gridThickness": 0,
+            "title": " "
+          },
+          {
+            "id": "ValueAxis-2",
+            "position": "right",
+            "gridThickness": 0
+          }
+        ],
+        "allLabels": [],
+        "balloon": {
+          "borderAlpha": 0,
+          "color": "#FFFFFF",
+          "fillAlpha": 1,
+          "fillColor": "#3E4C5B",
+          "fontSize": 13,
+          "horizontalPadding": 12,
+          "verticalPadding": 6
+        },
+        "titles": [
+          {
+            "color": "#FFFFFF",
+            "id": "Title-1",
+            "text": "."
+          }
+        ],
+        "dataProvider": [
+          {
+            "Ano": "2000",
+            "Passageiros pagos": "27977330"
+          },
+          {
+            "Ano": "2001",
+            "Passageiros pagos": "31021534"
+          },
+          {
+            "Ano": "2002",
+            "Passageiros pagos": "31997445"
+          },
+          {
+            "Ano": "2003",
+            "Passageiros pagos": "29626289"
+          },
+          {
+            "Ano": "2004",
+            "Passageiros pagos": "33713427"
+          },
+          {
+            "Ano": "2005",
+            "Passageiros pagos": "38481711"
+          },
+          {
+            "Ano": "2006",
+            "Passageiros pagos": "42021367"
+          },
+          {
+            "Ano": "2007",
+            "Passageiros pagos": "45457331"
+          },
+          {
+            "Ano": "2008",
+            "Passageiros pagos": "48779410"
+          },
+          {
+            "Ano": "2009",
+            "Passageiros pagos": "56357654"
+          },
+          {
+            "Ano": "2010",
+            "Passageiros pagos": "68766042"
+          },
+          {
+            "Ano": "2011",
+            "Passageiros pagos": "79848389"
+          },
+          {
+            "Ano": "2012",
+            "Passageiros pagos": "86829508"
+          },
+          {
+            "Ano": "2013",
+            "Passageiros pagos": "89273472"
+          },
+          {
+            "Ano": "2014",
+            "Passageiros pagos": "95319657"
+          },
+          {
+            "Ano": "2015",
+            "Passageiros pagos": "96366863"
+          },
+          {
+            "Ano": "2016",
+            "Passageiros pagos": "90274118"
+          }
+        ]
+      }
+    );
+
+    AmCharts.makeChart("chartdiv4",
+      {
+        "type": "serial",
+        "categoryField": "Abrangência Geográfica:",
+        "sequencedAnimation": false,
+        "startDuration": 1,
+        "backgroundAlpha": 0.8,
+        "decimalSeparator": ",",
+        "fontFamily": "lato",
+        "thousandsSeparator": ".",
+        "export": {
+          "enabled": true
+        },
+        "categoryAxis": {
+          "gridPosition": "start",
+          "axisThickness": 3,
+          "boldLabels": true,
+          "dashLength": 3,
+          "gridThickness": 0
+        },
+        "chartCursor": {
+          "enabled": true,
+          "cursorColor": "#8091A4"
+        },
+        "trendLines": [],
+        "graphs": [
+          {
+            "balloonText": " <span style='font-family:roboto;font-size:13px;'><b> [[title]]:</b> [[value]]",
+            "fillAlphas": 1,
+            "gapPeriod": 3,
+            "id": "AmGraph-1",
+            "lineColor": "#2E9BA6",
+            "lineThickness": 3,
+            "title": "No Emendas ",
+            "type": "column",
+            "valueField": "No Emendas"
+          },
+          {
+            "balloonText": " <span style='font-family:roboto;font-size:13px;'><b> [[title]]:</b> [[value]]",
+            "bullet": "round",
+            "fillColors": "#61788E",
+            "id": "AmGraph-2",
+            "lineColor": "#61788E",
+            "lineThickness": 3,
+            "title": "Valor",
+            "valueAxis": "ValueAxis-2",
+            "valueField": "Valor"
+          }
+        ],
+        "guides": [],
+        "valueAxes": [
+          {
+            "id": "ValueAxis-1",
+            "gridThickness": 0,
+            "title": " "
+          },
+          {
+            "id": "ValueAxis-2",
+            "position": "right"
+          }
+        ],
+        "allLabels": [],
+        "balloon": {
+          "borderThickness": 0,
+          "color": "#FFFFFF",
+          "fillAlpha": 1,
+          "fillColor": "#3E4C5B",
+          "fontSize": 13,
+          "pointerWidth": 8,
+          "verticalPadding": 6
+        },
+        "legend": {
+          "enabled": true,
+          "valueText": ""
+        },
+        "titles": [],
+        "dataProvider": [
+          {
+            "Abrangência Geográfica:": "Agricultura",
+            "No Emendas": "36",
+            "Valor": "65200"
+          },
+          {
+            "Abrangência Geográfica:": "Cultura",
+            "No Emendas": "64",
+            "Valor": "590000"
+          },
+          {
+            "Abrangência Geográfica:": "Educação",
+            "No Emendas": "73",
+            "Valor": "6500000"
+          },
+          {
+            "Abrangência Geográfica:": "Ciência e Tecnologia",
+            "No Emendas": "16",
+            "Valor": "65400"
+          },
+          {
+            "Abrangência Geográfica:": "Saúde",
+            "No Emendas": "43",
+            "Valor": "687000"
+          }
+        ]
+      }
+    );
+    </script>
+
+
+
+<style>
+.avec-deputado-resume{
+    font-size: 11px;
+    text-transform: capitalize;
+}
+
+.avec-table-resume{
+    padding: 0px !important;
+    border-top: none !important;
+}
+
+.avec-monetary:before {
+   content:'R$';
+}
+</style>
+<script type="text/javascript">
+
+
+AmCharts.makeChart("chartdiv",
+  {
+    "type": "serial",
+    "categoryField": "Ano",
+    "marginRight": 0,
+    "sequencedAnimation": false,
+    "startDuration": 1,
+    "backgroundAlpha": 0.8,
+    "decimalSeparator": ",",
+    "fontFamily": "LATO",
+    "thousandsSeparator": ".",
+    "export": {
+      "enabled": true
+    },
+    "categoryAxis": {
+      "gridPosition": "start",
+      "axisThickness": 2,
+      "boldLabels": true,
+      "gridThickness": 0
+    },
+    "chartCursor": {
+      "enabled": true,
+      "categoryBalloonText": " ",
+      "cursorColor": "#8091A4"
+    },
+    "chartScrollbar": {
+      "enabled": true,
+      "oppositeAxis": false
+    },
+    "trendLines": [],
+    "graphs": [
+      {
+        "balloonText": "<span style='font-family:roboto;font-size:16px;'>[[value]]</span style></b> ",
+        "bullet": "round",
+        "fillColors": "#88D2DE",
+        "gapPeriod": 1,
+        "id": "HD",
+        "lineColor": "#3DC1D0",
+        "lineThickness": 3,
+        "title": "Turistas",
+        "type": "smoothedLine",
+        "valueField": "Passageiros pagos"
+      }
+    ],
+    "guides": [],
+    "valueAxes": [
+      {
+        "id": "ValueAxis-1",
+        "gridThickness": 0,
+        "title": " "
+      },
+      {
+        "id": "ValueAxis-2",
+        "position": "right",
+        "gridThickness": 0
+      }
+    ],
+    "allLabels": [],
+    "balloon": {
+      "borderAlpha": 0,
+      "color": "#FFFFFF",
+      "fillAlpha": 1,
+      "fillColor": "#3E4C5B",
+      "fontSize": 13,
+      "horizontalPadding": 12,
+      "verticalPadding": 6
+    },
+    "titles": [
+      {
+        "color": "#FFFFFF",
+        "id": "Title-1",
+        "text": "."
+      }
+    ],
+    "dataProvider": [
+      {
+        "Ano": "2000",
+        "Passageiros pagos": "27977330"
+      },
+      {
+        "Ano": "2001",
+        "Passageiros pagos": "31021534"
+      },
+      {
+        "Ano": "2002",
+        "Passageiros pagos": "31997445"
+      },
+      {
+        "Ano": "2003",
+        "Passageiros pagos": "29626289"
+      },
+      {
+        "Ano": "2004",
+        "Passageiros pagos": "33713427"
+      },
+      {
+        "Ano": "2005",
+        "Passageiros pagos": "38481711"
+      },
+      {
+        "Ano": "2006",
+        "Passageiros pagos": "42021367"
+      },
+      {
+        "Ano": "2007",
+        "Passageiros pagos": "45457331"
+      },
+      {
+        "Ano": "2008",
+        "Passageiros pagos": "48779410"
+      },
+      {
+        "Ano": "2009",
+        "Passageiros pagos": "56357654"
+      },
+      {
+        "Ano": "2010",
+        "Passageiros pagos": "68766042"
+      },
+      {
+        "Ano": "2011",
+        "Passageiros pagos": "79848389"
+      },
+      {
+        "Ano": "2012",
+        "Passageiros pagos": "86829508"
+      },
+      {
+        "Ano": "2013",
+        "Passageiros pagos": "89273472"
+      },
+      {
+        "Ano": "2014",
+        "Passageiros pagos": "95319657"
+      },
+      {
+        "Ano": "2015",
+        "Passageiros pagos": "96366863"
+      },
+      {
+        "Ano": "2016",
+        "Passageiros pagos": "90274118"
+      }
+    ]
+  }
+);
+</script>
+
+
+
+{% for dep in deputado %}
+    <!-- TOPIC HEADER
+    ================================================== -->
+    <div class="topic">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h3 class="avec-h3">{{dep.nome_parlamentar}}</h3>
+          </div>
+          <div class="col-sm-8">
+            <ol class="breadcrumb pull-right hidden-xs">
+              <li><a href="/">Home</a></li>
+              <li class="avec-active">Deputado</li>
+            </ol>
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
+    </div> <!-- / .topic -->
+
+    <!-- MAIN CONTENT
+    ================================================== -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-2">
+
+          <!-- Portfolio item image -->
+
+          <a href="{{ dep.url_foto }}" data-lightbox="portfolio-item__img" data-title="Portfolio Item Title">
+            <img src="{{ dep.url_foto }}" alt="..." class="img-responsive">
+          </a>
+
+
+        </div>
+        <div class="col-sm-10">
+
+          <h3 class="headline">
+            <span>Parlamentar</span>
+          </h3>
+
+            <table class="table avec-deputado-resume">
+              <tbody>
+                <tr>
+                  <td class="resume-table__header avec-table-resume ">Nome</td>
+                  <td class="avec-table-resume">
+                    <p>{{dep.nome}}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="resume-table__header avec-table-resume">Partido/UF</td>
+                  <td class="avec-table-resume">
+                    <p>{{dep.partido}}/{{dep.uf}}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="resume-table__header avec-table-resume">Gabinete</td>
+                  <td class="avec-table-resume">
+                    <p>Gabinete : {{dep.gabinete}} - Anexo: {{dep.anexo}}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="resume-table__header avec-table-resume">Contato</td>
+                  <td class="avec-table-resume">
+                    <p>Telefone : {{dep.fone}} - email: {{dep.email}}</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+      </div> <!-- / .row -->
+      <div class="row">
+
+        <h3 class="headline">
+          <span>Emendas</span>
+        </h3>
+
+        <!-- Emendas mais recentes -->
+
+        <table class="table section">
+          <tbody>
+            {% for emenda in emendas %}
+             {% if forloop.counter <= 7 %}
+              <tr>
+                <td><a href="{% url 'emenda'  cod_emenda=emenda.cod_emenda %}">{{ emenda.cod_emenda }}</a></td>
+                <td>{{ emenda.funcional }}</td>
+                <td>{{ emenda.nom_orgao }}</td>
+                <td class="avec-monetary" > {{ emenda.val_acrec }}</td>
+                <td class="avec-monetary" > {{ emenda.saldo }}</td>
+              </tr>
+              {% endif %}
+             {% endfor %}
+          </tbody>
+        </table>
+
+        <!-- Recent items -->
+        <h3 class="headline">
+          <span>Taxa de execução atual das emendas - Dados abaixos são ficticios</span>
+        </h3>
+
+        <div class="row portfolio-item__recent">
+
+          <div class="row section">
+                      <div class="col-sm-6">
+                        {% for emenda in emendas %}
+                        {% if forloop.counter <= 3 %}
+                        <div class="row">
+                          <div class="col-xs-9">
+                            <div class="progress-caption">
+                              <td><a href="{% url 'emenda'  cod_emenda=emenda.cod_emenda %}">{{ emenda.cod_emenda }} - {{ emenda.nom_orgao }}</a></td>
+                            </div>
+                          </div>
+                          <div class="col-xs-3">
+                            <div class="progress-value">
+                              80%
+                            </div>
+                          </div>
+                        </div> <!-- / .raw -->
+                        <div class="progress progress-sm progress-secondary">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                          </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+                      </div>
+                      <div class="col-sm-6">
+
+                        {% for emenda in emendas %}
+                        {% if forloop.counter >= 4 and forloop.counter <= 6 %}
+                        <div class="row">
+                          <div class="col-xs-9">
+                            <div class="progress-caption">
+                              <td><a href="{% url 'emenda'  cod_emenda=emenda.cod_emenda %}">{{ emenda.cod_emenda }} - {{ emenda.nom_orgao }}</a></td>
+                            </div>
+                          </div>
+                          <div class="col-xs-3">
+                            <div class="progress-value">
+                              40%
+                            </div>
+                          </div>
+                        </div> <!-- / .raw -->
+                        <div class="progress progress-sm progress-secondary">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                          </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+                      </div>
+                    </div>
+
+        </div> <!-- / .row -->
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="chartdiv" id="chartdiv4"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="chartdiv" id="chartdiv"></div>
+        </div>
+        <div class="col-sm-6">
+          <div class="chartdiv" id="chartdiv3" style="padding-top:60px; padding-bottom:0px; margin-top:-0px">
+        </div>
+      </div>
+      <div class="row">
+
+      </div>
+
+    </div> <!-- / .container -->
+
+
+{% endfor %}
+
+<script>
+
+  var iDiv = document.createElement('div');
+
+  var h = (300)+'px';
+
+  iDiv.id = 'map';
+  iDiv.className = 'custom-popup';
+  document.getElementById("chartdiv3").appendChild(iDiv);
+  document.getElementById("map").style.height= h;
+
+
+var map = L.map('map', {
+    //zoom: 4,
+    attributionControl: false,
+    //center: L.latLng([-12.307802,  -50.800781]),
+
+  }),
+  osmLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+
+//map.addLayer(osmLayer);
+
+map.setView([-12.307802,  -50.800781], 4);
+
+var googleLayer = new L.Google('ROADMAP');
+
+map.addLayer(googleLayer);
+
+
+var parentGroup = L.featureGroup().addTo(map)
+var	subGroup1 = L.featureGroup.subGroup(parentGroup);
+
+function iconByName(name) {
+  return '<i class="icon icon-'+name+'"></i>';
+};
+
+function featureToMarker(feature, latlng) {
+  //L.marker(latlng).addTo(subGroup1);
+  return L.marker(latlng, {
+    icon: L.divIcon({
+      className: 'marker-'+feature.properties.TIPO,
+      html: iconByName(feature.properties.TIPO),
+      url : feature.properties.TIPO + '.svg',
+                        iconUrl: iconurl,
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    })
+  }).bindPopup('<div id="quadroinformativo"><div class="popup-title"><h2 style="white-space: normal; font-size:18px;">'+feature.properties['Nomde de fantasia']+'</h2> </div>  <p >'+feature.properties.TIPO+'</p>               <table class="table table-striped">       <tbody>       <tr>         <td>Municipio</td>                  <td>'+feature.properties.Municipio+'</td>        </tr>                              <tr>         <td>Email</td>               <td>'+feature.properties['e-mail']+'</td>     </tr>       </tr>    </tbody>   </table> </div>' );
+
+};
+
+
+var baseLayers = [
+  {
+    name: "Google",
+    layer: googleLayer
+  }/*,
+  {
+    name: "OpenCycleMap",
+    layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
+  },*//*
+  {
+    name: "OpenStreetMap",
+    layer: osmLayer
+  }*/
+];
+
+var overLayers = [
+  /*{
+    active: true,
+    name: "Produção",
+    icon: iconByName('Producao'),
+    layer: L.geoJson(Producao, {pointToLayer: featureToMarker })
+  },*/
+  {
+    active: true,
+    name: "Credito",
+    icon: iconByName('Credito'),
+    layer: L.geoJson(Credito, {pointToLayer: featureToMarker })
+  }/*,
+  {
+    active: true,
+    name: "Habitação",
+    icon: iconByName('Habitacao'),
+    layer: L.geoJson(Habitacao, {pointToLayer: featureToMarker })
+  },
+  {
+    active: true,
+    name: "Serviços",
+    icon: iconByName('Comercializacao'),
+    layer: L.geoJson(Comercializacao, {pointToLayer: featureToMarker })
+  },
+  {
+    active: true,
+    name: "Trabalho",
+    icon: iconByName('Trabalho'),
+    layer: L.geoJson(Trabalho, {pointToLayer: featureToMarker })
+  }*/
+];
+
+
+var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers);
+
+map.addControl(panelLayers);
+
+
+
+</script>
+
+
+{% endblock %}
+
+  <!-- Google Tag Manager -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDBL3P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>

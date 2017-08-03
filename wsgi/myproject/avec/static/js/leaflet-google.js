@@ -11,6 +11,26 @@
       }
     ]
   },
+	{
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#737373"
+      },
+      {
+        "weight": 0.5
+      }
+    ]
+  },
+	{
+    "featureType": "administrative.country",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#ffec42"
+      }
+    ]
+  },
   {
     "elementType": "labels.icon",
     "stylers": [
@@ -184,6 +204,7 @@ L.Google = L.Class.extend({
 	// Possible types: SATELLITE, ROADMAP, HYBRID
 	initialize: function(type, options) {
 		L.Util.setOptions(this, options);
+
 
 		this._type = google.maps.MapTypeId[type || 'SATELLITE'];
 	},
