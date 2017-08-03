@@ -377,7 +377,8 @@ def client(request, client):
     return render(request, 'avec/dashboards/padrao1.html', {'view_client' : view_client ,'view_subject': view_subject, 'view_subject_detail': view_subject_detail, 'view_themes': view_themes})
 
 def padrao2(request):
-        return render(request, 'avec/dashboards/padrao2.html')
+    deputado = v_emendas_autor.objects.filter(nome_abrev=nome_abrev)
+    return render(request, 'avec/dashboards/padrao2.html', {'deputado' : deputado})
 
 def chartit(_):
     city='Brasil'
