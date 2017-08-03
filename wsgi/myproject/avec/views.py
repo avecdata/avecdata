@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -683,8 +683,120 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 
 def deputado(request, nome_abrev):
     deputado = v_emendas_autor.objects.filter(nome_abrev=nome_abrev)
-    emendas = v_emendas_emendas.objects.filter(cod_autor=deputado).order_by('num_emenda').reverse()[:5]
-    return render(request, 'avec/deputado.html', {'deputado': deputado, 'emendas' : emendas})
+    emendas = v_emendas_emendas.objects.filter(cod_autor=deputado).order_by('cod_emenda')[:5]
+    v_emendas_parlamentar_por_orgao
+    city='Brasil'
+    filtro=12
+    ds = DataPool(
+        series=[{
+            'options': {
+                'source': v_emendas_emendas.objects.filter(cod_autor=deputado).filter(nom_orgao='Ministério da Agricultura, Pecuária e Abastecimento')
+            },
+            'terms': [
+                'cod_autor',
+                'nom_orgao',
+                'val_acrec'
+            ]
+        }]
+    )
+    ds2 = DataPool(
+        series=[{
+            'options': {
+                'source': v_emendas_parlamentar_por_orgao.objects.filter(cod_autor=deputado)
+            },
+            'terms': [
+                'cod_autor',
+                'nom_orgao',
+                'num_emendas'
+            ]
+        }]
+    )
+
+
+    def monthname(month_num):
+        names = {1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
+                 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'}
+        return names[month_num]
+
+    chart_1 = Chart(
+        datasource=ds,
+        series_options=[{
+            'options': {
+                'type': 'line',
+                'stacking': False,
+                'color' : '#3dc1d0',
+            },
+            'terms': {
+                'nom_orgao' : [
+                    'val_acrec'
+                ]
+            }
+        }],
+      chart_options =
+        {'chart':{
+            #'backgroundColor': '#FFFFFF',
+        'borderWidth': 0,
+        },
+        'title': {
+            'text': 'Valor das emendas do Min. da Agricultura'},
+         'subtitle': {
+            'text': 'valor por emenda ao longo do tempo'},
+         'credits': {
+            'enabled': False},
+         'xAxis': {
+            'title': {
+                'text': 'Período'}},
+        'yAxis': {
+           'title': {
+               'text': 'Valor Acrescido'}}                
+        },
+        #x_sortf_mapf_mts=(None, country_name, False)
+        )
+
+    chart_2 = Chart(
+        datasource=ds2,
+        series_options=[{
+            'options': {
+                'type': 'bar',
+                'stacking': False,
+                'color' : '#3dc1d0',
+            },
+            'terms': {
+                'nom_orgao' : [
+                    'num_emendas'
+                ]
+            }
+        }],
+      chart_options =
+        {'chart':{
+        'backgroundColor': '#FFFFFF',
+        'borderWidth': 0,
+            },
+        'title': {
+            'text': 'Número de emendas por Orgão'
+        },
+         'subtitle': {
+            'text': 'emendas do parlamentar no período'},
+        'xAxis': {
+            'title': {
+                'text': 'Orgão'
+            },
+            'tickInterval': 1
+        },
+        'yAxis': {
+            'title': {
+                'text': 'N. de emendas'
+            },
+            'tickInterval': 1
+        },
+         'credits': {
+            'enabled': False},
+
+        },
+        x_sortf_mapf_mts=(None, None, False)
+        )
+
+    return render(request, 'avec/deputado.html', {'deputado': deputado, 'emendas' : emendas, 'chart_list': [chart_1, chart_2]})
 
 def emenda(request, cod_emenda):
     emendas = v_emendas_emendas.objects.filter(cod_emenda=cod_emenda)

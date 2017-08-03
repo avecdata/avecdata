@@ -503,7 +503,7 @@ class v_emendas_emendas(models.Model):
     cod_programa = models.ForeignKey(v_emendas_programa, db_column='cod_programa')
     cod_acao = models.CharField(max_length=10 , null=True)
     cod_subtitulo = models.CharField(max_length=10 , null=True)
-    val_acrec = models.CharField(max_length=20 , null=True)
+    val_acrec = models.DecimalField(default=0.0, max_digits=15, decimal_places=2 , null=True)
     val_canc = models.CharField(max_length=20, null=True)
     saldo = models.CharField(max_length=20 , null=True)
 
@@ -621,3 +621,14 @@ class v_emendas_dados_cadastrais(models.Model):
 
     def __str__(self):
         return self.n_convenio_siconv
+
+class v_emendas_parlamentar_por_orgao(models.Model):
+    cod_autor = models.ForeignKey(v_emendas_autor, db_column='cod_autor', null=False)
+    nom_orgao =  models.CharField(max_length = 200 ,null=True)
+    num_emendas =  models.IntegerField(null=True)
+
+    def publish_v_emendas_parlamentar_por_orgao(self):
+        self.save()
+
+    def __str__(self):
+        return self.nom_orgao
