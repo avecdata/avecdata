@@ -1,0 +1,521 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.5
+-- Dumped by pg_dump version 9.5.5
+
+-- Started on 2017-08-02 21:53:43 BRT
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 2481 (class 0 OID 43514)
+-- Dependencies: 297
+-- Data for Name: avec_v_emendas_autor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY avec_v_emendas_autor (cod_autor, gabinete, condicao, partido, nome_parlamentar, nome, anexo, sexo, email, fone, idecadastro, uf, url_foto, nome_abrev) FROM stdin;
+2769	608	Titular	SD	ZÉ SILVA	ZÉ SILVA SOARES	4	masculino	dep.zesilva@camara.gov.br	3215-5608	160632	MG	http://www.camara.gov.br/internet/deputado/bandep/160632.jpg	ze-silva
+3283	533	Titular	PSD	GOULART	ANTONIO GOULART DOS REIS	4	masculino	dep.goulart@camara.gov.br	3215-5533	178980	SP	http://www.camara.gov.br/internet/deputado/bandep/178980.jpg	goulart
+2152	723	Titular	PT	BETO FARO	uJOS\\xc9 ROBERTO OLIVEIRA FARO	4	masculino	dep.betofaro@camara.gov.br	3215-5723	141335	PA	http://www.camara.gov.br/internet/deputado/bandep/141335.jpg	beto-faro
+2488	701	Titular	PSDB	RODRIGO DE CASTRO	RODRIGO BATISTA DE CASTRO	4	masculino	dep.rodrigodecastro@camara.gov.br	3215-5701	141531	MG	http://www.camara.gov.br/internet/deputado/bandep/141531.jpg	rodrigo-de-castro
+2551	340	Titular	PR	LAERTE BESSA	LAERTE RODRIGUES DE BESSA	4	masculino	dep.laertebessa@camara.gov.br	3215-5340	141478	DF	http://www.camara.gov.br/internet/deputado/bandep/141478.jpg	laerte-bessa
+3712	279	Titular	SD	MAJOR OLIMPIO	SERGIO OLIMPIO GOMES	3	masculino	dep.majorolimpio@camara.gov.br	3215-5279	178826	SP	http://www.camara.gov.br/internet/deputado/bandep/178826.jpg	major-olimpio
+2762	632	Titular	PTdoB	uLUIS TIB\\xc9	LUIS HENRIQUE DE OLIVEIRA RESENDE	4	masculino	dep.luistibe@camara.gov.br	3215-5632	160510	MG	http://www.camara.gov.br/internet/deputado/bandep/160510.jpg	uluis-tib\\xc9
+3041	480	Titular	REDE	ALIEL MACHADO	ALIEL MACHADO BARK	3	masculino	dep.alielmachado@camara.gov.br	3215-5480	178927	PR	http://www.camara.gov.br/internet/deputado/bandep/178927.jpg	aliel-machado
+3228	716	Titular	PSOL	IVAN VALENTE	IVAN VALENTE	4	masculino	dep.ivanvalente@camara.gov.br	3215-5716	73531	SP	http://www.camara.gov.br/internet/deputado/bandep/73531.jpg	ivan-valente
+3672	406	Titular	PMDB	PEDRO CHAVES	PEDRO PINHEIRO CHAVES	4	masculino	dep.pedrochaves@camara.gov.br	3215-5406	74812	GO	http://www.camara.gov.br/internet/deputado/bandep/74812.jpg	pedro-chaves
+2705	909	Titular	PT	ASSIS CARVALHO	uFRANCISCO DE ASSIS CARVALHO GON\\xc7ALVES	4	masculino	dep.assiscarvalho@camara.gov.br	3215-5909	159237	PI	http://www.camara.gov.br/internet/deputado/bandep/159237.jpg	assis-carvalho
+3053	269	Titular	PSDB	BETINHO GOMES	HEBERTE LAMARCK GOMES DA SILVA	3	masculino	dep.betinhogomes@camara.gov.br	3215-5269	178915	PE	http://www.camara.gov.br/internet/deputado/bandep/178915.jpg	betinho-gomes
+3068	222	Titular	PODE	CARLOS HENRIQUE GAGUIM	CARLOS HENRIQUE AMORIM	4	masculino	dep.carloshenriquegaguim@camara.gov.br	3215-5222	178993	TO	http://www.camara.gov.br/internet/deputado/bandep/178993.jpg	carlos-henrique-gaguim
+3707	636	Titular	PODE	LUIZ CARLOS RAMOS 	LUIZ CARLOS RAMOS	4	masculino	dep.luizcarlosramos@camara.gov.br	3215-5636	178802	RJ	http://www.camara.gov.br/internet/deputado/bandep/178802.jpg	luiz-carlos-ramos
+3695	950	Titular	PMDB	JOSI NUNES	JOSINIANE BRAGA NUNES	4	feminino	dep.josinunes@camara.gov.br	3215-5950	114941	TO	http://www.camara.gov.br/internet/deputado/bandep/114941.jpg	josi-nunes
+2399	818	Titular	PSL	ALFREDO KAEFER	JACOB ALFREDO STOFFELS KAEFER	4	masculino	dep.alfredokaefer@camara.gov.br	3215-5818	141454	PR	http://www.camara.gov.br/internet/deputado/bandep/141454.jpg	alfredo-kaefer
+2538	241	Titular	PSDB	RICARDO TRIPOLI	uJOS\\xc9 RICARDO ALVARENGA TRIPOLI	4	masculino	dep.ricardotripoli@camara.gov.br	3215-5241	141472	SP	http://www.camara.gov.br/internet/deputado/bandep/141472.jpg	ricardo-tripoli
+2448	528	Titular	DEM	FELIPE MAIA	uFELIPE CATAL\\xc3O MAIA	4	masculino	dep.felipemaia@camara.gov.br	3215-5528	141429	RN	http://www.camara.gov.br/internet/deputado/bandep/141429.jpg	felipe-maia
+2844	233	Titular	PSB	LEOPOLDO MEYER	LEOPOLDO COSTA MEYER	4	masculino	dep.leopoldomeyer@camara.gov.br	3215-5233	160663	PR	http://www.camara.gov.br/internet/deputado/bandep/160663.jpg	leopoldo-meyer
+3726	827	Titular	PSB	MARINALDO ROSENDO	MARINALDO ROSENDO DE ALBUQUERQUE	4	masculino	dep.marinaldorosendo@camara.gov.br	3215-5827	178919	PE	http://www.camara.gov.br/internet/deputado/bandep/178919.jpg	marinaldo-rosendo
+1818	920	Titular	PTB	NELSON MARQUEZELLI	NELSON MARQUEZELLI	4	masculino	dep.nelsonmarquezelli@camara.gov.br	3215-5920	73553	SP	http://www.camara.gov.br/internet/deputado/bandep/73553.jpg	nelson-marquezelli
+2756	345	Titular	PSDB	uDOMINGOS S\\xc1VIO	uDOMINGOS S\\xc1VIO CAMPOS RESENDE	4	masculino	dep.domingossavio@camara.gov.br	3215-5345	160758	MG	http://www.camara.gov.br/internet/deputado/bandep/160758.jpg	udomingos-s\\xc1vio
+3743	444	Titular	PSD	RAQUEL MUNIZ	TANIA RAQUEL DE QUEIROZ MUNIZ	4	feminino	dep.raquelmuniz@camara.gov.br	3215-5444	178998	MG	http://www.camara.gov.br/internet/deputado/bandep/178998.jpg	raquel-muniz
+3101	278	Titular	PSB	FABIO GARCIA	FABIO PAULINO GARCIA	3	masculino	dep.fabiogarcia@camara.gov.br	3215-5278	178905	MT	http://www.camara.gov.br/internet/deputado/bandep/178905.jpg	fabio-garcia
+3775	817	Titular	PR	uVICENTINHO J\\xdaNIOR	VICENTE ALVES DE OLIVEIRA JUNIOR	4	masculino	dep.vicentinhojunior@camara.gov.br	3215-5817	137070	TO	http://www.camara.gov.br/internet/deputado/bandep/137070.jpg	uvicentinho-j\\xdanior
+3046	945	Titular	PP	uANDR\\xc9 FUFUCA	ANDRE LUIZ CARVALHO RIBEIRO	4	masculino	dep.andrefufuca@camara.gov.br	3215-5945	178882	MA	http://www.camara.gov.br/internet/deputado/bandep/178882.jpg	uandr\\xc9-fufuca
+3703	619	Titular	PT	LEO DE BRITO	LEONARDO CUNHA DE BRITO	4	masculino	dep.leodebrito@camara.gov.br	3215-5619	178825	AC	http://www.camara.gov.br/internet/deputado/bandep/178825.jpg	leo-de-brito
+2835	941	Titular	PSD	THIAGO PEIXOTO	THIAGO MELLO PEIXOTO DA SILVEIRA	4	masculino	dep.thiagopeixoto@camara.gov.br	3215-5941	160617	GO	http://www.camara.gov.br/internet/deputado/bandep/160617.jpg	thiago-peixoto
+2711	735	Titular	PP	AGUINALDO RIBEIRO	AGUINALDO VELLOSO BORGES RIBEIRO	4	masculino	dep.aguinaldoribeiro@camara.gov.br	3215-5735	160527	PB	http://www.camara.gov.br/internet/deputado/bandep/160527.jpg	aguinaldo-ribeiro
+3095	303	Titular	PSD	EVANDRO ROMAN	EVANDRO ROGERIO ROMAN	4	masculino	dep.evandroroman@camara.gov.br	3215-5303	178930	PR	http://www.camara.gov.br/internet/deputado/bandep/178930.jpg	evandro-roman
+2570	218	Titular	PT	uD\\xc9CIO LIMA	uD\\xc9CIO NERY DE LIMA	4	masculino	dep.deciolima@camara.gov.br	3215-5218	141413	SC	http://www.camara.gov.br/internet/deputado/bandep/141413.jpg	ud\\xc9cio-lima
+2871	305	Titular	PT	AFONSO FLORENCE	AFONSO BANDEIRA FLORENCE	4	masculino	dep.afonsoflorence@camara.gov.br	3215-5305	160508	BA	http://www.camara.gov.br/internet/deputado/bandep/160508.jpg	afonso-florence
+3756	438	Titular	PRB	ROSANGELA GOMES	ROSANGELA DE SOUZA GOMES	4	feminino	dep.rosangelagomes@camara.gov.br	3215-5438	178945	RJ	http://www.camara.gov.br/internet/deputado/bandep/178945.jpg	rosangela-gomes
+2569	311	Titular	PMDB	CELSO MALDANER	CELSO MALDANER	4	masculino	dep.celsomaldaner@camara.gov.br	3215-5311	141405	SC	http://www.camara.gov.br/internet/deputado/bandep/141405.jpg	celso-maldaner
+3446	360	Titular	PP	MARCUS VICENTE	uMARCUS ANT\\xd4NIO VICENTE	4	masculino	dep.marcusvicente@camara.gov.br	3215-5360	74235	ES	http://www.camara.gov.br/internet/deputado/bandep/74235.jpg	marcus-vicente
+3034	937	Titular	PR	ADELSON BARRETO	ADELSON BARRETO DOS SANTOS	4	masculino	dep.adelsonbarreto@camara.gov.br	3215-5937	178968	SE	http://www.camara.gov.br/internet/deputado/bandep/178968.jpg	adelson-barreto
+2517	356	Titular	PRB	VINICIUS CARVALHO	VINICIUS RAPOZO DE CARVALHO	4	masculino	dep.viniciuscarvalho@camara.gov.br	3215-5356	141555	SP	http://www.camara.gov.br/internet/deputado/bandep/141555.jpg	vinicius-carvalho
+3257	383	Titular	PSDB	GIUSEPPE VECCI	GIUSEPPE VECCI	3	masculino	dep.giuseppevecci@camara.gov.br	3215-5383	178878	GO	http://www.camara.gov.br/internet/deputado/bandep/178878.jpg	giuseppe-vecci
+2784	646	Titular	PSOL	JEAN WYLLYS	JEAN WYLLYS DE MATOS SANTOS	4	masculino	dep.jeanwyllys@camara.gov.br	3215-5646	160672	RJ	http://www.camara.gov.br/internet/deputado/bandep/160672.jpg	jean-wyllys
+2470	733	Titular	PP	ROBERTO BRITTO	ROBERTO PEREIRA DE BRITTO	4	masculino	dep.robertobritto@camara.gov.br	3215-5733	141529	BA	http://www.camara.gov.br/internet/deputado/bandep/141529.jpg	roberto-britto
+2789	437	Titular	PMDB	SERGIO ZVEITER	SERGIO ZVEITER	4	masculino	dep.sergiozveiter@camara.gov.br	3215-5437	160612	RJ	http://www.camara.gov.br/internet/deputado/bandep/160612.jpg	sergio-zveiter
+3779	435	Titular	PMDB	WALTER ALVES	WALTER PEREIRA ALVES	4	masculino	dep.walteralves@camara.gov.br	3215-5435	178952	RN	http://www.camara.gov.br/internet/deputado/bandep/178952.jpg	walter-alves
+3042	578	Titular	PMDB	uALTINEU C\\xd4RTES	uALTINEU C\\xd4RTES FREITAS COUTINHO	3	masculino	dep.altineucortes@camara.gov.br	3215-5578	178937	RJ	http://www.camara.gov.br/internet/deputado/bandep/178937.jpg	ualtineu-c\\xd4rtes
+3691	605	Titular	PT	uJO\\xc3O DANIEL	JOAO SOMARIVA DANIEL	4	masculino	dep.joaodaniel@camara.gov.br	3215-5605	178970	SE	http://www.camara.gov.br/internet/deputado/bandep/178970.jpg	ujo\\xc3o-daniel
+3693	807	Titular	PRB	JONY MARCOS	JONY MARCOS DE SOUZA ARAUJO	4	masculino	dep.jonymarcos@camara.gov.br	3215-5807	178971	SE	http://www.camara.gov.br/internet/deputado/bandep/178971.jpg	jony-marcos
+2867	569	Titular	PT	MARCON	DIONILSO MATEUS MARCON	3	masculino	dep.marcon@camara.gov.br	3215-5569	160535	RS	http://www.camara.gov.br/internet/deputado/bandep/160535.jpg	marcon
+3176	746	Titular	PP	DILCEU SPERAFICO	uDILCEU JO\\xc3O SPERAFICO	4	masculino	dep.dilceusperafico@camara.gov.br	3215-5746	73768	PR	http://www.camara.gov.br/internet/deputado/bandep/73768.jpg	dilceu-sperafico
+3097	658	Titular	PP	EZEQUIEL FONSECA	EZEQUIEL ANGELO FONSECA	4	masculino	dep.ezequielfonseca@camara.gov.br	3215-5658	178904	MT	http://www.camara.gov.br/internet/deputado/bandep/178904.jpg	ezequiel-fonseca
+1970	910	Titular	PSC	TAKAYAMA	HIDEKAZU TAKAYAMA	4	masculino	dep.takayama@camara.gov.br	3215-5910	74385	PR	http://www.camara.gov.br/internet/deputado/bandep/74385.jpg	takayama
+2519	327	Titular	PRB	uANTONIO BULH\\xd5ES	uANTONIO CARLOS MARTINS DE BULH\\xd5ES	4	masculino	dep.antoniobulhoes@camara.gov.br	3215-5327	141383	SP	http://www.camara.gov.br/internet/deputado/bandep/141383.jpg	uantonio-bulh\\xd5es
+1997	740	Titular	PT	VICENTINHO	VICENTE PAULO DA SILVA	4	masculino	dep.vicentinho@camara.gov.br	3215-5740	74283	SP	http://www.camara.gov.br/internet/deputado/bandep/74283.jpg	vicentinho
+1479	215	Titular	SD	AUGUSTO CARVALHO	AUGUSTO SILVEIRA DE CARVALHO	4	masculino	dep.augustocarvalho@camara.gov.br	3215-5215	73655	DF	http://www.camara.gov.br/internet/deputado/bandep/73655.jpg	augusto-carvalho
+3721	375	Titular	PPS	uMARCOS ABR\\xc3O	MARCOS ABRAO RORIZ SOARES DE CARVALHO	3	masculino	dep.marcosabrao@camara.gov.br	3215-5375	178880	GO	http://www.camara.gov.br/internet/deputado/bandep/178880.jpg	umarcos-abr\\xc3o
+2676	852	Titular	PR	VINICIUS GURGEL	VINICIUS DE AZEVEDO GURGEL	4	masculino	dep.viniciusgurgel@camara.gov.br	3215-5852	160591	AP	http://www.camara.gov.br/internet/deputado/bandep/160591.jpg	vinicius-gurgel
+3061	320	Titular	PP	uCAC\\xc1 LE\\xc3O	uCARLOS FELIPE VAZQUEZ DE SOUZA LE\\xc3O	4	masculino	dep.cacaleao@camara.gov.br	3215-5320	93083	BA	http://www.camara.gov.br/internet/deputado/bandep/93083.jpg	ucac\\xc1-le\\xc3o
+3235	606	Titular	PSDB	uGEOVANIA DE S\\xc1	GEOVANIA DE SA RODRIGUES	4	feminino	dep.geovaniadesa@camara.gov.br	3215-5606	178966	SC	http://www.camara.gov.br/internet/deputado/bandep/178966.jpg	ugeovania-de-s\\xc1
+2429	478	Titular	PP	uL\\xc1ZARO BOTELHO	uL\\xc1ZARO BOTELHO MARTINS	3	masculino	dep.lazarobotelho@camara.gov.br	3215-5478	141480	TO	http://www.camara.gov.br/internet/deputado/bandep/141480.jpg	ul\\xc1zaro-botelho
+2739	830	Titular	PPS	ARTHUR OLIVEIRA MAIA	ARTHUR DE OLIVEIRA MAIA DA SILVA	4	masculino	dep.arthuroliveiramaia@camara.gov.br	3215-5830	160600	BA	http://www.camara.gov.br/internet/deputado/bandep/160600.jpg	arthur-oliveira-maia
+3762	812	Titular	PDT	SERGIO VIDIGAL	ANTONIO SERGIO ALVES VIDIGAL	4	masculino	dep.sergiovidigal@camara.gov.br	3215-5812	178874	ES	http://www.camara.gov.br/internet/deputado/bandep/178874.jpg	sergio-vidigal
+3780	607	Titular	PSDB	ROCHA	WHERLES FERNANDES DA ROCHA	4	masculino	dep.rocha@camara.gov.br	3215-5607	178840	AC	http://www.camara.gov.br/internet/deputado/bandep/178840.jpg	rocha
+3186	540	Titular	PSDB	EDUARDO BARBOSA	EDUARDO LUIZ BARROS BARBOSA	4	masculino	dep.eduardobarbosa@camara.gov.br	3215-1540	74655	MG	http://www.camara.gov.br/internet/deputado/bandep/74655.jpg	eduardo-barbosa
+1581	346	Titular	PSD	JEFFERSON CAMPOS	JEFFERSON ALVES DE CAMPOS	4	masculino	dep.jeffersoncampos@camara.gov.br	3215-5346	74273	SP	http://www.camara.gov.br/internet/deputado/bandep/74273.jpg	jefferson-campos
+2831	223	Titular	PROS	RONALDO FONSECA	RONALDO FONSECA DE SOUZA	4	masculino	dep.ronaldofonseca@camara.gov.br	3215-5223	160637	DF	http://www.camara.gov.br/internet/deputado/bandep/160637.jpg	ronaldo-fonseca
+2700	384	Titular	PSB	DANILO FORTE	FRANCISCO DANILO BASTOS FORTE	3	masculino	dep.daniloforte@camara.gov.br	3215-5384	62881	CE	http://www.camara.gov.br/internet/deputado/bandep/62881.jpg	danilo-forte
+3020	711	Titular	PDT	AFONSO MOTTA	AFONSO ANTUNES DA MOTTA	4	masculino	dep.afonsomotta@camara.gov.br	3215-5711	178835	RS	http://www.camara.gov.br/internet/deputado/bandep/178835.jpg	afonso-motta
+2751	954	Titular	PT	WALDENOR PEREIRA	WALDENOR ALVES PEREIRA FILHO	4	masculino	dep.waldenorpereira@camara.gov.br	3215-5954	160569	BA	http://www.camara.gov.br/internet/deputado/bandep/160569.jpg	waldenor-pereira
+1619	730	Titular	PSD	u\\xc1TILA LINS	u\\xc1TILA SIDNEY LINS ALBUQUERQUE	4	masculino	dep.atilalins@camara.gov.br	3215-5730	74090	AM	http://www.camara.gov.br/internet/deputado/bandep/74090.jpg	u\\xc1tila-lins
+3745	641	Titular	PR	uREM\\xcdDIO MONAI	REMIDIO MONAI MONTESSI	4	masculino	dep.remidiomonai@camara.gov.br	3215-5641	178960	RR	http://www.camara.gov.br/internet/deputado/bandep/178960.jpg	urem\\xcddio-monai
+2797	836	Titular	PSDB	BRUNA FURLAN	BRUNA DIAS FURLAN	4	feminino	dep.brunafurlan@camara.gov.br	3215-5836	160589	SP	http://www.camara.gov.br/internet/deputado/bandep/160589.jpg	bruna-furlan
+3755	572	Titular	PP	uR\\xd4NEY NEMER	uR\\xd4NEY TANIOS NEMER	3	masculino	dep.roneynemer@camara.gov.br	3215-5572	178870	DF	http://www.camara.gov.br/internet/deputado/bandep/178870.jpg	ur\\xd4ney-nemer
+3066	758	Titular	PHS	CARLOS ANDRADE	CARLOS AUGUSTO ANDRADE SILVA	4	masculino	dep.carlosandrade@camara.gov.br	3215-5758	178958	RR	http://www.camara.gov.br/internet/deputado/bandep/178958.jpg	carlos-andrade
+2812	254	Titular	PSC	PR. MARCO FELICIANO	uMARCO ANT\\xd4NIO FELICIANO	4	masculino	dep.pr.marcofeliciano@camara.gov.br	3215-5254	160601	SP	http://www.camara.gov.br/internet/deputado/bandep/160601.jpg	pr.-marco-feliciano
+3071	475	Titular	PMDB	CELSO PANSERA	CELSO PANSERA	3	masculino	dep.celsopansera@camara.gov.br	3215-5475	72912	RJ	http://www.camara.gov.br/internet/deputado/bandep/72912.jpg	celso-pansera
+1408	720	Titular	PT	PATRUS ANANIAS	PATRUS ANANIAS DE SOUSA	4	masculino	dep.patrusananias@camara.gov.br	3215-5720	74160	MG	http://www.camara.gov.br/internet/deputado/bandep/74160.jpg	patrus-ananias
+1246	944	Titular	PSD	uJ\\xdaLIO CESAR	uJ\\xdaLIO C\\xc9SAR DE CARVALHO LIMA	4	masculino	dep.juliocesar@camara.gov.br	3215-5944	74317	PI	http://www.camara.gov.br/internet/deputado/bandep/74317.jpg	uj\\xdalio-cesar
+2815	634	Titular	PP	RICARDO IZAR	RICARDO IZAR JUNIOR	4	masculino	dep.ricardoizar@camara.gov.br	3215-5634	160655	SP	http://www.camara.gov.br/internet/deputado/bandep/160655.jpg	ricardo-izar
+3767	820	Titular	PSB	TADEU ALENCAR	FRANCISCO TADEU BARBOSA DE ALENCAR	4	masculino	dep.tadeualencar@camara.gov.br	3215-5820	178922	PE	http://www.camara.gov.br/internet/deputado/bandep/178922.jpg	tadeu-alencar
+3692	339	Titular	PSD	JOAQUIM PASSARINHO	JOAQUIM PASSARINHO PINTO DE SOUZA PORTO	4	masculino	dep.joaquimpassarinho@camara.gov.br	3215-5339	178910	PA	http://www.camara.gov.br/internet/deputado/bandep/178910.jpg	joaquim-passarinho
+1403	922	Titular	PT	LEONARDO MONTEIRO	uJOS\\xc9 LEONARDO COSTA MONTEIRO	4	masculino	dep.leonardomonteiro@camara.gov.br	3215-5922	74156	MG	http://www.camara.gov.br/internet/deputado/bandep/74156.jpg	leonardo-monteiro
+2690	422	Titular	PRB	uC\\xc9SAR HALUM	CESAR HANNA HALUM	4	masculino	dep.cesarhalum@camara.gov.br	3215-5422	160576	TO	http://www.camara.gov.br/internet/deputado/bandep/160576.jpg	uc\\xc9sar-halum
+3043	931	Titular	PODE	ALUISIO MENDES	ALUISIO GUIMARAES MENDES FILHO	4	masculino	dep.aluisiomendes@camara.gov.br	3215-5931	178881	MA	http://www.camara.gov.br/internet/deputado/bandep/178881.jpg	aluisio-mendes
+1478	219	Titular	PP	ROBERTO BALESTRA	uROBERTO EG\\xcdDIO BALESTRA	4	masculino	dep.robertobalestra@camara.gov.br	3215-5219	73674	GO	http://www.camara.gov.br/internet/deputado/bandep/73674.jpg	roberto-balestra
+2841	962	Titular	PSD	EDMAR ARRUDA	EDMAR DE SOUZA ARRUDA	4	masculino	dep.edmararruda@camara.gov.br	3215-5962	160578	PR	http://www.camara.gov.br/internet/deputado/bandep/160578.jpg	edmar-arruda
+1124	410	Titular	PSB	MARIA HELENA	MARIA HELENA VERONESE RODRIGUES	4	feminino	dep.mariahelena@camara.gov.br	3215-5410	64960	RR	http://www.camara.gov.br/internet/deputado/bandep/64960.jpg	maria-helena
+2449	744	Titular	DEM	EFRAIM FILHO	uEFRAIM DE ARA\\xdaJO MORAIS FILHO	4	masculino	dep.efraimfilho@camara.gov.br	3215-5744	141422	PB	http://www.camara.gov.br/internet/deputado/bandep/141422.jpg	efraim-filho
+3079	434	Titular	PSL	uD\\xc2MINA PEREIRA	DAMINA DE CARVALHO PEREIRA	4	feminino	dep.daminapereira@camara.gov.br	3215-5434	178892	MG	http://www.camara.gov.br/internet/deputado/bandep/178892.jpg	ud\\xc2mina-pereira
+1527	207	Titular	PSDB	CARLOS SAMPAIO	CARLOS HENRIQUE FOCESI SAMPAIO	4	masculino	dep.carlossampaio@camara.gov.br	3215-5207	74262	SP	http://www.camara.gov.br/internet/deputado/bandep/74262.jpg	carlos-sampaio
+1955	315	Titular	PRB	uJO\\xc3O CAMPOS	uJO\\xc3O CAMPOS DE ARA\\xdaJO	4	masculino	dep.joaocampos@camara.gov.br	3215-5315	74366	GO	http://www.camara.gov.br/internet/deputado/bandep/74366.jpg	ujo\\xc3o-campos
+2608	629	Titular	SD	LAERCIO OLIVEIRA	uLAERCIO JOS\\xc9 DE OLIVEIRA	4	masculino	dep.laerciooliveira@camara.gov.br	3215-5629	151208	SE	http://www.camara.gov.br/internet/deputado/bandep/151208.jpg	laercio-oliveira
+3058	803	Titular	PTdoB	CABO DACIOLO	BENEVENUTO DACIOLO FONSECA DOS SANTOS	4	masculino	dep.cabodaciolo@camara.gov.br	3215-5803	178938	RJ	http://www.camara.gov.br/internet/deputado/bandep/178938.jpg	cabo-daciolo
+3477	407	Titular	PSDB	JUTAHY JUNIOR	uJUTAHY MAGALH\\xc3ES J\\xdaNIOR	4	masculino	dep.jutahyjunior@camara.gov.br	3215-5407	74570	BA	http://www.camara.gov.br/internet/deputado/bandep/74570.jpg	jutahy-junior
+1867	220	Titular	PSDB	LUIZ CARLOS HAULY	LUIZ CARLOS JORGE HAULY	4	masculino	dep.luizcarloshauly@camara.gov.br	3215-5220	73778	PR	http://www.camara.gov.br/internet/deputado/bandep/73778.jpg	luiz-carlos-hauly
+2760	821	Titular	PT	uGABRIEL GUIMAR\\xc3ES	uGABRIEL GUIMAR\\xc3ES DE ANDRADE	4	masculino	dep.gabrielguimaraes@camara.gov.br	3215-5821	129037	MG	http://www.camara.gov.br/internet/deputado/bandep/129037.jpg	ugabriel-guimar\\xc3es
+3339	403	Titular	DEM	uH\\xc9LIO LEITE	HELIO LEITE DA SILVA	4	masculino	dep.helioleite@camara.gov.br	3215-5403	178909	PA	http://www.camara.gov.br/internet/deputado/bandep/178909.jpg	uh\\xc9lio-leite
+3074	760	Titular	PMDB	uC\\xcdCERO ALMEIDA	uJOS\\xc9 C\\xcdCERO SOARES DE ALMEIDA	4	masculino	dep.ciceroalmeida@camara.gov.br	3215-5760	178841	AL	http://www.camara.gov.br/internet/deputado/bandep/178841.jpg	uc\\xcdcero-almeida
+3051	381	Titular	PODE	BACELAR	JOAO CARLOS BACELAR BATISTA	3	masculino	dep.bacelar@camara.gov.br	3215-5381	69871	BA	http://www.camara.gov.br/internet/deputado/bandep/69871.jpg	bacelar
+2778	212	Titular	SD	AUREO	AUREO LIDIO MOREIRA RIBEIRO	4	masculino	dep.aureo@camara.gov.br	3215-5212	160512	RJ	http://www.camara.gov.br/internet/deputado/bandep/160512.jpg	aureo
+2975	236	Titular	PT	uMARGARIDA SALOM\\xc3O	uMARIA MARGARIDA MARTINS SALOM\\xc3O	4	feminino	dep.margaridasalomao@camara.gov.br	3215-5236	171619	MG	http://www.camara.gov.br/internet/deputado/bandep/171619.jpg	umargarida-salom\\xc3o
+2435	5	Titular	PP	uWALDIR MARANH\\xc3O	uWALDIR MARANH\\xc3O CARDOSO	1	masculino	dep.waldirmaranhao@camara.gov.br	3215-5975	141558	MA	http://www.camara.gov.br/internet/deputado/bandep/141558.jpg	uwaldir-maranh\\xc3o
+3711	214	Titular	PP	MACEDO	JOSE MARIA MACEDO JUNIOR	4	masculino	dep.macedo@camara.gov.br	3215-5214	178867	CE	http://www.camara.gov.br/internet/deputado/bandep/178867.jpg	macedo
+3398	272	Titular	PDT	uHISSA ABRAH\\xc3O	HISSA NAGIB ABRAHAO FILHO	3	masculino	dep.hissaabrahao@camara.gov.br	3215-5272	178849	AM	http://www.camara.gov.br/internet/deputado/bandep/178849.jpg	uhissa-abrah\\xc3o
+3038	441	Titular	PODE	ALEXANDRE BALDY	"ALEXANDRE BALDY DE SANTANNA BRAGA",	4	masculino	dep.alexandrebaldy@camara.gov.br	3215-5441	178875	GO	http://www.camara.gov.br/internet/deputado/bandep/178875.jpg	alexandre-baldy
+3035	374	Titular	PSB	ADILTON SACHETTI	ADILTON DOMINGOS SACHETTI	3	masculino	dep.adiltonsachetti@camara.gov.br	3215-5374	178903	MT	http://www.camara.gov.br/internet/deputado/bandep/178903.jpg	adilton-sachetti
+2927	645	Titular	PR	DELEGADO WALDIR	WALDIR SOARES DE OLIVEIRA	4	masculino	dep.delegadowaldir@camara.gov.br	3215-5645	164359	GO	http://www.camara.gov.br/internet/deputado/bandep/164359.jpg	delegado-waldir
+3080	813	Titular	PSDB	DANIEL COELHO	DANIEL PIRES COELHO	4	masculino	dep.danielcoelho@camara.gov.br	3215-5813	178916	PE	http://www.camara.gov.br/internet/deputado/bandep/178916.jpg	daniel-coelho
+2637	401	Titular	PR	ALFREDO NASCIMENTO	ALFREDO PEREIRA DO NASCIMENTO	4	masculino	dep.alfredonascimento@camara.gov.br	3215-5401	178846	AM	http://www.camara.gov.br/internet/deputado/bandep/178846.jpg	alfredo-nascimento
+2547	815	Titular	PMDB	CARLOS BEZERRA	CARLOS GOMES BEZERRA	4	masculino	dep.carlosbezerra@camara.gov.br	3215-5815	141401	MT	http://www.camara.gov.br/internet/deputado/bandep/141401.jpg	carlos-bezerra
+3650	845	Titular	PMDB	OSMAR SERRAGLIO	uOSMAR JOS\\xc9 SERRAGLIO	4	masculino	dep.osmarserraglio@camara.gov.br	3215-5845	73463	PR	http://www.camara.gov.br/internet/deputado/bandep/73463.jpg	osmar-serraglio
+2384	925	Titular	PMDB	MAURO MARIANI	MAURO MARIANI	4	masculino	dep.mauromariani@camara.gov.br	3215-5925	141507	SC	http://www.camara.gov.br/internet/deputado/bandep/141507.jpg	mauro-mariani
+3040	587	Titular	PR	ALEXANDRE VALLE	ALEXANDRE VALLE CARDOSO	3	masculino	dep.alexandrevalle@camara.gov.br	3215-5587	178936	RJ	http://www.camara.gov.br/internet/deputado/bandep/178936.jpg	alexandre-valle
+2170	654	Titular	PDT	DAGOBERTO NOGUEIRA	DAGOBERTO NOGUEIRA FILHO	4	masculino	dep.dagobertonogueira@camara.gov.br	3215-5654	141411	MS	http://www.camara.gov.br/internet/deputado/bandep/141411.jpg	dagoberto-nogueira
+3037	245	Titular	PPS	ALEX MANENTE	ALEX SPINELLI MANENTE	4	masculino	dep.alexmanente@camara.gov.br	3215-5245	178972	SP	http://www.camara.gov.br/internet/deputado/bandep/178972.jpg	alex-manente
+1718	854	Titular	DEM	uJOS\\xc9 CARLOS ALELUIA	uJOS\\xc9 CARLOS ALELUIA COSTA	4	masculino	dep.josecarlosaleluia@camara.gov.br	3215-5854	74553	BA	http://www.camara.gov.br/internet/deputado/bandep/74553.jpg	ujos\\xc9-carlos-aleluia
+2077	28	Titular	PT	MARCO MAIA	uMARCO AUR\\xc9LIO SPALL MAIA	1	masculino	dep.marcomaia@camara.gov.br	3215-5964	133373	RS	http://www.camara.gov.br/internet/deputado/bandep/133373.jpg	marco-maia
+1960	501	Titular	PT	RUBENS OTONI	RUBENS OTONI GOMIDE	4	masculino	dep.rubensotoni@camara.gov.br	3215-5501	74371	GO	http://www.camara.gov.br/internet/deputado/bandep/74371.jpg	rubens-otoni
+3070	565	Titular	PSDB	uC\\xc9LIO SILVEIRA	CELIO ANTONIO DA SILVEIRA	3	masculino	dep.celiosilveira@camara.gov.br	3215-5565	178876	GO	http://www.camara.gov.br/internet/deputado/bandep/178876.jpg	uc\\xc9lio-silveira
+2531	512	Titular	PP	PAULO MALUF	PAULO SALIM MALUF	4	masculino	dep.paulomaluf@camara.gov.br	3215-5512	132056	SP	http://www.camara.gov.br/internet/deputado/bandep/132056.jpg	paulo-maluf
+3054	840	Titular	PP	BETO ROSADO	CARLOS ALBERTO DE SOUSA ROSADO SEGUNDO	4	masculino	dep.betorosado@camara.gov.br	3215-5840	178948	RN	http://www.camara.gov.br/internet/deputado/bandep/178948.jpg	beto-rosado
+2420	548	Titular	PRB	uLINDOMAR GAR\\xc7ON	LINDOMAR BARBOSA ALVES	4	masculino	dep.lindomargarcon@camara.gov.br	3215-5548	141483	RO	http://www.camara.gov.br/internet/deputado/bandep/141483.jpg	ulindomar-gar\\xc7on
+3086	530	Titular	PMDB	DULCE MIRANDA	DULCE FERREIRA PAGANI MIRANDA	4	feminino	dep.dulcemiranda@camara.gov.br	3215-5530	178994	TO	http://www.camara.gov.br/internet/deputado/bandep/178994.jpg	dulce-miranda
+2838	577	Titular	DEM	MANDETTA	LUIZ HENRIQUE MANDETTA	3	masculino	dep.mandetta@camara.gov.br	3215-5577	160633	MS	http://www.camara.gov.br/internet/deputado/bandep/160633.jpg	mandetta
+3098	210	Titular	PODE	EZEQUIEL TEIXEIRA	EZEQUIEL CORTAZ TEIXEIRA	4	masculino	dep.ezequielteixeira@camara.gov.br	3215-5210	178941	RJ	http://www.camara.gov.br/internet/deputado/bandep/178941.jpg	ezequiel-teixeira
+3611	620	Titular	PSOL	LUIZA ERUNDINA	LUIZA ERUNDINA DE SOUSA	4	feminino	dep.luizaerundina@camara.gov.br	3215-5620	74784	SP	http://www.camara.gov.br/internet/deputado/bandep/74784.jpg	luiza-erundina
+2858	238	Titular	PMDB	ALCEU MOREIRA	ALCEU MOREIRA DA SILVA	4	masculino	dep.alceumoreira@camara.gov.br	3215-5238	160559	RS	http://www.camara.gov.br/internet/deputado/bandep/160559.jpg	alceu-moreira
+3748	462	Titular	PDT	uROBERTO G\\xd3ES	uANTONIO ROBERTO RODRIGUES G\\xd3ES DA SILVA	4	masculino	dep.robertogoes@camara.gov.br	3215-5462	178995	AP	http://www.camara.gov.br/internet/deputado/bandep/178995.jpg	uroberto-g\\xd3es
+3091	935	Titular	DEM	ELMAR NASCIMENTO	ELMAR JOSE VIEIRA NASCIMENTO	4	masculino	dep.elmarnascimento@camara.gov.br	3215-5935	178854	BA	http://www.camara.gov.br/internet/deputado/bandep/178854.jpg	elmar-nascimento
+3322	336	Titular	PR	uPAULO FEIJ\\xd3	PAULO FERNANDO FEIJO TORRES	4	masculino	dep.paulofeijo@camara.gov.br	3215-5336	74017	RJ	http://www.camara.gov.br/internet/deputado/bandep/74017.jpg	upaulo-feij\\xd3
+1141	343	Titular	SD	WLADIMIR COSTA	WLADIMIR AFONSO DA COSTA RABELO	4	masculino	dep.wladimircosta@camara.gov.br	3215-5343	73930	PA	http://www.camara.gov.br/internet/deputado/bandep/73930.jpg	wladimir-costa
+3122	731	Titular	PMDB	uAN\\xcdBAL GOMES	uAN\\xcdBAL FERREIRA GOMES	4	masculino	dep.anibalgomes@camara.gov.br	3215-5731	74212	CE	http://www.camara.gov.br/internet/deputado/bandep/74212.jpg	uan\\xcdbal-gomes
+2675	338	Titular	PCdoB	PROFESSORA MARCIVANIA	MARCIVANIA DO SOCORRO DA ROCHA FLEXA	4	feminino	dep.professoramarcivania@camara.gov.br	3215-5338	160641	AP	http://www.camara.gov.br/internet/deputado/bandep/160641.jpg	professora-marcivania
+2442	306	Titular	PT	uJOS\\xc9 GUIMAR\\xc3ES	uJOS\\xc9 NOBRE GUIMAR\\xc3ES	4	masculino	dep.joseguimaraes@camara.gov.br	3215-5306	141470	CE	http://www.camara.gov.br/internet/deputado/bandep/141470.jpg	ujos\\xc9-guimar\\xc3es
+1799	616	Titular	PRB	BETO MANSUR	PAULO ROBERTO GOMES MANSUR	4	masculino	dep.betomansur@camara.gov.br	3215-5616	73437	SP	http://www.camara.gov.br/internet/deputado/bandep/73437.jpg	beto-mansur
+3682	323	Titular	PSB	uJ\\xdaLIO DELGADO	uJ\\xdaLIO C\\xc9SAR DELGADO	4	masculino	dep.juliodelgado@camara.gov.br	3215-5323	73586	MG	http://www.camara.gov.br/internet/deputado/bandep/73586.jpg	uj\\xdalio-delgado
+3752	262	Titular	PP	RONALDO CARLETTO	RONALDO CARLETTO	4	masculino	dep.ronaldocarletto@camara.gov.br	3215-5262	178861	BA	http://www.camara.gov.br/internet/deputado/bandep/178861.jpg	ronaldo-carletto
+3094	433	Titular	PV	EVANDRO GUSSI	EVANDRO HERRERA BERTONE GUSSI	4	masculino	dep.evandrogussi@camara.gov.br	3215-5433	178828	SP	http://www.camara.gov.br/internet/deputado/bandep/178828.jpg	evandro-gussi
+3717	331	Titular	PR	MARCIO ALVINO	MARCIO LUIZ ALVINO DE SOUZA	4	masculino	dep.marcioalvino@camara.gov.br	3215-5331	178983	SP	http://www.camara.gov.br/internet/deputado/bandep/178983.jpg	marcio-alvino
+1504	544	Titular	PP	JULIO LOPES	JULIO LUIZ BAPTISTA LOPES	4	masculino	dep.juliolopes@camara.gov.br	3215-5544	74253	RJ	http://www.camara.gov.br/internet/deputado/bandep/74253.jpg	julio-lopes
+2083	940	Titular	PDT	uANDR\\xc9 FIGUEIREDO	uANDR\\xc9 PEIXOTO FIGUEIREDO LIMA	4	masculino	dep.andrefigueiredo@camara.gov.br	3215-5940	133439	CE	http://www.camara.gov.br/internet/deputado/bandep/133439.jpg	uandr\\xc9-figueiredo
+3547	213	Titular	PRB	uS\\xc9RGIO REIS	SERGIO BAVINI	4	masculino	dep.sergioreis@camara.gov.br	3215-5213	178991	SP	http://www.camara.gov.br/internet/deputado/bandep/178991.jpg	us\\xc9rgio-reis
+3614	328	Titular	PR	MILTON MONTI	MILTON ANTONIO CASQUEL MONTI	4	masculino	dep.miltonmonti@camara.gov.br	3215-5328	74787	SP	http://www.camara.gov.br/internet/deputado/bandep/74787.jpg	milton-monti
+2863	468	Titular	PR	GIOVANI CHERINI	GIOVANI CHERINI	3	masculino	dep.giovanicherini@camara.gov.br	3215-5468	160673	RS	http://www.camara.gov.br/internet/deputado/bandep/160673.jpg	giovani-cherini
+2774	839	Titular	PSB	PAULO FOLETTO	PAULO ROBERTO FOLETTO	4	masculino	dep.paulofoletto@camara.gov.br	3215-5839	160517	ES	http://www.camara.gov.br/internet/deputado/bandep/160517.jpg	paulo-foletto
+3230	904	Titular	PSD	JAIME MARTINS	JAIME MARTINS FILHO	4	masculino	dep.jaimemartins@camara.gov.br	3215-5904	74665	MG	http://www.camara.gov.br/internet/deputado/bandep/74665.jpg	jaime-martins
+3264	805	Titular	PT	GIVALDO VIEIRA	GIVALDO VIEIRA DA SILVA	4	masculino	dep.givaldovieira@camara.gov.br	3215-5805	178872	ES	http://www.camara.gov.br/internet/deputado/bandep/178872.jpg	givaldo-vieira
+3564	826	Titular	PT	NELSON PELLEGRINO	NELSON VICENTE PORTELA PELLEGRINO	4	masculino	dep.nelsonpellegrino@camara.gov.br	3215-5826	74571	BA	http://www.camara.gov.br/internet/deputado/bandep/74571.jpg	nelson-pellegrino
+1355	232	Titular	PR	uJOS\\xc9 CARLOS ARA\\xdaJO	uJOS\\xc9 CARLOS LE\\xc3O DE ARA\\xdaJO	4	masculino	dep.josecarlosaraujo@camara.gov.br	3215-5232	74140	BA	http://www.camara.gov.br/internet/deputado/bandep/74140.jpg	ujos\\xc9-carlos-ara\\xdajo
+1568	834	Titular	PSC	GILBERTO NASCIMENTO	GILBERTO NASCIMENTO SILVA	4	masculino	dep.gilbertonascimento@camara.gov.br	3215-5834	74270	SP	http://www.camara.gov.br/internet/deputado/bandep/74270.jpg	gilberto-nascimento
+3765	352	Titular	PMDB	SORAYA SANTOS	SORAYA ALENCAR DOS SANTOS	4	feminino	dep.sorayasantos@camara.gov.br	3215-5352	178946	RJ	http://www.camara.gov.br/internet/deputado/bandep/178946.jpg	soraya-santos
+1310	330	Titular	PT	BENEDITA DA SILVA	BENEDITA SOUZA DA SILVA SAMPAIO	4	feminino	dep.beneditadasilva@camara.gov.br	3215-5330	73701	RJ	http://www.camara.gov.br/internet/deputado/bandep/73701.jpg	benedita-da-silva
+3764	440	Titular	PMDB	SIMONE MORGADO	SIMONE MARIA MORGADO FERREIRA	4	feminino	dep.simonemorgado@camara.gov.br	3215-5440	178911	PA	http://www.camara.gov.br/internet/deputado/bandep/178911.jpg	simone-morgado
+3771	902	Titular	PROS	TONINHO WANDSCHEER	ANTONIO WANDSCHEER	4	masculino	dep.toninhowandscheer@camara.gov.br	3215-5902	178934	PR	http://www.camara.gov.br/internet/deputado/bandep/178934.jpg	toninho-wandscheer
+3735	267	Titular	PT	NILTO TATTO	NILTO IGNACIO TATTO	3	masculino	dep.niltotatto@camara.gov.br	3215-5267	178986	SP	http://www.camara.gov.br/internet/deputado/bandep/178986.jpg	nilto-tatto
+1339	317	Titular	PCdoB	DANIEL ALMEIDA	DANIEL GOMES DE ALMEIDA	4	masculino	dep.danielalmeida@camara.gov.br	3215-5317	74060	BA	http://www.camara.gov.br/internet/deputado/bandep/74060.jpg	daniel-almeida
+2979	456	Titular	PMDB	FABIO REIS	FABIO DE ALMEIDA REIS	4	masculino	dep.fabioreis@camara.gov.br	3215-5456	171623	SE	http://www.camara.gov.br/internet/deputado/bandep/171623.jpg	fabio-reis
+3699	370	Titular	DEM	JUSCELINO FILHO	JOSE JUSCELINO DOS SANTOS REZENDE FILHO	3	masculino	dep.juscelinofilho@camara.gov.br	3215-5370	178886	MA	http://www.camara.gov.br/internet/deputado/bandep/178886.jpg	juscelino-filho
+3067	285	Titular	PRB	CARLOS GOMES	ANTONIO CARLOS GOMES DA SILVA	3	masculino	dep.carlosgomes@camara.gov.br	3215-5285	178962	RS	http://www.camara.gov.br/internet/deputado/bandep/178962.jpg	carlos-gomes
+3720	585	Titular	PMDB	uMARCO ANT\\xd4NIO CABRAL	MARCO ANTONIO NEVES CABRAL	3	masculino	dep.marcoantoniocabral@camara.gov.br	3215-5585	178942	RJ	http://www.camara.gov.br/internet/deputado/bandep/178942.jpg	umarco-ant\\xd4nio-cabral
+2397	631	Titular	PSB	HUGO LEAL	HUGO LEAL MELO DA SILVA	4	masculino	dep.hugoleal@camara.gov.br	3215-5631	141450	RJ	http://www.camara.gov.br/internet/deputado/bandep/141450.jpg	hugo-leal
+2737	479	Titular	PSD	ANTONIO BRITO	ANTONIO LUIZ PARANHOS RIBEIRO LEITE DE BRITO	3	masculino	dep.antoniobrito@camara.gov.br	3215-5479	160553	BA	http://www.camara.gov.br/internet/deputado/bandep/160553.jpg	antonio-brito
+1445	905	Titular	PSDB	GERALDO RESENDE	GERALDO RESENDE PEREIRA	4	masculino	dep.geraldoresende@camara.gov.br	3215-5905	74374	MS	http://www.camara.gov.br/internet/deputado/bandep/74374.jpg	geraldo-resende
+2520	808	Titular	PT	CARLOS ZARATTINI	CARLOS ALBERTO ROLIM ZARATTINI	4	masculino	dep.carloszarattini@camara.gov.br	3215-5808	141398	SP	http://www.camara.gov.br/internet/deputado/bandep/141398.jpg	carlos-zarattini
+3763	246	Titular	PSDB	uSH\\xc9RIDAN	uSH\\xc9RIDAN EST\\xc9RFANY OLIVEIRA DE ANCHIETA	4	feminino	dep.sheridan@camara.gov.br	3215-5246	178961	RR	http://www.camara.gov.br/internet/deputado/bandep/178961.jpg	ush\\xc9ridan
+3491	505	Titular	PTB	uJOSU\\xc9 BENGTSON	uJOSU\\xc9 BENGTSON	4	masculino	dep.josuebengtson@camara.gov.br	3215-5505	74351	PA	http://www.camara.gov.br/internet/deputado/bandep/74351.jpg	ujosu\\xc9-bengtson
+3742	737	Titular	PSB	RAFAEL MOTTA	RAFAEL HUETE DA MOTTA	4	masculino	dep.rafaelmotta@camara.gov.br	3215-5737	178951	RN	http://www.camara.gov.br/internet/deputado/bandep/178951.jpg	rafael-motta
+2532	217	Titular	SD	PAULO PEREIRA DA SILVA	PAULO PEREIRA DA SILVA	4	masculino	dep.paulopereiradasilva@camara.gov.br	3215-5217	141518	SP	http://www.camara.gov.br/internet/deputado/bandep/141518.jpg	paulo-pereira-da-silva
+2813	416	Titular	PR	PAULO FREIRE	PAULO ROBERTO FREIRE DA COSTA	4	masculino	dep.paulofreire@camara.gov.br	3215-5416	160558	SP	http://www.camara.gov.br/internet/deputado/bandep/160558.jpg	paulo-freire
+2755	325	Titular	PP	DIMAS FABIANO	uDIMAS FABIANO TOLEDO J\\xdaNIOR	4	masculino	dep.dimasfabiano@camara.gov.br	3215-5325	160599	MG	http://www.camara.gov.br/internet/deputado/bandep/160599.jpg	dimas-fabiano
+2850	252	Titular	PP	uESPERIDI\\xc3O AMIN	uESPERIDI\\xc3O AMIN HELOU FILHO	4	masculino	dep.esperidiaoamin@camara.gov.br	3215-5252	160649	SC	http://www.camara.gov.br/internet/deputado/bandep/160649.jpg	uesperidi\\xc3o-amin
+3036	650	Titular	PRB	ALAN RICK	ALAN RICK MIRANDA	4	masculino	dep.alanrick@camara.gov.br	3215-5650	178836	AC	http://www.camara.gov.br/internet/deputado/bandep/178836.jpg	alan-rick
+2701	546	Titular	PSD	DOMINGOS NETO	DOMINGOS GOMES DE AGUIAR NETO	4	masculino	dep.domingosneto@camara.gov.br	3215-5546	143632	CE	http://www.camara.gov.br/internet/deputado/bandep/143632.jpg	domingos-neto
+2478	322	Titular	PCdoB	uJ\\xd4 MORAES	uMARIA DO SOCORRO J\\xd4 MORAES	4	feminino	dep.jomoraes@camara.gov.br	3215-5322	141503	MG	http://www.camara.gov.br/internet/deputado/bandep/141503.jpg	uj\\xd4-moraes
+2936	825	Titular	PSDB	uNILSON LEIT\\xc3O	uNILSON APARECIDO LEIT\\xc3O	4	masculino	dep.nilsonleitao@camara.gov.br	3215-5825	166401	MT	http://www.camara.gov.br/internet/deputado/bandep/166401.jpg	unilson-leit\\xc3o
+3387	936	Titular	PDT	WOLNEY QUEIROZ	WOLNEY QUEIROZ MACIEL	4	masculino	dep.wolneyqueiroz@camara.gov.br	3215-5936	74439	PE	http://www.camara.gov.br/internet/deputado/bandep/74439.jpg	wolney-queiroz
+2678	506	Titular	PPS	ARNALDO JORDY	ARNALDO JORDY FIGUEIREDO	4	masculino	dep.arnaldojordy@camara.gov.br	3215-5506	160602	PA	http://www.camara.gov.br/internet/deputado/bandep/160602.jpg	arnaldo-jordy
+3260	752	Titular	PMDB	uJOS\\xc9 PRIANTE	uJOS\\xc9 BENITO PRIANTE J\\xdaNIOR	4	masculino	dep.josepriante@camara.gov.br	3215-5752	74079	PA	http://www.camara.gov.br/internet/deputado/bandep/74079.jpg	ujos\\xc9-priante
+1345	709	Titular	PP	uSIM\\xc3O SESSIM	uSIM\\xc3O SESSIM	4	masculino	dep.simaosessim@camara.gov.br	3215-5709	73424	RJ	http://www.camara.gov.br/internet/deputado/bandep/73424.jpg	usim\\xc3o-sessim
+2834	536	Titular	PSD	HEULER CRUVINEL	HEULER ABREU CRUVINEL	4	masculino	dep.heulercruvinel@camara.gov.br	3215-5536	160596	GO	http://www.camara.gov.br/internet/deputado/bandep/160596.jpg	heuler-cruvinel
+3737	923	Titular	PCdoB	ORLANDO SILVA	ORLANDO SILVA DE JESUS JUNIOR	4	masculino	dep.orlandosilva@camara.gov.br	3215-5923	178987	SP	http://www.camara.gov.br/internet/deputado/bandep/178987.jpg	orlando-silva
+2723	524	Titular	PCdoB	LUCIANA SANTOS	LUCIANA BARBOSA DE OLIVEIRA SANTOS	4	feminino	dep.lucianasantos@camara.gov.br	3215-5524	160628	PE	http://www.camara.gov.br/internet/deputado/bandep/160628.jpg	luciana-santos
+3731	721	Titular	DEM	MISAEL VARELLA	MISAEL ARTUR FERREIRA VARELLA	4	masculino	dep.misaelvarella@camara.gov.br	3215-5721	178895	MG	http://www.camara.gov.br/internet/deputado/bandep/178895.jpg	misael-varella
+2615	946	Titular	PRB	ROBERTO ALVES	BENEDITO ROBERTO ALVES FERREIRA	4	masculino	dep.robertoalves@camara.gov.br	3215-5946	152610	SP	http://www.camara.gov.br/internet/deputado/bandep/152610.jpg	roberto-alves
+3739	611	Titular	PSDB	PEDRO CUNHA LIMA	PEDRO OLIVEIRA CUNHA LIMA	4	masculino	dep.pedrocunhalima@camara.gov.br	3215-5611	178912	PB	http://www.camara.gov.br/internet/deputado/bandep/178912.jpg	pedro-cunha-lima
+2764	743	Titular	PT	uPADRE JO\\xc3O	uJO\\xc3O CARLOS SIQUEIRA	4	masculino	dep.padrejoao@camara.gov.br	3215-5743	160556	MG	http://www.camara.gov.br/internet/deputado/bandep/160556.jpg	upadre-jo\\xc3o
+2847	221	Titular	PSD	SANDRO ALEX	SANDRO ALEX CRUZ DE OLIVEIRA	4	masculino	dep.sandroalex@camara.gov.br	3215-5221	160621	PR	http://www.camara.gov.br/internet/deputado/bandep/160621.jpg	sandro-alex
+2566	258	Titular	PTB	uS\\xc9RGIO MORAES	uS\\xc9RGIO IVAN MORAES	4	masculino	dep.sergiomoraes@camara.gov.br	3215-5258	141542	RS	http://www.camara.gov.br/internet/deputado/bandep/141542.jpg	us\\xc9rgio-moraes
+2707	924	Titular	PP	IRACEMA PORTELLA	IRACEMA MARIA PORTELLA NUNES NOGUEIRA LIMA	4	feminino	dep.iracemaportella@camara.gov.br	3215-5924	67138	PI	http://www.camara.gov.br/internet/deputado/bandep/67138.jpg	iracema-portella
+2441	319	Titular	PT	uJOS\\xc9 AIRTON CIRILO	uJOS\\xc9 AIRTON F\\xc9LIX CIRILO DA SILVA	4	masculino	dep.joseairtoncirilo@camara.gov.br	3215-5319	141464	CE	http://www.camara.gov.br/internet/deputado/bandep/141464.jpg	ujos\\xc9-airton-cirilo
+2746	612	Titular	PMDB	LUCIO VIEIRA LIMA	uL\\xdaCIO QUADROS VIEIRA LIMA	4	masculino	dep.luciovieiralima@camara.gov.br	3215-5612	94931	BA	http://www.camara.gov.br/internet/deputado/bandep/94931.jpg	lucio-vieira-lima
+2786	579	Titular	PHS	MARCELO MATOS	uMARCELO VIVIANI GON\\xc7ALVES	3	masculino	dep.marcelomatos@camara.gov.br	3215-5579	76287	RJ	http://www.camara.gov.br/internet/deputado/bandep/76287.jpg	marcelo-matos
+2864	316	Titular	PP	uJER\\xd4NIMO GOERGEN	uJER\\xd4NIMO PIZZOLOTTO GOERGEN	4	masculino	dep.jeronimogoergen@camara.gov.br	3215-5316	160570	RS	http://www.camara.gov.br/internet/deputado/bandep/160570.jpg	ujer\\xd4nimo-goergen
+2032	708	Titular	PSB	uHER\\xc1CLITO FORTES	uHER\\xc1CLITO DE SOUSA FORTES	4	masculino	dep.heraclitofortes@camara.gov.br	3215-5708	97707	PI	http://www.camara.gov.br/internet/deputado/bandep/97707.jpg	uher\\xc1clito-fortes
+2702	244	Titular	SD	GENECIAS NORONHA	GENECIAS MATEUS NORONHA	4	masculino	dep.geneciasnoronha@camara.gov.br	3215-5244	160669	CE	http://www.camara.gov.br/internet/deputado/bandep/160669.jpg	genecias-noronha
+3705	427	Titular	PSB	LUCIANO DUCCI	LUCIANO DUCCI	4	masculino	dep.lucianoducci@camara.gov.br	3215-5427	178931	PR	http://www.camara.gov.br/internet/deputado/bandep/178931.jpg	luciano-ducci
+2477	804	Titular	PSB	GEORGE HILTON	uGEORGE HILTON DOS SANTOS CEC\\xcdLIO	4	masculino	dep.georgehilton@camara.gov.br	3215-5804	141441	MG	http://www.camara.gov.br/internet/deputado/bandep/141441.jpg	george-hilton
+3747	603	Titular	PODE	RICARDO TEOBALDO 	RICARDO TEOBALDO CAVALCANTI	4	masculino	dep.ricardoteobaldo@camara.gov.br	3215-5603	178920	PE	http://www.camara.gov.br/internet/deputado/bandep/178920.jpg	ricardo-teobaldo
+2852	329	Titular	PR	JORGINHO MELLO	JORGINHO DOS SANTOS MELLO	4	masculino	dep.jorginhomello@camara.gov.br	3215-5329	160509	SC	http://www.camara.gov.br/internet/deputado/bandep/160509.jpg	jorginho-mello
+3773	837	Titular	PT	VALMIR PRASCIDELLI	VALMIR PRASCIDELLI	4	masculino	dep.valmirprascidelli@camara.gov.br	3215-5837	113247	SP	http://www.camara.gov.br/internet/deputado/bandep/113247.jpg	valmir-prascidelli
+3687	358	Titular	PSDB	uJO\\xc3O GUALBERTO	JOAO GUALBERTO VASCONCELOS	4	masculino	dep.joaogualberto@camara.gov.br	3215-5358	178856	BA	http://www.camara.gov.br/internet/deputado/bandep/178856.jpg	ujo\\xc3o-gualberto
+2745	728	Titular	PSD	uJOS\\xc9 NUNES	uJOS\\xc9 NUNES SOARES	4	masculino	dep.josenunes@camara.gov.br	3215-5728	160619	BA	http://www.camara.gov.br/internet/deputado/bandep/160619.jpg	ujos\\xc9-nunes
+2849	613	Titular	PT	ZECA DIRCEU	uJOS\\xc9 CARLOS BECKER DE OLIVEIRA E SILVA	4	masculino	dep.zecadirceu@camara.gov.br	3215-5613	160592	PR	http://www.camara.gov.br/internet/deputado/bandep/160592.jpg	zeca-dirceu
+3725	508	Titular	PSDB	MARIANA CARVALHO	MARIANA FONSECA RIBEIRO CARVALHO DE MORAES	4	feminino	dep.marianacarvalho@camara.gov.br	3215-5508	178956	RO	http://www.camara.gov.br/internet/deputado/bandep/178956.jpg	mariana-carvalho
+2818	637	Titular	PR	TIRIRICA	FRANCISCO EVERARDO OLIVEIRA SILVA	4	masculino	dep.tiririca@camara.gov.br	3215-5637	160976	SP	http://www.camara.gov.br/internet/deputado/bandep/160976.jpg	tiririca
+2754	307	Titular	PSD	DIEGO ANDRADE	DIEGO LEONARDO DE ANDRADE CARVALHO	4	masculino	dep.diegoandrade@camara.gov.br	3215-5307	160588	MG	http://www.camara.gov.br/internet/deputado/bandep/160588.jpg	diego-andrade
+3722	344	Titular	PSD	MARCOS REATEGUI	MARCOS JOSE REATEGUI SOUZA	4	masculino	dep.marcosreategui@camara.gov.br	3215-5344	178852	AP	http://www.camara.gov.br/internet/deputado/bandep/178852.jpg	marcos-reategui
+2098	604	Titular	PP	AFONSO HAMM	uJOS\\xc9 ALFONSO EBERT HAMM	4	masculino	dep.afonsohamm@camara.gov.br	3215-5604	136811	RS	http://www.camara.gov.br/internet/deputado/bandep/136811.jpg	afonso-hamm
+3496	532	Titular	PRB	uSILAS C\\xc2MARA	uSILAS C\\xc2MARA	4	masculino	dep.silascamara@camara.gov.br	3215-5532	74356	AM	http://www.camara.gov.br/internet/deputado/bandep/74356.jpg	usilas-c\\xc2mara
+3783	860	Titular	PT	ZECA DO PT	JOSE ORCIRIO MIRANDA DOS SANTOS	4	masculino	dep.zecadopt@camara.gov.br	3215-5860	178902	MS	http://www.camara.gov.br/internet/deputado/bandep/178902.jpg	zeca-do-pt
+3776	580	Titular	PSD	VICTOR MENDES	CARLOS VICTOR GUTERRES MENDES	3	masculino	dep.victormendes@camara.gov.br	3215-5580	178888	MA	http://www.camara.gov.br/internet/deputado/bandep/178888.jpg	victor-mendes
+3030	248	Titular	DEM	ABEL MESQUITA JR.	ABEL SALVADOR MESQUITA JUNIOR	4	masculino	dep.abelmesquitajr@camara.gov.br	3215-5248	178957	RR	http://www.camara.gov.br/internet/deputado/bandep/178957.jpg	abel-mesquita-jr.
+1331	420	Titular	PCdoB	ALICE PORTUGAL	ALICE MAZZUCO PORTUGAL	4	feminino	dep.aliceportugal@camara.gov.br	3215-5420	74057	BA	http://www.camara.gov.br/internet/deputado/bandep/74057.jpg	alice-portugal
+2662	283	Titular	PSD	uROG\\xc9RIO ROSSO	uROG\\xc9RIO SCHUMANN ROSSO	3	masculino	dep.rogeriorosso@camara.gov.br	3215-5283	160426	DF	http://www.camara.gov.br/internet/deputado/bandep/160426.jpg	urog\\xc9rio-rosso
+2487	460	Titular	PSDB	PAULO ABI-ACKEL	PAULO ABI-ACKEL	4	masculino	dep.pauloabiackel@camara.gov.br	3215-5460	141516	MG	http://www.camara.gov.br/internet/deputado/bandep/141516.jpg	paulo-abi-ackel
+1775	622	Titular	PCdoB	JANDIRA FEGHALI	JANDIRA FEGHALI	4	feminino	dep.jandirafeghali@camara.gov.br	3215-5622	74848	RJ	http://www.camara.gov.br/internet/deputado/bandep/74848.jpg	jandira-feghali
+1473	742	Titular	PTB	DELEY	WANDERLEY ALVES DE OLIVEIRA	4	masculino	dep.deley@camara.gov.br	3215-5742	74172	RJ	http://www.camara.gov.br/internet/deputado/bandep/74172.jpg	deley
+3265	504	Titular	PTB	JOVAIR ARANTES	JOVAIR DE OLIVEIRA ARANTES	4	masculino	dep.jovairarantes@camara.gov.br	3215-5504	73666	GO	http://www.camara.gov.br/internet/deputado/bandep/73666.jpg	jovair-arantes
+3774	833	Titular	PMDB	uVENEZIANO VITAL DO R\\xcaGO	uVENEZIANO VITAL DO R\\xcaGO SEGUNDO NETO	4	masculino	dep.venezianovitaldorego@camara.gov.br	3215-5833	178913	PB	http://www.camara.gov.br/internet/deputado/bandep/178913.jpg	uveneziano-vital-do-r\\xcago
+1074	754	Titular	PSD	uANDR\\xc9 DE PAULA	uANDR\\xc9 CARLOS ALVES DE PAULA FILHO	4	masculino	dep.andredepaula@camara.gov.br	3215-5754	74471	PE	http://www.camara.gov.br/internet/deputado/bandep/74471.jpg	uandr\\xc9-de-paula
+3088	481	Titular	PSC	EDUARDO BOLSONARO	EDUARDO NANTES BOLSONARO	3	masculino	dep.eduardobolsonaro@camara.gov.br	3215-5481	92346	SP	http://www.camara.gov.br/internet/deputado/bandep/92346.jpg	eduardo-bolsonaro
+2482	832	Titular	PP	LUIZ FERNANDO FARIA	LUIZ FERNANDO RAMOS FARIA	4	masculino	dep.luizfernandofaria@camara.gov.br	3215-5832	141487	MG	http://www.camara.gov.br/internet/deputado/bandep/141487.jpg	luiz-fernando-faria
+3078	644	Titular	PTB	CRISTIANE BRASIL	CRISTIANE BRASIL FRANCISCO	4	feminino	dep.cristianebrasil@camara.gov.br	3215-5644	93472	RJ	http://www.camara.gov.br/internet/deputado/bandep/93472.jpg	cristiane-brasil
+3346	926	Titular	PSD	HERCULANO PASSOS	HERCULANO CASTILHO PASSOS JUNIOR	4	masculino	dep.herculanopassos@camara.gov.br	3215-5926	178981	SP	http://www.camara.gov.br/internet/deputado/bandep/178981.jpg	herculano-passos
+3751	510	Titular	PMDB	RODRIGO PACHECO	RODRIGO OTAVIO SOARES PACHECO	4	masculino	dep.rodrigopacheco@camara.gov.br	3215-5510	178897	MG	http://www.camara.gov.br/internet/deputado/bandep/178897.jpg	rodrigo-pacheco
+3050	521	Titular	PSDB	uARTHUR VIRG\\xcdLIO BISNETO	ARTHUR VIRGILIO DO CARMO RIBEIRO BISNETO	4	masculino	dep.arthurvirgiliobisneto@camara.gov.br	3215-5521	178847	AM	http://www.camara.gov.br/internet/deputado/bandep/178847.jpg	uarthur-virg\\xcdlio-bisneto
+2497	542	Titular	PT	"CHICO DANGELO",	u"FRANCISCO JOS\\xc9 DANGELO PINTO",	4	masculino	dep.chicodangelo@camara.gov.br	3215-5542	141439	RJ	http://www.camara.gov.br/internet/deputado/bandep/141439.jpg	"chico-dangelo",
+1468	848	Titular	PSOL	CHICO ALENCAR	FRANCISCO RODRIGUES DE ALENCAR FILHO	4	masculino	dep.chicoalencar@camara.gov.br	3215-5848	74171	RJ	http://www.camara.gov.br/internet/deputado/bandep/74171.jpg	chico-alencar
+2726	942	Titular	PP	ARTHUR LIRA	uARTHUR C\\xc9SAR PEREIRA DE LIRA	4	masculino	dep.arthurlira@camara.gov.br	3215-5942	160541	AL	http://www.camara.gov.br/internet/deputado/bandep/160541.jpg	arthur-lira
+2450	411	Titular	PSD	uR\\xd4MULO GOUVEIA	uR\\xd4MULO JOS\\xc9 DE GOUVEIA	4	masculino	dep.romulogouveia@camara.gov.br	3215-5411	141536	PB	http://www.camara.gov.br/internet/deputado/bandep/141536.jpg	ur\\xd4mulo-gouveia
+3702	454	Titular	PV	LEANDRE	LEANDRE DAL PONTE	4	feminino	dep.leandre@camara.gov.br	3215-5454	178832	PR	http://www.camara.gov.br/internet/deputado/bandep/178832.jpg	leandre
+3492	527	Titular	PSDB	NILSON PINTO	NILSON PINTO DE OLIVEIRA	4	masculino	dep.nilsonpinto@camara.gov.br	3215-5527	74352	PA	http://www.camara.gov.br/internet/deputado/bandep/74352.jpg	nilson-pinto
+2807	226	Titular	PSDB	MARA GABRILLI	MARA CRISTINA GABRILLI	4	feminino	dep.maragabrilli@camara.gov.br	3215-5226	160565	SP	http://www.camara.gov.br/internet/deputado/bandep/160565.jpg	mara-gabrilli
+2215	806	Titular	PR	BILAC PINTO	OLAVO BILAC PINTO NETO	4	masculino	dep.bilacpinto@camara.gov.br	3215-5806	141513	MG	http://www.camara.gov.br/internet/deputado/bandep/141513.jpg	bilac-pinto
+2851	503	Titular	PSD	uJO\\xc3O RODRIGUES	uJO\\xc3O RODRIGUES	4	masculino	dep.joaorodrigues@camara.gov.br	3215-5503	160571	SC	http://www.camara.gov.br/internet/deputado/bandep/160571.jpg	ujo\\xc3o-rodrigues
+3662	526	Titular	PP	LUIS CARLOS HEINZE	LUIS CARLOS HEINZE	4	masculino	dep.luiscarlosheinze@camara.gov.br	3215-5526	73483	RS	http://www.camara.gov.br/internet/deputado/bandep/73483.jpg	luis-carlos-heinze
+1808	538	Titular	DEM	JORGE TADEU MUDALEN	JORGE TADEU MUDALEN	4	masculino	dep.jorgetadeumudalen@camara.gov.br	3215-5538	73535	SP	http://www.camara.gov.br/internet/deputado/bandep/73535.jpg	jorge-tadeu-mudalen
+2670	535	Titular	PRB	JHONATAN DE JESUS	JOHNATHAN PEREIRA DE JESUS	4	masculino	dep.jhonatandejesus@camara.gov.br	3215-5535	160531	RR	http://www.camara.gov.br/internet/deputado/bandep/160531.jpg	jhonatan-de-jesus
+3772	729	Titular	PV	ULDURICO JUNIOR	ULDURICO ALENCAR PINTO	4	masculino	dep.ulduricojunior@camara.gov.br	3215-5729	178863	BA	http://www.camara.gov.br/internet/deputado/bandep/178863.jpg	uldurico-junior
+3701	717	Titular	SD	LAUDIVIO CARVALHO	LAUDIVIO ALVARENGA CARVALHO	4	masculino	dep.laudiviocarvalho@camara.gov.br	3215-5717	178894	MG	http://www.camara.gov.br/internet/deputado/bandep/178894.jpg	laudivio-carvalho
+1413	313	Titular	SD	CARLOS MANATO	CARLOS HUMBERTO MANNATO	4	masculino	dep.carlosmanato@camara.gov.br	3215-5313	74163	ES	http://www.camara.gov.br/internet/deputado/bandep/74163.jpg	carlos-manato
+3048	543	Titular	PT	ANGELIM	RAIMUNDO ANGELIM VASCONCELOS	4	masculino	dep.angelim@camara.gov.br	3215-5543	178837	AC	http://www.camara.gov.br/internet/deputado/bandep/178837.jpg	angelim
+3666	704	Titular	PDT	POMPEO DE MATTOS	DARCI POMPEO DE MATTOS	4	masculino	dep.pompeodemattos@camara.gov.br	3215-5704	73486	RS	http://www.camara.gov.br/internet/deputado/bandep/73486.jpg	pompeo-de-mattos
+2741	756	Titular	PEN	ERIVELTON SANTANA	ERIVELTON LIMA SANTANA	4	masculino	dep.eriveltonsantana@camara.gov.br	3215-5756	99654	BA	http://www.camara.gov.br/internet/deputado/bandep/99654.jpg	erivelton-santana
+3511	814	Titular	PTB	PEDRO FERNANDES	PEDRO FERNANDES RIBEIRO	4	masculino	dep.pedrofernandes@camara.gov.br	3215-5814	74449	MA	http://www.camara.gov.br/internet/deputado/bandep/74449.jpg	pedro-fernandes
+2809	507	Titular	DEM	uMISSION\\xc1RIO JOS\\xc9 OLIMPIO	uJOS\\xc9 OLIMPIO SILVEIRA MORAES	4	masculino	dep.missionariojoseolimpio@camara.gov.br	3215-5507	160561	SP	http://www.camara.gov.br/internet/deputado/bandep/160561.jpg	umission\\xc1rio-jos\\xc9-olimpio
+3714	280	Titular	PHS	MARCELO ARO	MARCELO GUILHERME DE ARO FERREIRA	3	masculino	dep.marceloaro@camara.gov.br	3215-5280	146788	MG	http://www.camara.gov.br/internet/deputado/bandep/146788.jpg	marcelo-aro
+3733	809	Titular	PMDB	MOSES RODRIGUES	MOSES HAENDEL MELO RODRIGUES	4	masculino	dep.mosesrodrigues@camara.gov.br	3215-5809	178997	CE	http://www.camara.gov.br/internet/deputado/bandep/178997.jpg	moses-rodrigues
+2719	423	Titular	PSB	DANILO CABRAL	DANILO JORGE DE BARROS CABRAL	4	masculino	dep.danilocabral@camara.gov.br	3215-5423	160528	PE	http://www.camara.gov.br/internet/deputado/bandep/160528.jpg	danilo-cabral
+1968	762	Titular	PR	GIACOBO	uFERNANDO L\\xdaCIO GIACOBO	4	masculino	dep.giacobo@camara.gov.br	3215-5762	74383	PR	http://www.camara.gov.br/internet/deputado/bandep/74383.jpg	giacobo
+2796	841	Titular	DEM	ALEXANDRE LEITE	ALEXANDRE LEITE DA SILVA	4	masculino	dep.alexandreleite@camara.gov.br	3215-5841	160545	SP	http://www.camara.gov.br/internet/deputado/bandep/160545.jpg	alexandre-leite
+2437	310	Titular	PCdoB	CHICO LOPES	FRANCISCO LOPES DA SILVA	4	masculino	dep.chicolopes@camara.gov.br	3215-5310	141440	CE	http://www.camara.gov.br/internet/deputado/bandep/141440.jpg	chico-lopes
+1135	209	Titular	PSB	JANETE CAPIBERIBE	uJANETE MARIA G\\xd3ES CAPIBERIBE	4	feminino	dep.janetecapiberibe@camara.gov.br	3215-5209	73926	AP	http://www.camara.gov.br/internet/deputado/bandep/73926.jpg	janete-capiberibe
+3710	713	Titular	PT	LUIZIANNE LINS	LUIZIANNE DE OLIVEIRA LINS	4	feminino	dep.luiziannelins@camara.gov.br	3215-5713	178866	CE	http://www.camara.gov.br/internet/deputado/bandep/178866.jpg	luizianne-lins
+3713	824	Titular	PR	uMARCELO \\xc1LVARO ANT\\xd4NIO	MARCELO HENRIQUE TEIXEIRA DIAS	4	masculino	dep.marceloalvaroantonio@camara.gov.br	3215-5824	179000	MG	http://www.camara.gov.br/internet/deputado/bandep/179000.jpg	umarcelo-\\xc1lvaro-ant\\xd4nio
+3573	409	Titular	PT	uLUIZ S\\xc9RGIO	uLUIZ S\\xc9RGIO N\\xd3BREGA DE OLIVEIRA	4	masculino	dep.luizsergio@camara.gov.br	3215-5409	74688	RJ	http://www.camara.gov.br/internet/deputado/bandep/74688.jpg	uluiz-s\\xc9rgio
+3661	256	Titular	PT	HENRIQUE FONTANA	uHENRIQUE FONTANA J\\xdaNIOR	4	masculino	dep.henriquefontana@camara.gov.br	3215-5256	73482	RS	http://www.camara.gov.br/internet/deputado/bandep/73482.jpg	henrique-fontana
+2424	224	Titular	PMDB	FLAVIANO MELO	uFLAVIANO FL\\xc1VIO BAPTISTA DE MELO	4	masculino	dep.flavianomelo@camara.gov.br	3215-5224	141434	AC	http://www.camara.gov.br/internet/deputado/bandep/141434.jpg	flaviano-melo
+3096	943	Titular	PSD	EXPEDITO NETTO	EXPEDITO GONCALVES FERREIRA NETTO	4	masculino	dep.expeditonetto@camara.gov.br	3215-5943	178953	RO	http://www.camara.gov.br/internet/deputado/bandep/178953.jpg	expedito-netto
+3155	243	Titular	DEM	CARLOS MELLES	CARLOS DO CARMO ANDRADE MELLES	4	masculino	dep.carlosmelles@camara.gov.br	3215-5243	74651	MG	http://www.camara.gov.br/internet/deputado/bandep/74651.jpg	carlos-melles
+3709	418	Titular	PSB	LUIZ LAURO FILHO	LUIZ LAURO FERREIRA FILHO	4	masculino	dep.luizlaurofilho@camara.gov.br	3215-5418	178982	SP	http://www.camara.gov.br/internet/deputado/bandep/178982.jpg	luiz-lauro-filho
+1876	623	Titular	PPS	RUBENS BUENO	RUBENS BUENO	4	masculino	dep.rubensbueno@camara.gov.br	3215-5623	73466	PR	http://www.camara.gov.br/internet/deputado/bandep/73466.jpg	rubens-bueno
+2565	337	Titular	PP	RENATO MOLLING	RENATO DELMAR MOLLING	4	masculino	dep.renatomolling@camara.gov.br	3215-5337	141527	RS	http://www.camara.gov.br/internet/deputado/bandep/141527.jpg	renato-molling
+3028	541	Titular	PSB	BEBETO	uADALBERTO SOUZA GALV\\xc3O	4	masculino	dep.bebeto@camara.gov.br	3215-5541	178834	BA	http://www.camara.gov.br/internet/deputado/bandep/178834.jpg	bebeto
+3045	831	Titular	PP	uANDR\\xc9 ABDON	ANDRE DOS SANTOS ABDON	4	masculino	dep.andreabdon@camara.gov.br	3215-5831	178831	AP	http://www.camara.gov.br/internet/deputado/bandep/178831.jpg	uandr\\xc9-abdon
+3730	835	Titular	PR	MIGUEL LOMBARDI	MIGUEL LOMBARDI	4	masculino	dep.miguellombardi@camara.gov.br	3215-5835	178985	SP	http://www.camara.gov.br/internet/deputado/bandep/178985.jpg	miguel-lombardi
+3499	724	Titular	PTB	NILTON CAPIXABA	NILTON BALBINO	4	masculino	dep.niltoncapixaba@camara.gov.br	3215-5724	74359	RO	http://www.camara.gov.br/internet/deputado/bandep/74359.jpg	nilton-capixaba
+2385	822	Titular	PR	uL\\xdaCIO VALE	uL\\xdaCIO DUTRA VALE	4	masculino	dep.luciovale@camara.gov.br	3215-5822	141484	PA	http://www.camara.gov.br/internet/deputado/bandep/141484.jpg	ul\\xdacio-vale
+3087	301	Titular	PSOL	EDMILSON RODRIGUES	EDMILSON BRITO RODRIGUES	4	masculino	dep.edmilsonrodrigues@camara.gov.br	3215-5301	134812	PA	http://www.camara.gov.br/internet/deputado/bandep/134812.jpg	edmilson-rodrigues
+3768	239	Titular	PSB	uTENENTE L\\xdaCIO	SERGIO LUCIO DE ALMEIDA	4	masculino	dep.tenentelucio@camara.gov.br	3215-5239	178898	MG	http://www.camara.gov.br/internet/deputado/bandep/178898.jpg	utenente-l\\xdacio
+2857	918	Titular	PMDB	RONALDO BENEDET	uRONALDO JOS\\xc9 BENEDET	4	masculino	dep.ronaldobenedet@camara.gov.br	3215-5918	160515	SC	http://www.camara.gov.br/internet/deputado/bandep/160515.jpg	ronaldo-benedet
+2874	907	Titular	PR	LUIZ NISHIMORI	LUIZ HILOSHI NISHIMORI	4	masculino	dep.luiznishimori@camara.gov.br	3215-5907	162332	PR	http://www.camara.gov.br/internet/deputado/bandep/162332.jpg	luiz-nishimori
+3578	308	Titular	DEM	RODRIGO MAIA	uRODRIGO FELINTO IBARRA EPIT\\xc1CIO MAIA	4	masculino	dep.rodrigomaia@camara.gov.br	3215-5308	74693	RJ	http://www.camara.gov.br/internet/deputado/bandep/74693.jpg	rodrigo-maia
+2783	719	Titular	DEM	FRANCISCO FLORIANO	FRANCISCO FLORIANO DE SOUSA SILVA	4	masculino	dep.franciscofloriano@camara.gov.br	3215-5719	160677	RJ	http://www.camara.gov.br/internet/deputado/bandep/160677.jpg	francisco-floriano
+3032	402	Titular	PTB	ADALBERTO CAVALCANTI	ADALBERTO CAVALCANTI RODRIGUES	4	masculino	dep.adalbertocavalcanti@camara.gov.br	3215-5402	178914	PE	http://www.camara.gov.br/internet/deputado/bandep/178914.jpg	adalberto-cavalcanti
+3523	811	Titular	PMDB	MARCELO CASTRO	MARCELO COSTA E CASTRO	4	masculino	dep.marcelocastro@camara.gov.br	3215-5811	74460	PI	http://www.camara.gov.br/internet/deputado/bandep/74460.jpg	marcelo-castro
+3166	630	Titular	DEM	CLAUDIO CAJADO	uCL\\xc1UDIO CAJADO SAMPAIO	4	masculino	dep.claudiocajado@camara.gov.br	3215-5630	74537	BA	http://www.camara.gov.br/internet/deputado/bandep/74537.jpg	claudio-cajado
+2750	739	Titular	PT	uVALMIR ASSUN\\xc7\\xc3O	uVALMIR CARLOS DA ASSUN\\xc7\\xc3O	4	masculino	dep.valmirassuncao@camara.gov.br	3215-5739	160610	BA	http://www.camara.gov.br/internet/deputado/bandep/160610.jpg	uvalmir-assun\\xc7\\xc3o
+2799	850	Titular	DEM	uELI CORR\\xcaA FILHO	uADRIANO ELI CORR\\xcaA	4	masculino	dep.elicorreafilho@camara.gov.br	3215-5850	160532	SP	http://www.camara.gov.br/internet/deputado/bandep/160532.jpg	ueli-corr\\xcaa-filho
+3487	450	Titular	PSC	uIRM\\xc3O LAZARO	ANTONIO LAZARO SILVA	4	masculino	dep.irmaolazaro@camara.gov.br	3215-5450	178855	BA	http://www.camara.gov.br/internet/deputado/bandep/178855.jpg	uirm\\xc3o-lazaro
+3052	829	Titular	PMDB	BALEIA ROSSI	LUIZ FELIPE BALEIA TENUTO ROSSI	4	masculino	dep.baleiarossi@camara.gov.br	3215-5829	178975	SP	http://www.camara.gov.br/internet/deputado/bandep/178975.jpg	baleia-rossi
+3393	734	Titular	PMDB	HILDO ROCHA	HILDO AUGUSTO DA ROCHA NETO	4	masculino	dep.hildorocha@camara.gov.br	3215-5734	178884	MA	http://www.camara.gov.br/internet/deputado/bandep/178884.jpg	hildo-rocha
+3059	617	Titular	PR	CABO SABINO	FLAVIO ALVES SABINO	4	masculino	dep.cabosabino@camara.gov.br	3215-5617	178865	CE	http://www.camara.gov.br/internet/deputado/bandep/178865.jpg	cabo-sabino
+2925	240	Titular	PPS	CARMEN ZANOTTO	uCARMEN EM\\xcdLIA BONF\\xc1 ZANOTTO	4	feminino	dep.carmenzanotto@camara.gov.br	3215-5240	164360	SC	http://www.camara.gov.br/internet/deputado/bandep/164360.jpg	carmen-zanotto
+2732	846	Titular	PSC	ANDRE MOURA	uANDR\\xc9 LUIS DANTAS FERREIRA	4	masculino	dep.andremoura@camara.gov.br	3215-5846	160543	SE	http://www.camara.gov.br/internet/deputado/bandep/160543.jpg	andre-moura
+1277	514	Titular	PR	WELLINGTON ROBERTO	uJOS\\xc9 WELLINGTON ROBERTO	4	masculino	dep.wellingtonroberto@camara.gov.br	3215-5514	74043	PB	http://www.camara.gov.br/internet/deputado/bandep/74043.jpg	wellington-roberto
+2691	802	Titular	PSD	uIRAJ\\xc1 ABREU	uIRAJ\\xc1 SILVESTRE FILHO	4	masculino	dep.irajaabreu@camara.gov.br	3215-5802	81232	TO	http://www.camara.gov.br/internet/deputado/bandep/81232.jpg	uiraj\\xc1-abreu
+3697	707	Titular	PSC	uJ\\xdaLIA MARINHO	JULIA MARIA GODINHO DA CRUZ MARINHO	4	feminino	dep.juliamarinho@camara.gov.br	3215-5707	67312	PA	http://www.camara.gov.br/internet/deputado/bandep/67312.jpg	uj\\xdalia-marinho
+2973	366	Titular	PT	uPAUL\\xc3O	PAULO FERNANDO DOS SANTOS	3	masculino	dep.paulao@camara.gov.br	3215-5366	171617	AL	http://www.camara.gov.br/internet/deputado/bandep/171617.jpg	upaul\\xc3o
+3736	582	Titular	PSB	ODORICO MONTEIRO	LUIZ ODORICO MONTEIRO DE ANDRADE	3	masculino	dep.odoricomonteiro@camara.gov.br	3215-5582	178868	CE	http://www.camara.gov.br/internet/deputado/bandep/178868.jpg	odorico-monteiro
+3809	702	Titular	PMDB	SERGIO SOUZA 	SERGIO DE SOUZA	4	masculino	dep.sergiosouza@camara.gov.br	3215-5702	178933	PR	http://www.camara.gov.br/internet/deputado/bandep/178933.jpg	sergio-souza
+1308	917	Titular	PSC	AROLDE DE OLIVEIRA	AROLDE DE OLIVEIRA	4	masculino	dep.aroldedeoliveira@camara.gov.br	3215-5917	74833	RJ	http://www.camara.gov.br/internet/deputado/bandep/74833.jpg	arolde-de-oliveira
+3530	938	Titular	PDT	uDAMI\\xc3O FELICIANO	uDAMI\\xc3O FELICIANO DA SILVA	4	masculino	dep.damiaofeliciano@camara.gov.br	3215-5938	74467	PB	http://www.camara.gov.br/internet/deputado/bandep/74467.jpg	udami\\xc3o-feliciano
+3044	436	Titular	PT	ANA PERUGINI	ANA LUCIA LIPPAUS PERUGINI	4	feminino	dep.anaperugini@camara.gov.br	3215-5436	178973	SP	http://www.camara.gov.br/internet/deputado/bandep/178973.jpg	ana-perugini
+3309	916	Titular	PP	NELSON MEURER	NELSON MEURER	4	masculino	dep.nelsonmeurer@camara.gov.br	3215-5916	73781	PR	http://www.camara.gov.br/internet/deputado/bandep/73781.jpg	nelson-meurer
+3047	939	Titular	PT	ANDRES SANCHEZ	ANDRES NAVARRO SANCHEZ	4	masculino	dep.andressanchez@camara.gov.br	3215-5939	178974	SP	http://www.camara.gov.br/internet/deputado/bandep/178974.jpg	andres-sanchez
+3191	369	Titular	PSB	FLAVINHO	FLAVIO AUGUSTO DA SILVA	3	masculino	dep.flavinho@camara.gov.br	3215-5369	178978	SP	http://www.camara.gov.br/internet/deputado/bandep/178978.jpg	flavinho
+1935	640	Titular	PSB	u\\xc1TILA LIRA	u\\xc1TILA FREITAS LIRA	4	masculino	dep.atilalira@camara.gov.br	3215-5640	74459	PI	http://www.camara.gov.br/internet/deputado/bandep/74459.jpg	u\\xc1tila-lira
+3134	562	Titular	PP	FAUSTO PINATO	FAUSTO RUY PINATO	4	masculino	dep.faustopinato@camara.gov.br	3215-5562	66828	SP	http://www.camara.gov.br/internet/deputado/bandep/66828.jpg	fausto-pinato
+3049	230	Titular	PODE	uANT\\xd4NIO J\\xc1COME	ANTONIO JACOME DE LIMA JUNIOR	4	masculino	dep.antoniojacome@camara.gov.br	3215-5230	178950	RN	http://www.camara.gov.br/internet/deputado/bandep/178950.jpg	uant\\xd4nio-j\\xc1come
+2820	819	Titular	PT	VICENTE CANDIDO	uVICENTE C\\xc2NDIDO DA SILVA	4	masculino	dep.vicentecandido@camara.gov.br	3215-5819	160622	SP	http://www.camara.gov.br/internet/deputado/bandep/160622.jpg	vicente-candido
+2994	750	Titular	PDT	SUBTENENTE GONZAGA	LUIZ GONZAGA RIBEIRO	4	masculino	dep.subtenentegonzaga@camara.gov.br	3215-5750	177282	MG	http://www.camara.gov.br/internet/deputado/bandep/177282.jpg	subtenente-gonzaga
+2805	523	Titular	PSB	KEIKO OTA	IOLANDA KEIKO MIASHIRO OTA	4	feminino	dep.keikoota@camara.gov.br	3215-5523	160659	SP	http://www.camara.gov.br/internet/deputado/bandep/160659.jpg	keiko-ota
+3595	615	Titular	PRB	LINCOLN PORTELA	LINCOLN DINIZ PORTELA	4	masculino	dep.lincolnportela@camara.gov.br	3215-5615	74585	MG	http://www.camara.gov.br/internet/deputado/bandep/74585.jpg	lincoln-portela
+3750	558	Titular	PSB	RODRIGO MARTINS	RODRIGO RODRIGUES DE SOUZA MARTINS	4	masculino	dep.rodrigomartins@camara.gov.br	3215-5558	178926	PI	http://www.camara.gov.br/internet/deputado/bandep/178926.jpg	rodrigo-martins
+2724	906	Titular	PHS	PASTOR EURICO	FRANCISCO EURICO DA SILVA	4	masculino	dep.pastoreurico@camara.gov.br	3215-5906	160642	PE	http://www.camara.gov.br/internet/deputado/bandep/160642.jpg	pastor-eurico
+3777	823	Titular	PSDB	VITOR LIPPI	VITOR LIPPI	4	masculino	dep.vitorlippi@camara.gov.br	3215-5823	178992	SP	http://www.camara.gov.br/internet/deputado/bandep/178992.jpg	vitor-lippi
+1410	929	Titular	PTB	uARNALDO FARIA DE S\\xc1	uARNALDO FARIA DE S\\xc1	4	masculino	dep.arnaldofariadesa@camara.gov.br	3215-5929	73434	SP	http://www.camara.gov.br/internet/deputado/bandep/73434.jpg	uarnaldo-faria-de-s\\xc1
+2718	373	Titular	SD	AUGUSTO COUTINHO 	AUGUSTO RODRIGUES COUTINHO DE MELO	3	masculino	dep.augustocoutinho@camara.gov.br	3215-5373	160665	PE	http://www.camara.gov.br/internet/deputado/bandep/160665.jpg	augusto-coutinho
+1071	718	Suplente	PDT	CARLOS EDUARDO CADOCA	CARLOS EDUARDO CINTRA DA COSTA PEREIRA	4	masculino	dep.carloseduardocadoca@camara.gov.br	3215-5718	74474	PE	http://www.camara.gov.br/internet/deputado/bandep/74474.jpg	carlos-eduardo-cadoca
+2793	575	Titular	PEN	WALNEY ROCHA	WALNEY DA ROCHA CARVALHO	3	masculino	dep.walneyrocha@camara.gov.br	3215-5575	160631	RJ	http://www.camara.gov.br/internet/deputado/bandep/160631.jpg	walney-rocha
+3551	382	Titular	PMDB	CELSO JACOB	CELSO ALENCAR RAMOS JACOB	3	masculino	dep.celsojacob@camara.gov.br	3215-5382	73568	RJ	http://www.camara.gov.br/internet/deputado/bandep/73568.jpg	celso-jacob
+2172	376	Suplente	PMDB	uJOS\\xc9 FOGA\\xc7A 	uJOS\\xc9 ALBERTO FOGA\\xc7A DE MEDEIROS	3	masculino	dep.josefogaca@camara.gov.br	3215-5376	131966	RS	http://www.camara.gov.br/internet/deputado/bandep/131966.jpg	ujos\\xc9-foga\\xc7a
+1234	242	Suplente	PPS	ROBERTO FREIRE	uROBERTO JO\\xc3O PEREIRA FREIRE	4	masculino	dep.robertofreire@camara.gov.br	3215-5242	73805	SP	http://www.camara.gov.br/internet/deputado/bandep/73805.jpg	roberto-freire
+2694	202	Suplente	PMDB	ALBERTO FILHO	uJOS\\xc9 ALBERTO OLIVEIRA VELOSO FILHO	4	masculino	dep.albertofilho@camara.gov.br	3215-5202	160582	MA	http://www.camara.gov.br/internet/deputado/bandep/160582.jpg	alberto-filho
+2611	624	Suplente	PP	MAIA FILHO	uJOS\\xc9 DE ANDRADE MAIA FILHO	4	masculino	dep.maiafilho@camara.gov.br	3215-5624	151965	PI	http://www.camara.gov.br/internet/deputado/bandep/151965.jpg	maia-filho
+2787	727	Titular	PMDB	PEDRO PAULO	PEDRO PAULO CARVALHO TEIXEIRA	4	masculino	dep.pedropaulo@camara.gov.br	3215-5727	122158	RJ	http://www.camara.gov.br/internet/deputado/bandep/122158.jpg	pedro-paulo
+3268	419	Titular	PMDB	LAURA CARNEIRO	MARIA LAURA MONTEZA DE SOUZA CARNEIRO	4	feminino	dep.lauracarneiro@camara.gov.br	3215-5419	74856	RJ	http://www.camara.gov.br/internet/deputado/bandep/74856.jpg	laura-carneiro
+1874	519	Suplente	PSD	REINHOLD STEPHANES	REINHOLD STEPHANES	4	masculino	dep.reinholdstephanes@camara.gov.br	3215-5519	73786	PR	http://www.camara.gov.br/internet/deputado/bandep/73786.jpg	reinhold-stephanes
+3388	445	Titular	PSDB	YEDA CRUSIUS	YEDA RORATO CRUSIUS	4	feminino	dep.yedacrusius@camara.gov.br	3215-5445	73992	RS	http://www.camara.gov.br/internet/deputado/bandep/73992.jpg	yeda-crusius
+3865	576	Suplente	PT	ROBINSON ALMEIDA	ROBINSON SANTOS ALMEIDA	3	masculino	dep.robinsonalmeida@camara.gov.br	3215-5576	91208	BA	http://www.camara.gov.br/internet/deputado/bandep/91208.jpg	robinson-almeida
+1066	626	Titular	PV	ANTONIO CARLOS MENDES THAME	ANTONIO CARLOS DE MENDES THAME	4	masculino	dep.antoniocarlosmendesthame@camara.gov.br	3215-5626	73584	SP	http://www.camara.gov.br/internet/deputado/bandep/73584.jpg	antonio-carlos-mendes-thame
+2729	412	Suplente	PTdoB	ROSINHA DA ADEFAL	ROSEANE CAVALCANTE DE FREITAS ESTRELA	4	feminino	dep.rosinhadaadefal@camara.gov.br	3215-5412	146949	AL	http://www.camara.gov.br/internet/deputado/bandep/146949.jpg	rosinha-da-adefal
+2943	314	Suplente	PSB	SEVERINO NINHO	SEVERINO DE SOUZA SILVA	4	masculino	dep.severinoninho@camara.gov.br	3215-5314	167614	PE	http://www.camara.gov.br/internet/deputado/bandep/167614.jpg	severino-ninho
+1599	275	Titular	PSDB	LOBBE NETO	ANTONIO ADOLPHO LOBBE NETO	3	masculino	dep.lobbeneto@camara.gov.br	3215-5275	74277	SP	http://www.camara.gov.br/internet/deputado/bandep/74277.jpg	lobbe-neto
+3812	642	Suplente	PCdoB	uDAVIDSON MAGALH\\xc3ES	uDAVIDSON DE MAGALH\\xc3ES SANTOS	4	masculino	dep.davidsonmagalhaes@camara.gov.br	3215-5642	101309	BA	http://www.camara.gov.br/internet/deputado/bandep/101309.jpg	udavidson-magalh\\xc3es
+2545	372	Titular	PSD	WALTER IHOSHI	WALTER SHINDI IIHOSHI	3	masculino	dep.walterihoshi@camara.gov.br	3215-5372	141560	SP	http://www.camara.gov.br/internet/deputado/bandep/141560.jpg	walter-ihoshi
+2075	556	Suplente	PODE	ADEMIR CAMILO	ADEMIR CAMILO PRATES RODRIGUES	4	masculino	dep.ademircamilo@camara.gov.br	3215-5556	133374	MG	http://www.camara.gov.br/internet/deputado/bandep/133374.jpg	ademir-camilo
+1653	522	Suplente	PDT	ARIOSTO HOLANDA	FRANCISCO ARIOSTO HOLANDA	4	masculino	dep.ariostoholanda@camara.gov.br	3215-5522	74103	CE	http://www.camara.gov.br/internet/deputado/bandep/74103.jpg	ariosto-holanda
+1622	610	Titular	DEM	PAUDERNEY AVELINO	PAUDERNEY TOMAZ AVELINO	4	masculino	dep.pauderneyavelino@camara.gov.br	3215-5610	74095	AM	http://www.camara.gov.br/internet/deputado/bandep/74095.jpg	pauderney-avelino
+3188	919	Titular	PMDB	ELCIONE BARBALHO	ELCIONE THEREZINHA ZAHLUTH BARBALHO	4	feminino	dep.elcionebarbalho@camara.gov.br	3215-5919	74075	PA	http://www.camara.gov.br/internet/deputado/bandep/74075.jpg	elcione-barbalho
+3312	573	Titular	PT	uHELDER SALOM\\xc3O	HELDER IGNACIO SALOMAO	3	masculino	dep.heldersalomao@camara.gov.br	3215-5573	178873	ES	http://www.camara.gov.br/internet/deputado/bandep/178873.jpg	uhelder-salom\\xc3o
+3746	726	Titular	PODE	RENATA ABREU	RENATA HELLMEISTER DE ABREU	4	feminino	dep.renataabreu@camara.gov.br	3215-5726	178989	SP	http://www.camara.gov.br/internet/deputado/bandep/178989.jpg	renata-abreu
+2593	539	Titular	PSC	uPROFESSOR VICT\\xd3RIO GALLI	VICTORIO GALLI FILHO	4	masculino	dep.professorvictoriogalli@camara.gov.br	3215-5539	148134	MT	http://www.camara.gov.br/internet/deputado/bandep/148134.jpg	uprofessor-vict\\xd3rio-galli
+3055	473	Titular	PP	BETO SALAME	ROBERTO SALAME FILHO	3	masculino	dep.betosalame@camara.gov.br	3215-5473	178906	PA	http://www.camara.gov.br/internet/deputado/bandep/178906.jpg	beto-salame
+1270	928	Titular	PR	uJO\\xc3O CARLOS BACELAR	uJO\\xc3O CARLOS PAOLILO BACELAR FILHO	4	masculino	dep.joaocarlosbacelar@camara.gov.br	3215-5928	141458	BA	http://www.camara.gov.br/internet/deputado/bandep/141458.jpg	ujo\\xc3o-carlos-bacelar
+2763	715	Titular	PSDB	MARCUS PESTANA	uMARCUS VIN\\xcdCIUS CAETANO PESTANA DA SILVA	4	masculino	dep.marcuspestana@camara.gov.br	3215-5715	159238	MG	http://www.camara.gov.br/internet/deputado/bandep/159238.jpg	marcus-pestana
+2766	584	Titular	PP	TONINHO PINHEIRO	uANT\\xd4NIO PINHEIRO J\\xdaNIOR	3	masculino	dep.toninhopinheiro@camara.gov.br	3215-5584	160611	MG	http://www.camara.gov.br/internet/deputado/bandep/160611.jpg	toninho-pinheiro
+3073	201	Titular	PR	CHRISTIANE DE SOUZA YARED	CHRISTIANE DE SOUZA YARED	4	feminino	dep.christianedesouzayared@camara.gov.br	3215-5201	178928	PR	http://www.camara.gov.br/internet/deputado/bandep/178928.jpg	christiane-de-souza-yared
+3063	431	Titular	PSDB	CAIO NARCIO	CAIO NARCIO RODRIGUES DA SILVEIRA	4	masculino	dep.caionarcio@camara.gov.br	3215-5431	178891	MG	http://www.camara.gov.br/internet/deputado/bandep/178891.jpg	caio-narcio
+3753	722	Titular	PDT	RONALDO LESSA	RONALDO AUGUSTO LESSA SANTOS	4	masculino	dep.ronaldolessa@camara.gov.br	3215-5722	178845	AL	http://www.camara.gov.br/internet/deputado/bandep/178845.jpg	ronaldo-lessa
+1411	426	Titular	PT	REGINALDO LOPES	uREGINALDO L\\xc1ZARO DE OLIVEIRA LOPES	4	masculino	dep.reginaldolopes@camara.gov.br	3215-5426	74161	MG	http://www.camara.gov.br/internet/deputado/bandep/74161.jpg	reginaldo-lopes
+3706	333	Titular	PMDB	LUCIO MOSQUINI	LUCIO ANTONIO MOSQUINI	4	masculino	dep.luciomosquini@camara.gov.br	3215-5333	178954	RO	http://www.camara.gov.br/internet/deputado/bandep/178954.jpg	lucio-mosquini
+3214	385	Titular	PODE	FRANCISCO CHAPADINHA	FRANCISCO ALVES DE AGUIAR	3	masculino	dep.franciscochapadinha@camara.gov.br	3215-5385	178907	PA	http://www.camara.gov.br/internet/deputado/bandep/178907.jpg	francisco-chapadinha
+3754	568	Titular	PRB	RONALDO MARTINS	RONALDO MANCHADO MARTINS	3	masculino	dep.ronaldomartins@camara.gov.br	3215-5568	122466	CE	http://www.camara.gov.br/internet/deputado/bandep/122466.jpg	ronaldo-martins
+2370	408	Titular	PR	EDIO LOPES	u\\xc9DIO VIEIRA LOPES	4	masculino	dep.ediolopes@camara.gov.br	3215-5408	141417	RR	http://www.camara.gov.br/internet/deputado/bandep/141417.jpg	edio-lopes
+3690	476	Titular	PSDB	uJO\\xc3O PAULO PAPA	JOAO PAULO TAVARES PAPA	3	masculino	dep.joaopaulopapa@camara.gov.br	3215-5476	178988	SP	http://www.camara.gov.br/internet/deputado/bandep/178988.jpg	ujo\\xc3o-paulo-papa
+2483	334	Titular	PSD	MARCOS MONTES	MARCOS MONTES CORDEIRO	4	masculino	dep.marcosmontes@camara.gov.br	3215-5334	141500	MG	http://www.camara.gov.br/internet/deputado/bandep/141500.jpg	marcos-montes
+2601	326	Titular	PRB	uM\\xc1RCIO MARINHO	uM\\xc1RCIO CARLOS MARINHO	4	masculino	dep.marciomarinho@camara.gov.br	3215-5326	150418	BA	http://www.camara.gov.br/internet/deputado/bandep/150418.jpg	um\\xc1rcio-marinho
+3270	948	Titular	PDT	uLE\\xd4NIDAS CRISTINO	uJOS\\xc9 LE\\xd4NIDAS DE MENEZES CRISTINO	4	masculino	dep.leonidascristino@camara.gov.br	3215-5948	74299	CE	http://www.camara.gov.br/internet/deputado/bandep/74299.jpg	ule\\xd4nidas-cristino
+3716	550	Titular	PRB	MARCELO SQUASSONI	MARCELO SQUASSONI	4	masculino	dep.marcelosquassoni@camara.gov.br	3215-5550	118594	SP	http://www.camara.gov.br/internet/deputado/bandep/118594.jpg	marcelo-squassoni
+1168	648	Titular	PTB	PAES LANDIM	uJOS\\xc9 FRANCISCO PAES LANDIM	4	masculino	dep.paeslandim@camara.gov.br	3215-5648	74319	PI	http://www.camara.gov.br/internet/deputado/bandep/74319.jpg	paes-landim
+2462	660	Titular	PSB	VALADARES FILHO	uANT\\xd4NIO CARLOS VALADARES FILHO	4	masculino	dep.valadaresfilho@camara.gov.br	3215-5660	141384	SE	http://www.camara.gov.br/internet/deputado/bandep/141384.jpg	valadares-filho
+2855	229	Titular	PT	PEDRO UCZAI	PEDRO FRANCISCO UCZAI	4	masculino	dep.pedrouczai@camara.gov.br	3215-5229	160604	SC	http://www.camara.gov.br/internet/deputado/bandep/160604.jpg	pedro-uczai
+3696	309	Titular	PODE	uJOZI ARA\\xdaJO	JOZIANE ARAUJO NASCIMENTO	4	feminino	dep.joziaraujo@camara.gov.br	3215-5309	178851	AP	http://www.camara.gov.br/internet/deputado/bandep/178851.jpg	ujozi-ara\\xdajo
+3396	274	Titular	PP	uHIRAN GON\\xc7ALVES	HIRAN MANUEL GONCALVES DA SILVA	3	masculino	dep.hirangoncalves@camara.gov.br	3215-5274	178959	RR	http://www.camara.gov.br/internet/deputado/bandep/178959.jpg	uhiran-gon\\xc7alves
+3688	639	Titular	PMDB	uJO\\xc3O MARCELO SOUZA	uJO\\xc3O MARCELO SANTOS SOUZA	4	masculino	dep.joaomarcelosouza@camara.gov.br	3215-5639	112437	MA	http://www.camara.gov.br/internet/deputado/bandep/112437.jpg	ujo\\xc3o-marcelo-souza
+1986	552	Titular	PT	PAULO PIMENTA	PAULO ROBERTO SEVERO PIMENTA	4	masculino	dep.paulopimenta@camara.gov.br	3215-5552	74400	RS	http://www.camara.gov.br/internet/deputado/bandep/74400.jpg	paulo-pimenta
+1646	529	Titular	PSB	uJOS\\xc9 REINALDO	uJos\\xe9 Reinaldo Carneiro Tavares	4	masculino	dep.josereinaldo@camara.gov.br	3215-5529	73714	MA	http://www.camara.gov.br/internet/deputado/bandep/73714.jpg	ujos\\xc9-reinaldo
+3077	228	Titular	PP	COVATTI FILHO	LUIS ANTONIO FRANCISCATTO COVATTI	4	masculino	dep.covattifilho@camara.gov.br	3215-5228	178963	RS	http://www.camara.gov.br/internet/deputado/bandep/178963.jpg	covatti-filho
+2502	216	Titular	PROS	FELIPE BORNIER	FELIPE LEONE BORNIER DE OLIVEIRA	4	masculino	dep.felipebornier@camara.gov.br	3215-5216	141430	RJ	http://www.camara.gov.br/internet/deputado/bandep/141430.jpg	felipe-bornier
+1973	342	Titular	PP	JORGE BOEIRA	JORGE CATARINO LEONARDELI BOEIRA	4	masculino	dep.jorgeboeira@camara.gov.br	3215-5342	74388	SC	http://www.camara.gov.br/internet/deputado/bandep/74388.jpg	jorge-boeira
+3026	520	Titular	PODE	DR. SINVAL MALHEIROS	uSINVAL MALHEIROS PINTO J\\xdaNIOR	4	masculino	dep.dr.sinvalmalheiros@camara.gov.br	3215-5520	178830	SP	http://www.camara.gov.br/internet/deputado/bandep/178830.jpg	dr.-sinval-malheiros
+2865	354	Titular	PSB	uJOSE ST\\xc9DILE	uJOSE LUIZ ST\\xc9DILE	4	masculino	dep.josestedile@camara.gov.br	3215-5354	160607	RS	http://www.camara.gov.br/internet/deputado/bandep/160607.jpg	ujose-st\\xc9dile
+2947	930	Titular	DEM	uMARCOS ROG\\xc9RIO	uMARCOS ROG\\xc9RIO DA SILVA BRITO	4	masculino	dep.marcosrogerio@camara.gov.br	3215-5930	167722	RO	http://www.camara.gov.br/internet/deputado/bandep/167722.jpg	umarcos-rog\\xc9rio
+2510	225	Titular	PSDB	OTAVIO LEITE	OTAVIO SANTOS SILVA LEITE	4	masculino	dep.otavioleite@camara.gov.br	3215-5225	141515	RJ	http://www.camara.gov.br/internet/deputado/bandep/141515.jpg	otavio-leite
+2456	628	Titular	PP	EDUARDO DA FONTE	EDUARDO HENRIQUE DA FONTE DE ALBUQUERQUE SILVA	4	masculino	dep.eduardodafonte@camara.gov.br	3215-5628	141421	PE	http://www.camara.gov.br/internet/deputado/bandep/141421.jpg	eduardo-da-fonte
+3033	231	Suplente	PT	uADELMO CARNEIRO LE\\xc3O	ADELMO CARNEIRO LEAO	4	masculino	dep.adelmocarneiroleao@camara.gov.br	3215-5231	178890	MG	http://www.camara.gov.br/internet/deputado/bandep/178890.jpg	uadelmo-carneiro-le\\xc3o
+3766	560	Titular	DEM	uS\\xd3STENES CAVALCANTE	SOSTENES SILVA CAVALCANTE	4	masculino	dep.sostenescavalcante@camara.gov.br	3215-5560	178947	RJ	http://www.camara.gov.br/internet/deputado/bandep/178947.jpg	us\\xd3stenes-cavalcante
+3430	614	Titular	PMDB	MARINHA RAUPP	uMARINHA C\\xc9LIA ROCHA RAUPP DE MATOS	4	feminino	dep.marinharaupp@camara.gov.br	3215-5614	74177	RO	http://www.camara.gov.br/internet/deputado/bandep/74177.jpg	marinha-raupp
+3694	571	Titular	PT	JORGE SOLLA	JORGE JOSE SANTOS PEREIRA SOLLA	3	masculino	dep.jorgesolla@camara.gov.br	3215-5571	178857	BA	http://www.camara.gov.br/internet/deputado/bandep/178857.jpg	jorge-solla
+2400	858	Titular	PT	PEPE VARGAS	uGILBERTO JOS\\xc9 SPIER VARGAS	4	masculino	dep.pepevargas@camara.gov.br	3215-5858	141445	RS	http://www.camara.gov.br/internet/deputado/bandep/141445.jpg	pepe-vargas
+2825	371	Titular	PT	uS\\xc1GUAS MORAES	uS\\xc1GUAS MORAES SOUSA	3	masculino	dep.saguasmoraes@camara.gov.br	3215-5371	160630	MT	http://www.camara.gov.br/internet/deputado/bandep/160630.jpg	us\\xc1guas-moraes
+2861	566	Titular	PSD	DANRLEI DE DEUS HINTERHOLZ	DANRLEI DE DEUS HINTERHOLZ	3	masculino	dep.danrleidedeushinterholz@camara.gov.br	3215-5566	160552	RS	http://www.camara.gov.br/internet/deputado/bandep/160552.jpg	danrlei-de-deus-hinterholz
+3686	567	Titular	PSB	uJO\\xc3O FERNANDO COUTINHO	JOAO FERNANDO PONTUAL COUTINHO	3	masculino	dep.joaofernandocoutinho@camara.gov.br	32155567	178917	PE	http://www.camara.gov.br/internet/deputado/bandep/178917.jpg	ujo\\xc3o-fernando-coutinho
+3092	472	Titular	PT	ENIO VERRI	uENIO JOS\\xc9 VERRI	3	masculino	dep.enioverri@camara.gov.br	3215-5472	132504	PR	http://www.camara.gov.br/internet/deputado/bandep/132504.jpg	enio-verri
+2759	321	Titular	PROS	EROS BIONDINI	EROS FERREIRA BIONDINI	4	masculino	dep.erosbiondini@camara.gov.br	3215-5321	160640	MG	http://www.camara.gov.br/internet/deputado/bandep/160640.jpg	eros-biondini
+3298	277	Titular	PSB	HEITOR SCHUCH	HEITOR JOSE SCHUCH	3	masculino	dep.heitorschuch@camara.gov.br	3215-5277	178964	RS	http://www.camara.gov.br/internet/deputado/bandep/178964.jpg	heitor-schuch
+2018	204	Titular	PR	AELTON FREITAS	uAELTON JOS\\xc9 DE FREITAS	4	masculino	dep.aeltonfreitas@camara.gov.br	3215-5204	141372	MG	http://www.camara.gov.br/internet/deputado/bandep/141372.jpg	aelton-freitas
+2716	534	Titular	PTB	WILSON FILHO	uJOS\\xc9 WILSON SANTIAGO FILHO	4	masculino	dep.wilsonfilho@camara.gov.br	3215-5534	160636	PB	http://www.camara.gov.br/internet/deputado/bandep/160636.jpg	wilson-filho
+2616	362	Titular	PSOL	GLAUBER BRAGA	GLAUBER DE MEDEIROS BRAGA	4	masculino	dep.glauberbraga@camara.gov.br	3215-5362	152605	RJ	http://www.camara.gov.br/internet/deputado/bandep/152605.jpg	glauber-braga
+1268	458	Titular	SD	uBENJAMIN MARANH\\xc3O	uBENJAMIN GOMES MARANH\\xc3O NETO	4	masculino	dep.benjaminmaranhao@camara.gov.br	3215-5458	74040	PB	http://www.camara.gov.br/internet/deputado/bandep/74040.jpg	ubenjamin-maranh\\xc3o
+2924	341	Titular	PSD	STEFANO AGUIAR	STEFANO AGUIAR DOS SANTOS	4	masculino	dep.stefanoaguiar@camara.gov.br	3215-5341	92776	MG	http://www.camara.gov.br/internet/deputado/bandep/92776.jpg	stefano-aguiar
+3724	741	Titular	DEM	MARCOS SOARES	MARCOS BEZERRA RIBEIRO SOARES	4	masculino	dep.marcossoares@camara.gov.br	3215-5741	178943	RJ	http://www.camara.gov.br/internet/deputado/bandep/178943.jpg	marcos-soares
+2856	656	Titular	PMDB	uROG\\xc9RIO PENINHA MENDON\\xc7A	uROG\\xc9RIO MENDON\\xc7A	4	masculino	dep.rogeriopeninhamendonca@camara.gov.br	3215-5656	160651	SC	http://www.camara.gov.br/internet/deputado/bandep/160651.jpg	urog\\xc9rio-peninha-mendon\\xc7a
+3769	448	Titular	PSB	TEREZA CRISTINA	TEREZA CRISTINA CORREA DA COSTA DIAS	4	feminino	dep.terezacristina@camara.gov.br	3215-5448	178901	MS	http://www.camara.gov.br/internet/deputado/bandep/178901.jpg	tereza-cristina
+3090	205	Titular	PPS	ELIZIANE GAMA	ELIZIANE PEREIRA GAMA FERREIRA	4	feminino	dep.elizianegama@camara.gov.br	3215-5205	178883	MA	http://www.camara.gov.br/internet/deputado/bandep/178883.jpg	eliziane-gama
+3782	318	Titular	PTB	ZECA CAVALCANTI	JOSE CAVALCANTI ALVES JUNIOR	4	masculino	dep.zecacavalcanti@camara.gov.br	3215-5318	178923	PE	http://www.camara.gov.br/internet/deputado/bandep/178923.jpg	zeca-cavalcanti
+3351	429	Titular	PMDB	SARAIVA FELIPE	uJOS\\xc9 SARAIVA FELIPE	4	masculino	dep.saraivafelipe@camara.gov.br	3215-5429	74762	MG	http://www.camara.gov.br/internet/deputado/bandep/74762.jpg	saraiva-felipe
+3064	273	Titular	PR	uCAPIT\\xc3O AUGUSTO	JOSE AUGUSTO ROSA	3	masculino	dep.capitaoaugusto@camara.gov.br	3215-5273	178829	SP	http://www.camara.gov.br/internet/deputado/bandep/178829.jpg	ucapit\\xc3o-augusto
+3262	908	Titular	PR	uJOS\\xc9 ROCHA	uJOS\\xc9 ALVES ROCHA	4	masculino	dep.joserocha@camara.gov.br	3215-5908	74554	BA	http://www.camara.gov.br/internet/deputado/bandep/74554.jpg	ujos\\xc9-rocha
+3738	635	Titular	DEM	PAULO AZI	PAULO VELLOSO DANTAS AZI	4	masculino	dep.pauloazi@camara.gov.br	3215-5635	178860	BA	http://www.camara.gov.br/internet/deputado/bandep/178860.jpg	paulo-azi
+3778	545	Titular	PMDB	VITOR VALIM	VITOR PEREIRA VALIM	4	masculino	dep.vitorvalim@camara.gov.br	3215-5545	178869	CE	http://www.camara.gov.br/internet/deputado/bandep/178869.jpg	vitor-valim
+3173	518	Titular	PMDB	uDARC\\xcdSIO PERONDI	uDARC\\xcdSIO PAULO PERONDI	4	masculino	dep.darcisioperondi@camara.gov.br	3215-5518	73891	RS	http://www.camara.gov.br/internet/deputado/bandep/73891.jpg	udarc\\xcdsio-perondi
+3749	332	Titular	PRB	ROBERTO SALES	ROBERTO DA SILVA SALES	4	masculino	dep.robertosales@camara.gov.br	3215-5332	178944	RJ	http://www.camara.gov.br/internet/deputado/bandep/178944.jpg	roberto-sales
+1451	838	Titular	PT	VANDER LOUBET	VANDER LUIZ DOS SANTOS LOUBET	4	masculino	dep.vanderloubet@camara.gov.br	3215-5838	74376	MS	http://www.camara.gov.br/internet/deputado/bandep/74376.jpg	vander-loubet
+2693	432	Titular	DEM	PROFESSORA DORINHA SEABRA REZENDE	MARIA AUXILIADORA SEABRA REZENDE	4	feminino	dep.professoradorinhaseabrarezende@camara.gov.br	3215-5432	160639	TO	http://www.camara.gov.br/internet/deputado/bandep/160639.jpg	professora-dorinha-seabra-rezende
+2853	284	Titular	PSDB	MARCO TEBALDI	MARCO ANTONIO TEBALDI	3	masculino	dep.marcotebaldi@camara.gov.br	3215-5284	160536	SC	http://www.camara.gov.br/internet/deputado/bandep/160536.jpg	marco-tebaldi
+2471	638	Titular	PSD	uS\\xc9RGIO BRITO	uS\\xc9RGIO LU\\xcdS LACERDA BRITO	4	masculino	dep.sergiobrito@camara.gov.br	3215-5638	73808	BA	http://www.camara.gov.br/internet/deputado/bandep/73808.jpg	us\\xc9rgio-brito
+3060	380	Titular	PMDB	uCABU\\xc7U BORGES	LUIZ GIONILSON PINHEIRO BORGES	3	masculino	dep.cabucuborges@camara.gov.br	3215-5380	105112	AP	http://www.camara.gov.br/internet/deputado/bandep/105112.jpg	ucabu\\xc7u-borges
+3069	856	Titular	PMDB	CARLOS MARUN	CARLOS EDUARDO XAVIER MARUN	4	masculino	dep.carlosmarun@camara.gov.br	3215-5856	178900	MS	http://www.camara.gov.br/internet/deputado/bandep/178900.jpg	carlos-marun
+3740	705	Titular	PSDB	PEDRO VILELA	uPEDRO TORRES BRAND\\xc3O VILELA	4	masculino	dep.pedrovilela@camara.gov.br	3215-5705	178844	AL	http://www.camara.gov.br/internet/deputado/bandep/178844.jpg	pedro-vilela
+2388	710	Titular	PRB	CLEBER VERDE	CLEBER VERDE CORDEIRO MENDES	4	masculino	dep.cleberverde@camara.gov.br	3215-5710	141408	MA	http://www.camara.gov.br/internet/deputado/bandep/141408.jpg	cleber-verde
+2355	417	Titular	PTdoB	SILVIO COSTA	uS\\xcdLVIO SERAFIM COSTA	4	masculino	dep.silviocosta@camara.gov.br	3215-5417	4930	PE	http://www.camara.gov.br/internet/deputado/bandep/4930.jpg	silvio-costa
+3698	537	Titular	PEN	JUNIOR MARRECA	ANTONIO DA CRUZ FILGUEIRA JUNIOR	4	masculino	dep.juniormarreca@camara.gov.br	3215-5537	178885	MA	http://www.camara.gov.br/internet/deputado/bandep/178885.jpg	junior-marreca
+2772	227	Titular	PHS	DR. JORGE SILVA	JORGE SILVA	4	masculino	dep.dr.jorgesilva@camara.gov.br	3215-5227	160643	ES	http://www.camara.gov.br/internet/deputado/bandep/160643.jpg	dr.-jorge-silva
+2366	348	Titular	PSDB	VANDERLEI MACRIS	VANDERLEI MACRIS	4	masculino	dep.vanderleimacris@camara.gov.br	3215-5348	141553	SP	http://www.camara.gov.br/internet/deputado/bandep/141553.jpg	vanderlei-macris
+3640	952	Titular	PMDB	uJ\\xc9SSICA SALES	JESSICA ROJAS SALES	4	feminino	dep.jessicasales@camara.gov.br	3215-5952	178839	AC	http://www.camara.gov.br/internet/deputado/bandep/178839.jpg	uj\\xc9ssica-sales
+1257	414	Titular	PTB	BENITO GAMA	BENITO DA GAMA SANTOS	4	masculino	dep.benitogama@camara.gov.br	3215-5414	74535	BA	http://www.camara.gov.br/internet/deputado/bandep/74535.jpg	benito-gama
+2768	862	Titular	PMB	WELITON PRADO	WELITON FERNANDES PRADO	4	masculino	dep.welitonprado@camara.gov.br	3215-5862	160518	MG	http://www.camara.gov.br/internet/deputado/bandep/160518.jpg	weliton-prado
+3056	260	Titular	PR	BRUNNY	BRUNIELE FERREIRA GOMES	4	feminino	dep.brunny@camara.gov.br	3215-5260	178999	MG	http://www.camara.gov.br/internet/deputado/bandep/178999.jpg	brunny
+2363	602	Titular	PSDB	IZALCI LUCAS	IZALCI LUCAS FERREIRA	4	masculino	dep.izalcilucas@camara.gov.br	3215-5602	4931	DF	http://www.camara.gov.br/internet/deputado/bandep/4931.jpg	izalci-lucas
+1984	828	Titular	DEM	ONYX LORENZONI	ONYX DORNELLES LORENZONI	4	masculino	dep.onyxlorenzoni@camara.gov.br	3215-5828	74399	RS	http://www.camara.gov.br/internet/deputado/bandep/74399.jpg	onyx-lorenzoni
+3084	745	Titular	PHS	DIEGO GARCIA	DIEGO ALEXSANDER GONCALO PAULA GARCIA	4	masculino	dep.diegogarcia@camara.gov.br	3215-5745	178929	PR	http://www.camara.gov.br/internet/deputado/bandep/178929.jpg	diego-garcia
+3433	725	Titular	PSDB	RAIMUNDO GOMES DE MATOS	RAIMUNDO GOMES DE MATOS	4	masculino	dep.raimundogomesdematos@camara.gov.br	3215-5725	74216	CE	http://www.camara.gov.br/internet/deputado/bandep/74216.jpg	raimundo-gomes-de-matos
+3680	842	Titular	PTB	ALEX CANZIANI	ALEX CANZIANI SILVEIRA	4	masculino	dep.alexcanziani@camara.gov.br	3215-5842	73458	PR	http://www.camara.gov.br/internet/deputado/bandep/73458.jpg	alex-canziani
+1271	442	Titular	PT	LUIZ COUTO	LUIZ ALBUQUERQUE COUTO	4	masculino	dep.luizcouto@camara.gov.br	3215-5442	74041	PB	http://www.camara.gov.br/internet/deputado/bandep/74041.jpg	luiz-couto
+3031	335	Titular	PP	ADAIL CARNEIRO	JOSE ADAIL CARNEIRO SILVA	4	masculino	dep.adailcarneiro@camara.gov.br	3215-5335	178864	CE	http://www.camara.gov.br/internet/deputado/bandep/178864.jpg	adail-carneiro
+3630	511	Titular	DEM	ALBERTO FRAGA	uJO\\xc3O ALBERTO FRAGA SILVA	4	masculino	dep.albertofraga@camara.gov.br	3215-5511	73579	DF	http://www.camara.gov.br/internet/deputado/bandep/73579.jpg	alberto-fraga
+3684	958	Titular	PSB	JHC	JOAO HENRIQUE HOLANDA  CALDAS	4	masculino	dep.jhc@camara.gov.br	3215-5958	178842	AL	http://www.camara.gov.br/internet/deputado/bandep/178842.jpg	jhc
+1142	266	Titular	PT	uZ\\xc9 GERALDO	uJOS\\xc9 GERALDO TORRES DA SILVA	3	masculino	dep.zegeraldo@camara.gov.br	3215-5266	73931	PA	http://www.camara.gov.br/internet/deputado/bandep/73931.jpg	uz\\xc9-geraldo
+2942	405	Titular	PDT	WEVERTON ROCHA	WEVERTON ROCHA MARQUES DE SOUSA	4	masculino	dep.wevertonrocha@camara.gov.br	3215-5405	167493	MA	http://www.camara.gov.br/internet/deputado/bandep/167493.jpg	weverton-rocha
+3103	271	Titular	PSDB	uF\\xc1BIO SOUSA	FABIO FERNANDES DE SOUSA	3	masculino	dep.fabiosousa@camara.gov.br	3215-5271	178877	GO	http://www.camara.gov.br/internet/deputado/bandep/178877.jpg	uf\\xc1bio-sousa
+3083	933	Titular	PR	DELEGADO EDSON MOREIRA	EDSON MOREIRA DA SILVA	4	masculino	dep.delegadoedsonmoreira@camara.gov.br	3215-5933	178893	MG	http://www.camara.gov.br/internet/deputado/bandep/178893.jpg	delegado-edson-moreira
+2843	633	Titular	PMDB	uJO\\xc3O ARRUDA	uJO\\xc3O JOS\\xc9 DE ARRUDA J\\xdaNIOR	4	masculino	dep.joaoarruda@camara.gov.br	3215-5633	160573	PR	http://www.camara.gov.br/internet/deputado/bandep/160573.jpg	ujo\\xc3o-arruda
+2447	446	Titular	PSDB	uROG\\xc9RIO MARINHO	uROG\\xc9RIO SIMONETTI MARINHO	4	masculino	dep.rogeriomarinho@camara.gov.br	3215-5446	141535	RN	http://www.camara.gov.br/internet/deputado/bandep/141535.jpg	urog\\xc9rio-marinho
+2573	304	Titular	PMDB	JARBAS VASCONCELOS	Jarbas de Andrade Vasconcelos	4	masculino	dep.jarbasvasconcelos@camara.gov.br	3215-5304	131943	PE	http://www.camara.gov.br/internet/deputado/bandep/131943.jpg	jarbas-vasconcelos
+2862	469	Titular	PT	BOHN GASS	uELVINO JOS\\xc9 BOHN GASS	3	masculino	dep.bohngass@camara.gov.br	3215-5469	160538	RS	http://www.camara.gov.br/internet/deputado/bandep/160538.jpg	bohn-gass
+1117	424	Titular	PP	uJOS\\xc9 OT\\xc1VIO GERMANO	uJOS\\xc9 OT\\xc1VIO GERMANO	4	masculino	dep.joseotaviogermano@camara.gov.br	3215-5424	74395	RS	http://www.camara.gov.br/internet/deputado/bandep/74395.jpg	ujos\\xc9-ot\\xc1vio-germano
+1983	312	Titular	PT	uMARIA DO ROS\\xc1RIO	uMARIA DO ROS\\xc1RIO NUNES	4	feminino	dep.mariadorosario@camara.gov.br	3215-5312	74398	RS	http://www.camara.gov.br/internet/deputado/bandep/74398.jpg	umaria-do-ros\\xc1rio
+2481	914	Titular	PMDB	uLEONARDO QUINT\\xc3O	uLEONARDO LEMOS BARROS QUINT\\xc3O	4	masculino	dep.leonardoquintao@camara.gov.br	3215-5914	141482	MG	http://www.camara.gov.br/internet/deputado/bandep/141482.jpg	uleonardo-quint\\xc3o
+3360	404	Titular	PSDB	SILVIO TORRES	uSILVIO FRAN\\xc7A TORRES	4	masculino	dep.silviotorres@camara.gov.br	3215-5404	73560	SP	http://www.camara.gov.br/internet/deputado/bandep/73560.jpg	silvio-torres
+3734	932	Titular	PMDB	NEWTON CARDOSO JR	NEWTON CARDOSO JUNIOR	4	masculino	dep.newtoncardosojr@camara.gov.br	3215-5932	178896	MG	http://www.camara.gov.br/internet/deputado/bandep/178896.jpg	newton-cardoso-jr
+2742	912	Titular	PDT	uF\\xc9LIX MENDON\\xc7A J\\xdaNIOR	uFELIX DE ALMEIDA MENDON\\xc7A J\\xdaNIOR	4	masculino	dep.felixmendoncajunior@camara.gov.br	3215-5912	160666	BA	http://www.camara.gov.br/internet/deputado/bandep/160666.jpg	uf\\xc9lix-mendon\\xc7a-j\\xdanior
+3076	515	Titular	PP	uCONCEI\\xc7\\xc3O SAMPAIO	MARIA DA CONCEICAO SAMPAIO MOURA	4	feminino	dep.conceicaosampaio@camara.gov.br	3215-5515	178848	AM	http://www.camara.gov.br/internet/deputado/bandep/178848.jpg	uconcei\\xc7\\xc3o-sampaio
+3704	816	Titular	SD	LUCAS VERGILIO	LUCAS DE CASTRO SANTOS	4	masculino	dep.lucasvergilio@camara.gov.br	3215-5816	178879	GO	http://www.camara.gov.br/internet/deputado/bandep/178879.jpg	lucas-vergilio
+3039	554	Titular	PMDB	ALEXANDRE SERFIOTIS	ALEXANDRE AUGUSTUS SERFIOTIS	4	masculino	dep.alexandreserfiotis@camara.gov.br	3215-5554	178833	RJ	http://www.camara.gov.br/internet/deputado/bandep/178833.jpg	alexandre-serfiotis
+2409	706	Titular	PSD	uF\\xc1BIO FARIA	uF\\xc1BIO SALUSTINO MESQUITA DE FARIA	4	masculino	dep.fabiofaria@camara.gov.br	3215-5706	141428	RN	http://www.camara.gov.br/internet/deputado/bandep/141428.jpg	uf\\xc1bio-faria
+3072	956	Titular	PSB	uC\\xc9SAR MESSIAS	CARLOS CESAR CORREIA DE MESSIAS	4	masculino	dep.cesarmessias@camara.gov.br	3215-5956	178838	AC	http://www.camara.gov.br/internet/deputado/bandep/178838.jpg	uc\\xc9sar-messias
+1773	482	Titular	PSC	JAIR BOLSONARO	JAIR MESSIAS BOLSONARO	3	masculino	dep.jairbolsonaro@camara.gov.br	3215-5482	74847	RJ	http://www.camara.gov.br/internet/deputado/bandep/74847.jpg	jair-bolsonaro
+3542	732	Titular	PHS	uGIVALDO CARIMB\\xc3O	uGIVALDO DE S\\xc1 GOUVEIA	4	masculino	dep.givaldocarimbao@camara.gov.br	3215-5732	74558	AL	http://www.camara.gov.br/internet/deputado/bandep/74558.jpg	ugivaldo-carimb\\xc3o
+2801	712	Titular	PP	GUILHERME MUSSI	GUILHERME MUSSI FERREIRA	4	masculino	dep.guilhermemussi@camara.gov.br	3215-5712	160667	SP	http://www.camara.gov.br/internet/deputado/bandep/160667.jpg	guilherme-mussi
+2776	652	Titular	REDE	ALESSANDRO MOLON	ALESSANDRO LUCCIOLA MOLON	4	masculino	dep.alessandromolon@camara.gov.br	3215-5652	160511	RJ	http://www.camara.gov.br/internet/deputado/bandep/160511.jpg	alessandro-molon
+3708	643	Titular	PR	uLUIZ CL\\xc1UDIO	LUIZ CLAUDIO PEREIRA ALVES	4	masculino	dep.luizclaudio@camara.gov.br	3215-5643	178955	RO	http://www.camara.gov.br/internet/deputado/bandep/178955.jpg	uluiz-cl\\xc1udio
+3089	368	Titular	PSDB	EDUARDO CURY	EDUARDO PEDROSA CURY	3	masculino	dep.eduardocury@camara.gov.br	3215-5368	178977	SP	http://www.camara.gov.br/internet/deputado/bandep/178977.jpg	eduardo-cury
+3160	960	Titular	PRB	CELSO RUSSOMANNO	CELSO UBIRAJARA RUSSOMANNO	4	masculino	dep.celsorussomanno@camara.gov.br	3215-5960	73441	SP	http://www.camara.gov.br/internet/deputado/bandep/73441.jpg	celso-russomanno
+2833	738	Titular	PDT	uFL\\xc1VIA MORAIS	uFL\\xc1VIA CARREIRO ALBUQUERQUE MORAIS	4	feminino	dep.flaviamorais@camara.gov.br	3215-5738	160598	GO	http://www.camara.gov.br/internet/deputado/bandep/160598.jpg	ufl\\xc1via-morais
+3568	903	Titular	PSD	uPAULO MAGALH\\xc3ES	uPAULO S\\xc9RGIO PARANHOS DE MAGALH\\xc3ES	4	masculino	dep.paulomagalhaes@camara.gov.br	3215-5903	74574	BA	http://www.camara.gov.br/internet/deputado/bandep/74574.jpg	upaulo-magalh\\xc3es
+2935	934	Titular	PR	MAGDA MOFATTO	MAGDA MOFATTO HON	4	feminino	dep.magdamofatto@camara.gov.br	3215-5934	166402	GO	http://www.camara.gov.br/internet/deputado/bandep/166402.jpg	magda-mofatto
+3062	415	Titular	PT	CAETANO	LUIZ CARLOS CAETANO	4	masculino	dep.caetano@camara.gov.br	3215-5415	178853	BA	http://www.camara.gov.br/internet/deputado/bandep/178853.jpg	caetano
+1881	609	Titular	PSD	CESAR SOUZA	uC\\xe9sar Antonio de Souza	4	masculino	dep.cesarsouza@camara.gov.br	3215-5609	73720	SC	http://www.camara.gov.br/internet/deputado/bandep/73720.jpg	cesar-souza
+3784	439	Titular	PR	ZENAIDE MAIA	ZENAIDE MAIA CALADO PEREIRA DOS SANTOS	4	feminino	dep.zenaidemaia@camara.gov.br	3215-5439	178949	RN	http://www.camara.gov.br/internet/deputado/bandep/178949.jpg	zenaide-maia
+1963	428	Titular	PDT	ASSIS DO COUTO	ASSIS MIGUEL DO COUTO	4	masculino	dep.assisdocouto@camara.gov.br	3215-5428	74378	PR	http://www.camara.gov.br/internet/deputado/bandep/74378.jpg	assis-do-couto
+2712	237	Titular	PMDB	HUGO MOTTA	uHUGO MOTTA WANDERLEY DA N\\xd3BREGA	4	masculino	dep.hugomotta@camara.gov.br	3215-5237	160674	PB	http://www.camara.gov.br/internet/deputado/bandep/160674.jpg	hugo-motta
+3093	443	Titular	PV	EVAIR VIEIRA DE MELO	EVAIR VIEIRA DE MELO	4	masculino	dep.evairvieirademelo@camara.gov.br	3215-5443	178871	ES	http://www.camara.gov.br/internet/deputado/bandep/178871.jpg	evair-vieira-de-melo
+2816	235	Titular	PV	ROBERTO DE LUCENA	ROBERTO ALVES DE LUCENA	4	masculino	dep.robertodelucena@camara.gov.br	3215-5235	160653	SP	http://www.camara.gov.br/internet/deputado/bandep/160653.jpg	roberto-de-lucena
+1334	270	Titular	REDE	MIRO TEIXEIRA	MIRO TEIXEIRA	3	masculino	dep.miroteixeira@camara.gov.br	3215-5270	74862	RJ	http://www.camara.gov.br/internet/deputado/bandep/74862.jpg	miro-teixeira
+2534	281	Titular	PT	PAULO TEIXEIRA	LUIZ PAULO TEIXEIRA FERREIRA	3	masculino	dep.pauloteixeira@camara.gov.br	3215-5281	141488	SP	http://www.camara.gov.br/internet/deputado/bandep/141488.jpg	paulo-teixeira
+1063	516	Titular	PMDB	VALDIR COLATTO	VALDIR COLATTO	4	masculino	dep.valdircolatto@camara.gov.br	3215-5516	74010	SC	http://www.camara.gov.br/internet/deputado/bandep/74010.jpg	valdir-colatto
+3781	748	Titular	PT	uZ\\xc9 CARLOS	uJOS\\xc9 CARLOS NUNES J\\xdaNIOR	4	masculino	dep.zecarlos@camara.gov.br	3215-5748	178889	MA	http://www.camara.gov.br/internet/deputado/bandep/178889.jpg	uz\\xc9-carlos
+3135	4	Titular	PT	ARLINDO CHINAGLIA	ARLINDO CHIGNALIA JUNIOR	1	masculino	dep.arlindochinaglia@camara.gov.br	3215-5966	73433	SP	http://www.camara.gov.br/internet/deputado/bandep/73433.jpg	arlindo-chinaglia
+3729	250	Titular	PSDB	MIGUEL HADDAD	MIGUEL MOUBADDA HADDAD	4	masculino	dep.miguelhaddad@camara.gov.br	3215-5250	178984	SP	http://www.camara.gov.br/internet/deputado/bandep/178984.jpg	miguel-haddad
+3081	471	Titular	PMDB	DANIEL VILELA	DANIEL ELIAS CARVALHO VILELA	3	masculino	dep.danielvilela@camara.gov.br	3215-5471	144523	GO	http://www.camara.gov.br/internet/deputado/bandep/144523.jpg	daniel-vilela
+2826	203	Titular	PT	ERIKA KOKAY	u\\xc9RIKA JUC\\xc1 KOKAY	4	feminino	dep.erikakokay@camara.gov.br	3215-5203	160575	DF	http://www.camara.gov.br/internet/deputado/bandep/160575.jpg	erika-kokay
+2842	265	Titular	SD	DELEGADO FRANCISCHINI	FERNANDO DESTITO FRANCISCHINI	3	masculino	dep.delegadofrancischini@camara.gov.br	3215-5265	160646	PR	http://www.camara.gov.br/internet/deputado/bandep/160646.jpg	delegado-francischini
+3082	586	Titular	PSD	uDELEGADO \\xc9DER MAURO	EDER MAURO CARDOSO BARRA	3	masculino	dep.delegadoedermauro@camara.gov.br	3215-5586	178908	PA	http://www.camara.gov.br/internet/deputado/bandep/178908.jpg	udelegado-\\xc9der-mauro
+3100	286	Titular	PSD	uF\\xc1BIO MITIDIERI	FABIO CRUZ MITIDIERI	3	masculino	dep.fabiomitidieri@camara.gov.br	3215-5286	178969	SE	http://www.camara.gov.br/internet/deputado/bandep/178969.jpg	uf\\xc1bio-mitidieri
+1218	430	Titular	PSB	GONZAGA PATRIOTA	LUIZ GONZAGA PATRIOTA	4	masculino	dep.gonzagapatriota@camara.gov.br	3215-5430	74419	PE	http://www.camara.gov.br/internet/deputado/bandep/74419.jpg	gonzaga-patriota
+2368	452	Titular	PMDB	uF\\xc1BIO RAMALHO	uF\\xc1BIO AUGUSTO RAMALHO DOS SANTOS	4	masculino	dep.fabioramalho@camara.gov.br	3215-5452	141427	MG	http://www.camara.gov.br/internet/deputado/bandep/141427.jpg	uf\\xc1bio-ramalho
+2721	621	Titular	PTB	uJORGE C\\xd4RTE REAL	uJORGE WICKS C\\xd4RTE REAL	4	masculino	dep.jorgecortereal@camara.gov.br	3215-5621	160572	PE	http://www.camara.gov.br/internet/deputado/bandep/160572.jpg	ujorge-c\\xd4rte-real
+2765	736	Titular	PP	RENZO BRAZ	RENZO DO AMARAL BRAZ	4	masculino	dep.renzobraz@camara.gov.br	3215-5736	160654	MG	http://www.camara.gov.br/internet/deputado/bandep/160654.jpg	renzo-braz
+1593	502	Titular	PT	uJOS\\xc9 MENTOR	uJOS\\xc9 MENTOR GUILHERME DE MELLO NETTO	4	masculino	dep.josementor@camara.gov.br	3215-5502	74275	SP	http://www.camara.gov.br/internet/deputado/bandep/74275.jpg	ujos\\xc9-mentor
+3685	901	Titular	REDE	uJO\\xc3O DERLY	JOAO DERLY DE OLIVEIRA NUNES JUNIOR	4	masculino	dep.joaoderly@camara.gov.br	3215-5901	178965	RS	http://www.camara.gov.br/internet/deputado/bandep/178965.jpg	ujo\\xc3o-derly
+3689	703	Titular	PSD	uJO\\xc3O PAULO KLEIN\\xdcBING	JOAO PAULO KARAM KLEINUBING	4	masculino	dep.joaopaulokleinubing@camara.gov.br	3215-5703	178967	SC	http://www.camara.gov.br/internet/deputado/bandep/178967.jpg	ujo\\xc3o-paulo-klein\\xdcbing
+1928	208	Titular	PSDB	uBONIF\\xc1CIO DE ANDRADA	uBONIF\\xc1CIO JOS\\xc9 TAMM DE ANDRADA	4	masculino	dep.bonifaciodeandrada@camara.gov.br	3215-5208	74650	MG	http://www.camara.gov.br/internet/deputado/bandep/74650.jpg	ubonif\\xc1cio-de-andrada
+3758	574	Titular	PCdoB	uRUBENS PEREIRA J\\xdaNIOR	RUBENS PEREIRA E SILVA JUNIOR	3	masculino	dep.rubenspereirajunior@camara.gov.br	3215-5574	178887	MA	http://www.camara.gov.br/internet/deputado/bandep/178887.jpg	urubens-pereira-j\\xdanior
+3220	234	Titular	PMDB	HERMES PARCIANELLO	HERMES PARCIANELLO	4	masculino	dep.hermesparcianello@camara.gov.br	3215-5234	73772	PR	http://www.camara.gov.br/internet/deputado/bandep/73772.jpg	hermes-parcianello
+3297	844	Titular	PMDB	MAURO LOPES	MAURO RIBEIRO LOPES	4	masculino	dep.maurolopes@camara.gov.br	3215-5844	74749	MG	http://www.camara.gov.br/internet/deputado/bandep/74749.jpg	mauro-lopes
+2491	801	Titular	PMDB	LELO COIMBRA	WELINGTON COIMBRA	4	masculino	dep.lelocoimbra@camara.gov.br	3215-5801	141562	ES	http://www.camara.gov.br/internet/deputado/bandep/141562.jpg	lelo-coimbra
+3727	517	Titular	PP	uM\\xc1RIO NEGROMONTE JR.	MARIO SILVIO MENDES NEGROMONTE JUNIOR	4	masculino	dep.marionegromontejr@camara.gov.br	3215-5517	178858	BA	http://www.camara.gov.br/internet/deputado/bandep/178858.jpg	um\\xc1rio-negromonte-jr.
+2444	911	Suplente	PP	PAULO HENRIQUE LUSTOSA	PAULO HENRIQUE ELLERY LUSTOSA DA COSTA	4	masculino	dep.paulohenriquelustosa@camara.gov.br	3215-5911	141517	CE	http://www.camara.gov.br/internet/deputado/bandep/141517.jpg	paulo-henrique-lustosa
+2845	513	Suplente	PSDB	NELSON PADOVANI	NELSON PADOVANI	4	masculino	dep.nelsonpadovani@camara.gov.br	3215-5513	160566	PR	http://www.camara.gov.br/internet/deputado/bandep/160566.jpg	nelson-padovani
+2418	474	Titular	PTB	SABINO CASTELO BRANCO	uRAIMUNDO SABINO CASTELO BRANCO MAU\\xc9S	3	masculino	dep.sabinocastelobranco@camara.gov.br	3215-5474	141522	AM	http://www.camara.gov.br/internet/deputado/bandep/141522.jpg	sabino-castelo-branco
+2976	483	Titular	PP	RENATO ANDRADE	RENATO BARBOSA DE ANDRADE	3	masculino	dep.renatoandrade@camara.gov.br	3215-5483	171620	MG	http://www.camara.gov.br/internet/deputado/bandep/171620.jpg	renato-andrade
+2860	625	Suplente	PCdoB	ASSIS MELO	uASSIS FL\\xc1VIO DA SILVA MELO	4	masculino	dep.assismelo@camara.gov.br	3215-5625	160581	RS	http://www.camara.gov.br/internet/deputado/bandep/160581.jpg	assis-melo
+2070	206	Titular	PR	GORETE PEREIRA	MARIA GORETE PEREIRA	4	feminino	dep.goretepereira@camara.gov.br	3215-5206	129618	CE	http://www.camara.gov.br/internet/deputado/bandep/129618.jpg	gorete-pereira
+2808	367	Suplente	DEM	MARCELO AGUIAR	MARCELO THEODORO DE AGUIAR	3	masculino	dep.marceloaguiar@camara.gov.br	3215-5367	160660	SP	http://www.camara.gov.br/internet/deputado/bandep/160660.jpg	marcelo-aguiar
+1722	618	Suplente	PODE	MARCOS MEDRADO	MARCOS ANTONIO MEDRADO	4	masculino	dep.marcosmedrado@camara.gov.br	3215-5618	74634	BA	http://www.camara.gov.br/internet/deputado/bandep/74634.jpg	marcos-medrado
+3343	913	Suplente	PROS	uROG\\xc9RIO SILVA	uROG\\xc9RIO SILVA SANTOS	4	masculino	dep.rogeriosilva@camara.gov.br	3215-5913	198963	MT	http://www.camara.gov.br/internet/deputado/bandep/198963.jpg	urog\\xc9rio-silva
+\.
+
+
+-- Completed on 2017-08-02 21:53:44 BRT
+
+--
+-- PostgreSQL database dump complete
+--
+
