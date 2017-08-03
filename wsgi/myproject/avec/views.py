@@ -690,7 +690,7 @@ def deputado(request, nome_abrev):
     ds = DataPool(
         series=[{
             'options': {
-                'source': v_emendas_emendas.objects.filter(cod_autor=deputado).filter(nom_orgao='Ministério da Agricultura, Pecuária e Abastecimento')
+                'source': v_emendas_emendas.objects.filter(cod_autor=deputado).filter(cod_orgao=22000)
             },
             'terms': [
                 'cod_autor',
@@ -748,7 +748,7 @@ def deputado(request, nome_abrev):
                 'text': 'Período'}},
         'yAxis': {
            'title': {
-               'text': 'Valor Acrescido'}}                
+               'text': 'Valor Acrescido'}}
         },
         #x_sortf_mapf_mts=(None, country_name, False)
         )
