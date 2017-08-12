@@ -48,5 +48,6 @@ urlpatterns = [
     url(r'^redirect-socialapp/', views.redirect_socialapp, name='redirect_socialapp'),
     url(r'^deputado/(?P<nome_abrev>.+)/$', views.deputado, name='deputado'),
     url(r'^emenda/(?P<cod_emenda>.+)/$', views.emenda, name='emenda'),
+    url(r'^lista_deputados/$', views.lista_deputados, name='lista_deputados'),    
     url(r'^chartit/$', views.chartit, name='chartit'),
 ]

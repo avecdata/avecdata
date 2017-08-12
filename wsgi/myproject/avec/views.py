@@ -815,3 +815,9 @@ def emenda(request, cod_emenda):
         users = paginator.page(paginator.num_pages)
 
     return render(request, 'avec/emenda.html', {'emendas' : emendas, 'proposta' : proposta})
+
+def lista_deputados(request):
+    deputado = v_emendas_autor.objects.all().order_by('nome_parlamentar')
+    partido = v_emendas_autor.objects.values('partido').distinct().order_by('partido')
+
+    return render(request, 'avec/lista_deputado.html', {'deputado' : deputado, 'partido': partido})

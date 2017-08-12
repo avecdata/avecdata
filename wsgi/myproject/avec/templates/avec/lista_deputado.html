@@ -1,0 +1,123 @@
+{% extends 'avec/layout_interno.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+
+    <title>AVEC - Deputados</title>
+
+    <!-- CSS Plugins -->
+
+    <link href="{% static 'avecv2.0-template/plugins/animate/animate.css' %}" rel="stylesheet">
+
+  </head>
+<style>
+.avec-deputado-image{
+  max-width: 150px;
+}
+</style>
+
+  <body>
+
+    <!-- TOPIC HEADER
+    ================================================== -->
+    <div class="topic">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h3>Deputados</h3>
+          </div>
+          <div class="col-sm-8">
+            <ol class="breadcrumb pull-right hidden-xs">
+              <li><a href="{% url 'index' %}">Home</a></li>
+              <li class="active">Emendas</li>
+              <li class="active">deputados</li>
+            </ol>
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
+    </div> <!-- / .topic -->
+
+
+    <!-- MAIN CONTENT
+    ================================================== -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+
+          <!-- Portfolio navigation -->
+          <ul class="portfolio__nav">
+            <li class="active"><a href="#" data-filter="*">Todos</a></li>
+            {% for part in partido%}
+            <li><a href="#" data-filter=".{{part.partido}}">{{part.partido}}</a></li>
+            {% endfor %}
+            <!--<li><a href="#" data-filter=".impressionism">Impressionism</a></li>
+            <li><a href="#" data-filter=".photorealism">Photorealism</a></li>
+            <li><a href="#" data-filter=".surrealism">Surrealism</a></li>-->
+          </ul>
+
+        </div>
+      </div> <!-- / .row -->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row" id="isotope-container">
+            {% for dep in deputado%}
+            <div class="col-sm-3 col-md-3 col-lg-3 isotope-item {{ dep.partido }}">
+
+              <div class="portfolio__item">
+                <div class="portfolio-item__img">
+                  <a href="{% url 'deputado'  nome_abrev=dep.nome_abrev %}">
+                    <img src="{{ dep.url_foto }}" class="img-responsive avec-deputado-image" alt="...">
+                    <div class="portfolio-item__mask">
+                      <div class="portfolio-item-mask__content">
+                        <div class="portfolio-item-mask__title">
+                          {{dep.nome_parlamentar}}
+                        </div>
+                        <div class="portfolio-item-mask__summary">
+                          {{dep.partido}}/{{dep.uf}}</br>
+                          Gabinete : {{dep.gabinete}} - Anexo: {{dep.anexo}}</br>
+                          Telefone : {{dep.fone}} - email: {{dep.email}}
+                        </div>
+                      </div> <!-- / .portfolio-item-mask__content -->
+                    </div> <!-- / .portfolio-item__mask -->
+                  </a>
+                  <h4>{{dep.nome_parlamentar}}</h4>
+                </div> <!-- / .portfolio-item__img -->
+              </div> <!-- / .portfolio__item -->
+
+            </div>
+            {% endfor %}
+
+            </div>
+          </div> <!-- / .row -->
+        </div>
+      </div> <!-- / .row -->
+    </div> <!-- / .container -->
+
+
+
+    <!-- JavaScript
+    ================================================== -->
+
+    <!-- JS Global -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+    <!-- JS Plugins -->
+    <script src="{% static 'avecv2.0-template/plugins/isotope/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'avecv2.0-template/plugins/isotope/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'avecv2.0-template/plugins/scrolltopcontrol/scrolltopcontrol.js' %}"></script>
+
+    <!-- JS Custom -->
+    <script src="{% static 'avecv2.0-template/js/custom_isotope.js' %}"></script>
+    <script src="{% static 'avecv2.0-template/js/custom.js' %}"></script>
+
+
+  </body>
+  {% endblock %}
