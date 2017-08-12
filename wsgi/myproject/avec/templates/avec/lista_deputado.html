@@ -19,8 +19,21 @@
   </head>
 <style>
 .avec-deputado-image{
-  max-width: 150px;
+    width: 150px;
 }
+
+@media (max-device-width: 480px) {
+  .isotope-item{
+    width: 100%;
+  }
+  .avec-foto-deputado{
+    width: 100%;
+  }
+  .avec-deputado-image{
+    width: 80% !important;
+  }
+}
+
 </style>
 
   <body>
@@ -72,7 +85,7 @@
 
               <div class="portfolio__item">
                 <div class="portfolio-item__img">
-                  <a href="{% url 'deputado'  nome_abrev=dep.nome_abrev %}">
+                  <a class="avec-foto-deputado" href="{% url 'deputado'  nome_abrev=dep.nome_abrev %}">
                     <img src="{{ dep.url_foto }}" class="img-responsive avec-deputado-image" alt="...">
                     <div class="portfolio-item__mask">
                       <div class="portfolio-item-mask__content">
