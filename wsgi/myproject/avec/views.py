@@ -801,7 +801,7 @@ def deputado(request, nome_abrev):
 
 def emenda(request, cod_emenda):
     emendas = v_emendas_emendas.objects.filter(cod_emenda=cod_emenda)
-    emenda_proposta = v_emendas_emenda_proposta.objects.filter(cod_emenda=cod_emenda)
+    emenda_proposta = v_emendas_emenda_proposta.objects.values_list('id_proposta_id', flat=True).filter(cod_emenda=cod_emenda)
     proposta = v_emendas_proposta.objects.filter(id_proposta__in=emenda_proposta)
 
     page = request.GET.get('page', 1)
