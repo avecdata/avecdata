@@ -75,7 +75,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'avec.middleware.AVECMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+X_FRAME_OPTIONS = 'ALLOW'
 
 # GETTING-STARTED: change 'myproject' to your project name:
 ROOT_URLCONF = 'myproject.urls'
