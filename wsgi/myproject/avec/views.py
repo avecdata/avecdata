@@ -519,6 +519,22 @@ def sangue(request, dashboard_id):
         return render(request,'avec/permissao.html')
 
 @login_required(login_url='/permissao/')
+def brasilia2060(request, dashboard_id):
+
+    groups = request.user.groups.all()
+    group_user = utils.get_greater_group(groups)
+
+    dashboard = Dashboard.objects.get(id=dashboard_id)
+
+    dsh_permission = utils.dashboard_permission(group_user.id, dashboard)
+
+    if dsh_permission:
+        return render(request, 'avec/dashboards/brasilia2060.html')
+    else:
+        return render(request,'avec/permissao.html')
+
+
+@login_required(login_url='/permissao/')
 def inovacao(request, dashboard_id):
 
     groups = request.user.groups.all()
