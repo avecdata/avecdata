@@ -42,7 +42,7 @@ var chart = AmCharts.makeChart("chartdivProcedimentos Hospitalares do SUS", {
   theme: "light",
 dataDateFormat : "YYYY",
 //	colors: ["#3DC1D0", "#FF6600", "#FCD202", "#B0DE09", "#0D8ECF", "#2A0CD0", "#CD0D74", "#CC0000", "#00CC00", "#0000CC", "#DDDDDD", "#999999", "#333333", "#990000"],
-//colors: [ "#91D5DF", "#67C9D5",  "#2E9BA6", "#8091A4",  "#677F93", "#586B83", "#3E4C5B", "#61788E"],
+colors: [ "#8091a4"],
 "thousandsSeparator": ".",
 "decimalSeparator": ",",
 extendToFullPeriod : true,
@@ -497,8 +497,8 @@ extendToFullPeriod : true,
 
   dataSetSelector: {
       position: "right",
-  selectText : "Selecione o Tributo:",
-  compareText : "Selecione outro tributo para comparar:"
+  selectText : "Selecione a Entidade:",
+  compareText : "Selecione outra Entidade para comparar:"
   }
 
 
