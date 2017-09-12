@@ -41,8 +41,13 @@ var chart = AmCharts.makeChart("chartdivProcedimentos Hospitalares do SUS", {
   type: "stock",
   theme: "light",
 dataDateFormat : "YYYY",
-//	colors: ["#3DC1D0", "#FF6600", "#FCD202", "#B0DE09", "#0D8ECF", "#2A0CD0", "#CD0D74", "#CC0000", "#00CC00", "#0000CC", "#DDDDDD", "#999999", "#333333", "#990000"],
-colors: [ "#8091a4"],
+//colors: ["#3DC1D0", "#8091a4"],
+colors: [ "#8091A4" , "#8091A4",  "#8091A4", "#8091A4",  "#8091A4", "#8091A4", "#8091A4", "#8091A4"
+                  , "#8091A4",  "#8091A4", "#8091A4",  "#8091A4", "#8091A4", "#8091A4", "#8091A4"
+                  , "#8091A4",  "#8091A4", "#8091A4",  "#8091A4", "#8091A4", "#8091A4", "#8091A4"
+                  , "#8091A4",  "#8091A4", "#8091A4",  "#8091A4", "#8091A4", "#8091A4", "#8091A4"
+                  , "#8091A4",  "#8091A4", "#8091A4",  "#8091A4", "#8091A4", "#8091A4", "#8091A4"
+                  , "#8091A4",  "#8091A4", "#8091A4",  "#8091A4", "#8091A4", "#8091A4", "#8091A4"],
 "thousandsSeparator": ".",
 "decimalSeparator": ",",
 extendToFullPeriod : true,
@@ -436,10 +441,10 @@ extendToFullPeriod : true,
           valueField: "valor_total",
           lineThickness: 3,
           title: "",
-    labelPosition : "left",
+          labelPosition : "left",
           balloonText: "[[title]]:<b>[[value]]</b>",
           compareGraphBalloonText: "[[title]]:<b>[[value]]</b>",
-    minPeriod: "YYYY",
+          minPeriod: "YYYY",
           comparable: true,
       }],
 
