@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, v_fns_cidade
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -837,3 +837,15 @@ def lista_deputados(request):
     partido = v_emendas_autor.objects.values('partido').distinct().order_by('partido')
 
     return render(request, 'avec/lista_deputado.html', {'deputado' : deputado, 'partido': partido})
+
+def cidade(request, nome):
+    cidade = v_fns_cidade.objects.filter(nome=nome)
+
+    return render(request, 'avec/fns/cidade.html', {'cidade': cidade})
+
+
+def teto(request):
+    return render(request, 'avec/fns/teto.html')
+
+def teto_producao(request):
+    return render(request, 'avec/fns/teto_producao.html')

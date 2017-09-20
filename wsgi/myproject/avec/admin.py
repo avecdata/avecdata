@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_fns_cidade
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.text import force_text
@@ -80,3 +80,4 @@ admin.site.register(View_Client)
 admin.site.register(View_Subject)
 admin.site.register(View_Subject_detail)
 admin.site.register(View_Themes)
+admin.site.register(v_fns_cidade)

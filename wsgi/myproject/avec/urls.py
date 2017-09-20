@@ -43,7 +43,7 @@ urlpatterns = [
     url(r'^leptospirose/(?P<dashboard_id>[0-9]+)/$', views.leptospirose, name='leptospirose'),
     url(r'^aids/(?P<dashboard_id>[0-9]+)/$', views.aids, name='aids'),
     url(r'^sangue/(?P<dashboard_id>[0-9]+)/$', views.sangue, name='sangue'),
-    url(r'^brasilia2060/(?P<dashboard_id>[0-9]+)/$', views.brasilia2060, name='brasilia2060'),    
+    url(r'^brasilia2060/(?P<dashboard_id>[0-9]+)/$', views.brasilia2060, name='brasilia2060'),
     url(r'^social-accounts/social/login/cancelled/$', views.logar, name='logar'),
     url(r'^social-accounts/', include('allauth.urls')),
     url(r'^redirect-socialapp/', views.redirect_socialapp, name='redirect_socialapp'),
@@ -51,4 +51,7 @@ urlpatterns = [
     url(r'^emenda/(?P<cod_emenda>.+)/$', views.emenda, name='emenda'),
     url(r'^lista_deputados/$', views.lista_deputados, name='lista_deputados'),
     url(r'^chartit/$', views.chartit, name='chartit'),
+    url(r'^cidade/(?P<nome>.+)/$', views.cidade, name='cidade'),
+    url(r'^teto/$', views.teto, name='teto'),
+    url(r'^teto_producao/$', views.teto_producao, name='teto_producao'),
 ]

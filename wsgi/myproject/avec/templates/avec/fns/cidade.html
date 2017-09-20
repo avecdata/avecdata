@@ -1,0 +1,174 @@
+{% extends 'avec/layout_interno.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+{% for cid in cidade %}
+    <!-- TOPIC HEADER
+    ================================================== -->
+    <div class="topic">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+
+            <h3 class="avec-h3">{{cid.nome}}</h3>
+
+          </div>
+          <div class="col-sm-8">
+            <ol class="breadcrumb pull-right hidden-xs">
+              <li class="avec-active"><a href="#">Home</a></li>
+
+            </ol>
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
+    </div> <!-- / .topic -->
+
+
+    <!-- MAIN CONTENT
+    ================================================== -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+
+          <div class="section" data-spy="affix">
+            <div class="resume__profile">
+
+              <h3 class="resume-profile__title">
+                {{cid.nome}}
+              </h3>
+
+              <div class="resume-profile__section">
+                <strong>Prefeito</strong>
+                <p class="text-muted">{{cid.nome_prefeito}}</p>
+              </div>
+
+              <div class="resume-profile__section">
+                <strong>Secretário</strong>
+                <p class="text-muted">
+                  {{cid.nome_secretario}}
+                </p>
+              </div>
+              <div class="resume-profile__section">
+                <strong>Área territorial</strong>
+                <p class="text-muted">{{cid.area_territorial}}</p>
+              </div>
+
+              <div class="resume-profile__section">
+                <strong>População estimada</strong>
+                <p class="text-muted">
+                  <a href="#">{{cid.populacao_estimada}}</a>
+                </p>
+              </div>
+
+              <div class="resume-profile__section">
+                <strong>População Censo</strong>
+                <p class="text-muted">
+                  <a href="#">{{cid.populacao_censo}}</a>
+                </p>
+              </div>
+
+              <div class="resume-profile__section">
+                <strong>Densidade demográfica</strong>
+                <p class="text-muted">
+                  <a href="#">{{cid.densidade_demografica}}</a>
+                </p>
+              </div>
+
+            </div> <!-- / .resume__profile -->
+
+
+          </div>
+
+        </div>
+        <div class="col-sm-8">
+
+          <h3 class="headline">
+            <span>Dados Sócio-econômicos</span>
+          </h3>
+
+
+          <div class="resume__table table-responsive section">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="resume-table__header">PIB Municipal</td>
+                  <td>
+                    <strong>{{cid.pib_municipal}}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="resume-table__header">PIB per capita municipal</td>
+                  <td>
+                    <strong>{{cid.pib_percapita}}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="resume-table__header">IDHM</td>
+                  <td>
+                    <strong>{{cid.idhm}}</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div> <!-- / .resume-table -->
+
+          <h3 class="headline">
+            <span>Saúde</span>
+          </h3>
+
+          <div class="resume__table table-responsive section">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="resume-table__header">Taxa de mortalidade infantil(2015)</td>
+                  <td>
+                    <strong>{{cid.mortalidade_infantil}}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="resume-table__header">Taxa de partos cesáreos</td>
+                  <td>
+                    <strong>{{cid.partos_cesareos}}</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div> <!-- / .resume-table -->
+
+
+          <div class="row">
+            <div class="col-sm-6">
+
+              <ul class="nav nav-pills nav-justified">
+                <li><a href="{% url 'teto'%}">Teto</a></li>
+                <li><a href="#">FAEC</a></li>
+                <li><a href="#">CEO</a></li>
+                <li><a href="#">SAMU</a></li>
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div> <!-- / .row -->
+    </div> <!-- / .container -->
+
+{% endfor %}
+
+{% endblock %}
+
+  <!-- Google Tag Manager -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDBL3P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>

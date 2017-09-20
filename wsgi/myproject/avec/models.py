@@ -632,3 +632,25 @@ class v_emendas_parlamentar_por_orgao(models.Model):
 
     def __str__(self):
         return self.nom_orgao
+
+class v_fns_cidade(models.Model):
+    id_cidade  = models.IntegerField(primary_key=True)
+    nome = models.CharField(max_length=200 , null=True)
+    nome_prefeito = models.CharField(max_length=200 , null=True)
+    nome_secretario = models.CharField(max_length=200 , null=True)
+    area_territorial = models.CharField(max_length=100 , null=True)
+    populacao_estimada = models.CharField(max_length=300 , null=True)
+    populacao_censo = models.CharField(max_length=200 , null=True)
+    densidade_demografica = models.CharField(max_length=200 , null=True)
+    pib_municipal = models.CharField(max_length=200 , null=True)
+    pib_percapita = models.CharField(max_length=200 , null=True)
+    idhm = models.CharField(max_length=200 , null=True)
+    mortalidade_infantil = models.CharField(max_length=200 , null=True)        
+    partos_cesareos = models.CharField(max_length=200 , null=True)
+
+
+    def publish_v_fns_cidade(self):
+        self.save()
+
+    def __str__(self):
+        return self.nome
