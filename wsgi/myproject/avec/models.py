@@ -645,7 +645,7 @@ class v_fns_cidade(models.Model):
     pib_municipal = models.CharField(max_length=200 , null=True)
     pib_percapita = models.CharField(max_length=200 , null=True)
     idhm = models.CharField(max_length=200 , null=True)
-    mortalidade_infantil = models.CharField(max_length=200 , null=True)        
+    mortalidade_infantil = models.CharField(max_length=200 , null=True)
     partos_cesareos = models.CharField(max_length=200 , null=True)
 
 
@@ -654,3 +654,86 @@ class v_fns_cidade(models.Model):
 
     def __str__(self):
         return self.nome
+
+class pgf_entidade(models.Model):
+    cpf_cnpj = models.BigIntegerField(primary_key=True)
+    cd_municipio  = models.CharField(max_length=30 , null=True)
+    nm_entidade = models.CharField(max_length=200 , null=True)
+    nm_municipio = models.CharField(max_length=150 , null=True)
+    sg_uf = models.CharField(max_length=2 , null=True)
+
+
+    def publish_pgf_entidade(self):
+        self.save()
+
+    def __str__(self):
+        return self.nm_entidade
+
+class pgf_municipio(models.Model):
+    cd_municipio  = models.IntegerField(primary_key=True)
+    cm_municipio_semdigito = models.CharField(max_length=150 , null=True)
+    nm_municipio = models.CharField(max_length=150 , null=True)
+    area_territorial = models.CharField(max_length=30 , null=True)
+    populacao_total = models.CharField(max_length=30 , null=True)
+    populacao_estimada = models.CharField(max_length=30 , null=True)
+    pib = models.CharField(max_length=30 , null=True)
+    pib_percapita = models.CharField(max_length=30 , null=True)
+    idhm = models.CharField(max_length=30 , null=True)
+    idhm_renda = models.CharField(max_length=30 , null=True)
+    idhm_longevidade = models.CharField(max_length=30 , null=True)
+    idhm_educacao = models.CharField(max_length=30 , null=True)
+    nascidos_vivos = models.CharField(max_length=30 , null=True)
+    mortalidade_infantil = models.CharField(max_length=30 , null=True)
+    tx_mortalidade_infantil = models.CharField(max_length=30 , null=True)
+    parto_normal = models.CharField(max_length=30 , null=True)
+    parto_cesario = models.CharField(max_length=30 , null=True)
+    tx_parto_cesario = models.CharField(max_length=30 , null=True)
+
+
+    def publish_pgf_municipio(self):
+        self.save()
+
+    def __str__(self):
+        return self.nm_municipio
+
+class pgf_acao(models.Model):
+    cd_acao = models.IntegerField(primary_key=True)
+    nm_bloco  = models.CharField(max_length=200 , null=True)
+    nm_componente = models.CharField(max_length=200 , null=True)
+    nm_acao = models.CharField(max_length=200 , null=True)
+    vl_total = models.CharField(max_length=30 , null=True)
+    vl_desconto = models.CharField(max_length=30 , null=True)
+    vl_liquido = models.CharField(max_length=30 , null=True)
+    ano = models.CharField(max_length=30 , null=True)
+    mes = models.CharField(max_length=30 , null=True)
+    acao_num = models.CharField(max_length=30 , null=True)
+
+    def publish_pgf_acao(self):
+        self.save()
+
+    def __str__(self):
+        return self.nm_acao
+
+class pgf_acao_detalhe(models.Model):
+    parcela  = models.CharField(max_length=200 , null=True)
+    n_ob = models.CharField(max_length=200 , null=True)
+    dt_ob = models.CharField(max_length=200 , null=True)
+    tp_repasse = models.CharField(max_length=30 , null=True)
+    banco_ob = models.CharField(max_length=30 , null=True)
+    agencia_ob = models.CharField(max_length=30 , null=True)
+    conta_ob = models.CharField(max_length=30 , null=True)
+    vl_total = models.CharField(max_length=30 , null=True)
+    vl_desconto = models.CharField(max_length=30 , null=True)
+    vl_liquido = models.CharField(max_length=30 , null=True)
+    mt_rejeicao = models.CharField(max_length=30 , null=True)
+    nr_processo = models.CharField(max_length=30 , null=True)
+    nr_proposta = models.CharField(max_length=30 , null=True)
+    nr_portaria = models.CharField(max_length=30 , null=True)
+    acao_num = models.CharField(max_length=30 , null=True)
+    cd_acao = models.CharField(max_length=30 , null=True)
+
+    def publish_pgf_acao_detalhe(self):
+        self.save()
+
+    def __str__(self):
+        return self.parcela

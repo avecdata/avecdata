@@ -51,7 +51,7 @@ urlpatterns = [
     url(r'^emenda/(?P<cod_emenda>.+)/$', views.emenda, name='emenda'),
     url(r'^lista_deputados/$', views.lista_deputados, name='lista_deputados'),
     url(r'^chartit/$', views.chartit, name='chartit'),
-    url(r'^cidade/(?P<nome>.+)/$', views.cidade, name='cidade'),
+    url(r'^cidade/(?P<cd_municipio>.+)/$', views.cidade, name='cidade'),
     url(r'^teto/$', views.teto, name='teto'),
     url(r'^teto_producao/$', views.teto_producao, name='teto_producao'),
 ]
