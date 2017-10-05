@@ -13,10 +13,9 @@
     <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
 
-
     <!-- MAIN CONTENT
     ================================================== -->
-{% for cid in cidade %}
+{% for cid in cidade%}
     <!-- Features -->
      <section class="shop-index__section">
        <div class="container">
@@ -59,7 +58,7 @@
                    </div>
                  </a>
                  {% for ent in entidade %}
-                 <a href="{% url 'teto' cnpj=ent.cpf_cnpj%}">
+                 <a href="#">
                    <div class="resume-profile__section" style="color : #FFFFFF;">
                      <strong><i class="fa fa-copy"></i>   TETO FINANCEIRO</strong>
 
@@ -94,66 +93,74 @@
            <div class="col-sm-8">
 
              <h2 class="avec-home-app avec-title-home-app text-center">
-               Teto Financeiro
+               Pagamento
              </h2>
-             <div class="row">
-               <div class="col-sm-4">
+             <p class="text-center">
+               Teto financeiro
+             </p>
 
-                 <div class="shop-index-features__item">
-                   <div class="shop-index-features__icon">
-                     <i class="fa fa-truck"></i>
-                   </div>
+             <form method="get">
+               {{ filter.form.as_p }}
+               <button type="submit">Search</button>
+             </form>
 
-                   <h4 class="shop-index-features__heading">
-                     Produção
-                   </h4>
-                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, perferendis et nostrum.
-                   </p>
-                 </div> <!-- / .shop-index-features__item -->
+             <ul class="search-results__links">
+                  {% for a in filter.qs %}
+               <details class="funclass" close>
+                 <summary class="summary panel panel-default">
+                   <table class="table section">
+                     <tbody>
 
-               </div>
-               <div class="col-sm-4">
+                       <tr>
+                         <td>Mês<td>
+                         <td>Componente</td>
+                         <td>Valor</td>
+                       </tr>
+                         <tr>
+                           <td>{{ a.mes }}<td>
+                           <td>{{ a.nm_componente }}</td>
+                           <td class="avec-monetary" > {{ a.vl_total }}</td>
+                         </tr>
 
-                 <div class="shop-index-features__item">
-                   <div class="shop-index-features__icon">
-                     <a href="{% url 'teto_pagamento' cnpj=int_cnpj%}"><i class="fa fa-shopping-bag"></i></a>
-                   </div>
 
-                   <h4 class="shop-index-features__heading">
-                     Pagamentos recebidos
-                   </h4>
-                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, perferendis et nostrum.
-                   </p>
-                 </div> <!-- / .shop-index-features__item -->
+                     </tbody>
+                   </table>
+                 </summary>
+                 <article class="panel panel-default panel-body avec-panel" style="background-color : #8091a4; color:#ffffff">
 
-               </div>
-               <div class="col-sm-4">
+                   <table class="table section" >
+                     <tbody>
+                       <tr>
+                         <td>Parcela<td>
+                         <td>Data</td>
+                         <td>Valor Total</td>
+                       </tr>
+                       {% for detail in acao_detalhe %}
 
-                 <div class="shop-index-features__item">
-                   <div class="shop-index-features__icon">
-                     <i class="fa fa-gift"></i>
-                   </div>
 
-                   <h4 class="shop-index-features__heading">
-                     Déficit/Superavit
-                   </h4>
-                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, perferendis et nostrum.
-                   </p>
-                 </div> <!-- / .shop-index-features__item -->
+                         {% if detail.cd_acao_str == a.cd_acao|stringformat:"i" %}
+                           <tr>
+                             <td>{{ detail.parcela }}<td>
+                             <td>{{ detail.dt_ob }}</td>
+                             <td class="avec-monetary" > {{ detail.vl_total }}</td>
+                           </tr>
+                         {% endif %}
+                       {% endfor %}
+                     </tbody>
+                   </table>
 
-               </div>
-             </div>
+               </article>
+               </details>
+               {% endfor %}
+             </ul>
 
            </div>
          </div> <!-- / .row -->
 
        </div> <!-- / .container -->
      </section>
-{% endfor %}
 
+{% endfor %}
 
 {% endblock %}
 

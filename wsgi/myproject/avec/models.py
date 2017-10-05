@@ -671,7 +671,7 @@ class pgf_entidade(models.Model):
 
 class pgf_municipio(models.Model):
     cd_municipio  = models.IntegerField(primary_key=True)
-    cm_municipio_semdigito = models.CharField(max_length=150 , null=True)
+    cd_municipio_semdigito = models.CharField(max_length=150 , null=True)
     nm_municipio = models.CharField(max_length=150 , null=True)
     area_territorial = models.CharField(max_length=30 , null=True)
     populacao_total = models.CharField(max_length=30 , null=True)
@@ -697,22 +697,23 @@ class pgf_municipio(models.Model):
         return self.nm_municipio
 
 class pgf_acao(models.Model):
-    cd_acao = models.IntegerField(primary_key=True)
+    cd_acao = models.BigIntegerField(primary_key=True, null=False)
     nm_bloco  = models.CharField(max_length=200 , null=True)
-    nm_componente = models.CharField(max_length=200 , null=True)
+    nm_componente = models.CharField(max_length=201 , null=True)
     nm_acao = models.CharField(max_length=200 , null=True)
     vl_total = models.CharField(max_length=30 , null=True)
     vl_desconto = models.CharField(max_length=30 , null=True)
     vl_liquido = models.CharField(max_length=30 , null=True)
     ano = models.CharField(max_length=30 , null=True)
-    mes = models.CharField(max_length=30 , null=True)
+    mes = models.DateField(null=True)
     acao_num = models.CharField(max_length=30 , null=True)
+    cnpj = models.CharField(max_length=30 , null=True)
 
     def publish_pgf_acao(self):
         self.save()
 
     def __str__(self):
-        return self.nm_acao
+        return self.cd_acao
 
 class pgf_acao_detalhe(models.Model):
     parcela  = models.CharField(max_length=200 , null=True)
@@ -730,7 +731,8 @@ class pgf_acao_detalhe(models.Model):
     nr_proposta = models.CharField(max_length=30 , null=True)
     nr_portaria = models.CharField(max_length=30 , null=True)
     acao_num = models.CharField(max_length=30 , null=True)
-    cd_acao = models.CharField(max_length=30 , null=True)
+    cd_acao = models.ForeignKey("pgf_acao", db_column="cd_acao")
+    cd_acao_str = models.CharField(max_length=30 , null=True)
 
     def publish_pgf_acao_detalhe(self):
         self.save()

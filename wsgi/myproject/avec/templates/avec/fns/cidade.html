@@ -13,77 +13,75 @@
     <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
 {% for cid in cidade %}
-    <!-- TOPIC HEADER
-    ================================================== -->
-    <div class="topic">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-4">
-
-            <h3 class="avec-h3">{{cid.nome}}</h3>
-
-          </div>
-          <div class="col-sm-8">
-            <ol class="breadcrumb pull-right hidden-xs">
-              <li class="avec-active"><a href="#">Home</a></li>
-
-            </ol>
-          </div>
-        </div> <!-- / .row -->
-      </div> <!-- / .container -->
-    </div> <!-- / .topic -->
-
 
     <!-- MAIN CONTENT
     ================================================== -->
     <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
 
-          <div class="section" data-spy="affix">
-            <div class="resume__profile">
+      <div class="row">
+        <div class="col-sm-3">
+          <div  data-spy="affix" style="background-color : #3e4c5b!important; " >
+            <div class="resume__profile" style="color : #ffffff; background-color : #3e4c5b!important;" >
+
+              <h3 class="profile__section">
+                Painel de Gestão Financeira
+              </h3>
+              <h4 class="profile__section" style="color : #2d9ba6;">
+                Média e Alta </br> Complexidade
+              </h4>
+          </div>
+          </div>
+
+          <div class="section" data-spy="affix" style="background-color : #4f6077!important;">
+            <div class="resume__profile" style="color : #ffffff; background-color : #4f6077!important;">
 
               <h3 class="resume-profile__title">
-                {{cid.nome}}
+                {{cid.nm_municipio}}
               </h3>
 
               <div class="resume-profile__section">
-                <strong>Prefeito</strong>
+                Prefeito
                 <p class="text-muted">{{cid.nome_prefeito}}</p>
               </div>
 
               <div class="resume-profile__section">
-                <strong>Secretário</strong>
+                Secretário
                 <p class="text-muted">
                   {{cid.nome_secretario}}
                 </p>
               </div>
-              <div class="resume-profile__section">
-                <strong>Área territorial</strong>
-                <p class="text-muted">{{cid.area_territorial}}</p>
-              </div>
+              <a href="#">
+                <div class="resume-profile__section">
+                  <strong><i class="fa fa-th-large"></i>   DADOS GERAIS</strong>
 
-              <div class="resume-profile__section">
-                <strong>População estimada</strong>
-                <p class="text-muted">
-                  <a href="#">{{cid.populacao_estimada}}</a>
-                </p>
-              </div>
+                </div>
+              </a>
+              {% for ent in entidade %}
+              <a href="{% url 'teto' cnpj=ent.cpf_cnpj%}">
+                <div class="resume-profile__section" style="color : #FFFFFF;">
+                  <strong><i class="fa fa-copy"></i>   TETO FINANCEIRO</strong>
 
-              <div class="resume-profile__section">
-                <strong>População Censo</strong>
-                <p class="text-muted">
-                  <a href="#">{{cid.populacao_censo}}</a>
-                </p>
-              </div>
+                </div>
+              </a>
+              <a href="#">
+                <div class="resume-profile__section" style="color : #FFFFFF;">
+                  <strong><i class="fa fa-tasks"></i>   FAEC</strong>
 
-              <div class="resume-profile__section">
-                <strong>Densidade demográfica</strong>
-                <p class="text-muted">
-                  <a href="#">{{cid.densidade_demografica}}</a>
-                </p>
-              </div>
+                </div>
+              </a>
+              <a href="{% url 'ceo' cnpj=ent.cpf_cnpj%}">
+                <div class="resume-profile__section" style="color : #FFFFFF;">
+                  <strong><i class="fa fa-sticky-note-o"></i>   CEO</strong>
 
+                </div>
+              </a>
+              <a href="{% url 'samu' cnpj=ent.cpf_cnpj%}">
+                <div class="resume-profile__section" style="color : #FFFFFF;">
+                  <strong><i class="fa fa-ambulance"></i>   SAMU</strong>
+
+                </div>
+              </a>
+              {% endfor %}
             </div> <!-- / .resume__profile -->
 
 
@@ -97,7 +95,7 @@
               <div class="container">
                 <div class="row">
                   <div class="col-sm-8">
-                    <h1 class="avec-home-app avec-title-home-app text-center">Dados gerais sobre os municipios</h1>
+                    <h1 class="avec-home-app">Dados gerais sobre os municipios</h1>
                   </div>
                 </div>
                 <!-- / .row -->
@@ -113,8 +111,16 @@
                         </div>
                         <div class="pricing-option__body">
                           <div class="home-app-pricing__extra">Demografia</div>
-                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Painéis Interativos*</div>
-                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Download PDF, JPEG, PNG, CSV e XLSX</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">População estimada 2017</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.populacao_estimada}} pessoas</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Área</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.area_territorial}} km²</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Altitude</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">0 m</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Clima</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">-</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Distância até a capital</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">0 km</div>
 
                         </div>
                       </div>
@@ -133,11 +139,15 @@
                         <div class="pricing-option__body">
                           <div class="home-app-pricing__extra">Indicadores</div>
                           <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">PIB Municipial 2016</div>
-                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.pib}}</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">R$ {{cid.pib}}</div>
                           <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">PIB Per Capita Municipal 2016</div>
-                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.pib_percapita}}</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">R$ {{cid.pib_percapita}}</div>
                           <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">IDHM</div>
                           <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.idhm}}</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">IDHM Longevidade</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.idhm_longevidade}}</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">IDHM Educação</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.idhm_educacao}}</div>
 
                         </div>
                       </div>
@@ -156,8 +166,16 @@
                         </div>
                         <div class="pricing-option__body">
                           <div class="home-app-pricing__extra">Saúde</div>
-                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Painéis Interativos*</div>
-                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Download PDF, JPEG, PNG, CSV e XLSX</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Taxa de mortalidade infantil</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.mortalidade_infantil}} óbitos por mil nascidos vivos</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Internações por diarreia</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">0 internações</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Estabelecimentos de saúde do SUS</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">0 estabelecimentos</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Taxa de partos cesáreos</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.tx_parto_cesario}}</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">Óbito Maternos</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">0 internações por mil hab.</div>
 
 
                         </div>
@@ -175,19 +193,6 @@
             <!-- / .section__inner -->
           </div>
 
-          <div class="row">
-            <div class="col-sm-6">
-
-              <ul class="nav nav-pills nav-justified">
-                <li><a href="{% url 'teto'%}">Teto</a></li>
-                <li><a href="#">FAEC</a></li>
-                <li><a href="#">CEO</a></li>
-                <li><a href="#">SAMU</a></li>
-              </ul>
-
-            </div>
-
-          </div>
 
         </div>
       </div> <!-- / .row -->

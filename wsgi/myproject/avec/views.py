@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -44,6 +44,8 @@ from allauth.account.adapter import DefaultAccountAdapter
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter, get_adapter
 from allauth.account.utils import perform_login, complete_signup
 from pprint import pprint
+
+from .filters import AcaoFilter
 
 # Create your views here.
 def page_not_found(request):
@@ -828,8 +830,8 @@ def emenda(request, cod_emenda):
     except PageNotAnInteger:
         users = paginator.page(1)
     except EmptyPage:
-        users = paginator.page(paginator.num_pages)
 
+        users = paginator.page(paginator.num_pages)
     return render(request, 'avec/emenda.html', {'emendas' : emendas, 'proposta' : proposta})
 
 def lista_deputados(request):
@@ -839,12 +841,40 @@ def lista_deputados(request):
     return render(request, 'avec/lista_deputado.html', {'deputado' : deputado, 'partido': partido})
 
 def cidade(request, cd_municipio):
-    cidade = pgf_municipio.objects.filter(cd_municipio=cd_municipio)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=cd_municipio)
+    entidade = pgf_entidade.objects.filter(cd_municipio=cd_municipio)
 
-    return render(request, 'avec/fns/cidade.html', {'cidade': cidade})
+    return render(request, 'avec/fns/cidade.html', {'cidade': cidade, 'entidade': entidade})
 
-def teto(request):
-    return render(request, 'avec/fns/teto.html')
+def teto(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
+    return render(request, 'avec/fns/teto.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade})
 
-def teto_producao(request):
+def teto_producao(request, cnpj):
     return render(request, 'avec/fns/teto_producao.html')
+
+def teto_pagamento(request, cnpj):
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=33371).order_by('mes')
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilter(request.GET, queryset=acao)
+
+    entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
+
+    return render(request, 'avec/fns/teto_pagamento.html', {'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter } )
+
+def ceo(request, cnpj):
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30472)
+    entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
+
+    return render(request, 'avec/fns/ceo.html', {'acao': acao, 'cidade' : cidade})
+
+def samu(request, cnpj):
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30483)  | pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30475)
+    entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
+
+    return render(request, 'avec/fns/samu.html', {'acao': acao, 'cidade' : cidade})
