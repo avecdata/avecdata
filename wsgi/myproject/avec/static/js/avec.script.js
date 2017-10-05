@@ -4,7 +4,7 @@
 
 $(document).ready(function () {
 
-	//window.url_config = 'http://192.168.0.105:8080';
+	//window.url_config = 'http://localhost:8080';
 	window.url_config = 'http://www.avecdata.com';
 	//window.url_config = 'http://ec2-34-211-223-88.us-west-2.compute.amazonaws.com';
 
@@ -67,6 +67,17 @@ $(document).ready(function () {
 				window.location.href = '/keyword/'+ui.id;
 			}
 	    }
+	});
+
+	$('#autocomplete2').autocomplete({
+		type:'post',
+		dataType: 'json',
+		params: {"param1": $(this).val() },
+		minChars: 2,
+		serviceUrl: window.url_config+'/cidades_list/',
+			onSelect: function (ui) {
+				window.location.href = '/cidade/'+ui.id;
+			}
 	});
 
 	$('.avec-form-group').find('button').click(function(){

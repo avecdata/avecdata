@@ -878,3 +878,33 @@ def samu(request, cnpj):
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
 
     return render(request, 'avec/fns/samu.html', {'acao': acao, 'cidade' : cidade})
+
+def lista_cidades(request):
+    return render(request, 'avec/fns/lista_cidades.html')
+
+@csrf_exempt
+def cidades_list(request):
+
+    resultado_json = {}
+
+    if request.method == 'POST':
+        entidade = pgf_entidade.objects.values('cd_municipio').filter(sg_uf='PE')
+        municipios = pgf_municipio.objects.filter(nm_municipio__unaccent__icontains=str(request.POST.get('query'))).filter(cd_municipio_semdigito__in=entidade).order_by('nm_municipio')
+
+        municipios_data = []
+
+        for municipio in municipios:
+            municipios_data.append({ "value": municipio.nm_municipio, "id" : municipio.cd_municipio_semdigito })
+
+
+        result = municipios_data
+        response = {"query": "Unit", "suggestions": result}
+        resultado_json = json.loads(json.dumps(response))
+
+    #print(json.dumps(resultado_json, indent=4, sort_keys=True))
+
+    return JsonResponse(resultado_json, safe=False)
+
+
+def mapa(request):
+    return render(request, 'avec/dashboards/mapa.html')

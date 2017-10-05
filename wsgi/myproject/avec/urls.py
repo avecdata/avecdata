@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^produtos/', views.produtos, name='produtos'),
     url(r'^quemsomos/', views.quemsomos, name='quemsomos'),
     url(r'^themes_list/$', views.lista),
+    url(r'^cidades_list/$', views.cidades_list),
     url(r'^autocomplete/$', views.autocomplete, name='autocomplete'),
     url(r'^dashboard/', views.dashboard, name='dashboard'),
     url(r'^contact/$', views.contact, name='contact'),
@@ -57,4 +58,6 @@ urlpatterns = [
     url(r'^teto_pagamento/(?P<cnpj>.+)/$', views.teto_pagamento, name='teto_pagamento'),
     url(r'^ceo/(?P<cnpj>.+)/$', views.ceo, name='ceo'),
     url(r'^samu/(?P<cnpj>.+)/$', views.samu, name='samu'),
+    url(r'^lista_cidades/$', views.lista_cidades, name='lista_cidades'),
+    url(r'^mapa/$', views.mapa, name='mapa'),
 ]
