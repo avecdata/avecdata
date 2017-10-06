@@ -868,7 +868,7 @@ def teto_pagamento(request, cnpj):
 
 def ceo(request, cnpj):
     int_cnpj = s = str(int(cnpj))
-    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30472)
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30472).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
     entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
@@ -877,7 +877,7 @@ def ceo(request, cnpj):
 
 def samu(request, cnpj):
     int_cnpj = s = str(int(cnpj))
-    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30483)  | pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30475)
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30483)  | pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30475).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
     entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
