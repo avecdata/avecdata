@@ -856,28 +856,31 @@ def teto_producao(request, cnpj):
     return render(request, 'avec/fns/teto_producao.html')
 
 def teto_pagamento(request, cnpj):
-    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=33371).order_by('mes')
+    int_cnpj = s = str(int(cnpj))
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
     acao_filter = AcaoFilter(request.GET, queryset=acao)
 
     entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
 
-    return render(request, 'avec/fns/teto_pagamento.html', {'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter } )
+    return render(request, 'avec/fns/teto_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter } )
 
 def ceo(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30472)
     entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
 
-    return render(request, 'avec/fns/ceo.html', {'acao': acao, 'cidade' : cidade})
+    return render(request, 'avec/fns/ceo.html', {'int_cnpj' : int_cnpj,'acao': acao, 'cidade' : cidade})
 
 def samu(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30483)  | pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30475)
     entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
 
-    return render(request, 'avec/fns/samu.html', {'acao': acao, 'cidade' : cidade})
+    return render(request, 'avec/fns/samu.html', {'int_cnpj' : int_cnpj,'acao': acao, 'cidade' : cidade})
 
 def lista_cidades(request):
     return render(request, 'avec/fns/lista_cidades.html')
