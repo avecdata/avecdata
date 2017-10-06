@@ -108,12 +108,12 @@
 
                        <tr>
                          <td>Mês<td>
-                         <td>Componente</td>
+                         <td>Ação</td>
                          <td>Valor</td>
                        </tr>
                          <tr>
                            <td>{{ acao.mes }}<td>
-                           <td>{{ acao.nm_componente }}</td>
+                           <td>{{ acao.nm_acao }}</td>
                            <td class="avec-monetary" > {{ acao.vl_total }}</td>
                          </tr>
 
@@ -127,17 +127,17 @@
                      <tbody>
 
                        <tr>
-                         <td>Ação/Serviço/Estratégia<td>
-                         <td>Data</td>
-                         <td>Valor Total</td>
-                       </tr>
-                         <tr>
-                           <td>{{ acao.nm_bloco }}<td>
-                           <td>{{ acao.nm_componente }}</td>
-                           <td class="avec-monetary" > {{ acao.vl_total }}</td>
-                         </tr>
+                         {% for detail in acao_detalhe %}
 
 
+                           {% if detail.cd_acao_str == acao.cd_acao|stringformat:"i" %}
+                             <tr>
+                               <td>{{ detail.parcela }}<td>
+                               <td>{{ detail.dt_ob }}</td>
+                               <td class="avec-monetary" > {{ detail.vl_total }}</td>
+                             </tr>
+                           {% endif %}
+                         {% endfor %}
                      </tbody>
                    </table>
 
