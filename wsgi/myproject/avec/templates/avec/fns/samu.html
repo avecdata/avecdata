@@ -24,9 +24,11 @@
              <div  data-spy="affix" style="background-color : #3e4c5b!important; " >
                <div class="resume__profile" style="color : #ffffff; background-color : #3e4c5b!important;" >
 
-                 <h3 class="profile__section">
-                   Painel de Gestão Financeira
-                 </h3>
+                 <a href="{% url 'lista_cidades' %}" style="color: #FFFFFF!important;">
+                   <h3 class="profile__section">
+                     Painel de Gestão Financeira
+                   </h3>
+                 </a>
                  <h4 class="profile__section" style="color : #2d9ba6;">
                    Média e Alta </br> Complexidade
                  </h4>
@@ -51,27 +53,26 @@
                      {{cid.nome_secretario}}
                    </p>
                  </div>
-                 <a href="#">
+                 {% for ent in entidade %}
+                 <a href="{% url 'cidade' cd_municipio=ent.cd_municipio%}">
                    <div class="resume-profile__section">
                      <strong><i class="fa fa-th-large"></i>   DADOS GERAIS</strong>
 
                    </div>
                  </a>
-                 {% for ent in entidade %}
-                 <a href="#">
+                 <a href="{% url 'teto' cnpj=ent.cpf_cnpj%}">
                    <div class="resume-profile__section" style="color : #FFFFFF;">
                      <strong><i class="fa fa-copy"></i>   TETO FINANCEIRO</strong>
 
                    </div>
                  </a>
-                 {% endfor %}
-                 <a href="#">
+                 <a href="{% url 'faec' cnpj=ent.cpf_cnpj%}">
                    <div class="resume-profile__section" style="color : #FFFFFF;">
                      <strong><i class="fa fa-tasks"></i>   FAEC</strong>
 
                    </div>
                  </a>
-                 <a href="#">
+                 <a href="{% url 'ceo' cnpj=ent.cpf_cnpj%}">
                    <div class="resume-profile__section" style="color : #FFFFFF;">
                      <strong><i class="fa fa-sticky-note-o"></i>   CEO</strong>
 
@@ -83,6 +84,7 @@
 
                    </div>
                  </a>
+                 {% endfor %}
 
                </div> <!-- / .resume__profile -->
 
