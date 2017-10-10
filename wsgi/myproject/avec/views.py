@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -45,7 +45,7 @@ from allauth.socialaccount.adapter import DefaultSocialAccountAdapter, get_adapt
 from allauth.account.utils import perform_login, complete_signup
 from pprint import pprint
 
-from .filters import AcaoFilter
+from .filters import AcaoFilter, AcaoFilterFaec
 
 # Create your views here.
 def page_not_found(request):
@@ -852,6 +852,12 @@ def teto(request, cnpj):
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
     return render(request, 'avec/fns/teto.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade})
 
+def faec(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
+    return render(request, 'avec/fns/faec.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade})
+
 def teto_producao(request, cnpj):
     return render(request, 'avec/fns/teto_producao.html')
 
@@ -865,6 +871,17 @@ def teto_pagamento(request, cnpj):
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
 
     return render(request, 'avec/fns/teto_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter } )
+
+def faec_pagamento(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    acao = pgf_acao_faec.objects.filter(cnpj=cnpj).order_by('mes')
+    acao_detalhe_faec = pgf_acao_detalhe_faec.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilterFaec(request.GET, queryset=acao)
+
+    entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=entidade)
+
+    return render(request, 'avec/fns/faec_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe_faec': acao_detalhe_faec, 'cidade' : cidade, 'filter' : acao_filter } )
 
 def ceo(request, cnpj):
     int_cnpj = s = str(int(cnpj))

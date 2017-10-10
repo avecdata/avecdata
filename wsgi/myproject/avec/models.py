@@ -739,3 +739,47 @@ class pgf_acao_detalhe(models.Model):
 
     def __str__(self):
         return self.parcela
+
+class pgf_acao_faec(models.Model):
+    cd_acao = models.BigIntegerField(primary_key=True, null=False)
+    nm_bloco  = models.CharField(max_length=200 , null=True)
+    nm_componente = models.CharField(max_length=201 , null=True)
+    nm_acao = models.CharField(max_length=200 , null=True)
+    vl_total = models.CharField(max_length=30 , null=True)
+    vl_desconto = models.CharField(max_length=30 , null=True)
+    vl_liquido = models.CharField(max_length=30 , null=True)
+    ano = models.CharField(max_length=30 , null=True)
+    mes = models.DateField(null=True)
+    acao_num = models.CharField(max_length=30 , null=True)
+    cnpj = models.CharField(max_length=30 , null=True)
+
+    def publish_pgf_acao_faec(self):
+        self.save()
+
+    def __str__(self):
+        return self.cd_acao
+
+class pgf_acao_detalhe_faec(models.Model):
+    parcela  = models.CharField(max_length=200 , null=True)
+    n_ob = models.CharField(max_length=200 , null=True)
+    dt_ob = models.CharField(max_length=200 , null=True)
+    tp_repasse = models.CharField(max_length=30 , null=True)
+    banco_ob = models.CharField(max_length=30 , null=True)
+    agencia_ob = models.CharField(max_length=30 , null=True)
+    conta_ob = models.CharField(max_length=30 , null=True)
+    vl_total = models.CharField(max_length=30 , null=True)
+    vl_desconto = models.CharField(max_length=30 , null=True)
+    vl_liquido = models.CharField(max_length=30 , null=True)
+    mt_rejeicao = models.CharField(max_length=30 , null=True)
+    nr_processo = models.CharField(max_length=30 , null=True)
+    nr_proposta = models.CharField(max_length=30 , null=True)
+    nr_portaria = models.CharField(max_length=30 , null=True)
+    acao_num = models.CharField(max_length=30 , null=True)
+    cd_acao = models.ForeignKey("pgf_acao_faec", db_column="cd_acao")
+    cd_acao_str = models.CharField(max_length=30 , null=True)
+
+    def publish_pgf_acao_detalhe_faec(self):
+        self.save()
+
+    def __str__(self):
+        return self.parcela
