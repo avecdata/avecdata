@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -374,9 +374,10 @@ def nescon(request):
 def client(request, client):
     view_client = View_Client.objects.filter(nickname=client)
     view_themes = View_Themes.objects.filter(published_date__lte=timezone.now()).filter(client=view_client).order_by('published_date')
-    view_subject = View_Subject.objects.filter(published_date__lte=timezone.now()).order_by('title').reverse()
-    view_subject_detail = View_Subject_detail.objects.filter(published_date__lte=timezone.now()).order_by('title')
-    return render(request, 'avec/dashboards/padrao1.html', {'view_client' : view_client ,'view_subject': view_subject, 'view_subject_detail': view_subject_detail, 'view_themes': view_themes})
+    view_subject = View_Subject.objects.filter(published_date__lte=timezone.now()).filter(theme__in=view_themes).order_by('title').reverse()
+    view_subject_detail = View_Subject_detail.objects.filter(published_date__lte=timezone.now()).filter(subject__in=view_subject).order_by('title')
+    mytabs = View_tabSimple.objects.filter(View_Subject_detail__in=view_subject_detail)
+    return render(request, 'avec/dashboards/padrao1.html', {'view_client' : view_client ,'view_subject': view_subject, 'view_subject_detail': view_subject_detail, 'view_themes': view_themes, 'mytabs' : mytabs})
 
 def padrao2(request):
     deputado = v_emendas_autor.objects.filter(nome_abrev=nome_abrev)

@@ -404,7 +404,14 @@ border-bottom: solid 1px #dfe4e9;
 										{% endif %}
 											<ul>
 												{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
-													<li class="interno"><a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal; ">{{subj_det.title}}</a></li>
+													{% for cliente in view_client %}
+														{% if cliente.no_script == False %}
+															<li class="interno"><a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a></li>
+														{% endif %}
+														{% if cliente.no_script == True %}
+															<li class="interno"><a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a></li>
+														{% endif %}
+													{% endfor %}
 												{% endfor %}
 											</ul>
 										</li>
@@ -418,7 +425,18 @@ border-bottom: solid 1px #dfe4e9;
 							<div class="banner-section" id="img-container">    </div>
 									{% for subj in theme.view_subject_set.all %}
 											{% for subj_det in subj.view_subject_detail_set.all %}
-												<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;"></div>
+												{% for cliente in view_client %}
+													{% if cliente.no_script == False %}
+														<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;"></div>
+													{% endif %}
+													{% if cliente.no_script == True %}
+															{% for tabs in mytabs %}
+																<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;">
+																		<p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
+																</div>
+															{% endfor %}
+													{% endif %}
+												{% endfor %}
 											{% endfor %}
 
 									{% endfor %}
@@ -438,7 +456,14 @@ border-bottom: solid 1px #dfe4e9;
 												{% endif %}
 												<ul>
 													{% for subj_det in subj.view_subject_detail_set.all %}
+														{% for cliente in view_client %}
+															{% if cliente.no_script == False %}
 														<li class="interno"><a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a></li>
+															{% endif %}
+															{% if cliente.no_script == True %}
+																<li class="interno"><a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a></li>
+															{% endif %}
+														{% endfor %}
 													{% endfor %}
 												</ul>
 												</li>
@@ -451,7 +476,19 @@ border-bottom: solid 1px #dfe4e9;
 								<div class="banner-section" id="img-container">    </div>
 										{% for subj in theme.view_subject_set.all %}
 												{% for subj_det in subj.view_subject_detail_set.all %}
-													<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;"></div>
+														{% for cliente in view_client %}
+															{% if cliente.no_script == False %}
+													    	<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;"></div>
+															{% endif %}
+															{% if cliente.no_script == True %}
+																	{% for tabs in mytabs %}
+																		<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;">
+																				<p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
+																		</div>
+																	{% endfor %}
+															{% endif %}
+													  {% endfor %}
+
 												{% endfor %}
 
 										{% endfor %}
@@ -473,7 +510,9 @@ border-bottom: solid 1px #dfe4e9;
 	<script type="text/javascript" src="{% static 'js/avec.script.js' %}"></script>
 
   {% for cliente in view_client %}
-    <script type="text/javascript" src="{% static cliente.script %}"></script>
+		{% if cliente.no_script == False %}
+    	<script type="text/javascript" src="{% static cliente.script %}"></script>
+		{% endif %}
   {% endfor %}
 
 
@@ -536,12 +575,29 @@ $(document).ready(function () {
     }
   }
 	*/
-	{% for theme in view_themes %}
-		posts_count	= "{{ theme.title }}";
-		clickMenu(posts_count);
-	{% endfor %}
 
-	iniciar2();
+
+		{% for cliente in view_client %}
+			{% if cliente.no_script == False %}
+
+				{% for theme in view_themes %}
+					posts_count	= "{{ theme.title }}";
+					clickMenu(posts_count);
+				{% endfor %}
+
+			iniciar2();
+
+			{% endif %}
+
+			{% if cliente.no_script == True %}
+
+				{% for theme in view_themes %}
+					posts_count	= "{{ theme.title }}";
+					clickMenu(posts_count);
+				{% endfor %}
+
+			{% endif %}
+	  {% endfor %}
 
 
 });

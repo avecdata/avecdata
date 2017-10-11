@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_fns_cidade
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_fns_cidade, View_tabSimple
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.text import force_text
@@ -67,6 +67,35 @@ class tabPaineisAdmin(admin.ModelAdmin):
     save_on_top = True
     fields = ["title", "subtitle", "footer", "html", "titulo", "indicador", "descricao", "fonte", "metodo_calculo", "categorizacao", "periodicidade", "periodos_disponiveis", "notas", "elaboracao", "origem"]
 
+class View_tabSimpleInline(admin.StackedInline):
+    model = View_tabSimple
+    extra = 0
+    fields = ["get_edit_link", "title", "subtitle", "footer", "html", "titulo", "indicador", "descricao", "fonte", "metodo_calculo", "categorizacao", "periodicidade", "periodos_disponiveis", "notas", "elaboracao", "origem"]
+    readonly_fields = ["get_edit_link"]
+
+    def get_edit_link(self, obj=None):
+        if obj.pk:  # if object has already been saved and has a primary key, show link to it
+            url = reverse('admin:%s_%s_change' % (obj._meta.app_label, obj._meta.model_name), args=[force_text(obj.pk)])
+            return """<a href="{url}">{text}</a>""".format(
+                url=url,
+                text=_("Edit this %s separately") % obj._meta.verbose_name,
+            )
+        return _("(save and continue editing to create a link)")
+    get_edit_link.short_description = _("Edit link")
+    get_edit_link.allow_tags = True
+
+@admin.register(View_Subject_detail)
+class View_Subject_detailAdmin(admin.ModelAdmin):
+    save_on_top = True
+    fields = ["title", "created_date", "published_date", "subject"]
+    inlines = [View_tabSimpleInline]
+
+@admin.register(View_tabSimple)
+class View_tabSimpleAdmin(admin.ModelAdmin):
+    save_on_top = True
+    fields = ["title", "subtitle", "footer", "html", "titulo", "indicador", "descricao", "fonte", "metodo_calculo", "categorizacao", "periodicidade", "periodos_disponiveis", "notas", "elaboracao", "origem"]
+
+
 admin.site.register(Post)
 admin.site.register(Dashboard)
 admin.site.register(Reports)
@@ -78,6 +107,6 @@ admin.site.register(Price, PriceAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(View_Client)
 admin.site.register(View_Subject)
-admin.site.register(View_Subject_detail)
+#admin.site.register(View_Subject_detail)
 admin.site.register(View_Themes)
 admin.site.register(v_fns_cidade)

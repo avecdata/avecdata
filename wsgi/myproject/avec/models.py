@@ -373,6 +373,7 @@ class View_Client(models.Model):
             blank=True, null=True)
     search_field = models.BooleanField()
     open = models.BooleanField(blank=True)
+    no_script = models.BooleanField(blank=True)
 
     def publish_viewclient(self):
         self.published_date = timezone.now()
@@ -406,6 +407,7 @@ class View_Subject(models.Model):
             blank=True, null=True)
     theme = models.ForeignKey(View_Themes)
     search_field = models.BooleanField()
+
 
     def publish_viewsubject(self):
         self.published_date = timezone.now()
@@ -441,6 +443,30 @@ class View_Subject_detail(models.Model):
     def publish_view_subject_detail(self):
         self.published_date = timezone.now()
         self.save()
+
+    def __str__(self):
+        return self.title
+
+class View_tabSimple(models.Model):
+    View_Subject_detail = models.ForeignKey(View_Subject_detail, verbose_name=("View_Subject_detail"), on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=200)
+    footer = models.TextField(blank=True)
+    html = models.TextField(blank=True)
+    titulo = models.TextField(blank=True)
+    indicador = models.TextField(blank=True)
+    descricao = models.TextField(blank=True)
+    fonte = models.TextField(blank=True)
+    metodo_calculo = models.TextField(blank=True)
+    categorizacao = models.TextField(blank=True)
+    periodicidade = models.TextField(blank=True)
+    periodos_disponiveis = models.TextField(blank=True)
+    notas = models.TextField(blank=True)
+    elaboracao = models.TextField(blank=True)
+    origem = models.TextField(blank=True)
+    class Meta:
+        verbose_name = _("View_tabSimple")
+        verbose_name_plural = _("View_tabSimples")
 
     def __str__(self):
         return self.title
