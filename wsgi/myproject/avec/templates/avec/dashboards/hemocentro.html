@@ -310,9 +310,14 @@ border-bottom: solid 1px #ffffff;
     border-top-left-radius: 1px;!important;
 }
 
-.lateral_menu{
-
+.avec-a{
+	color: #61788e;!important
 }
+
+.avec-a:hover{
+	color: #61788e;!important
+}
+
 
 ul-avec li-avec {
     display: inline;
@@ -443,7 +448,7 @@ ul-avec li-avec {
 			                <div id="collapseOne" class="panel-collapse collapse in">
 												{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 				                  <div class="panel-body">
-				                    <a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 				                  </div>
 												{% endfor %}
 			                </div>
@@ -458,7 +463,7 @@ ul-avec li-avec {
 											 <div id="collapseTwo" class="panel-collapse collapse">
 												 {% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
  				                  <div class="panel-body">
- 				                    <a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+ 				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
  				                  </div>
  												{% endfor %}
 											 </div>
@@ -509,7 +514,7 @@ ul-avec li-avec {
 					                <div id="collapseOne2" class="panel-collapse collapse">
 														{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 						                  <div class="panel-body">
-						                    <a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 						                  </div>
 														{% endfor %}
 					                </div>
@@ -524,7 +529,7 @@ ul-avec li-avec {
 					                <div id="collapseTwo2" class="panel-collapse collapse">
 														{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 						                  <div class="panel-body">
-						                    <a href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 						                  </div>
 														{% endfor %}
 					                </div>
