@@ -68,6 +68,8 @@ ul li { display: inline;
 }
 
 
+
+
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
     background: linear-gradient(#ffffff 90%, #3dc1d0 10%);
 	font-family: Lato;
@@ -247,7 +249,7 @@ ul-avec li-avec {
     <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/amcharts/amstock.js' %}"></script>
 
-	<!--<script type="text/javascript" src="{% static 'data/paineis/click_hover.js' %}"></script>-->
+	<script type="text/javascript" src="{% static 'data/paineis/click_hover.js' %}"></script>
 <link rel="stylesheet" href="{% static 'data/paineis/tree_frog_vertical.css' %}" />
 
 
@@ -273,11 +275,14 @@ ul-avec li-avec {
 			{% endif %}
 			{% endfor %}
 
-		<div class="row" style="padding-bottom: 50px; padding-top: 50px;">
+		<div class="row" style="padding-bottom: 40px; padding-top: 40px;">
+      <div class="blog-post__avatar">
+                    <img src="{% static 'img/blood_donate_icon.svg' %}" class="img-responsive" alt="...">
+      </div>
 
 			<div class="col-sm-6" >
 				{% for client in view_client%}
-					<h3 class="avec-h3">  {{client.title}}</h3></i>
+					<h3 class="avec-h3" style="margin-top: 0px;!important">  {{client.title}}</h3></i>
 				{% endfor %}
 			</div>
 			<div class="col-sm-6">
@@ -344,7 +349,7 @@ ul-avec li-avec {
 			                <div id="collapseOne" class="panel-collapse collapse in">
 												{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 				                  <div class="panel-body">
-				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 				                  </div>
 												{% endfor %}
 			                </div>
@@ -359,7 +364,7 @@ ul-avec li-avec {
 											 <div id="collapseTwo" class="panel-collapse collapse">
 												 {% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
  				                  <div class="panel-body">
- 				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+ 				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
  				                  </div>
  												{% endfor %}
 											 </div>
@@ -376,11 +381,11 @@ ul-avec li-avec {
 											{% for subj_det in subj.view_subject_detail_set.all %}
 													{% for cliente in view_client %}
 														{% if cliente.no_script == False %}
-															<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;"></div>
+															<div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;"></div>
 														{% endif %}
 														{% if cliente.no_script == True %}
 																{% for tabs in mytabs %}
-																	<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;">
+																	<div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;">
 																			<p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
 																	</div>
 																{% endfor %}
@@ -413,7 +418,7 @@ ul-avec li-avec {
 					                <div id="acc_menu{{count_theme}}{{count_subj}}" class="panel-collapse collapse">
 														{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 						                  <div class="panel-body">
-						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 						                  </div>
 														{% endfor %}
 					                </div>
@@ -428,7 +433,7 @@ ul-avec li-avec {
 					                <div id="acc_menu{{count_theme}}{{count_subj}}" class="panel-collapse collapse">
 														{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 						                  <div class="panel-body">
-						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 						                  </div>
 														{% endfor %}
 					                </div>
@@ -447,11 +452,11 @@ ul-avec li-avec {
 												{% for subj_det in subj.view_subject_detail_set.all %}
 														{% for cliente in view_client %}
 															{% if cliente.no_script == False %}
-																<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;"></div>
+																<div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;"></div>
 															{% endif %}
 															{% if cliente.no_script == True %}
 																	{% for tabs in mytabs %}
-																		<div id="chartdiv{{subj_det.title}}" class="chartdiv" style="display: none;">
+																		<div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;">
 																				<p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
 																		</div>
 																	{% endfor %}

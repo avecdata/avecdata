@@ -87,8 +87,9 @@ class View_tabSimpleInline(admin.StackedInline):
 @admin.register(View_Subject_detail)
 class View_Subject_detailAdmin(admin.ModelAdmin):
     save_on_top = True
-    fields = ["title", "created_date", "published_date", "subject"]
+    fields = ["pk","title", "created_date", "published_date", "subject"]
     inlines = [View_tabSimpleInline]
+    readonly_fields=('pk',)
 
 @admin.register(View_tabSimple)
 class View_tabSimpleAdmin(admin.ModelAdmin):
