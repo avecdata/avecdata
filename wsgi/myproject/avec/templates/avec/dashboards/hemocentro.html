@@ -593,10 +593,13 @@ function showChart( divid, divtheme, h ) {
 	h = h || "375px";
 	currentTheme = document.getElementById(divtheme);
 	currentTheme.style.display = "none";
-		
+
   if (currentChart !== undefined){
     currentChart.style.display = "none";
-		currentTheme.style.display = "block";
+	};
+
+	if (currentChart == undefined){
+    currentTheme.style.display = "none";
 	};
 
   if ( divid ) {
