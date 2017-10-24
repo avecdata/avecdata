@@ -37,6 +37,7 @@
 
 <style>
 
+
 .chartdiv {
   width: 100%;
   max-width: 100%;
@@ -71,14 +72,14 @@ ul li { display: inline;
 
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
-    background: linear-gradient(#ffffff 90%, #3dc1d0 10%);
+  background: linear-gradient(#ffffff 90%, #3dc1d0 10%);
 	font-family: Lato;
 	font-size: 14px;
 	font-weight: 900;
 	letter-spacing: -0.5px;
 	text-align: left;
-    float: none;
-    clear: left;
+  float: none;
+  clear: left;
 	color: #61788e; !important;
 	background-color: blue;!important
 }
@@ -89,8 +90,8 @@ ul li { display: inline;
 
 .nav>li, .nav>li>a {
   color: #a7b4c3; !important;
-
 }
+
 
 .nav-stacked{
     padding-left: 0px;
@@ -199,6 +200,7 @@ border-bottom: solid 1px #ffffff;
     font-size: 14px;
 }
 
+
 .amcharts-compare-item-div {
     box-sizing: content-box;!important;
 }
@@ -232,6 +234,12 @@ ul-avec li-avec {
     display: inline-block;
 }
 
+.nav-pills > li > a {
+    background-color: #f9f9f9;!important
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.2);!important
+}
+
+
 </style>
 
 
@@ -256,7 +264,7 @@ ul-avec li-avec {
 
 <!-- TOPIC HEADER
 ================================================== -->
-<div class="topic">
+<div class="topic" style="background-color: #ffffff;!important; border-bottom: none;!important">
 	<div class="container">
 
 			{% for client in view_client%}
@@ -276,7 +284,7 @@ ul-avec li-avec {
 			{% endfor %}
 
 		<div class="row" style="padding-bottom: 40px; padding-top: 40px;">
-      <div class="blog-post__avatar" style="margin-right: 15px;!important">
+      <div class="blog-post__avatar" style="margin-right: 15px;!important; margin-left: 15px;!important">
                     <img src="{% static 'img/blood_donate_icon.svg' %}" class="img-responsive" alt="...">
       </div>
 
@@ -304,7 +312,7 @@ ul-avec li-avec {
 				{% if  forloop.counter  == 1 %}
 						<li class="active li-avec" style="text-transform: uppercase;"><a data-toggle="tab" href="#home">{{theme.title}}</a></li>
 				{% else %}
-						<li class="li-avec" style="text-transform: uppercase;"><a data-toggle="tab" href="#menu{{forloop.counter}}">{{theme.title}}</a></li>
+						<li class="li-avec" style="text-transform: uppercase;"><a style="background-color: #f9f9f9;!important; -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.2);!important" data-toggle="tab" href="#menu{{forloop.counter}}">{{theme.title}}</a></li>
 				{% endif %}
 				{% endfor %}
 
