@@ -13,6 +13,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js" />
+<!-- amCharts includes -->
+
+<script type="text/javascript" src="{% static 'js/amcharts/anmap.js' %}"></script>
 
 <!-- amCharts javascript sources -->
 <script type="text/javascript" src="{% static 'js/amcharts/amcharts.js' %}"></script>
@@ -531,12 +534,19 @@ ul-avec li-avec {
  </div>
 
 </div>
-<!--    <script src="{% static 'min/javascript/app.js' %}"></script>
+    <script src="{% static 'min/javascript/app.js' %}"></script>
 
 	<script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/jquery-confirm.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/avec.script.js' %}"></script>
--->
+
+  {% for cliente in view_client %}
+		{% if cliente.no_script == False %}
+    	<script type="text/javascript" src="{% static cliente.script %}"></script>
+		{% endif %}
+  {% endfor %}
+
+
 
 
 <script>
@@ -589,7 +599,7 @@ function showChart( divid, divtheme, h ) {
 	};
 
 	if (currentChart == undefined){
-    currentTheme.style.display = "block";
+    currentTheme.style.display = "none";
 	};
 
   if ( divid ) {
