@@ -312,7 +312,7 @@ ul-avec li-avec {
 				{% if  forloop.counter  == 1 %}
 						<li class="active li-avec" style="text-transform: uppercase;"><a data-toggle="tab" href="#home">{{theme.title}}</a></li>
 				{% else %}
-						<li class="li-avec" style="text-transform: uppercase;"><a style="background-color: #f9f9f9;!important; -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.2); box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.2);!important" data-toggle="tab" href="#menu{{forloop.counter}}">{{theme.title}}</a></li>
+						<li class="li-avec" style="text-transform: uppercase;"><a  data-toggle="tab" href="#menu{{forloop.counter}}">{{theme.title}}</a></li>
 				{% endif %}
 				{% endfor %}
 
