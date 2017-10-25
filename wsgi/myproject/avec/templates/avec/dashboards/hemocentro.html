@@ -387,18 +387,12 @@ ul-avec li-avec {
 							<div class="banner-section" id="img-container">    </div>
 									{% for subj in theme.view_subject_set.all %}
 											{% for subj_det in subj.view_subject_detail_set.all %}
-													{% for cliente in view_client %}
-														{% if cliente.no_script == False %}
-															<div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;"></div>
-														{% endif %}
-														{% if cliente.no_script == True %}
-																{% for tabs in mytabs %}
+
+																{% for tabs in subj_det.view_tabsimple_set.all %}
 																	<div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;">
 																			<p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
 																	</div>
 																{% endfor %}
-														{% endif %}
-													{% endfor %}
 
 											{% endfor %}
 									{% endfor %}
@@ -458,19 +452,11 @@ ul-avec li-avec {
 								<div class="banner-section" id="img-container2">    </div>
 										{% for subj in theme.view_subject_set.all %}
 												{% for subj_det in subj.view_subject_detail_set.all %}
-														{% for cliente in view_client %}
-															{% if cliente.no_script == False %}
-																<div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;"></div>
-															{% endif %}
-															{% if cliente.no_script == True %}
-																	{% for tabs in mytabs %}
-																		<div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;">
-																				<p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
-																		</div>
-																	{% endfor %}
-															{% endif %}
-														{% endfor %}
-
+                          {% for tabs in subj_det.view_tabsimple_set.all %}
+                            <div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                                <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
+                            </div>
+                          {% endfor %}
 												{% endfor %}
 
 										{% endfor %}
@@ -543,6 +529,8 @@ function showChart( divid, divtheme, h ) {
 	};
   if ( divid ) {
 		currentChart = document.getElementById(divid);
+    node = currentChart.childNodes;
+    node.innerHTML = {% autoescape on %}{{ tabs.html|safe }}{% endautoescape %}
 		currentChart.style.display = "block";
 		currentChart.style.height = h;
   }
