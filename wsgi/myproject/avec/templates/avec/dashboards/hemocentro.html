@@ -400,9 +400,11 @@ ul-avec li-avec {
 											{% endfor %}
 									{% endfor %}
 
-									<div id="chartdiv{{theme.title}}" class="chartdiv" style="display: block;">
-										<img class="img-responsive center-block avec-center-block" src="{% static 'img/NoContent_Chart.svg' %}" alt="..." style="padding-right: 0px!important;">
-									</div>
+                  <div id="chartdiv{{theme.title}}" class="chartdiv" style="display: block;">
+                    {% for client in view_client%}
+                      <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important;">
+                    {% endfor %}
+                  </div>
 						</div>
 					</div>
 						{% else %}
@@ -464,7 +466,9 @@ ul-avec li-avec {
 
 										{% endfor %}
 										<div id="chartdiv{{theme.title}}" class="chartdiv" style="display: block;">
-											<img class="img-responsive center-block avec-center-block" src="{% static 'img/NoContent_Chart.svg' %}" alt="..." style="padding-right: 0px!important;">
+                      {% for client in view_client%}
+                        <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important;">
+                      {% endfor %}
 										</div>
 							</div>
 						</div>
