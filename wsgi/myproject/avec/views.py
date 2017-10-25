@@ -371,15 +371,15 @@ def privacy_statement(request):
 def nescon(request):
         return render(request, 'avec/dashboards/nescon.html')
 
-def client(request, client):
-    view_client = View_Client.objects.filter(nickname=client)
-    view_themes = View_Themes.objects.filter(published_date__lte=timezone.now()).filter(client=view_client).order_by('published_date')
-    view_subject = View_Subject.objects.filter(published_date__lte=timezone.now()).filter(theme__in=view_themes).order_by('title').reverse()
-    view_subject_detail = View_Subject_detail.objects.filter(published_date__lte=timezone.now()).filter(subject__in=view_subject).order_by('title')
-    mytabs = View_tabSimple.objects.filter(View_Subject_detail__in=view_subject_detail)
-    return render(request, 'avec/dashboards/padrao1.html', {'view_client' : view_client ,'view_subject': view_subject, 'view_subject_detail': view_subject_detail, 'view_themes': view_themes, 'mytabs' : mytabs})
+#def client(request, client):
+#    view_client = View_Client.objects.filter(nickname=client)
+#    view_themes = View_Themes.objects.filter(published_date__lte=timezone.now()).filter(client=view_client).order_by('published_date')
+#    view_subject = View_Subject.objects.filter(published_date__lte=timezone.now()).filter(theme__in=view_themes).order_by('title').reverse()
+#    view_subject_detail = View_Subject_detail.objects.filter(published_date__lte=timezone.now()).filter(subject__in=view_subject).order_by('title')
+#    mytabs = View_tabSimple.objects.filter(View_Subject_detail__in=view_subject_detail)
+#    return render(request, 'avec/dashboards/padrao1.html', {'view_client' : view_client ,'view_subject': view_subject, 'view_subject_detail': view_subject_detail, 'view_themes': view_themes, 'mytabs' : mytabs})
 
-def hemocentro(request, client):
+def client(request, client):
     view_client = View_Client.objects.filter(nickname=client)
     view_themes = View_Themes.objects.filter(published_date__lte=timezone.now()).filter(client=view_client).order_by('published_date')
     view_subject = View_Subject.objects.filter(published_date__lte=timezone.now()).filter(theme__in=view_themes).order_by('title').reverse()

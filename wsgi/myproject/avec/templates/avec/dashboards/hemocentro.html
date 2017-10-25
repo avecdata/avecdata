@@ -285,7 +285,10 @@ ul-avec li-avec {
 
 		<div class="row" style="padding-bottom: 40px; padding-top: 40px;">
       <div class="blog-post__avatar" style="margin-right: 15px;!important; margin-left: 15px;!important">
-                    <img src="{% static 'img/blood_donate_icon.svg' %}" class="img-responsive" alt="...">
+        {% for client in view_client%}
+					<img src="{% static 'img/{{client.image}}' %}" class="img-responsive" alt="...">
+				{% endfor %}
+
       </div>
 
 			<div class="col-sm-6" >

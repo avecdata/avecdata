@@ -364,7 +364,7 @@ class Order(models.Model):
 
 class View_Client(models.Model):
     title = models.CharField(max_length=200)
-    image = models.ImageField( blank=True)
+    image = models.CharField(max_length=100)
     nickname = models.CharField(max_length=200, blank=True)
     script  = models.CharField(max_length=200, blank=True)
     created_date = models.DateTimeField(
