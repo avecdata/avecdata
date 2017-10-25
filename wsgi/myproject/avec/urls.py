@@ -62,5 +62,5 @@ urlpatterns = [
     url(r'^samu/(?P<cnpj>.+)/$', views.samu, name='samu'),
     url(r'^lista_cidades/$', views.lista_cidades, name='lista_cidades'),
     url(r'^mapa/$', views.mapa, name='mapa'),
-    url(r'^hemocentro/(?P<client>.+)/$', views.hemocentro, name='hemocentro'),
+    #url(r'^hemocentro/(?P<client>.+)/$', views.hemocentro, name='hemocentro'),
 ]
