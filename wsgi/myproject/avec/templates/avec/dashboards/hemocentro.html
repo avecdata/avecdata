@@ -72,7 +72,7 @@
 
 .avec-panel{
   margin-bottom: 40px;
-  height: 500px;
+  height: 530px;
 }
 /*
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
@@ -124,6 +124,11 @@
     background-color: #f5f5f5;!important
 }
 
+.chart-wrapper-avec{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
 </style>
 
 
@@ -314,18 +319,26 @@
 											{% for subj_det in subj.view_subject_detail_set.all %}
 
 																{% for tabs in subj_det.view_tabsimple_set.all %}
-                                <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none; margin-top:-40px;">
+                                <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                                  <div class="chart-wrapper chart-wrapper-avec">
+                                    {{theme.title}}/{{subj.title}}/<strong>{{subj_det.title}}</strong><hr>
+
 
                                   <div id="chartdiv{{subj_det.pk}}" class="chartdiv-in" >
-                                    <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
-                                  </div>
-                                    <div class="chart-notes" style="height: 40px;">
-                                      <div>
-                                        <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Informações"></img></a>
-                                        <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Fonte de Informações</span>
-                                      </div>
+                                    <div class="chart-stage">
+                                      <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
                                     </div>
+
+                                  </div>
+                                  <div class="chart-notes" style="height: 40px;">
+                                    <div>
+                                      <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Informações"></img></a>
+                                      <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Informações</span>
+                                    </div>
+                                  </div>
+                                  </div>
                                 </div>
+
 
 																{% endfor %}
 
@@ -396,19 +409,24 @@
 												{% for subj_det in subj.view_subject_detail_set.all %}
                           {% for tabs in subj_det.view_tabsimple_set.all %}
                           {% with forloop.counter as count_tabs %}
-                          <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none; margin-top:-40px;">
-                            <div class="chart-title">
-                             {{subj_det.title}}
-                           </div><hr>
+                          <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                            <div class="chart-wrapper chart-wrapper-avec">
+                              {{theme.title}}/{{subj.title}}/<strong>{{subj_det.title}}</strong><hr>
+
+
                             <div id="chartdiv{{subj_det.pk}}" class="chartdiv-in" >
-                              <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
-                            </div>
-                              <div class="chart-notes" style="height: 40px;">
-                                <div>
-                                  <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Informações"></img></a>
-                                  <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Fonte de Informações</span>
-                                </div>
+                              <div class="chart-stage">
+                                <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
                               </div>
+
+                            </div>
+                            <div class="chart-notes" style="height: 40px;">
+                              <div>
+                                <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Informações"></img></a>
+                                <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Informações</span>
+                              </div>
+                            </div>
+                            </div>
                           </div>
 
                           {% endwith %}
