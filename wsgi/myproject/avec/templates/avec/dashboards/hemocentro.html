@@ -196,6 +196,7 @@
 {% for theme in view_themes %}
   {% for subj in theme.view_subject_set.all %}
     {% for subj_det in subj.view_subject_detail_set.all %}
+      {% for tabs in subj_det.view_tabsimple_set.all %}
                   <div class="modal fade" id="myModal{{subj_det.pk}}" role="dialog">
                     <div class="modal-dialog">
 
@@ -246,6 +247,7 @@
 
         {% endfor %}
     {% endfor %}
+{% endfor %}    
 
 
 
