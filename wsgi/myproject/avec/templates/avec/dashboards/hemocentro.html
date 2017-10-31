@@ -326,7 +326,7 @@
 																{% for tabs in subj_det.view_tabsimple_set.all %}
                                 <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
                                   <div class="chart-wrapper chart-wrapper-avec chart-wrapper-avec-hemo">
-                                    {{theme.title}}/{{subj.title}}/<strong>{{subj_det.title}}</strong><hr>
+                                    {{theme.title}} / {{subj.title}} / <strong>{{subj_det.title}}</strong><hr>
 
 
                                   <div id="chartdiv{{subj_det.pk}}" class="chartdiv-in" >
@@ -377,7 +377,7 @@
 					                     {{subj.title}}
 					                  </a>
 					                </div>
-					                <div id="acc_menu{{count_theme}}{{count_subj}}" class="panel-collapse collapse">
+					                <div id="acc_menu{{count_theme}}{{count_subj}}" class="panel-collapse collapse in">
 														{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 						                  <div class="panel-body">
 						                    <a class="avec-a fill-div" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
@@ -416,7 +416,7 @@
                           {% with forloop.counter as count_tabs %}
                           <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
                             <div class="chart-wrapper chart-wrapper-avec chart-wrapper-avec-hemo">
-                              {{theme.title}}/{{subj.title}}/<strong>{{subj_det.title}}</strong><hr>
+                              {{theme.title}} / {{subj.title}} / <strong>{{subj_det.title}}</strong><hr>
 
 
                             <div id="chartdiv{{subj_det.pk}}" class="chartdiv-in" >
