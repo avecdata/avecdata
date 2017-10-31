@@ -96,8 +96,27 @@
   margin-bottom: 2px;
 }
 
+.panel-body>a:focus, .panel-body>a:hover {
+    background-color: #f5f5f5;!important
+}
+
+.panel-body:focus, .panel-body:hover {
+    background-color: #f5f5f5;!important
+}
+
+.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;!important
+    color:  #f5f5f5;
+}
+.fill-div:active, .fill-div:focus {
+    background-color: #f5f5f5;!important
+}
 
 </style>
+
 <link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
 
 <!-- TOPIC HEADER
@@ -256,7 +275,7 @@
 			                <div id="collapseOne" class="panel-collapse collapse in">
 												{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 				                  <div class="panel-body">
-				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+				                    <a class="avec-a fill-div" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 				                  </div>
 												{% endfor %}
 			                </div>
@@ -271,7 +290,7 @@
 											 <div id="collapseTwo" class="panel-collapse collapse">
 												 {% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
  				                  <div class="panel-body">
- 				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+ 				                    <a class="avec-a fill-div" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
  				                  </div>
  												{% endfor %}
 											 </div>
@@ -288,7 +307,10 @@
 											{% for subj_det in subj.view_subject_detail_set.all %}
 
 																{% for tabs in subj_det.view_tabsimple_set.all %}
-                                <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                                <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none; margin-top:-40px;">
+                                  <div class="chart-title">
+                          				 UNICAFES - tipos de cooperativa
+                          			  </div><hr>
                                   <div id="chartdiv{{subj_det.pk}}" class="chartdiv" >
                                     <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
                                   </div>
@@ -335,7 +357,7 @@
 					                <div id="acc_menu{{count_theme}}{{count_subj}}" class="panel-collapse collapse">
 														{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 						                  <div class="panel-body">
-						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+						                    <a class="avec-a fill-div" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 						                  </div>
 														{% endfor %}
 					                </div>
@@ -350,7 +372,7 @@
 					                <div id="acc_menu{{count_theme}}{{count_subj}}" class="panel-collapse collapse">
 														{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 						                  <div class="panel-body">
-						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+						                    <a class="avec-a fill-div" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 						                  </div>
 														{% endfor %}
 					                </div>
@@ -369,7 +391,10 @@
 												{% for subj_det in subj.view_subject_detail_set.all %}
                           {% for tabs in subj_det.view_tabsimple_set.all %}
                           {% with forloop.counter as count_tabs %}
-                            <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                            <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none; margin-top:-40px;">
+                              <div class="chart-title">
+                               UNICAFES - tipos de cooperativa
+                              </div><hr>
                               <div id="chartdiv{{subj_det.pk}}" class="chartdiv" >
                                 <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
                               </div>
