@@ -6,7 +6,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
-<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+
 <link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -98,7 +98,7 @@
 
 
 </style>
-
+<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
 
 <!-- TOPIC HEADER
 ================================================== -->
@@ -171,6 +171,78 @@
 </div> <!-- / .topic -->
 
 
+<!-- Modal -->
+
+
+{% for theme in view_themes %}
+  {% for subj in theme.view_subject_set.all %}
+    {% for subj_det in subj.view_subject_detail_set.all %}
+                  <div class="modal fade" id="myModal{{subj_det.pk}}" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                		  <h5 class="text-center">{{ tabs.title }}</h5>
+                          <table class="table table-striped" id="tblGrid" style="word-break: break-word;">
+                            <!--<thead id="tblHead">
+                              <tr>
+                                <th>item</th>
+                                <th class="text-right">valor</th>
+                              </tr>
+                            </thead>-->
+                            <tbody>
+                              <tr><td style="width: 30%;">Conteúdo</td>
+                                <td class="text-right" style="width: 70%;">{{ tabs.indicador }}</td>
+                              </tr>
+                              <tr ><td>Descrição</td>
+                                <td class="text-right">{{ tabs.descricao }}</td>
+                              </tr>
+                              <tr><td>Fonte</td>
+                                <td class="text-right">{{ tabs.fonte }}</td>
+                              </tr>
+                              <tr><td>Método cálculo</td>
+                                <td class="text-right">{{ tabs.metodo_calculo }}</td>
+                              </tr>
+                              <tr><td>Categorização</td>
+                                <td class="text-right">{{ tabs.categorizacao }}</td>
+                              </tr>
+                              <tr><td>Periodicidade</td>
+                                <td class="text-right">{{ tabs.periodicidade }}</td>
+                              </tr>
+                              <tr><td>Períodos disponíveis</td>
+                                <td class="text-right">{{ tabs.periodos_disponiveis }}</td>
+                              </tr>
+                              <tr><td>Notas</td>
+                                <td class="text-right">{{ tabs.notas }}</td>
+                              </tr>
+                              <tr><td>Elaboração</td>
+                                <td class="text-right">{{ tabs.elaboracao }}</td>
+                              </tr>
+                              <tr><td>Origem</td>
+                                <td class="text-right">{{ tabs.origem }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  {% endfor %}
+
+        {% endfor %}
+    {% endfor %}
+
+
+
+
 <!-- MAIN CONTENT
 ================================================== -->
 <div class="container" >
@@ -196,7 +268,7 @@
 			                <div id="collapseOne" class="panel-collapse collapse in">
 												{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 				                  <div class="panel-body">
-				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 				                  </div>
 												{% endfor %}
 			                </div>
@@ -211,7 +283,7 @@
 											 <div id="collapseTwo" class="panel-collapse collapse">
 												 {% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
  				                  <div class="panel-body">
- 				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+ 				                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
  				                  </div>
  												{% endfor %}
 											 </div>
@@ -232,7 +304,14 @@
                                       <p>teste</p>
 
 																			<p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
+                                      <div class="chart-notes" style="height: 40px;">
+                                        <div>
+                                          <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{forloop.counter}}"><img src="{% static 'img/Info.svg' %}" alt="Fonte de Informações"></img></a>
+                                          <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Fonte de Informações</span>
+                                        </div>
+                                      </div>
 																	</div>
+
 																{% endfor %}
 
 											{% endfor %}
@@ -268,7 +347,7 @@
 					                <div id="acc_menu{{count_theme}}{{count_subj}}" class="panel-collapse collapse">
 														{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 						                  <div class="panel-body">
-						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 						                  </div>
 														{% endfor %}
 					                </div>
@@ -283,7 +362,7 @@
 					                <div id="acc_menu{{count_theme}}{{count_subj}}" class="panel-collapse collapse">
 														{% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
 						                  <div class="panel-body">
-						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
+						                    <a class="avec-a" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
 						                  </div>
 														{% endfor %}
 					                </div>
@@ -301,9 +380,20 @@
 										{% for subj in theme.view_subject_set.all %}
 												{% for subj_det in subj.view_subject_detail_set.all %}
                           {% for tabs in subj_det.view_tabsimple_set.all %}
-                            <div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;">                              
+                          {% with forloop.counter as count_tabs %}
+                            <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                              <div id="chartdiv{{subj_det.pk}}" class="chartdiv" >
                                 <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
+                              </div>
+                                <div class="chart-notes" style="height: 40px;">
+                                  <div>
+                                    <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Fonte de Informações"></img></a>
+                                    <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Fonte de Informações</span>
+                                  </div>
+                                </div>
                             </div>
+
+                          {% endwith %}
                           {% endfor %}
 												{% endfor %}
 
