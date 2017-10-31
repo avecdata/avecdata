@@ -309,7 +309,7 @@
 																{% for tabs in subj_det.view_tabsimple_set.all %}
                                 <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none; margin-top:-40px;">
                                   <div class="chart-title">
-                          				 UNICAFES - tipos de cooperativa
+                          				 {{subj_det.title}}
                           			  </div><hr>
                                   <div id="chartdiv{{subj_det.pk}}" class="chartdiv" >
                                     <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
@@ -393,7 +393,7 @@
                           {% with forloop.counter as count_tabs %}
                             <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none; margin-top:-40px;">
                               <div class="chart-title">
-                               UNICAFES - tipos de cooperativa
+                               {{subj_det.title}}
                               </div><hr>
                               <div id="chartdiv{{subj_det.pk}}" class="chartdiv" >
                                 <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
