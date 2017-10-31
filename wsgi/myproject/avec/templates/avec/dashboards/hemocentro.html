@@ -128,7 +128,14 @@
   border-top: none;
   border-left: none;
   border-right: none;
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
 }
+
+
+
+
 </style>
 
 
@@ -154,7 +161,7 @@
 			{% endif %}
 			{% endfor %}
 
-		<div class="row" style="padding-bottom: 40px; padding-top: 40px;">
+		<div class="row" style="padding-bottom: 60px; padding-top: 40px;">
       <div class="blog-post__avatar" style="margin-right: 15px;!important; margin-left: 15px;!important">
         {% for client in view_client%}
 					<img src="{% static  'img/'|add:client.image  %}" class="img-responsive" alt="...">
@@ -320,7 +327,7 @@
 
 																{% for tabs in subj_det.view_tabsimple_set.all %}
                                 <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
-                                  <div class="chart-wrapper chart-wrapper-avec">
+                                  <div class="chart-wrapper chart-wrapper-avec chart-wrapper-avec-hemo">
                                     {{theme.title}}/{{subj.title}}/<strong>{{subj_det.title}}</strong><hr>
 
 
@@ -410,7 +417,7 @@
                           {% for tabs in subj_det.view_tabsimple_set.all %}
                           {% with forloop.counter as count_tabs %}
                           <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
-                            <div class="chart-wrapper chart-wrapper-avec">
+                            <div class="chart-wrapper chart-wrapper-avec chart-wrapper-avec-hemo">
                               {{theme.title}}/{{subj.title}}/<strong>{{subj_det.title}}</strong><hr>
 
 
