@@ -6,6 +6,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
+<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
 
 <link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
 
@@ -56,14 +57,21 @@
 .chartdiv {
   width: 100%;
   max-width: 100%;
+}
+.chartdiv-in{
   height: 450px;
-
+  margin-bottom: 15px;
 }
 
 .nav-pills > li > a {
     background-color: #f9f9f9;!important
     color: #333333;!important
     border-radius: 2px;
+}
+
+.avec-panel{
+  margin-bottom: 40px;
+  height: 500px;
 }
 /*
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
@@ -117,7 +125,7 @@
 
 </style>
 
-<link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
+
 
 <!-- TOPIC HEADER
 ================================================== -->
@@ -247,7 +255,7 @@
 
         {% endfor %}
     {% endfor %}
-{% endfor %}    
+{% endfor %}
 
 
 
@@ -260,7 +268,7 @@
   		  {% for theme in view_themes %}
 				{% with forloop.counter as count_theme %}
 					{% if  forloop.counter  == 1 %}
-					<div id="home" class="tab-pane fade in active">
+					<div id="home" class="tab-pane fade in active avec-panel">
 
 						<div class="col-sm-3" style="padding-left:0px;">
 
@@ -310,10 +318,8 @@
 
 																{% for tabs in subj_det.view_tabsimple_set.all %}
                                 <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none; margin-top:-40px;">
-                                  <div class="chart-title">
-                          				 {{subj_det.title}}
-                          			  </div><hr>
-                                  <div id="chartdiv{{subj_det.pk}}" class="chartdiv" >
+
+                                  <div id="chartdiv{{subj_det.pk}}" class="chartdiv-in" >
                                     <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
                                   </div>
                                     <div class="chart-notes" style="height: 40px;">
@@ -342,7 +348,7 @@
 						</div>
 					</div>
 						{% else %}
-						<div id="menu{{count_theme}}" class="tab-pane fade">
+						<div id="menu{{count_theme}}" class="tab-pane fade avec-panel">
 
 							<div class="col-sm-3" style="padding-left:0px;">
 
@@ -393,20 +399,20 @@
 												{% for subj_det in subj.view_subject_detail_set.all %}
                           {% for tabs in subj_det.view_tabsimple_set.all %}
                           {% with forloop.counter as count_tabs %}
-                            <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none; margin-top:-40px;">
-                              <div class="chart-title">
-                               {{subj_det.title}}
-                              </div><hr>
-                              <div id="chartdiv{{subj_det.pk}}" class="chartdiv" >
-                                <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
-                              </div>
-                                <div class="chart-notes" style="height: 40px;">
-                                  <div>
-                                    <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Fonte de Informações"></img></a>
-                                    <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Fonte de Informações</span>
-                                  </div>
-                                </div>
+                          <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none; margin-top:-40px;">
+                            <div class="chart-title">
+                             {{subj_det.title}}
+                           </div><hr>
+                            <div id="chartdiv{{subj_det.pk}}" class="chartdiv-in" >
+                              <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
                             </div>
+                              <div class="chart-notes" style="height: 40px;">
+                                <div>
+                                  <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Fonte de Informações"></img></a>
+                                  <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Fonte de Informações</span>
+                                </div>
+                              </div>
+                          </div>
 
                           {% endwith %}
                           {% endfor %}
@@ -478,7 +484,7 @@ $(document).ready(function () {
 var currentChart;
 function showChart( divid, divtheme, h ) {
 
-	h = h || "375px";
+	h = h || "450px";
 	currentTheme = document.getElementById(divtheme);
 	currentTheme.style.display = "none";
 
@@ -488,9 +494,10 @@ function showChart( divid, divtheme, h ) {
   if ( divid ) {
 		currentChart = document.getElementById(divid);
     node = currentChart.childNodes;
-    node.innerHTML = {% autoescape on %}{{ tabs.html|safe }}{% endautoescape %}
+    //node.innerHTML = {% autoescape on %}{{ tabs.html|safe }}{% endautoescape %}
+    currentChart.style.height = h;
 		currentChart.style.display = "block";
-		currentChart.style.height = h;
+
   }
   else {
     currentChart = undefined;
