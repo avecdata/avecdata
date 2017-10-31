@@ -31,6 +31,7 @@
 <script type="text/javascript" src="{% static 'js/amcharts/plugins/export/FileSaver.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/amcharts/plugins/export/jszip.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/amcharts/plugins/export/pdfmake.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/amcharts/plugins/export/xlsx.min.js' %}"></script>
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
@@ -320,7 +321,7 @@
                                   </div>
                                     <div class="chart-notes" style="height: 40px;">
                                       <div>
-                                        <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Fonte de Informações"></img></a>
+                                        <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Informações"></img></a>
                                         <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Fonte de Informações</span>
                                       </div>
                                     </div>
@@ -404,7 +405,7 @@
                             </div>
                               <div class="chart-notes" style="height: 40px;">
                                 <div>
-                                  <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Fonte de Informações"></img></a>
+                                  <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Informações"></img></a>
                                   <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Fonte de Informações</span>
                                 </div>
                               </div>
