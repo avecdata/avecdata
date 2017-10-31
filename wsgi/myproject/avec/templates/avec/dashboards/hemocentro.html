@@ -65,7 +65,7 @@
     color: #333333;!important
     border-radius: 2px;
 }
-
+/*
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
   background-color: #3dc1d0;
 	font-family: Lato;
@@ -88,11 +88,12 @@
 .nav>li, .nav>li>a {
   color: #a7b4c3; !important;
 }
-
+*/
 .li-avec{
   border: rgba(0, 0, 0, 0.1);
   border-width: thin;
-  border-style: solid;  
+  border-style: solid;
+  margin-bottom: 2px;
 }
 
 
@@ -128,14 +129,12 @@
 
       </div>
 
-			<div class="col-sm-6" >
+			<div class="col-sm-8" >
 				{% for client in view_client%}
 					<h3 class="avec-h3" style="margin-top: 0px;!important">  {{client.title}}</h3></i>
 				{% endfor %}
 			</div>
-			<div class="col-sm-6">
 
-			</div>
 		</div> <!-- / .row -->
 
 		<div class="row">
@@ -230,6 +229,8 @@
 
 																{% for tabs in subj_det.view_tabsimple_set.all %}
 																	<div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                                      <p>teste</p>
+
 																			<p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
 																	</div>
 																{% endfor %}
@@ -239,8 +240,13 @@
 
                   <div id="chartdiv{{theme.title}}" class="chartdiv" style="display: block;">
                     {% for client in view_client%}
+
+                    <div class="col-sm-9">
                       <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important;">
+                    </div>
+                    <div class="col-sm-3"></div>
                     {% endfor %}
+
                   </div>
 						</div>
 					</div>
@@ -295,7 +301,7 @@
 										{% for subj in theme.view_subject_set.all %}
 												{% for subj_det in subj.view_subject_detail_set.all %}
                           {% for tabs in subj_det.view_tabsimple_set.all %}
-                            <div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                            <div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;">                              
                                 <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
                             </div>
                           {% endfor %}
@@ -304,7 +310,10 @@
 										{% endfor %}
 										<div id="chartdiv{{theme.title}}" class="chartdiv" style="display: block;">
                       {% for client in view_client%}
+                      <div class="col-sm-9">
                         <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important;">
+                      </div>
+                      <div class="col-sm-3"></div>
                       {% endfor %}
 										</div>
 							</div>
