@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
 <link rel="stylesheet" href="{% static 'css/keen-dashboards.css' %}" />
 
-<link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -107,10 +107,12 @@
 
 .panel-body>a:focus, .panel-body>a:hover {
     background-color: #f5f5f5;!important
+    color: #ffffff;!important
 }
 
 .panel-body:focus, .panel-body:hover {
     background-color: #f5f5f5;!important
+    color: #ffffff;!important
 }
 
 .fill-div {
@@ -120,8 +122,10 @@
     text-decoration: none;!important
     color:  #f5f5f5;
 }
+
 .fill-div:active, .fill-div:focus {
     background-color: #f5f5f5;!important
+    color: #ffffff;!important
 }
 
 .chart-wrapper-avec{
@@ -159,7 +163,7 @@
 			{% endif %}
 			{% endfor %}
 
-		<div class="row" style="padding-bottom: 60px; padding-top: 40px;">
+		<div class="row" style="padding-bottom: 60px; padding-top: 30px;">
       <div class="blog-post__avatar" style="margin-right: 15px;!important; margin-left: 15px;!important">
         {% for client in view_client%}
 					<img src="{% static  'img/'|add:client.image  %}" class="img-responsive" alt="...">
