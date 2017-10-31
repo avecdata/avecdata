@@ -207,23 +207,11 @@
                               <tr><td>Método cálculo</td>
                                 <td class="text-right">{{ tabs.metodo_calculo }}</td>
                               </tr>
-                              <tr><td>Categorização</td>
-                                <td class="text-right">{{ tabs.categorizacao }}</td>
-                              </tr>
                               <tr><td>Periodicidade</td>
                                 <td class="text-right">{{ tabs.periodicidade }}</td>
                               </tr>
-                              <tr><td>Períodos disponíveis</td>
-                                <td class="text-right">{{ tabs.periodos_disponiveis }}</td>
-                              </tr>
                               <tr><td>Notas</td>
                                 <td class="text-right">{{ tabs.notas }}</td>
-                              </tr>
-                              <tr><td>Elaboração</td>
-                                <td class="text-right">{{ tabs.elaboracao }}</td>
-                              </tr>
-                              <tr><td>Origem</td>
-                                <td class="text-right">{{ tabs.origem }}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -300,17 +288,17 @@
 											{% for subj_det in subj.view_subject_detail_set.all %}
 
 																{% for tabs in subj_det.view_tabsimple_set.all %}
-																	<div id="chartdiv{{subj_det.pk}}" class="chartdiv" style="display: none;">
-                                      <p>teste</p>
-
-																			<p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
-                                      <div class="chart-notes" style="height: 40px;">
-                                        <div>
-                                          <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{forloop.counter}}"><img src="{% static 'img/Info.svg' %}" alt="Fonte de Informações"></img></a>
-                                          <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Fonte de Informações</span>
-                                        </div>
+                                <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                                  <div id="chartdiv{{subj_det.pk}}" class="chartdiv" >
+                                    <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
+                                  </div>
+                                    <div class="chart-notes" style="height: 40px;">
+                                      <div>
+                                        <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Fonte de Informações"></img></a>
+                                        <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Fonte de Informações</span>
                                       </div>
-																	</div>
+                                    </div>
+                                </div>
 
 																{% endfor %}
 
