@@ -1,0 +1,310 @@
+{% extends 'avec/fns/templates/layout.html' %}
+
+{% block content %}
+<div id="page-wrapper">
+
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>Dados Gerais sobre o Município</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="box box-dados">
+                    <div class="box-icon">
+                        <i class="icon ion-ios-people-outline"></i>
+                    </div>
+                    <div class="box-title d-block d-sm-none d-xl-block">
+                        <h3>Demografia</h3>
+                    </div>
+                    <hr class="d-none d-sm-block d-xl-none" />
+                    <div class="box-content">
+                        <h3 class="d-none d-sm-block d-xl-none">Demografia</h3>
+                        <dl>
+                            <dt>População estimada 2017</dt>
+                            <dd>234.185 pessoas</dd>
+
+                            <dt>Área</dt>
+                            <dd>351,475 km<sup>2</sup></dd>
+
+                            <dt>Altitude</dt>
+                            <dd>264 m</dd>
+
+                            <dt>Clima</dt>
+                            <dd>Tropical sub-úmido</dd>
+
+                            <dt>Distância até a capital</dt>
+                            <dd>128 km</dd>
+                        </dl>
+                        <i class="icon icon-options"></i>
+                    </div>
+                </div>
+
+                <div class="box box-dados">
+                    <div class="box-icon">
+                        <i class="icon ion-ios-color-filter-outline"></i>
+                    </div>
+                    <div class="box-title d-block d-sm-none d-xl-block">
+                        <h3>Indicadores</h3>
+                    </div>
+                    <hr class="d-none d-sm-block d-xl-none" />
+                    <div class="box-content">
+                        <h3 class="d-none d-sm-block d-xl-none">Indicadores</h3>
+                        <dl>
+                            <dt>PIB Municipal 2016</dt>
+                            <dd>R$ 2,416,888</dd>
+
+                            <dt>PIB Municipal 2015</dt>
+                            <dd>R$ 1,932,812 </dd>
+
+                            <dt>PIB Per Capita Municipal 2016</dt>
+                            <dd>R$ 11,079 52 </dd>
+
+                            <dt>PIB Per-Capita Municipal 2015</dt>
+                            <dd>R$ 10,245 52 </dd>
+
+                            <dt>IDH</dt>
+                            <dd>0,649</dd>
+                        </dl>
+                        <i class="icon icon-options"></i>
+                    </div>
+                </div>
+
+                <div class="box box-dados">
+                    <div class="box-icon">
+                        <i class="icon ion-ios-medkit-outline"></i>
+                    </div>
+                    <div class="box-title d-block d-sm-none d-xl-block">
+                        <h3>Saúde</h3>
+                    </div>
+                    <hr class="d-none d-sm-block d-xl-none" />
+                    <div class="box-content">
+                        <h3 class="d-none d-sm-block d-xl-none">Saúde</h3>
+                        <dl>
+                            <dt>Taxa de mortalidade infantil</dt>
+                            <dd>14,7 óbitos por mil nascidos vivos</dd>
+
+                            <dt>Internações por diarreia</dt>
+                            <dd>2,6 internações por mil hab.</dd>
+
+                            <dt>Estabelecimentos de Saúde SUS</dt>
+                            <dd>65 estabelecimentos</dd>
+
+                            <dt>Taxa de partos cesáreos</dt>
+                            <dd>R$ 10,245 52 </dd>
+
+                            <dt>Óbitos maternos</dt>
+                            <dd>1,6 internações por mil hab.</dd>
+                        </dl>
+                        <i class="icon icon-options"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="widget_title">
+                <h3>
+                    <i class="fa fa-bar-chart d-none d-md-inline-block"></i> Número de mortalidade infantil - Pesquisa mais recente
+                </h3>
+            </div>
+            <div class="widget_content border rounded py-3 px-4">
+                <figure class="figure">
+                    <img src="images/grafico.jpg" alt="" class="figure-img" />
+                </figure>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="widget_content border rounded">
+                <div id="map"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function initMap() {
+        const center = {lat: -7.120436, lng: -34.877824};
+
+        const map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: center,
+            disableDefaultUI: true,
+            styles: [
+                {
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#f5f5f5"
+                        }
+                    ]
+                },
+                {
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#616161"
+                        }
+                    ]
+                },
+                {
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "color": "#f5f5f5"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "administrative.land_parcel",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#bdbdbd"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#eeeeee"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#757575"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.park",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#e5e5e5"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.park",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#9e9e9e"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#ffffff"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#757575"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#dadada"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#616161"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.local",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#9e9e9e"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.line",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#e5e5e5"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.station",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#eeeeee"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#c9c9c9"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#9e9e9e"
+                        }
+                    ]
+                }
+            ]
+        });
+
+        const marker = new google.maps.Marker({
+            position: center,
+            map: map,
+            icon: 'http://avecdata.alexandremedeiros.com.br/images/marker.png'
+        });
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQlsvwXkClFENZeuVSGfwuFnYeLgnoQE4&callback=initMap"></script>
+{% endblock %}
