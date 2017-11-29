@@ -74,6 +74,8 @@
   margin-bottom: 40px;
   height: 530px;
 }
+
+
 /*
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
   background-color: #3dc1d0;
@@ -137,6 +139,21 @@
   font-weight: 300;
 }
 
+.client-title{
+  font-size: 33px;
+  font-family: 'Lato', sans-serif;
+  color: #3e4c5b;
+  font-weight: 300;
+  margin-bottom: 0px;!important;
+  margin-left: -2px;!important;
+}
+
+.client-subtitle{
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  color: #3e4c5b;
+}
 
 </style>
 
@@ -173,7 +190,15 @@
 
 			<div class="col-sm-8" >
 				{% for client in view_client%}
-					<h3 class="avec-h3" style="margin-top: 0px;!important">  {{client.title}}</h3></i>
+
+						<h4 class="index-3-features-2__heading client-title">
+              {{client.title}}
+            </h4>
+						<div class="index-3-features-2__content client-subtitle">
+            	{{client.subtitle}}
+						</div>
+
+
 				{% endfor %}
 			</div>
 
@@ -358,7 +383,7 @@
                     {% for client in view_client%}
 
                     <div class="col-sm-9">
-                      <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important;">
+                      <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important; opacity: 0.3;">
                     </div>
                     <div class="col-sm-3"></div>
                     {% endfor %}
@@ -446,7 +471,7 @@
 										<div id="chartdiv{{theme.title}}" class="chartdiv" style="display: block;">
                       {% for client in view_client%}
                       <div class="col-sm-9">
-                        <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important;">
+                        <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important; opacity: 0.3;">
                       </div>
                       <div class="col-sm-3"></div>
                       {% endfor %}
