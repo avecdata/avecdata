@@ -862,6 +862,13 @@ def teto(request):
     #cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
     return render(request, 'avec/fns/teto-financeiro.html')
 
+def pgf(request):
+    #int_cnpj = s = str(int(cnpj))
+    #entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    #list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    #cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+    return render(request, 'avec/fns/index.html')
+
 #def teto(request, cnpj):
     #int_cnpj = s = str(int(cnpj))
     #entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)

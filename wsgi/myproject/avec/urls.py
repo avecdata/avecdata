@@ -52,6 +52,7 @@ urlpatterns = [
     url(r'^emenda/(?P<cod_emenda>.+)/$', views.emenda, name='emenda'),
     url(r'^lista_deputados/$', views.lista_deputados, name='lista_deputados'),
     url(r'^chartit/$', views.chartit, name='chartit'),
+    url(r'^pgf/$', views.pgf, name='pgf'),
     url(r'^cidade/(?P<cd_municipio>.+)/$', views.cidade, name='cidade'),
     url(r'^teto/$', views.teto, name='teto'),
     url(r'^faec/(?P<cnpj>.+)/$', views.faec, name='faec'),
