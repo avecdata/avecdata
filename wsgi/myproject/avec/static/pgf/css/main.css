@@ -12655,11 +12655,12 @@ body {
   margin-bottom: 50px; }
   .wrapper-content .box {
     width: 263px;
+    min-height: 450px;
     text-align: center;
     background-color: #fff;
     border: 1px solid #dde5ee;
     padding: 40px;
-    margin-bottom: 10px;
+    margin: 0 auto 10px auto;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -12701,7 +12702,7 @@ body {
       .wrapper-content .box.box-turc .box-content p {
         color: #f7fafd; }
     .wrapper-content .box.box-dados {
-      padding: 60px 66px; }
+      padding: 60px 26px 20px 26px; }
       .wrapper-content .box.box-dados .box-icon {
         margin: 0; }
       .wrapper-content .box.box-dados .box-title {
@@ -12718,6 +12719,30 @@ body {
       .wrapper-content .box.box-dados .box-content i.icon {
         color: #dde5ee;
         font-size: 20px; }
+  .wrapper-content .widget {
+    margin: 20px 28px 0 28px; }
+    .wrapper-content .widget .widget_title {
+      margin-bottom: 22px; }
+      .wrapper-content .widget .widget_title h3 {
+        font-size: 14px;
+        font-weight: bold;
+        color: #61788e;
+        text-align: center; }
+        .wrapper-content .widget .widget_title h3 i.fa {
+          font-size: 20px;
+          margin-right: 7px; }
+    .wrapper-content .widget .widget_content {
+      background-color: #fff;
+      min-height: 300px;
+      overflow: hidden; }
+      .wrapper-content .widget .widget_content .figure {
+        height: 100%;
+        margin: 0; }
+        .wrapper-content .widget .widget_content .figure img {
+          height: 100%; }
+      .wrapper-content .widget .widget_content #map {
+        width: 100%;
+        height: 300px; }
 
 footer {
   background-color: #f7fafd;
@@ -12771,7 +12796,17 @@ footer {
           -moz-border-radius: 50%;
           border-radius: 50%; }
 
-@media (min-width: 576px) {
+@media (max-width: 575px) {
+  .navbar-brand {
+    flex: 1;
+    text-align: center;
+    margin-right: 0; }
+  .navbar-side {
+    width: 100vw; }
+    .navbar-side .navbar-side-menu {
+      padding: 0 10px; } }
+
+@media (min-width: 768px) {
   .navbar-side {
     position: absolute;
     z-index: 2000; }
@@ -12782,8 +12817,11 @@ footer {
     text-align: left;
     margin: 0 0 40px 0; }
   .wrapper-content .box {
+    width: 586px;
+    min-height: 270px;
     flex-direction: row;
-    align-items: center; }
+    align-items: center;
+    margin-bottom: 30px; }
     .wrapper-content .box .box-icon {
       flex-basis: 130px;
       flex-shrink: 0;
@@ -12798,6 +12836,10 @@ footer {
       margin: 5px 33px; }
       .wrapper-content .box .box-content h3 {
         margin-bottom: 40px; }
+  .wrapper-content .widget {
+    margin: 30px 0 20px 0; }
+    .wrapper-content .widget .widget_title h3 {
+      text-align: left; }
   footer .copyright {
     border-top: 1px solid #dde5ee; }
   footer .box {
@@ -12829,17 +12871,34 @@ footer {
     .navbar-side .navbar-side-menu {
       margin-top: 0; } }
 
-@media (max-width: 575px) {
-  .navbar-brand {
-    flex: 1;
-    text-align: center;
-    margin-right: 0; }
-  .navbar-side {
-    width: 100vw; }
-    .navbar-side .navbar-side-menu {
-      padding: 0 10px; } }
-
 @media (min-width: 992px) {
+  #page-wrapper {
+    padding: 48px;
+    margin-left: 248px; }
+  .wrapper-content .box {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px; }
+    .wrapper-content .box .box-icon {
+      flex-basis: 130px;
+      flex-shrink: 0;
+      margin: 30px; }
+    .wrapper-content .box hr {
+      width: 1px;
+      height: 110px;
+      border: 1px solid #dde5ee;
+      margin-left: 30px;
+      margin-right: 30px; }
+    .wrapper-content .box .box-content {
+      margin: 5px 33px; }
+      .wrapper-content .box .box-content h3 {
+        margin-bottom: 40px; }
+  .wrapper-content .widget {
+    width: 586px;
+    margin-left: auto;
+    margin-right: auto; } }
+
+@media (min-width: 1200px) {
   .navbar-side {
     width: 248px; }
     .navbar-side .rounded-labels {
@@ -12855,9 +12914,15 @@ footer {
     padding: 48px;
     margin-left: 248px; }
   .wrapper-content .box {
+    width: 263px;
+    min-height: 450px;
     flex-direction: column;
-    height: 100%; }
+    margin: 0 30px 0 0;
+    float: left; }
     .wrapper-content .box .box-icon {
       margin: 50px auto 37px auto; }
     .wrapper-content .box .box-content {
-      margin: 0; } }
+      margin: 0; }
+  .wrapper-content .widget {
+    width: 850px;
+    margin: 50px 0 0 0; } }

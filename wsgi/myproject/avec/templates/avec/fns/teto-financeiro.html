@@ -1,7 +1,147 @@
-{% extends 'avec/fns/templates/layout.html' %}
+{% load staticfiles %}
 
-{% block content %}
-<div id="page-wrapper">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>AVEC - Ciência de dados</title>
+    <link href="{% static 'pgf/css/main.css' %}" rel="stylesheet" />
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-light bg-white p-3">
+    <a class="navbar-brand" href="#">
+        <img src="images/avec-logo.png" srcset="images/avec-logo@2x.png 2x,images/avec-logo@3x.png 3x" class="mainlogo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="icons icon-menu"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto mr-auto">
+            <li class="nav-item active dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="assuntosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Assuntos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="assuntosDropdown">
+                    <a class="dropdown-item" href="#">Assunto 001</a>
+                    <a class="dropdown-item" href="#">Assunto 002</a>
+                    <a class="dropdown-item" href="#">Assunto 003</a>
+                    <a class="dropdown-item" href="#">Assunto 004</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="produtosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Produtos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="produtosDropdown">
+                    <a class="dropdown-item" href="#">Produto 001</a>
+                    <a class="dropdown-item" href="#">Produto 002</a>
+                    <a class="dropdown-item" href="#">Produto 003</a>
+                    <a class="dropdown-item" href="#">Produto 004</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="quemsomosDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Quem somos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="quemsomosDropdown">
+                    <a class="dropdown-item" href="#">Quem somos 001</a>
+                    <a class="dropdown-item" href="#">Quem somos 002</a>
+                    <a class="dropdown-item" href="#">Quem somos 003</a>
+                    <a class="dropdown-item" href="#">Quem somos 004</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="planoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Planos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="planoDropdown">
+                    <a class="dropdown-item" href="#">Plano 001</a>
+                    <a class="dropdown-item" href="#">Plano 002</a>
+                    <a class="dropdown-item" href="#">Plano 003</a>
+                    <a class="dropdown-item" href="#">Plano 004</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="suacontaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sua conta
+                </a>
+                <div class="dropdown-menu" aria-labelledby="suacontaDropdown">
+                    <a class="dropdown-item" href="#">Sua conta 001</a>
+                    <a class="dropdown-item" href="#">Sua conta 002</a>
+                    <a class="dropdown-item" href="#">Sua conta 003</a>
+                    <a class="dropdown-item" href="#">Sua conta 004</a>
+                </div>
+            </li>
+            <li class="nav-item d-none d-lg-block">
+                <a class="nav-logout" href="#">
+                    Sair
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+
+<div id="wrapper">
+
+    <nav class="navbar-side">
+        <div class="nav-header d-md-none d-lg-block">
+            <h2>Painel de Gestão Financeira</h2>
+            <hr />
+            <h3>Média e Alta Complexibilidade</h3>
+        </div>
+
+        <h4 class="d-md-none d-lg-block">Arapiraca AL</h4>
+
+        <span class="rounded-labels label-pref d-block d-md-none d-lg-block">Pref. Rogério Teófilo</span>
+        <span class="rounded-labels label-sec d-block d-md-none d-lg-block">Sec. Aurélia Dias</span>
+
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+                <li class="nav-item ">
+                    <a href="index.html" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-grid"></i>
+                        <span class="d-none d-lg-block">Dados Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="teto-financeiro.html" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-layers"></i>
+                        <span class="d-none d-lg-block">Teto Financeiro</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-notebook"></i>
+                        <span class="d-none d-lg-block">FAEC</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-note"></i>
+                        <span class="d-none d-lg-block">CEO</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">SAMU</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <div id="page-wrapper">
 
     <div class="row">
         <div class="col">
@@ -72,4 +212,259 @@
     </div>
 
 </div>
-{% endblock %}
+
+    <footer>
+        <div class="container d-sm-none">
+            <div class="row">
+                <div class="col">
+                    <div id="footer-menu" role="tablist">
+                        <div class="card">
+                            <div class="card-header" role="tab" id="faleConosco">
+                                <h5 class="mb-0 d-flex justify-content-between">
+                                    <a data-toggle="collapse" href="#collapseFaleConosco" aria-expanded="false" aria-controls="collapseFaleConosco">
+                                        Fale Conosco
+                                    </a>
+                                    <i class="fa fa-angle-down"></i>
+                                </h5>
+                            </div>
+
+                            <div id="collapseFaleConosco" class="collapse" role="tabpanel" aria-labelledby="faleConosco" data-parent="#footer-menu">
+                                <div class="card-body">
+                                    <p>
+                                        Do not hesitate to contact us if you have any questions or feature
+                                        requests:
+                                    </p>
+
+                                    <p>
+                                        Lorem ipsum dolor sit amet, Consectetur adipiscing elit
+                                    </p>
+
+                                    <p>
+                                        Phone: +0 000 000 00 00<br />
+                                        Fax: +0 000 000 00 00
+                                    </p>
+
+                                    <p>Email: support@example.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" role="tab" id="avecDataScience">
+                                <h5 class="mb-0 d-flex justify-content-between">
+                                    <a data-toggle="collapse" href="#collapseAvecDataScience" aria-expanded="false" aria-controls="collapseAvecDataScience">
+                                        AVEC Data Science
+                                    </a>
+                                    <i class="fa fa-angle-down"></i>
+                                </h5>
+                            </div>
+                            <div id="collapseAvecDataScience" class="collapse" role="tabpanel" aria-labelledby="avecDataScience" data-parent="#footer-menu">
+                                <div class="card-body">
+                                    <ul>
+                                        <li><a href="" title="">Sobre</a></li>
+                                        <li><a href="" title="">Carreiras</a></li>
+                                        <li><a href="" title="">Política de Privacidade</a></li>
+                                        <li><a href="" title="">Termos e Condições Gerais</a></li>
+                                        <li><a href="" title="">Imprensa e Mídia</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" role="tab" id="sigaNos">
+                                <h5 class="mb-0 d-flex justify-content-between">
+                                    <a data-toggle="collapse" href="#collapseSiganos" aria-expanded="false" aria-controls="collapseSiganos">
+                                        Siga nos
+                                    </a>
+                                    <i class="fa fa-angle-down"></i>
+                                </h5>
+                            </div>
+                            <div id="collapseSiganos" class="collapse" role="tabpanel" aria-labelledby="sigaNos" data-parent="#footer-menu">
+                                <div class="card-body">
+                                    <ul>
+                                        <li><a href="" title="">LinkedIn</a></li>
+                                        <li><a href="" title="">Facebook</a></li>
+                                        <li><a href="" title="">Twitter</a></li>
+                                        <li><a href="" title="">Instagram</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" role="tab" id="linksRapidos">
+                                <h5 class="mb-0 d-flex justify-content-between">
+                                    <a data-toggle="collapse" href="#collapseLinksRapidos" aria-expanded="false" aria-controls="collapseLinksRapidos">
+                                        Links Rápidos
+                                    </a>
+                                    <i class="fa fa-angle-down"></i>
+                                </h5>
+                            </div>
+                            <div id="collapseLinksRapidos" class="collapse" role="tabpanel" aria-labelledby="linksRapidos" data-parent="#footer-menu">
+                                <div class="card-body">
+                                    <ul>
+                                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container d-none d-sm-block">
+            <div class="row">
+                <div class="col-sm col-lg d-none d-sm-block">
+                    <div class="box">
+                        <h3 class="box_title">
+                            Fale Conosco
+                        </h3>
+                        <div class="box_content">
+                            <p>
+                                Do not hesitate to contact us if you have any questions or feature
+                                requests:
+                            </p>
+
+                            <p>
+                                Lorem ipsum dolor sit amet, Consectetur adipiscing elit
+                            </p>
+
+                            <p>
+                                Phone: +0 000 000 00 00<br />
+                                Fax: +0 000 000 00 00
+                            </p>
+
+                            <p>Email: support@example.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm col-lg d-none d-sm-block">
+                    <div class="box">
+                        <h3 class="box_title">
+                            Avec Data Science
+                        </h3>
+                        <div class="box_content">
+                            <ul>
+                                <li><a href="" title="">Sobre</a></li>
+                                <li><a href="" title="">Carreiras</a></li>
+                                <li><a href="" title="">Política de Privacidade</a></li>
+                                <li><a href="" title="">Termos e Condições Gerais</a></li>
+                                <li><a href="" title="">Imprensa e Mídia</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm col-lg">
+                    <div class="box">
+                        <h3 class="box_title">Siga Nos</h3>
+                        <div class="box_content">
+                            <ul>
+                                <li><a href="" title="">LinkedIn</a></li>
+                                <li><a href="" title="">Facebook</a></li>
+                                <li><a href="" title="">Twitter</a></li>
+                                <li><a href="" title="">Instagram</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg d-none d-lg-block">
+                    <div class="box">
+                        <h3 class="box_title">Links Rápidos</h3>
+                        <div class="box_content">
+                            <ul>
+                                <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                                <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                                <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                                <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                                <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p class="text-sm-left">© Copyright 2017 Avec Data Sciense. All Rights Reserved. SCS Q 06, Bl A, Sala 403, Ed. Carioca » Asa Sul, Brasilia DF - Brasil</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <ul class="social d-flex flex-row justify-content-center">
+                            <li>
+                                <a href="" title="">
+                                    <figure></figure>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" title="">
+                                    <figure></figure>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" title="">
+                                    <figure></figure>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" title="">
+                                    <figure></figure>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+<script src="js/libs/jquery.slim.min.js"></script>
+<script src="js/libs/popper.min.js"></script>
+<script src="js/libs/bootstrap.min.js"></script>
+
+<script>
+
+    const fix_height = function () {
+//                $(".navbar-side").css("min-height", $("body > #wrapper").height() + "px");
+//                $('#page-wrapper').css("min-height", $("body > #wrapper").height() + "px");
+        $(".navbar-side").css("min-height", $('#page-wrapper').height()+96 + "px");
+
+        var navbarHeight = $('.navbar-side').height();
+        var wrapperHeight = $('#page-wrapper').height();
+
+//                if (navbarHeight > wrapperHeight) {
+//                    $('#page-wrapper').css("min-height", (navbarHeight + 42) + "px");
+//                }
+//
+//                if (navbarHeight < wrapperHeight) {
+//                    $('#page-wrapper').css("min-height", $(window).height() + "px");
+//                }
+
+    }
+
+    const windowResize = function(mq) {
+        if ( !mq.matches ) {
+            fix_height();
+        } else {
+            $(".navbar-side").css('min-height', 'auto');
+        }
+    };
+
+    $(function() {
+
+        /* JavaScript Media Queries */
+        if (matchMedia) {
+            const mq = window.matchMedia("(max-width: 320px)");
+
+            mq.addListener(windowResize);
+            windowResize(mq);
+        }
+    });
+</script>
+
+</body>
+</html>
