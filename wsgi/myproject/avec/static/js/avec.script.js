@@ -76,7 +76,7 @@ $(document).ready(function () {
 		minChars: 2,
 		serviceUrl: window.url_config+'/cidades_list/',
 			onSelect: function (ui) {
-				window.location.href = '/cidade/'+ui.id;
+				window.location.href = '/pgf/'+ui.id;
 			}
 	});
 

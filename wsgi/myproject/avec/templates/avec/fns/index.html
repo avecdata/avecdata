@@ -12,7 +12,7 @@
     <link href="{% static 'pgf/css/main.css' %}" rel="stylesheet" />
 </head>
 <body>
-
+{% for cid in cidade %}
 <nav class="navbar navbar-expand-md navbar-light bg-white p-3">
     <a class="navbar-brand avec-navbar-brand" href="{% url 'index' %}" style="margin-left: 0px;">
       <img src="{% static 'avecv2.0-template/img/avec-logo.svg' %}" alt="AVEC - Data" width="100">
@@ -56,10 +56,10 @@
             <h3>Média e Alta Complexibilidade</h3>
         </div>
 
-        <h4 class="d-md-none d-lg-block">Arapiraca AL</h4>
+        <h4 class="d-md-none d-lg-block">{{cid.nm_municipio}}</h4>
 
-        <span class="rounded-labels label-pref d-block d-md-none d-lg-block">Pref. Rogério Teófilo</span>
-        <span class="rounded-labels label-sec d-block d-md-none d-lg-block">Sec. Aurélia Dias</span>
+        <span class="rounded-labels label-pref d-block d-md-none d-lg-block">Pref. {{cid.nome_prefeito}}</span>
+        <span class="rounded-labels label-sec d-block d-md-none d-lg-block">Sec. {{cid.nome_secretario}}</span>
 
         <div class="navbar-side-menu">
             <ul class="nav d-flex flex-md-column justify-content-between">
@@ -123,19 +123,19 @@
                         <h3 class="d-none d-sm-block d-xl-none">Demografia</h3>
                         <dl>
                             <dt>População estimada 2017</dt>
-                            <dd>234.185 pessoas</dd>
+                            <dd>{{cid.populacao_estimada}} pessoas</dd>
 
                             <dt>Área</dt>
-                            <dd>351,475 km<sup>2</sup></dd>
+                            <dd>{{cid.area_territorial}} km<sup>2</sup></dd>
 
                             <dt>Altitude</dt>
-                            <dd>264 m</dd>
+                            <dd>0 m</dd>
 
                             <dt>Clima</dt>
-                            <dd>Tropical sub-úmido</dd>
+                            <dd>-</dd>
 
                             <dt>Distância até a capital</dt>
-                            <dd>128 km</dd>
+                            <dd>0 km</dd>
                         </dl>
                         <i class="icon icon-options"></i>
                     </div>
@@ -153,19 +153,19 @@
                         <h3 class="d-none d-sm-block d-xl-none">Indicadores</h3>
                         <dl>
                             <dt>PIB Municipal 2016</dt>
-                            <dd>R$ 2,416,888</dd>
-
-                            <dt>PIB Municipal 2015</dt>
-                            <dd>R$ 1,932,812 </dd>
+                            <dd>R$ {{cid.pib}}</dd>
 
                             <dt>PIB Per Capita Municipal 2016</dt>
-                            <dd>R$ 11,079 52 </dd>
+                            <dd>R$ {{cid.pib_percapita}} </dd>
 
-                            <dt>PIB Per-Capita Municipal 2015</dt>
-                            <dd>R$ 10,245 52 </dd>
+                            <dt>IDHM</dt>
+                            <dd>R$ {{cid.idhm}} </dd>
 
-                            <dt>IDH</dt>
-                            <dd>0,649</dd>
+                            <dt>IDHM Longevidade</dt>
+                            <dd>R$ {{cid.idhm_longevidade}} </dd>
+
+                            <dt>IDHM Educação</dt>
+                            <dd>{{cid.idhm_educacao}}</dd>
                         </dl>
                         <i class="icon icon-options"></i>
                     </div>
@@ -183,7 +183,7 @@
                         <h3 class="d-none d-sm-block d-xl-none">Saúde</h3>
                         <dl>
                             <dt>Taxa de mortalidade infantil</dt>
-                            <dd>14,7 óbitos por mil nascidos vivos</dd>
+                            <dd>{{cid.mortalidade_infantil}} óbitos por mil nascidos vivos</dd>
 
                             <dt>Internações por diarreia</dt>
                             <dd>2,6 internações por mil hab.</dd>
@@ -192,7 +192,7 @@
                             <dd>65 estabelecimentos</dd>
 
                             <dt>Taxa de partos cesáreos</dt>
-                            <dd>R$ 10,245 52 </dd>
+                            <dd>{{cid.tx_parto_cesario}} </dd>
 
                             <dt>Óbitos maternos</dt>
                             <dd>1,6 internações por mil hab.</dd>
@@ -657,6 +657,6 @@
         }
     });
 </script>
-
+{% endfor %}
 </body>
 </html>
