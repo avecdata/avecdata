@@ -229,15 +229,33 @@
 </div>
 
 <script>
+
+    pop = {{cid.populacao_estimada}};
+    if (pop < 100000){
+      myzoom = 16;
+    };
+    if (pop >= 100000 &&  pop < 500000){
+      myzoom = 15;
+    };
+    if (pop >= 500000 &&  pop < 1000000){
+      myzoom = 14;
+    };
+    if (pop >= 1000000 &&  pop < 3000000){
+      myzoom = 13;
+    };
+    if (pop >= 3000000){
+      myzoom = 12;
+    };
+
     function initMap() {
       {% for gis in gis %}
         const center_old = {lat: -7.120436, lng: -34.877824};
         const center = {lat: {{gis.latitude}}, lng: {{gis.longitude}}};
-      {% endfor %}
         const map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 13,
+            zoom : myzoom,
             center: center,
             disableDefaultUI: true,
+      {% endfor %}
             styles: [
                 {
                     "elementType": "geometry",
