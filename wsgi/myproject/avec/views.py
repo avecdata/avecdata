@@ -939,8 +939,8 @@ def cidades_list(request):
     resultado_json = {}
 
     if request.method == 'POST':
-        entidade = pgf_entidade.objects.values('cd_municipio').filter(sg_uf='PE')
-        municipios = pgf_municipio.objects.filter(nm_municipio__unaccent__icontains=str(request.POST.get('query'))).filter(cd_municipio_semdigito__in=entidade).order_by('nm_municipio')
+        entidade = pgf_entidade.objects.values('cd_municipio').filter(sg_uf='PE') | pgf_entidade.objects.values('cd_municipio').filter(sg_uf='BA')
+        municipios = pgf_municipio.objects.filter(nm_municipio__unaccent__icontains=str(request.POST.get('query'))).filter(cd_municipio_semdigit__in=entidade).order_by('nm_municipio')
 
         municipios_data = []
 
