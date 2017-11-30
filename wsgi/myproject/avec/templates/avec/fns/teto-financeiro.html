@@ -12,7 +12,7 @@
     <link href="{% static 'pgf/css/main.css' %}" rel="stylesheet" />
 </head>
 <body>
-
+{% for cid in cidade %}
 <nav class="navbar navbar-expand-md navbar-light bg-white p-3">
     <a class="navbar-brand avec-navbar-brand" href="{% url 'index' %}" style="margin-left: 0px;">
       <img src="{% static 'avecv2.0-template/img/avec-logo.svg' %}" alt="AVEC - Data" width="100">
@@ -56,15 +56,15 @@
             <h3>Média e Alta Complexibilidade</h3>
         </div>
 
-        <h4 class="d-md-none d-lg-block">Arapiraca AL</h4>
+        <h4 class="d-md-none d-lg-block">{{cid.nm_municipio}}</h4>
 
-        <span class="rounded-labels label-pref d-block d-md-none d-lg-block">Pref. Rogério Teófilo</span>
-        <span class="rounded-labels label-sec d-block d-md-none d-lg-block">Sec. Aurélia Dias</span>
-
+        <span class="rounded-labels label-pref d-block d-md-none d-lg-block">Pref. {{cid.nome_prefeito}}</span>
+        <span class="rounded-labels label-sec d-block d-md-none d-lg-block">Sec. {{cid.nome_secretario}}</span>
+        {% for ent in entidade %}
         <div class="navbar-side-menu">
             <ul class="nav d-flex flex-md-column justify-content-between">
                 <li class="nav-item ">
-                    <a href="{% url 'pgf' %}" class="nav-link d-lg-flex text-center text-lg-left">
+                    <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
                         <i class="icons icon-grid"></i>
                         <span class="d-none d-lg-block">Dados Gerais</span>
                     </a>
@@ -95,6 +95,7 @@
                 </li>
             </ul>
         </div>
+        {% endfor %}
 
     </nav>
 
@@ -422,6 +423,6 @@
         }
     });
 </script>
-
+{% endfor %}
 </body>
 </html>
