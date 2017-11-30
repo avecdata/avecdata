@@ -230,10 +230,12 @@
 
 <script>
     function initMap() {
-        const center = {lat: -7.120436, lng: -34.877824};
-
+      {% for gis in gis %}
+        const center_old = {lat: -7.120436, lng: -34.877824};
+        const center = {lat: {{gis.latitude}}, lng: {{gis.longitude}}};
+      {% endfor %}
         const map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
+            zoom: 13,
             center: center,
             disableDefaultUI: true,
             styles: [

@@ -724,6 +724,22 @@ class pgf_municipio(models.Model):
     def __str__(self):
         return self.nm_municipio
 
+class pgf_municipio_gis(models.Model):
+    cd_municipio  = models.IntegerField(primary_key=True)
+    nm_municipio = models.CharField(max_length=250 , null=True)
+    codigo_uf = models.CharField(max_length=30 , null=True)
+    uf = models.CharField(max_length=30 , null=True)
+    estado = models.CharField(max_length=100 , null=True)
+    latitude = models.CharField(max_length=30 , null=True)
+    longitude = models.CharField(max_length=30 , null=True)
+
+    def publish_pgf_municipio_gis(self):
+        self.save()
+
+    def __str__(self):
+        return self.nm_municipio
+
+
 class pgf_acao(models.Model):
     cd_acao = models.BigIntegerField(primary_key=True, null=False)
     nm_bloco  = models.CharField(max_length=200 , null=True)

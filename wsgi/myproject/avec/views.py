@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -865,7 +865,8 @@ def cidade(request, cd_municipio):
 def pgf(request, cd_municipio):
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=cd_municipio)
     entidade = pgf_entidade.objects.filter(cd_municipio=cd_municipio)
-    return render(request, 'avec/fns/index.html', {'cidade': cidade, 'entidade': entidade})
+    gis = pgf_municipio_gis.objects.filter(cd_municipio__startswith=cd_municipio)
+    return render(request, 'avec/fns/index.html', {'cidade': cidade, 'entidade': entidade, 'gis' : gis})
 
 def teto(request, cnpj):
     int_cnpj = s = str(int(cnpj))
