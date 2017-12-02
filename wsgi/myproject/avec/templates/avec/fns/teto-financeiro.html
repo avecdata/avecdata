@@ -42,6 +42,7 @@
         {% endblock %}
 
         {% block content %}
+{% for ent in entidade %}
     <div id="page-wrapper">
 
     <div class="row">
@@ -60,7 +61,7 @@
                 <div class="grid-boxes">
 
                     <div class="box">
-                        <a href="teto-financeiro_producao.html" class="btn-box">
+                        <a href="{% url 'teto_producao' cnpj=ent.cpf_cnpj %}" class="btn-box">
                             <div class="box-title d-block d-sm-none d-xl-block">
                                 <h3>Produção</h3>
                             </div>
@@ -79,7 +80,7 @@
                     </div>
 
                     <div class="box">
-                        <a href="teto-financeiro_repasses-sus.html" class="btn-box">
+                        <a href="{% url 'teto_pagamento' cnpj=ent.cpf_cnpj %}" class="btn-box">
                             <div class="box-title d-block d-sm-none d-xl-block">
                                 <h3>Repasses SUS</h3>
                             </div>
@@ -98,7 +99,7 @@
                     </div>
 
                     <div class="box box-turc">
-                        <a href="teto-financeiro_analise.html" class="btn-box">
+                        <a href="{% url 'teto_analise' cnpj=ent.cpf_cnpj %}" class="btn-box">
                             <div class="box-title d-block d-sm-none d-xl-block">
                                 <h3>Análise</h3>
                             </div>
@@ -191,6 +192,7 @@
         });
     });
 </script>
+{% endfor %}
 {% endblock %}
 </body>
 </html>

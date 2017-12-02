@@ -1,0 +1,251 @@
+{% extends "avec/fns/templates/layout.html" %}
+
+{% load staticfiles %}
+
+{% block navbar-side %}
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+            {% for ent in entidade %}
+                <li class="nav-item ">
+                    <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-grid"></i>
+                        <span class="d-none d-lg-block">Dados Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-layers"></i>
+                        <span class="d-none d-lg-block">Teto Financeiro</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'faec' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-notebook"></i>
+                        <span class="d-none d-lg-block">FAEC</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'ceo' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-note"></i>
+                        <span class="d-none d-lg-block">CEO</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'samu' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">SAMU</span>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endblock %}
+
+        {% block content %}
+{% for ent in entidade %}
+    <div id="page-wrapper">
+
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>Teto Financeiro</h2>
+
+                <div class="submenu">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+          <a class="nav-link" href="{% url 'teto_producao' cnpj=ent.cpf_cnpj %}">Produção</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link active" href="#">Repasses SUS</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link " href="{% url 'teto_analise' cnpj=ent.cpf_cnpj %}">Análise</a>
+      </li>
+    </ul>
+</div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-content">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="filters">
+                    <form action="" class="form-inline d-flex justify-content-between">
+                        <div class="form-group d-flex date-container">
+                            <label class="col-form-label" for="competencia">Competência</label>
+                            <div class="input-group">
+                                <input type="text" readonly="true" data-toggle="datepicker" class="form-control" id="competencia" placeholder="Selecione" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-light btn-datepicker" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group d-none d-sm-block">
+                            <button type="button" class="btn btn-primary btn-rounded">
+                                <i class="fa fa-filter d-xl-none"></i>
+                                <span class="d-none d-xl-block">Filtrar</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget full-width widget-table">
+            <div class="widget_title">
+                <h3 class="text-left">
+                    <i class="fa fa-bookmark color-turq-avec"></i> Pagamentos Recebidos
+                </h3>
+            </div>
+            <div class="widget_content no-bg">
+
+                <div class="table-collapse">
+
+                    <dl>
+                        <dt class="grid_title">
+                            <div class="total_label">
+                                <span>Bloco</span>
+                            </div>
+                            <div>
+                                <span>Valor</span>
+                            </div>
+                        </dt>
+                        <dd class="grid_content">
+
+                            <div id="ac_pag_rec" role="tablist">
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="ac_pag_rec_head_1">
+                                        <h5 class="mb-0">
+                                            <a data-toggle="collapse" href="#ac_pag_rec_collapse_1" aria-expanded="true" aria-controls="ac_pag_rec_collapse_1" class="grid_title">
+                                                <div class="total_label no-border">
+                                                    <span>Média e Alta complexidade ambulatorial e hospitalar</span>
+                                                </div>
+                                                <div class="no-border">
+                                                    <span>R$ 6.956.321,96</span>
+                                                </div>
+                                            </a>
+                                        </h5>
+                                    </div>
+
+                                    <div id="ac_pag_rec_collapse_1" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_1" data-parent="#ac_pag_rec">
+                                        <div class="card-body">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Ação/Serviço/Estratégia</th>
+                                                        <th>Data</th>
+                                                        <th>Valor Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>01 Nam porttitor blanditea</td>
+                                                        <td>12/06/2014</td>
+                                                        <td>R$ 6.956.321,96</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>01 Nam porttitor blanditea</td>
+                                                        <td>12/06/2014</td>
+                                                        <td>R$ 6.956.321,96</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>01 Nam porttitor blanditea</td>
+                                                        <td>12/06/2014</td>
+                                                        <td>R$ 6.956.321,96</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>01 Nam porttitor blanditea</td>
+                                                        <td>12/06/2014</td>
+                                                        <td>R$ 6.956.321,96</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="ac_pag_rec_head_2">
+                                        <h5 class="mb-0">
+                                            <a data-toggle="collapse" href="#ac_pag_rec_collapse_2" aria-expanded="true" aria-controls="ac_pag_rec_collapse_2" class="grid_title">
+                                                <div class="total_label no-border">
+                                                    <span>Incremento MAC</span>
+                                                </div>
+                                                <div class="no-border">
+                                                    <span>R$ 6.956.321,96</span>
+                                                </div>
+                                            </a>
+                                        </h5>
+                                    </div>
+
+                                    <div id="ac_pag_rec_collapse_2" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_2" data-parent="#ac_pag_rec">
+                                        <div class="card-body">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>Ação/Serviço/Estratégia</th>
+                                                    <th>Data</th>
+                                                    <th>Valor Total</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>01 Nam porttitor blanditea</td>
+                                                    <td>12/06/2014</td>
+                                                    <td>R$ 6.956.321,96</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>01 Nam porttitor blanditea</td>
+                                                    <td>12/06/2014</td>
+                                                    <td>R$ 6.956.321,96</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>01 Nam porttitor blanditea</td>
+                                                    <td>12/06/2014</td>
+                                                    <td>R$ 6.956.321,96</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>01 Nam porttitor blanditea</td>
+                                                    <td>12/06/2014</td>
+                                                    <td>R$ 6.956.321,96</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </dd>
+                    </dl>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="widget full-width">
+            <div class="widget_title">
+                <h3 class="text-left">
+                    <i class="fa fa-bar-chart"></i> Ações/Serviços/Estratégias
+                </h3>
+            </div>
+            <div class="widget_content border rounded py-3 px-4">
+                <figure class="figure">
+                    <img src="{% static 'pgf/images/grafico.jpg' %}" alt="" class="figure-img" />
+                </figure>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+{% endfor %}
+{% endblock %}

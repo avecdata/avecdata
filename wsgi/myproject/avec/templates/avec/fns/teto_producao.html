@@ -5,43 +5,45 @@
 {% block navbar-side %}
         <div class="navbar-side-menu">
             <ul class="nav d-flex flex-md-column justify-content-between">
-            {% for ent in entidade %}
-                <li class="nav-item ">
-                    <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
-                        <i class="icons icon-grid"></i>
-                        <span class="d-none d-lg-block">Dados Gerais</span>
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a href="{% url 'teto' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
-                        <i class="icons icon-layers"></i>
-                        <span class="d-none d-lg-block">Teto Financeiro</span>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="{% url 'faec' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
-                        <i class="icons icon-notebook"></i>
-                        <span class="d-none d-lg-block">FAEC</span>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="{% url 'ceo' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
-                        <i class="icons icon-note"></i>
-                        <span class="d-none d-lg-block">CEO</span>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="{% url 'samu' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
-                        <i class="icons icon-compass"></i>
-                        <span class="d-none d-lg-block">SAMU</span>
-                    </a>
-                </li>
-            {% endfor %}
+              {% for ent in entidade %}
+                  <li class="nav-item ">
+                      <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                          <i class="icons icon-grid"></i>
+                          <span class="d-none d-lg-block">Dados Gerais</span>
+                      </a>
+                  </li>
+                  <li class="nav-item active">
+                      <a href="#" class="nav-link d-lg-flex text-center text-lg-left">
+                          <i class="icons icon-layers"></i>
+                          <span class="d-none d-lg-block">Teto Financeiro</span>
+                      </a>
+                  </li>
+                  <li class="nav-item ">
+                      <a href="{% url 'faec' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                          <i class="icons icon-notebook"></i>
+                          <span class="d-none d-lg-block">FAEC</span>
+                      </a>
+                  </li>
+                  <li class="nav-item ">
+                      <a href="{% url 'ceo' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                          <i class="icons icon-note"></i>
+                          <span class="d-none d-lg-block">CEO</span>
+                      </a>
+                  </li>
+                  <li class="nav-item ">
+                      <a href="{% url 'samu' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                          <i class="icons icon-compass"></i>
+                          <span class="d-none d-lg-block">SAMU</span>
+                      </a>
+                  </li>
+              {% endfor %}
+
             </ul>
         </div>
-        {% endblock %}
+{% endblock %}
 
-        {% block content %}
+{% block content %}
+{% for ent in entidade%}
     <div id="page-wrapper">
 
     <div class="row">
@@ -52,13 +54,13 @@
                 <div class="submenu">
     <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
-            <a class="nav-link active" href="teto-financeiro_producao.html">Produção</a>
+            <a class="nav-link active" href="{% url 'teto_producao' cnpj=ent.cpf_cnpj %}">Produção</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="teto-financeiro_repasses-sus.html">Repasses SUS</a>
+            <a class="nav-link " href="{% url 'teto_pagamento' cnpj=ent.cpf_cnpj %}">Repasses SUS</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="teto-financeiro_analise.html">Análise</a>
+            <a class="nav-link " href="{% url 'teto_analise' cnpj=ent.cpf_cnpj %}">Análise</a>
         </li>
     </ul>
 </div>
@@ -584,7 +586,7 @@
             </div>
             <div class="widget_content border rounded py-3 px-4">
                 <figure class="figure">
-                    <img src="images/grafico.jpg" alt="" class="figure-img" />
+                    <img src="{% static 'pgf/images/grafico.jpg' %}" alt="" class="figure-img" />
                 </figure>
             </div>
         </div>
@@ -597,7 +599,7 @@
             </div>
             <div class="widget_content border rounded py-3 px-4">
                 <figure class="figure">
-                    <img src="images/grafico.jpg" alt="" class="figure-img" />
+                    <img src="{% static 'pgf/images/grafico.jpg' %}" alt="" class="figure-img" />
                 </figure>
             </div>
         </div>
@@ -610,7 +612,7 @@
             </div>
             <div class="widget_content border rounded py-3 px-4">
                 <figure class="figure">
-                    <img src="images/grafico.jpg" alt="" class="figure-img" />
+                    <img src="{% static 'pgf/images/grafico.jpg' %}" alt="" class="figure-img" />
                 </figure>
             </div>
         </div>
@@ -620,71 +622,5 @@
 </div>
 
 </div>
-
-<script src="js/libs/jquery.slim.min.js"></script>
-<script src="js/libs/popper.min.js"></script>
-<script src="js/libs/bootstrap.min.js"></script>
-<script src="js/libs/datepicker.min.js"></script>
-<script src="js/libs/datepicker.pt-BR.js"></script>
-<script src="js/libs/jquery.maskedinput.js"></script>
-
-<script>
-
-    const fix_height = function () {
-        $("#page-wrapper").css("min-height", '1024px');
-        $(".navbar-side").css("min-height", $('#page-wrapper').height()+96 + "px");
-    };
-
-    const windowResize = function(mq) {
-        if ( !mq.matches ) {
-            fix_height();
-        } else {
-            $(".navbar-side").css('min-height', 'auto');
-        }
-    };
-
-    $(function() {
-        /* JavaScript Media Queries */
-        if (matchMedia) {
-            const mq = window.matchMedia("(max-width: 767px)");
-
-            mq.addListener(windowResize);
-            windowResize(mq);
-        }
-
-        $('[data-toggle="datepicker"]').mask('99/9999');
-
-        $('[data-toggle="datepicker"]').datepicker({
-            autoHide: true,
-            language: 'pt-BR',
-            format: 'mm/yyyy',
-            startView: 1,
-            offset: 0,
-            monthsShort: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-//            trigger: $(this).closest('.date-container'),
-            template: [
-                '<div class="datepicker-container">',
-                    '<div class="datepicker-panel" data-view="years picker">',
-                        '<ul class="nav-picker">',
-                            '<li data-view="years prev"><i class="ion-ios-arrow-back"></i></li>',
-                            '<li data-view="years current" class="ml-auto mr-auto"></li>',
-                            '<li data-view="years next"><i class="ion-ios-arrow-forward"></i></li>',
-                        '</ul>',
-                        '<ul data-view="years"></ul>',
-                    '</div>',
-                    '<div class="datepicker-panel" data-view="months picker">',
-                        '<ul class="nav-picker">',
-                            '<li data-view="year prev"><i class="ion-ios-arrow-back"></i></li>',
-                            '<li data-view="year current" class="ml-auto mr-auto"></li>',
-                            '<li data-view="year next"><i class="ion-ios-arrow-forward"></i></li>',
-                        '</ul>',
-                        '<ul data-view="months"></ul>',
-                    '</div>',
-                '</div>'
-            ].join('')
-        });
-    });
-</script>
+{% endfor %}
 {% endblock %}
-</body>
-</html>

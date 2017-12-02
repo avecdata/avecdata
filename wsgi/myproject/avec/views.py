@@ -875,15 +875,12 @@ def teto(request, cnpj):
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
     return render(request, 'avec/fns/teto-financeiro.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade})
 
-def faec(request, cnpj):
+def teto_producao(request, cnpj):
     int_cnpj = s = str(int(cnpj))
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
-    return render(request, 'avec/fns/faec.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade})
-
-def teto_producao(request, cnpj):
-    return render(request, 'avec/fns/teto_producao.html')
+    return render(request, 'avec/fns/teto_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade})
 
 def teto_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -897,17 +894,60 @@ def teto_pagamento(request, cnpj):
 
     return render(request, 'avec/fns/teto_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade } )
 
-def faec_pagamento(request, cnpj):
+def teto_analise(request, cnpj):
     int_cnpj = s = str(int(cnpj))
-    acao = pgf_acao_faec.objects.filter(cnpj=cnpj).order_by('mes')
-    acao_detalhe_faec = pgf_acao_detalhe_faec.objects.filter(cd_acao__in=acao)
-    acao_filter = AcaoFilterFaec(request.GET, queryset=acao)
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilter(request.GET, queryset=acao)
 
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
 
-    return render(request, 'avec/fns/faec_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe_faec': acao_detalhe_faec, 'cidade' : cidade, 'filter' : acao_filter, 'entidade' : entidade } )
+    return render(request, 'avec/fns/teto_analise.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade } )
+
+def faec(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+    return render(request, 'avec/fns/faec.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade})
+
+def faec_producao(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilter(request.GET, queryset=acao)
+
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+
+    return render(request, 'avec/fns/faec_producao.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade } )
+
+def faec_pagamento(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilter(request.GET, queryset=acao)
+
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+
+    return render(request, 'avec/fns/faec_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade } )
+
+def faec_analise(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilter(request.GET, queryset=acao)
+
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+
+    return render(request, 'avec/fns/faec_analise.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade } )
 
 def ceo(request, cnpj):
     int_cnpj = s = str(int(cnpj))
