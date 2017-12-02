@@ -1,165 +1,197 @@
-{% extends 'avec/layout_interno.html' %}
+{% extends "avec/fns/templates/layout.html" %}
+
 {% load staticfiles %}
 
-{% block content %}
-    <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
+{% block navbar-side %}
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+            {% for ent in entidade %}
+                <li class="nav-item ">
+                    <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-grid"></i>
+                        <span class="d-none d-lg-block">Dados Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'teto' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-layers"></i>
+                        <span class="d-none d-lg-block">Teto Financeiro</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-notebook"></i>
+                        <span class="d-none d-lg-block">FAEC</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'ceo' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-note"></i>
+                        <span class="d-none d-lg-block">CEO</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'samu' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">SAMU</span>
+                    </a>
+                </li>
+            {% endfor %}    
+            </ul>
+        </div>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
-    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-    <script src="https://www.amcharts.com/lib/3/gauge.js"></script>
-    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+        {% endblock %}
 
+        {% block content %}
 
+    <div id="page-wrapper">
 
-    <!-- MAIN CONTENT
-    ================================================== -->
-{% for cid in cidade %}
-    <!-- Features -->
-     <section class="shop-index__section">
-       <div class="container">
-         <div class="row">
-           <div class="col-sm-3">
-             <div  data-spy="affix" style="background-color : #3e4c5b!important; " >
-               <div class="resume__profile" style="color : #ffffff; background-color : #3e4c5b!important;" >
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>FAEC</h2>
+            </div>
+        </div>
+    </div>
 
-                 <a href="{% url 'lista_cidades' %}" style="color: #FFFFFF!important;">
-                   <h3 class="profile__section">
-                     Painel de Gestão Financeira
-                   </h3>
-                 </a>
-                 <h4 class="profile__section" style="color : #2d9ba6;">
-                   Média e Alta </br> Complexidade
-                 </h4>
-             </div>
-             </div>
+    <div class="wrapper-content">
+        <div class="row">
 
-             <div class="section" data-spy="affix" style="background-color : #4f6077!important;">
-               <div class="resume__profile" style="color : #ffffff; background-color : #4f6077!important;">
+            <div class="col-12">
 
-                 <h3 class="resume-profile__title">
-                   {{cid.nm_municipio}}
-                 </h3>
+                <div class="grid-boxes">
 
-                 <div class="resume-profile__section">
-                   Prefeito
-                   <p class="text-muted">{{cid.nome_prefeito}}</p>
-                 </div>
+                    <div class="box">
+                        <a href="faec_producao.html" class="btn-box">
+                            <div class="box-title d-block d-sm-none d-xl-block">
+                                <h3>Produção</h3>
+                            </div>
+                            <div class="box-icon">
+                                <i class="icon ion-ios-barcode-outline"></i>
+                            </div>
+                            <hr class="d-none d-sm-block d-xl-none" />
+                            <div class="box-content">
+                                <h3 class="d-none d-sm-block d-xl-none">Produção</h3>
+                                <p>
+                                    Visualize aqui os valores decorrentes de atendimentos ambulatoriais e hospitalares
+                                    realizados, segundo dados da tabela SUS.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
 
-                 <div class="resume-profile__section">
-                   Secretário
-                   <p class="text-muted">
-                     {{cid.nome_secretario}}
-                   </p>
-                 </div>
-                 {% for ent in entidade %}
-                 <a href="{% url 'cidade' cd_municipio=ent.cd_municipio%}">
-                   <div class="resume-profile__section">
-                     <strong><i class="fa fa-th-large"></i>   DADOS GERAIS</strong>
+                    <div class="box">
+                        <a href="faec_repasses-sus.html" class="btn-box">
+                            <div class="box-title d-block d-sm-none d-xl-block">
+                                <h3>Repasses SUS</h3>
+                            </div>
+                            <div class="box-icon">
+                                <i class="icon ion-ios-list-outline"></i>
+                            </div>
+                            <hr class="d-none d-sm-block d-xl-none" />
+                            <div class="box-content">
+                                <h3 class="d-none d-sm-block d-xl-none">Repasses SUS</h3>
+                                <p>
+                                    Veja os repasses fundo a fundo do Teto Municipal da Média e Alta Complexidade
+                                    Ambulatorial e Hospitalar.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
 
-                   </div>
-                 </a>
-                 <a href="{% url 'teto' cnpj=ent.cpf_cnpj%}">
-                   <div class="resume-profile__section" style="color : #FFFFFF;">
-                     <strong><i class="fa fa-copy"></i>   TETO FINANCEIRO</strong>
+                    <div class="box box-turc">
+                        <a href="faec_analise.html" class="btn-box">
+                            <div class="box-title d-block d-sm-none d-xl-block">
+                                <h3>Análise</h3>
+                            </div>
+                            <div class="box-icon">
+                                <i class="icon ion-ios-pulse"></i>
+                            </div>
+                            <hr class="d-none d-sm-block d-xl-none" />
+                            <div class="box-content">
+                                <h3 class="d-none d-sm-block d-xl-none">Análise</h3>
+                                <p>
+                                    Comparativo entre Valores de Produção e Teto MAC.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
 
-                   </div>
-                 </a>
-                 <a href="#">
-                   <div class="resume-profile__section" style="color : #FFFFFF;">
-                     <strong><i class="fa fa-tasks"></i>   FAEC</strong>
+                </div>
 
-                   </div>
-                 </a>
-                 <a href="{% url 'ceo' cnpj=ent.cpf_cnpj%}">
-                   <div class="resume-profile__section" style="color : #FFFFFF;">
-                     <strong><i class="fa fa-sticky-note-o"></i>   CEO</strong>
+            </div>
 
-                   </div>
-                 </a>
-                 <a href="{% url 'samu' cnpj=ent.cpf_cnpj%}">
-                   <div class="resume-profile__section" style="color : #FFFFFF;">
-                     <strong><i class="fa fa-ambulance"></i>   SAMU</strong>
+        </div>
+    </div>
 
-                   </div>
-                 </a>
-                 {% endfor %}
+</div>
 
-               </div> <!-- / .resume__profile -->
+</div>
 
+<script src="js/libs/jquery.slim.min.js"></script>
+<script src="js/libs/popper.min.js"></script>
+<script src="js/libs/bootstrap.min.js"></script>
+<script src="js/libs/datepicker.min.js"></script>
+<script src="js/libs/datepicker.pt-BR.js"></script>
+<script src="js/libs/jquery.maskedinput.js"></script>
 
-             </div>
+<script>
 
-           </div>
-           <div class="col-sm-8">
+    const fix_height = function () {
+        $("#page-wrapper").css("min-height", '1024px');
+        $(".navbar-side").css("min-height", $('#page-wrapper').height()+96 + "px");
+    };
 
-             <h2 class="avec-home-app avec-title-home-app text-center">
-               FAEC
-             </h2>
-             <div class="row">
-               <div class="col-sm-4">
+    const windowResize = function(mq) {
+        if ( !mq.matches ) {
+            fix_height();
+        } else {
+            $(".navbar-side").css('min-height', 'auto');
+        }
+    };
 
-                 <div class="shop-index-features__item">
-                   <div class="shop-index-features__icon">
-                     <i class="fa fa-truck"></i>
-                   </div>
+    $(function() {
+        /* JavaScript Media Queries */
+        if (matchMedia) {
+            const mq = window.matchMedia("(max-width: 767px)");
 
-                   <h4 class="shop-index-features__heading">
-                     Produção
-                   </h4>
-                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, perferendis et nostrum.
-                   </p>
-                 </div> <!-- / .shop-index-features__item -->
+            mq.addListener(windowResize);
+            windowResize(mq);
+        }
 
-               </div>
-               <div class="col-sm-4">
+        $('[data-toggle="datepicker"]').mask('99/9999');
 
-                 <div class="shop-index-features__item">
-                   <div class="shop-index-features__icon">
-                     <a href="{% url 'faec_pagamento' cnpj=int_cnpj%}"><i class="fa fa-shopping-bag"></i></a>
-                   </div>
-
-                   <h4 class="shop-index-features__heading">
-                     Pagamentos recebidos
-                   </h4>
-                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, perferendis et nostrum.
-                   </p>
-                 </div> <!-- / .shop-index-features__item -->
-
-               </div>
-               <div class="col-sm-4">
-
-                 <div class="shop-index-features__item">
-                   <div class="shop-index-features__icon">
-                     <i class="fa fa-gift"></i>
-                   </div>
-
-                   <h4 class="shop-index-features__heading">
-                     Déficit/Superavit
-                   </h4>
-                   <p>
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, perferendis et nostrum.
-                   </p>
-                 </div> <!-- / .shop-index-features__item -->
-
-               </div>
-             </div>
-
-           </div>
-         </div> <!-- / .row -->
-
-       </div> <!-- / .container -->
-     </section>
-{% endfor %}
-
-
+        $('[data-toggle="datepicker"]').datepicker({
+            autoHide: true,
+            language: 'pt-BR',
+            format: 'mm/yyyy',
+            startView: 1,
+            offset: 0,
+            monthsShort: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+//            trigger: $(this).closest('.date-container'),
+            template: [
+                '<div class="datepicker-container">',
+                    '<div class="datepicker-panel" data-view="years picker">',
+                        '<ul class="nav-picker">',
+                            '<li data-view="years prev"><i class="ion-ios-arrow-back"></i></li>',
+                            '<li data-view="years current" class="ml-auto mr-auto"></li>',
+                            '<li data-view="years next"><i class="ion-ios-arrow-forward"></i></li>',
+                        '</ul>',
+                        '<ul data-view="years"></ul>',
+                    '</div>',
+                    '<div class="datepicker-panel" data-view="months picker">',
+                        '<ul class="nav-picker">',
+                            '<li data-view="year prev"><i class="ion-ios-arrow-back"></i></li>',
+                            '<li data-view="year current" class="ml-auto mr-auto"></li>',
+                            '<li data-view="year next"><i class="ion-ios-arrow-forward"></i></li>',
+                        '</ul>',
+                        '<ul data-view="months"></ul>',
+                    '</div>',
+                '</div>'
+            ].join('')
+        });
+    });
+</script>
 {% endblock %}
-
-  <!-- Google Tag Manager -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDBL3P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
+</body>
+</html>

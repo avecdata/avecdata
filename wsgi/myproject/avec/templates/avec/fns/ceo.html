@@ -1,164 +1,344 @@
-{% extends 'avec/layout_interno.html' %}
+{% extends "avec/fns/templates/layout.html" %}
+
 {% load staticfiles %}
 
-{% block content %}
-    <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
-    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-    <script src="https://www.amcharts.com/lib/3/gauge.js"></script>
-    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-
-
-    <!-- MAIN CONTENT
-    ================================================== -->
-{% for cid in cidade%}
-    <!-- Features -->
-     <section class="shop-index__section">
-       <div class="container">
-         <div class="row">
-           <div class="col-sm-3">
-             <div  data-spy="affix" style="background-color : #3e4c5b!important; " >
-               <div class="resume__profile" style="color : #ffffff; background-color : #3e4c5b!important;" >
-
-                 <a href="{% url 'lista_cidades' %}" style="color: #FFFFFF!important;">
-                   <h3 class="profile__section">
-                     Painel de Gestão Financeira
-                   </h3>
-                 </a>
-                 <h4 class="profile__section" style="color : #2d9ba6;">
-                   Média e Alta </br> Complexidade
-                 </h4>
-             </div>
-             </div>
-
-             <div class="section" data-spy="affix" style="background-color : #4f6077!important;">
-               <div class="resume__profile" style="color : #ffffff; background-color : #4f6077!important;">
-
-                 <h3 class="resume-profile__title">
-                   {{cid.nm_municipio}}
-                 </h3>
-
-                 <div class="resume-profile__section">
-                   Prefeito
-                   <p class="text-muted">{{cid.nome_prefeito}}</p>
-                 </div>
-
-                 <div class="resume-profile__section">
-                   Secretário
-                   <p class="text-muted">
-                     {{cid.nome_secretario}}
-                   </p>
-                 </div>
-                 {% for ent in entidade %}
-                 <a href="{% url 'cidade' cd_municipio=ent.cd_municipio%}">
-                   <div class="resume-profile__section">
-                     <strong><i class="fa fa-th-large"></i>   DADOS GERAIS</strong>
-
-                   </div>
-                 </a>
-                 <a href="{% url 'teto' cnpj=ent.cpf_cnpj%}">
-                   <div class="resume-profile__section" style="color : #FFFFFF;">
-                     <strong><i class="fa fa-copy"></i>   TETO FINANCEIRO</strong>
-
-                   </div>
-                 </a>
-                 <a href="{% url 'faec' cnpj=ent.cpf_cnpj%}">
-                   <div class="resume-profile__section" style="color : #FFFFFF;">
-                     <strong><i class="fa fa-tasks"></i>   FAEC</strong>
-
-                   </div>
-                 </a>
-                 <a href="#">
-                   <div class="resume-profile__section" style="color : #FFFFFF;">
-                     <strong><i class="fa fa-sticky-note-o"></i>   CEO</strong>
-
-                   </div>
-                 </a>
-                 <a href="{% url 'samu' cnpj=ent.cpf_cnpj%}">
-                   <div class="resume-profile__section" style="color : #FFFFFF;">
-                     <strong><i class="fa fa-ambulance"></i>   SAMU</strong>
-
-                   </div>
-                 </a>
-                 {% endfor %}
-
-               </div> <!-- / .resume__profile -->
-
-
-             </div>
-
-           </div>
-           <div class="col-sm-8">
-
-             <h2 class="avec-home-app avec-title-home-app text-center">
-               CEO
-             </h2>
-             <p class="text-center">
-               Repasse
-             </p>
-
-             <ul class="search-results__links">
-                  {% for acao in acao %}
-               <details class="funclass" close>
-                 <summary class="summary panel panel-default">
-                   <table class="table section">
-                     <tbody>
-
-                       <tr>
-                         <td>Mês<td>
-                         <td>Ação</td>
-                         <td>Valor</td>
-                       </tr>
-                         <tr>
-                           <td>{{ acao.mes }}<td>
-                           <td>{{ acao.nm_acao }}</td>
-                           <td class="avec-monetary" > {{ acao.vl_total }}</td>
-                         </tr>
-
-
-                     </tbody>
-                   </table>
-                 </summary>
-                 <article class="panel panel-default panel-body avec-panel" style="background-color : #8091a4; color:#ffffff">
-
-                   <table class="table section" >
-                     <tbody>
-
-                       <tr>
-                         {% for detail in acao_detalhe %}
-
-
-                           {% if detail.cd_acao_str == acao.cd_acao|stringformat:"i" %}
-                             <tr>
-                               <td>{{ detail.parcela }}<td>
-                               <td>{{ detail.dt_ob }}</td>
-                               <td class="avec-monetary" > {{ detail.vl_total }}</td>
-                             </tr>
-                           {% endif %}
-                         {% endfor %}
-                     </tbody>
-                   </table>
-
-               </article>
-               </details>
-               {% endfor %}
-             </ul>
-
-           </div>
-         </div> <!-- / .row -->
-
-       </div> <!-- / .container -->
-     </section>
-
-{% endfor %}
-
+{% block navbar-side %}
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+            {% for ent in entidade %}
+                <li class="nav-item ">
+                    <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-grid"></i>
+                        <span class="d-none d-lg-block">Dados Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'teto' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-layers"></i>
+                        <span class="d-none d-lg-block">Teto Financeiro</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'faec' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-notebook"></i>
+                        <span class="d-none d-lg-block">FAEC</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-note"></i>
+                        <span class="d-none d-lg-block">CEO</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'samu' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">SAMU</span>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
 {% endblock %}
+{% block content %}
+    <div id="page-wrapper">
 
-  <!-- Google Tag Manager -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDBL3P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>CEO</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-content">
+
+        <div class="widget full-width widget-table m-0">
+            <div class="widget_title">
+                <h3 class="text-left">
+                    <i class="fa fa-bookmark color-turq-avec"></i> Repasses
+                </h3>
+            </div>
+            <div class="widget_content no-bg">
+
+                <div class="table-collapse">
+
+                    <dl>
+                        <dt class="grid_title">
+                            <div>
+                                <span>Parcela</span>
+                            </div>
+                            <div>
+                                <span>Data de Pagamento</span>
+                            </div>
+                            <div>
+                                <span>Valor</span>
+                            </div>
+                        </dt>
+                        <dd class="grid_content">
+
+                            <div id="repasses" role="tablist">
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>1/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>2/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>3/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>4/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>5/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>6/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>7/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>8/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>9/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>10/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>11/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                                <div class="card">
+                                    <div class="card-header" role="tab" id="repasses_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="no-border">
+                                                <span>12/ANO</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>08/02/2016</span>
+                                            </div>
+                                            <div class="no-border">
+                                                <span>R$ 6.956.321,96</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                                                            </div>
+
+                        </dd>
+                    </dl>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<script src="js/libs/jquery.slim.min.js"></script>
+<script src="js/libs/popper.min.js"></script>
+<script src="js/libs/bootstrap.min.js"></script>
+<script src="js/libs/datepicker.min.js"></script>
+<script src="js/libs/datepicker.pt-BR.js"></script>
+<script src="js/libs/jquery.maskedinput.js"></script>
+
+<script>
+
+    const fix_height = function () {
+        $("#page-wrapper").css("min-height", '1024px');
+        $(".navbar-side").css("min-height", $('#page-wrapper').height()+96 + "px");
+    };
+
+    const windowResize = function(mq) {
+        if ( !mq.matches ) {
+            fix_height();
+        } else {
+            $(".navbar-side").css('min-height', 'auto');
+        }
+    };
+
+    $(function() {
+        /* JavaScript Media Queries */
+        if (matchMedia) {
+            const mq = window.matchMedia("(max-width: 767px)");
+
+            mq.addListener(windowResize);
+            windowResize(mq);
+        }
+
+        $('[data-toggle="datepicker"]').mask('99/9999');
+
+        $('[data-toggle="datepicker"]').datepicker({
+            autoHide: true,
+            language: 'pt-BR',
+            format: 'mm/yyyy',
+            startView: 1,
+            offset: 0,
+            monthsShort: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+//            trigger: $(this).closest('.date-container'),
+            template: [
+                '<div class="datepicker-container">',
+                    '<div class="datepicker-panel" data-view="years picker">',
+                        '<ul class="nav-picker">',
+                            '<li data-view="years prev"><i class="ion-ios-arrow-back"></i></li>',
+                            '<li data-view="years current" class="ml-auto mr-auto"></li>',
+                            '<li data-view="years next"><i class="ion-ios-arrow-forward"></i></li>',
+                        '</ul>',
+                        '<ul data-view="years"></ul>',
+                    '</div>',
+                    '<div class="datepicker-panel" data-view="months picker">',
+                        '<ul class="nav-picker">',
+                            '<li data-view="year prev"><i class="ion-ios-arrow-back"></i></li>',
+                            '<li data-view="year current" class="ml-auto mr-auto"></li>',
+                            '<li data-view="year next"><i class="ion-ios-arrow-forward"></i></li>',
+                        '</ul>',
+                        '<ul data-view="months"></ul>',
+                    '</div>',
+                '</div>'
+            ].join('')
+        });
+    });
+</script>
+{% endblock %}
+</body>
+</html>
