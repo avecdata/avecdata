@@ -749,7 +749,7 @@ class pgf_acao(models.Model):
     vl_desconto = models.CharField(max_length=30 , null=True)
     vl_liquido = models.CharField(max_length=30 , null=True)
     ano = models.CharField(max_length=30 , null=True)
-    mes = models.DateField(null=True)
+    mes = models.CharField(max_length=30 , null= True)
     acao_num = models.CharField(max_length=30 , null=True)
     cnpj = models.CharField(max_length=30 , null=True)
 
