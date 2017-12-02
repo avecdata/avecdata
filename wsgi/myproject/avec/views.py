@@ -928,7 +928,7 @@ def faec_producao(request, cnpj):
 
 def faec_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
-    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","37943","20527","28650","31515","14329","31478","14330","156","39898","14334","31514","15505","37941","14321","14316","28649","14345","14333","14331","14322"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
     acao_filter = AcaoFilter(request.GET, queryset=acao)
 

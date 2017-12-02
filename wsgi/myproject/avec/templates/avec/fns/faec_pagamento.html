@@ -1,4 +1,5 @@
 {% extends "avec/fns/templates/layout.html" %}
+{% load widget_tweaks %}
 
 {% load staticfiles %}
 
@@ -72,27 +73,31 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="filters">
-                    <form action="" class="form-inline d-flex justify-content-between">
-                        <div class="form-group d-flex date-container">
-                            <label class="col-form-label" for="competencia">Competência</label>
-                            <div class="input-group">
-                                <input type="text" readonly="true" data-toggle="datepicker" class="form-control" id="competencia" placeholder="Selecione" />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-light btn-datepicker" type="button">
-                                        <i class="fa fa-calendar"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="form-group d-none d-sm-block">
-                            <button type="button" class="btn btn-primary btn-rounded">
-                                <i class="fa fa-filter d-xl-none"></i>
-                                <span class="d-none d-xl-block">Filtrar</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+              <div class="filters">
+                  <form method="get" class="form-inline d-flex justify-content-between">
+                      <div class="form-group d-flex date-container">
+                          <label class="col-form-label" for="competencia">Competência</label>
+                          <div class="input-group">
+                            {% for field in filter.form %}
+
+                              {{ filter.form.mes|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:competencia"|attr:"placeholder:Selecione"  }}
+
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-light btn-datepicker" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                            {% endfor %}
+                          </div>
+                      </div>
+                      <div class="form-group d-none d-sm-block">
+                          <button type="submit" class="btn btn-primary btn-rounded">
+                              <i class="fa fa-filter d-xl-none"></i>
+                              <span class="d-none d-xl-block">Filtrar</span>
+                          </button>
+                      </div>
+                  </form>
+              </div>
             </div>
         </div>
 
@@ -143,26 +148,13 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    {% for a in filter.qs %}
                                                     <tr>
-                                                        <td>01 Nam porttitor blanditea</td>
-                                                        <td>12/06/2014</td>
-                                                        <td>R$ 6.956.321,96</td>
+                                                        <td>{{a.mes}}</td>
+                                                        <td>{{a.nm_acao}}</td>
+                                                        <td>{{a.vl_total}}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>01 Nam porttitor blanditea</td>
-                                                        <td>12/06/2014</td>
-                                                        <td>R$ 6.956.321,96</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01 Nam porttitor blanditea</td>
-                                                        <td>12/06/2014</td>
-                                                        <td>R$ 6.956.321,96</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01 Nam porttitor blanditea</td>
-                                                        <td>12/06/2014</td>
-                                                        <td>R$ 6.956.321,96</td>
-                                                    </tr>
+                                                  {% endfor %}
                                                 </tbody>
                                             </table>
                                         </div>
