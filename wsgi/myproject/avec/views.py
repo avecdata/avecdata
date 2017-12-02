@@ -886,6 +886,7 @@ def teto_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+
     acao_filter = AcaoFilter(request.GET, queryset=acao)
 
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
