@@ -926,17 +926,22 @@ def faec_producao(request, cnpj):
 
     return render(request, 'avec/fns/faec_producao.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade } )
 
+from django.db.models import Sum
+import django.db.models.functions
+from django.db.models import FloatField
+
 def faec_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","37943","20527","28650","31515","14329","31478","14330","156","39898","14334","31514","15505","37941","14321","14316","28649","14345","14333","14331","14322"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
-    acao_filter = AcaoFilter(request.GET, queryset=acao)
+
+    acao_filter  = AcaoFilter(request.GET, queryset=acao)
 
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
 
-    return render(request, 'avec/fns/faec_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade } )
+    return render(request, 'avec/fns/faec_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade, sum : 'sum' } )
 
 def faec_analise(request, cnpj):
     int_cnpj = s = str(int(cnpj))

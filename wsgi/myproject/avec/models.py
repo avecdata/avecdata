@@ -745,7 +745,7 @@ class pgf_acao(models.Model):
     nm_bloco  = models.CharField(max_length=200 , null=True)
     nm_componente = models.CharField(max_length=201 , null=True)
     nm_acao = models.CharField(max_length=200 , null=True)
-    vl_total = models.CharField(max_length=30 , null=True)
+    vl_total = models.DecimalField(default=0.0, max_digits=15, decimal_places=2)
     vl_desconto = models.CharField(max_length=30 , null=True)
     vl_liquido = models.CharField(max_length=30 , null=True)
     ano = models.CharField(max_length=30 , null=True)

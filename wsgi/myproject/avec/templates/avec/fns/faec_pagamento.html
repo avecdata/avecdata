@@ -1,6 +1,7 @@
 {% extends "avec/fns/templates/layout.html" %}
 {% load widget_tweaks %}
 
+{% load poll_extras %}
 {% load staticfiles %}
 
 {% block navbar-side %}
@@ -131,7 +132,7 @@
                                                     <span>Média e Alta complexidade ambulatorial e hospitalar</span>
                                                 </div>
                                                 <div class="no-border">
-                                                    <span>R$ 6.956.321,96</span>
+                                                      <span>{{ filter.qs.values | running_total }}</span>
                                                 </div>
                                             </a>
                                         </h5>
@@ -143,17 +144,17 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Ação/Serviço/Estratégia</th>
-                                                        <th>Data</th>
+                                                        <th>Competência</th>
                                                         <th>Valor Total</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {% for a in filter.qs %}
-                                                    <tr>
-                                                        <td>{{a.mes}}</td>
-                                                        <td>{{a.nm_acao}}</td>
-                                                        <td>{{a.vl_total}}</td>
-                                                    </tr>
+                                                  {% for a in filter.qs %}
+                                                  <tr>
+                                                      <td>{{a.nm_acao}}</td>
+                                                      <td>{{a.mes}}</td>
+                                                      <td>{{a.vl_total}}</td>
+                                                  </tr>
                                                   {% endfor %}
                                                 </tbody>
                                             </table>
@@ -169,7 +170,7 @@
                                                     <span>Incremento MAC</span>
                                                 </div>
                                                 <div class="no-border">
-                                                    <span>R$ 6.956.321,96</span>
+                                                    <span>R$ -</span>
                                                 </div>
                                             </a>
                                         </h5>
@@ -181,31 +182,17 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Ação/Serviço/Estratégia</th>
-                                                    <th>Data</th>
+                                                    <th>Competência</th>
                                                     <th>Valor Total</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr>
-                                                    <td>01 Nam porttitor blanditea</td>
-                                                    <td>12/06/2014</td>
-                                                    <td>R$ 6.956.321,96</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>01 Nam porttitor blanditea</td>
-                                                    <td>12/06/2014</td>
-                                                    <td>R$ 6.956.321,96</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>01 Nam porttitor blanditea</td>
-                                                    <td>12/06/2014</td>
-                                                    <td>R$ 6.956.321,96</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>01 Nam porttitor blanditea</td>
-                                                    <td>12/06/2014</td>
-                                                    <td>R$ 6.956.321,96</td>
-                                                </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
