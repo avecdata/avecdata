@@ -3,6 +3,7 @@
 
 {% load poll_extras %}
 {% load staticfiles %}
+<script src="{% static 'js/jquery.maskMoney.js' %}" type="text/javascript"></script>
 
 {% block navbar-side %}
         <div class="navbar-side-menu">
@@ -132,7 +133,7 @@
                                                     <span>Média e Alta complexidade ambulatorial e hospitalar</span>
                                                 </div>
                                                 <div class="no-border">
-                                                      <span>{{ filter.qs.values | running_total }}</span>
+                                                      <span>R$ {{ filter.qs.values | running_total }}</span>
                                                 </div>
                                             </a>
                                         </h5>
@@ -153,7 +154,7 @@
                                                   <tr>
                                                       <td>{{a.nm_acao}}</td>
                                                       <td>{{a.mes}}</td>
-                                                      <td>{{a.vl_total}}</td>
+                                                      <td>R$ {{a.vl_total}}</td>
                                                   </tr>
                                                   {% endfor %}
                                                 </tbody>
@@ -229,4 +230,10 @@
 
 </div>
 {% endfor %}
+<script type="text/javascript">
+      $(function(){
+       $("#valor").maskMoney({symbol:'R$ ',
+      showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
+       })
+    </script>
 {% endblock %}

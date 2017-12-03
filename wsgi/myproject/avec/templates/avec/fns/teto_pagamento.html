@@ -132,7 +132,7 @@
                                                 </div>
                                                 <div class="no-border">
 
-                                                    <span>{{ filter.qs.values | running_total }}</span>
+                                                    <span>R$ {{ filter.qs.values | running_total }}</span>
 
                                                 </div>
                                             </a>
@@ -152,9 +152,9 @@
                                                 <tbody>
                                                   {% for a in filter.qs %}
                                                   <tr>
-                                                      <td>{{a.mes}}</td>
                                                       <td>{{a.nm_acao}}</td>
-                                                      <td>{{a.vl_total}}</td>
+                                                      <td>{{a.mes}}</td>
+                                                      <td>R$ {{a.vl_total}}</td>
                                                   </tr>
                                                   {% endfor %}
 <!--                                                    <tr>

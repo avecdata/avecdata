@@ -214,3 +214,9 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+# number formats
+DECIMAL_SEPARATOR = ','
+THOUSAND_SEPARATOR = '.'
+USE_THOUSAND_SEPARATOR = True
+NUMBER_GROUPING = 3
