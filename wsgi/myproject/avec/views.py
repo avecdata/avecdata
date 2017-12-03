@@ -932,7 +932,7 @@ from django.db.models import FloatField
 
 def faec_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
-    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","37943","20527","28650","31515","14329","31478","14330","156","39898","14334","31514","15505","37941","14321","14316","28649","14345","14333","14331","14322"]).order_by('mes')
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
 
     acao_filter  = AcaoFilter(request.GET, queryset=acao)
