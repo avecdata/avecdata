@@ -689,6 +689,8 @@ class pgf_entidade(models.Model):
     nm_entidade = models.CharField(max_length=200 , null=True)
     nm_municipio = models.CharField(max_length=150 , null=True)
     sg_uf = models.CharField(max_length=2 , null=True)
+    nm_prefeito = models.CharField(max_length=300 , null=True)
+    nm_secretario = models.CharField(max_length=300 , null=True)
 
 
     def publish_pgf_entidade(self):
@@ -763,6 +765,7 @@ class pgf_acao_detalhe(models.Model):
     parcela  = models.CharField(max_length=200 , null=True)
     n_ob = models.CharField(max_length=200 , null=True)
     dt_ob = models.CharField(max_length=200 , null=True)
+    dt_ob_date = models.DateTimeField(null=True)
     tp_repasse = models.CharField(max_length=30 , null=True)
     banco_ob = models.CharField(max_length=30 , null=True)
     agencia_ob = models.CharField(max_length=30 , null=True)
@@ -777,6 +780,7 @@ class pgf_acao_detalhe(models.Model):
     acao_num = models.CharField(max_length=30 , null=True)
     cd_acao = models.ForeignKey("pgf_acao", db_column="cd_acao")
     cd_acao_str = models.CharField(max_length=30 , null=True)
+    cnpj = models.CharField(max_length=30 , null=True)
 
     def publish_pgf_acao_detalhe(self):
         self.save()
