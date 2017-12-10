@@ -831,3 +831,34 @@ class pgf_acao_detalhe_faec(models.Model):
 
     def __str__(self):
         return self.parcela
+
+class pgf_acao_datasus(models.Model):
+    cd_municipio  = models.CharField(max_length=200 , null=True)
+    mes  = models.CharField(max_length=20 , null=True)
+    desc_subgrupo  = models.CharField(max_length=200 , null=True)
+    grupo  = models.CharField(max_length=200 , null=True)
+    total = models.DecimalField(max_digits=15, decimal_places=2)
+    municipal_plena = models.DecimalField(max_digits=15, decimal_places=2)
+    estadual_plena = models.DecimalField(max_digits=15, decimal_places=2)
+    subgrupo = models.CharField(max_length=8 , null=True)
+    tipo = models.CharField(max_length=100 , null=True)
+    pacto_gestao = models.DecimalField(max_digits=15, decimal_places=2, null=True)
+    amb_hosp = models.CharField(max_length=100 , null=True)
+
+    def publish_pgf_acao_datasus(self):
+        self.save()
+
+    def __str__(self):
+        return self.grupo
+
+class pgf_acao_datasus_grupo(models.Model):
+    cd_municipio  = models.CharField(max_length=200 , null=True)
+    mes  = models.CharField(max_length=21 , null=True)
+    grupo  = models.CharField(max_length=200 , null=True)
+    sum = models.CharField(max_length=200 , null=True)
+
+    def publish_pgf_acao_datasus_grupo(self):
+        self.save()
+
+    def __str__(self):
+        return self.cd_municipio

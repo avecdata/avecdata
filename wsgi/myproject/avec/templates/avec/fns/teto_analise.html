@@ -1,6 +1,7 @@
 {% extends "avec/fns/templates/layout.html" %}
-
+{% load widget_tweaks %}
 {% load staticfiles %}
+{% load poll_extras %}
 
 {% block navbar-side %}
         <div class="navbar-side-menu">
@@ -73,31 +74,39 @@
         <div class="row">
             <div class="col-12">
                 <div class="filters">
-                    <form action="" class="form-inline d-flex justify-content-between">
+                    <form method="get" class="form-inline d-flex justify-content-between">
                         <div class="form-group d-flex date-container">
                             <label class="col-form-label" for="mes_producao">Mês da Produção</label>
                             <div class="input-group">
-                                <input type="text" readonly="true" data-toggle="datepicker" class="form-control" id="mes_producao" placeholder="Selecione" />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-light btn-datepicker" type="button">
-                                        <i class="fa fa-calendar"></i>
-                                    </button>
-                                </span>
+                              {% for field_d in datasus_filter.form %}
+
+                                {{ datasus_filter.form.mes_producao|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:mes_producao"|attr:"placeholder:Selecione"  }}
+
+                                      <span class="input-group-btn">
+                                          <button class="btn btn-light btn-datepicker" type="button">
+                                              <i class="fa fa-calendar"></i>
+                                          </button>
+                                      </span>
+                              {% endfor %}
                             </div>
                         </div>
                         <div class="form-group d-flex date-container">
                             <label class="col-form-label" for="mes_repasse">Mês do Repasse</label>
                             <div class="input-group">
-                                <input type="text" readonly="true" data-toggle="datepicker" class="form-control" id="mes_repasse" placeholder="Selecione" />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-light btn-datepicker" type="button">
-                                        <i class="fa fa-calendar"></i>
-                                    </button>
-                                </span>
+                              {% for field_p in pagamento_filter.form %}
+
+                                {{ pagamento_filter.form.mes_repasse|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:mes_repasse"|attr:"placeholder:Selecione"  }}
+
+                                      <span class="input-group-btn">
+                                          <button class="btn btn-light btn-datepicker" type="button">
+                                              <i class="fa fa-calendar"></i>
+                                          </button>
+                                      </span>
+                              {% endfor %}
                             </div>
                         </div>
                         <div class="form-group no-border p-0">
-                            <button type="button" class="btn btn-primary btn-rounded">
+                            <button type="submit" class="btn btn-primary btn-rounded">
                                 <i class="fa fa-filter d-none d-sm-block d-xl-none"></i>
                                 <span class="d-block d-sm-none d-xl-block">Filtrar</span>
                             </button>
@@ -128,7 +137,7 @@
                                                 <span>Valor da produção</span>
                                             </div>
                                             <div>
-                                                <span>R$ 6.956.321,96</span>
+                                                <span>R$ {{ datasus_filter.qs.values | running_total }}</span>
                                             </div>
                                         </h5>
                                     </div>
@@ -141,7 +150,7 @@
                                                 <span>Valor Recebido</span>
                                             </div>
                                             <div>
-                                                <span>R$ 6.956.321,96</span>
+                                                <span>R$ {{ pagamento_filter.qs.values | running_total_repasse }}</span>
                                             </div>
                                         </h5>
                                     </div>
@@ -155,8 +164,9 @@
                                             </div>
                                             <div class="bg-pale-grey-five">
                                                 <span class="d-flex align-items-center justify-content-center">
-                                                    R$ 6.956.321,96
-                                                    <i class="icon ion-md-arrow-dropup icon-superavit"></i>
+                                                    R$ {{ pagamento_filter.qs.values | running_total_diff:datasus_filter.qs.values }}
+                                                      <i id="diff" class="icon"></i>
+
                                                 </span>
                                             </div>
                                         </h5>
@@ -191,6 +201,22 @@
 
 
 </div>
+<script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+<script>
+function diff() {
+  diff	= "{{ pagamento_filter.qs.values | running_total_diff:datasus_filter.qs.values }}";
+  diff = parseInt(diff);
+  if (diff >=0){
+    $('#diff').addClass(" ion-md-arrow-dropup icon-superavit");
+  }
+  else{
+    $('#diff').addClass(" ion-md-arrow-dropdown icon-deficit");
+  }
+}
+$(window).load( function(){
+  diff();
+});
 
+</script>
 {% endfor %}
 {% endblock %}

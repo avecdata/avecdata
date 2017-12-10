@@ -80,7 +80,7 @@
                             <div class="input-group">
                               {% for field in filter.form %}
 
-                                {{ filter.form.mes|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:competencia"|attr:"placeholder:Selecione"  }}
+                                {{ filter.form.mes_repasse|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:competencia"|attr:"placeholder:Selecione"  }}
 
                                       <span class="input-group-btn">
                                           <button class="btn btn-light btn-datepicker" type="button">
@@ -132,7 +132,7 @@
                                                 </div>
                                                 <div class="no-border">
 
-                                                    <span>R$ {{ filter.qs.values | running_total }}</span>
+                                                    <span>R$ {{ filter.qs.values | running_total_repasse }}</span>
 
                                                 </div>
                                             </a>

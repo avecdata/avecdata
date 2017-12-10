@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis, pgf_acao_datasus, pgf_acao_datasus_grupo
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -45,7 +45,11 @@ from allauth.socialaccount.adapter import DefaultSocialAccountAdapter, get_adapt
 from allauth.account.utils import perform_login, complete_signup
 from pprint import pprint
 
-from .filters import AcaoFilter, AcaoFilterFaec
+from .filters import AcaoFilter, AcaoFilterFaec, AcaoFilterDatasus
+
+from django.db.models import Sum
+import django.db.models.functions
+from django.db.models import FloatField
 
 # Create your views here.
 def page_not_found(request):
@@ -877,10 +881,16 @@ def teto(request, cnpj):
 
 def teto_producao(request, cnpj):
     int_cnpj = s = str(int(cnpj))
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    acao = pgf_acao_datasus.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade').order_by('mes')
+    grupo_hospitalar = pgf_acao_datasus.objects.filter(id__in=acao).filter(amb_hosp='Hospitalar').distinct('grupo')
+    grupo_ambulatorial = pgf_acao_datasus.objects.filter(id__in=acao).filter(amb_hosp='Ambulatorial').distinct('grupo')
+    acao_filter = AcaoFilterDatasus(request.GET, queryset=acao)
+
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
-    return render(request, 'avec/fns/teto_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade})
+    return render(request, 'avec/fns/teto_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial})
 
 def teto_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -897,15 +907,17 @@ def teto_pagamento(request, cnpj):
 
 def teto_analise(request, cnpj):
     int_cnpj = s = str(int(cnpj))
-    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
-    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
-    acao_filter = AcaoFilter(request.GET, queryset=acao)
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    acao_datasus = pgf_acao_datasus.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade').order_by('mes')
+    acao_pagamento = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
+    datasus_filter = AcaoFilterDatasus(request.GET, queryset=acao_datasus)
+    pagamento_filter = AcaoFilter(request.GET, queryset=acao_pagamento)
 
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
 
-    return render(request, 'avec/fns/teto_analise.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade } )
+    return render(request, 'avec/fns/teto_analise.html', {'int_cnpj' : int_cnpj,'acao_datasus': acao_datasus, 'acao_pagamento': acao_pagamento, 'cidade' : cidade, 'entidade' : entidade, 'pagamento_filter' : pagamento_filter, 'datasus_filter' : datasus_filter,'entidade' : entidade } )
 
 def faec(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -916,19 +928,17 @@ def faec(request, cnpj):
 
 def faec_producao(request, cnpj):
     int_cnpj = s = str(int(cnpj))
-    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
-    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
-    acao_filter = AcaoFilter(request.GET, queryset=acao)
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    acao = pgf_acao_datasus.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').order_by('mes')
+    grupo_hospitalar = pgf_acao_datasus.objects.filter(id__in=acao).filter(amb_hosp='Hospitalar').distinct('grupo')
+    grupo_ambulatorial = pgf_acao_datasus.objects.filter(id__in=acao).filter(amb_hosp='Ambulatorial').distinct('grupo')
+    acao_filter = AcaoFilterDatasus(request.GET, queryset=acao)
 
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
 
-    return render(request, 'avec/fns/faec_producao.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade } )
-
-from django.db.models import Sum
-import django.db.models.functions
-from django.db.models import FloatField
+    return render(request, 'avec/fns/faec_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial})
 
 def faec_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -945,15 +955,17 @@ def faec_pagamento(request, cnpj):
 
 def faec_analise(request, cnpj):
     int_cnpj = s = str(int(cnpj))
-    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
-    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
-    acao_filter = AcaoFilter(request.GET, queryset=acao)
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    acao_datasus = pgf_acao_datasus.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').order_by('mes')
+    acao_pagamento = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941"]).order_by('mes')
+    datasus_filter = AcaoFilterDatasus(request.GET, queryset=acao_datasus)
+    pagamento_filter = AcaoFilter(request.GET, queryset=acao_pagamento)
 
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
 
-    return render(request, 'avec/fns/faec_analise.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade } )
+    return render(request, 'avec/fns/faec_analise.html', {'int_cnpj' : int_cnpj,'acao_datasus': acao_datasus, 'acao_pagamento': acao_pagamento, 'cidade' : cidade, 'entidade' : entidade, 'pagamento_filter' : pagamento_filter, 'datasus_filter' : datasus_filter,'entidade' : entidade })
 
 def ceo(request, cnpj):
     int_cnpj = s = str(int(cnpj))
