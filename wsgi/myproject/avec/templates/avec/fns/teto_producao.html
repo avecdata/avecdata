@@ -136,10 +136,10 @@
                                                     <span>{{g.grupo}}</span>
                                                 </div>
                                                 <div>
-                                                    <span>R$ {{ filter.qs.values | running_estadual_plena:g.grupo }}</span>
+                                                    <span>R$ {{ filter.qs.values | running_estadual_plena_a:g.grupo }}</span>
                                                 </div>
                                                 <div class="bg-pale-grey-five">
-                                                    <span>R$ {{ filter.qs.values | running_pacto_gestao:g.grupo }}</span>
+                                                    <span>R$ {{ filter.qs.values | running_pacto_gestao_a:g.grupo }}</span>
                                                 </div>
                                             </a>
                                         </h5>
@@ -157,7 +157,7 @@
                                                 </thead>
                                                 <tbody>
                                                   {% for b in filter.qs %}
-                                                    {% if b.grupo == g.grupo  %}
+                                                    {% if b.grupo == g.grupo and b.amb_hosp == 'Ambulatorial' %}
                                                       {% if b.pacto_gestao > 0 or b.estadual_plena > 0 %}
                                                           <tr>
                                                               <td>{{b.desc_subgrupo}}</td>
@@ -218,10 +218,10 @@
                                                     <span>{{g.grupo}}</span>
                                                 </div>
                                                 <div>
-                                                    <span>R$ {{ filter.qs.values | running_estadual_plena:g.grupo }}</span>
+                                                    <span>R$ {{ filter.qs.values | running_estadual_plena_h:g.grupo }}</span>
                                                 </div>
                                                 <div class="bg-pale-grey-five">
-                                                    <span>R$ {{ filter.qs.values | running_municipial_plena:g.grupo }}</span>
+                                                    <span>R$ {{ filter.qs.values | running_municipial_plena_h:g.grupo }}</span>
                                                 </div>
                                             </a>
                                         </h5>
@@ -239,7 +239,7 @@
                                                 </thead>
                                                 <tbody>
                                                   {% for a in filter.qs %}
-                                                    {% if a.grupo == g.grupo  %}
+                                                    {% if a.grupo == g.grupo and a.amb_hosp == 'Hospitalar' %}
                                                       {% if a.municipal_plena > 0 or a.estadual_plena > 0 %}
                                                         <tr>
                                                             <td>{{a.desc_subgrupo}}</td>

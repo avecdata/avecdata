@@ -17,22 +17,27 @@ def running_total(role_total):
      return sum( [d['vl_total'] for d in role_total] )
 
 @register.filter
-def running_estadual_plena(role_total, group):
-     return sum( [d['estadual_plena'] for d in role_total if d['grupo'] == group] )
+def running_estadual_plena_a(role_total, group):
+     return sum( [d['estadual_plena'] for d in role_total if d['grupo'] == group and d['amb_hosp'] == 'Ambulatorial'] )
 
 @register.filter
-def running_municipial_plena(role_total, group):
-     return sum( [d['municipal_plena'] for d in role_total if d['grupo'] == group] )
-
-@register.filter
-def running_pacto_gestao(role_total, group):
+def running_pacto_gestao_a(role_total, group):
     soma = 0.0
     try:
-        if sum( [d['pacto_gestao'] for d in role_total if d['grupo'] == group ] ) > 0:
-            soma = sum( [d['pacto_gestao'] for d in role_total if d['grupo'] == group ] )
+        if sum( [d['pacto_gestao'] for d in role_total if d['grupo'] == group and d['amb_hosp'] == 'Ambulatorial'] ) > 0:
+            soma = sum( [d['pacto_gestao'] for d in role_total if d['grupo'] == group and d['amb_hosp'] == 'Ambulatorial'] )
     except:
         pass
     return soma
+
+@register.filter
+def running_estadual_plena_h(role_total, group):
+     return sum( [d['estadual_plena'] for d in role_total if d['grupo'] == group and d['amb_hosp'] == 'Hospitalar'])
+
+@register.filter
+def running_municipial_plena_h(role_total, group):
+     return sum( [d['municipal_plena'] for d in role_total if d['grupo'] == group and d['amb_hosp'] == 'Hospitalar'])
+
 
 @register.filter
 def running_total_amb_hosp(role_total, amb_hosp):
