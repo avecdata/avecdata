@@ -862,3 +862,14 @@ class pgf_acao_datasus_grupo(models.Model):
 
     def __str__(self):
         return self.cd_municipio
+
+class v_pgf_municipio_saude(models.Model):
+    ano = models.CharField()
+    numero = models.CharField()
+    cd_municipio = models.CharField()
+
+    class Meta:
+      managed = False
+
+    def __str__(self):
+        return self.cd_municipio

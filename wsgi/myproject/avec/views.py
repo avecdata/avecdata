@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis, pgf_acao_datasus, pgf_acao_datasus_grupo
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis, pgf_acao_datasus, pgf_acao_datasus_grupo, v_pgf_municipio_saude
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -870,7 +870,183 @@ def pgf(request, cd_municipio):
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=cd_municipio)
     entidade = pgf_entidade.objects.filter(cd_municipio=cd_municipio)
     gis = pgf_municipio_gis.objects.filter(cd_municipio__startswith=cd_municipio)
-    return render(request, 'avec/fns/index.html', {'cidade': cidade, 'entidade': entidade, 'gis' : gis})
+    v_pgf_municipio_saude.objects.filter(cd_municipio=cd_municipio)
+    city='Brasil'
+    filtro=12
+    ds = DataPool(
+            series=[{
+                'options': {
+                    'source': v_pgf_municipio_saude.objects.filter(cd_municipio=cd_municipio)
+                },
+                'terms': [
+                    'ano',
+                    'numero'
+                ]
+            }]
+    )
+
+    chart_1 = Chart(
+            datasource=ds,
+            series_options=[{
+                'options': {
+                    'type': 'area',
+                    'zoomType': 'x',
+                    'stacking': True,
+                    'fillColor': {
+                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
+                        'stops': [
+                            [0, '#ffffff'],
+                            [1, '#3DC1D0']
+                        ]
+                    },
+                     'color': '#3DC1D0',
+                      'marker': {
+                          'radius': 1
+                      },
+                      'lineWidth': 1,
+                      'states': {
+                          'hover': {
+                              'lineWidth': 1
+                          }
+                      }
+                },
+                'terms': {
+                    'ano': [
+                        'numero'
+                    ]
+                }
+            }],
+            chart_options={
+                'title': {
+                    'text': '1994 À 2015',
+                    'style': {
+                        'fontSize': '14px',
+                        'fontFamily': 'Lato sans-serif'
+                    }
+                },
+
+                'xAxis': {
+                    'title': {
+                        'text': 'Ano'
+                    }
+                },
+                'yAxis': {
+                    'title': {
+                        'text': 'Nascidos Vivos'
+                    }
+                }
+            }
+    )
+    ds2 = DataPool(
+        series=[{
+            'options': {
+                'source': v_emendas_emendas.objects.filter(cod_autor=3769).filter(cod_orgao=22000)
+            },
+            'terms': [
+                'cod_autor',
+                'nom_orgao',
+                'val_acrec'
+            ]
+        }]
+    )
+    ds3 = DataPool(
+        series=[{
+            'options': {
+                'source': v_emendas_parlamentar_por_orgao.objects.filter(cod_autor=3769)
+            },
+            'terms': [
+                'cod_autor',
+                'nom_orgao',
+                'num_emendas'
+            ]
+        }]
+    )
+
+
+    def monthname(month_num):
+        names = {1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
+                 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'}
+        return names[month_num]
+
+    chart_12 = Chart(
+        datasource=ds2,
+        series_options=[{
+            'options': {
+                'type': 'line',
+                'stacking': False,
+                'color' : '#3dc1d0',
+            },
+            'terms': {
+                'nom_orgao' : [
+                    'val_acrec'
+                ]
+            }
+        }],
+      chart_options =
+        {'chart':{
+            #'backgroundColor': '#FFFFFF',
+        'borderWidth': 0,
+        },
+        'title': {
+            'text': 'Valor das emendas do Min. da Agricultura'},
+         'subtitle': {
+            'text': 'valor por emenda ao longo do tempo'},
+         'credits': {
+            'enabled': False},
+         'xAxis': {
+            'title': {
+                'text': 'Período'}},
+        'yAxis': {
+           'title': {
+               'text': 'Valor Acrescido'}}
+        },
+        #x_sortf_mapf_mts=(None, country_name, False)
+        )
+
+    chart_2 = Chart(
+        datasource=ds3,
+        series_options=[{
+            'options': {
+                'type': 'bar',
+                'stacking': False,
+                'color' : '#3dc1d0',
+            },
+            'terms': {
+                'nom_orgao' : [
+                    'num_emendas'
+                ]
+            }
+        }],
+      chart_options =
+        {'chart':{
+        'backgroundColor': '#FFFFFF',
+        'borderWidth': 0,
+            },
+        'title': {
+            'text': 'Número de emendas por Orgão'
+        },
+         'subtitle': {
+            'text': 'emendas do parlamentar no período'},
+        'xAxis': {
+            'title': {
+                'text': 'Orgão'
+            },
+            'tickInterval': 1
+        },
+        'yAxis': {
+            'title': {
+                'text': 'N. de emendas'
+            },
+            'tickInterval': 1
+        },
+         'credits': {
+            'enabled': False},
+
+        },
+        x_sortf_mapf_mts=(None, None, False)
+        )
+
+    return render(request, 'avec/fns/index.html', {'cidade': cidade, 'entidade': entidade, 'gis' : gis, 'chart_list': [chart_1] })
 
 def teto(request, cnpj):
     int_cnpj = s = str(int(cnpj))

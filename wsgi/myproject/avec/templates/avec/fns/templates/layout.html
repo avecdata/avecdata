@@ -57,9 +57,10 @@
         </div>
 
         <h4 class="d-md-none d-lg-block">{{cid.nm_municipio}}</h4>
-
-        <span class="rounded-labels label-pref d-block d-md-none d-lg-block">Pref. {{cid.nome_prefeito}}</span>
-        <span class="rounded-labels label-sec d-block d-md-none d-lg-block">Sec. {{cid.nome_secretario}}</span>
+        {% for ent in entidade %}
+        <span class="rounded-labels label-pref d-block d-md-none d-lg-block">Pref. {{ent.nm_prefeito}}</span>
+        <span class="rounded-labels label-sec d-block d-md-none d-lg-block">Sec. {{ent.nm_secretario}}</span>
+        {% endfor %}
   	     {% block navbar-side %}{% endblock %}
 
         <div class="help d-none d-sm-block">
@@ -129,6 +130,7 @@
 <script src="{% static 'pgf/js/libs/datepicker.min.js' %}"></script>
 <script src="{% static 'pgf/js/libs/datepicker.pt-BR.js' %}"></script>
 <script src="{% static 'pgf/js/libs/jquery.maskedinput.js' %}"></script>
+
 
 <script>
 
