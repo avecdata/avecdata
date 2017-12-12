@@ -901,7 +901,9 @@ def pgf(request, cd_municipio):
                     },
                      'color': '#3DC1D0',
                       'marker': {
+                        'color': '#3DC1D0',
                           'radius': 1
+
                       },
                       'lineWidth': 1,
                       'states': {
