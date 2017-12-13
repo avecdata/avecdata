@@ -873,3 +873,41 @@ class v_pgf_municipio_saude(models.Model):
 
     def __str__(self):
         return self.cd_municipio
+
+class v_pgf_ambulatorial(models.Model):
+    cd_municipio = models.CharField()
+    tipo = models.CharField()
+    mes = models.CharField()
+    estadual_plena = models.CharField()
+    pacto_gestao = models.CharField()
+
+    class Meta:
+      managed = False
+
+    def __str__(self):
+        return self.cd_municipio
+
+class v_pgf_hospitalar(models.Model):
+    cd_municipio = models.CharField()
+    tipo = models.CharField()
+    mes = models.CharField()
+    estadual_plena = models.CharField()
+    municipal_plena = models.CharField()
+
+    class Meta:
+      managed = False
+
+    def __str__(self):
+        return self.cd_municipio
+
+class v_pgf_total(models.Model):
+    cd_municipio = models.CharField()
+    tipo = models.CharField()
+    mes = models.CharField()
+    total = models.CharField()
+
+    class Meta:
+      managed = False
+
+    def __str__(self):
+        return self.cd_municipio

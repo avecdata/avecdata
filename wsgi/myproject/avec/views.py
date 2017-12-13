@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis, pgf_acao_datasus, pgf_acao_datasus_grupo, v_pgf_municipio_saude
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis, pgf_acao_datasus, pgf_acao_datasus_grupo, v_pgf_municipio_saude, v_pgf_ambulatorial, v_pgf_hospitalar, v_pgf_total
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -939,114 +939,6 @@ def pgf(request, cd_municipio):
                 }
             }
     )
-    ds2 = DataPool(
-        series=[{
-            'options': {
-                'source': v_emendas_emendas.objects.filter(cod_autor=3769).filter(cod_orgao=22000)
-            },
-            'terms': [
-                'cod_autor',
-                'nom_orgao',
-                'val_acrec'
-            ]
-        }]
-    )
-    ds3 = DataPool(
-        series=[{
-            'options': {
-                'source': v_emendas_parlamentar_por_orgao.objects.filter(cod_autor=3769)
-            },
-            'terms': [
-                'cod_autor',
-                'nom_orgao',
-                'num_emendas'
-            ]
-        }]
-    )
-
-
-    def monthname(month_num):
-        names = {1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'Jun',
-                 7: 'Jul', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec'}
-        return names[month_num]
-
-    chart_12 = Chart(
-        datasource=ds2,
-        series_options=[{
-            'options': {
-                'type': 'line',
-                'stacking': False,
-                'color' : '#3dc1d0',
-            },
-            'terms': {
-                'nom_orgao' : [
-                    'val_acrec'
-                ]
-            }
-        }],
-      chart_options =
-        {'chart':{
-            #'backgroundColor': '#FFFFFF',
-        'borderWidth': 0,
-        },
-        'title': {
-            'text': 'Valor das emendas do Min. da Agricultura'},
-         'subtitle': {
-            'text': 'valor por emenda ao longo do tempo'},
-         'credits': {
-            'enabled': False},
-         'xAxis': {
-            'title': {
-                'text': 'Período'}},
-        'yAxis': {
-           'title': {
-               'text': 'Valor Acrescido'}}
-        },
-        #x_sortf_mapf_mts=(None, country_name, False)
-        )
-
-    chart_2 = Chart(
-        datasource=ds3,
-        series_options=[{
-            'options': {
-                'type': 'bar',
-                'stacking': False,
-                'color' : '#3dc1d0',
-            },
-            'terms': {
-                'nom_orgao' : [
-                    'num_emendas'
-                ]
-            }
-        }],
-      chart_options =
-        {'chart':{
-        'backgroundColor': '#FFFFFF',
-        'borderWidth': 0,
-            },
-        'title': {
-            'text': 'Número de emendas por Orgão'
-        },
-         'subtitle': {
-            'text': 'emendas do parlamentar no período'},
-        'xAxis': {
-            'title': {
-                'text': 'Orgão'
-            },
-            'tickInterval': 1
-        },
-        'yAxis': {
-            'title': {
-                'text': 'N. de emendas'
-            },
-            'tickInterval': 1
-        },
-         'credits': {
-            'enabled': False},
-
-        },
-        x_sortf_mapf_mts=(None, None, False)
-        )
 
     return render(request, 'avec/fns/index.html', {'cidade': cidade, 'entidade': entidade, 'gis' : gis, 'chart_list': [chart_1] })
 
@@ -1065,10 +957,219 @@ def teto_producao(request, cnpj):
     grupo_ambulatorial = pgf_acao_datasus.objects.filter(id__in=acao).filter(amb_hosp='Ambulatorial').distinct('grupo')
     acao_filter = AcaoFilterDatasus(request.GET, queryset=acao)
 
+    view_ambulatorial = v_pgf_ambulatorial.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade')
+    view_hospitalar = v_pgf_hospitalar.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade')
+    view_total = v_pgf_total.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade')
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
-    return render(request, 'avec/fns/teto_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial})
+
+    ds_ambulatorial = DataPool(
+            series=[{
+                'options': {
+                    'source': view_ambulatorial
+                },
+                'terms': [
+                    'mes',
+                    'estadual_plena',
+                    'pacto_gestao'
+                ]
+            }]
+    )
+
+    ambulatorial = Chart(
+            datasource=ds_ambulatorial,
+            series_options=[{
+                'options': {
+                    'type': 'line',
+                    'zoomType': 'x',
+                    'stacking': False,
+                    'fillColor': {
+                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
+                        'stops': [
+                            [0, 'red'],
+                            [1, '#3DC1D0']
+                        ]
+                    },
+                     'color': '#3DC1D0',
+                      'marker': {
+                        'color': '#3DC1D0',
+                          'radius': 1
+
+                      },
+                      'lineWidth': 1,
+                      'states': {
+                          'hover': {
+                              'lineWidth': 1
+                          }
+                      }
+                },
+                'terms': {
+                    'mes': [
+                        'estadual_plena',
+                        'pacto_gestao'
+                    ]
+                }
+            }],
+            chart_options={
+                'title': {
+                    'text': 'Janeiro à Setembro/2017',
+                    'style': {
+                        'fontSize': '14px',
+                        'fontFamily': 'Lato sans-serif'
+                    }
+                },
+
+                'xAxis': {
+                    'title': {
+                        'text': 'mes'
+                    }
+                },
+                'yAxis': {
+                    'title': {
+                        'text': 'valor'
+                    }
+                }
+            }
+    )
+
+    ds_hospitalar = DataPool(
+            series=[{
+                'options': {
+                    'source': view_hospitalar
+                },
+                'terms': [
+                    'mes',
+                    'estadual_plena',
+                    'municipal_plena'
+                ]
+            }]
+    )
+
+    hospitalar = Chart(
+            datasource=ds_hospitalar,
+            series_options=[{
+                'options': {
+                    'type': 'line',
+                    'zoomType': 'x',
+                    'stacking': False,
+                    'fillColor': {
+                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
+                        'stops': [
+                            [0, 'red'],
+                            [1, '#3DC1D0']
+                        ]
+                    },
+                     'color': '#3DC1D0',
+                      'marker': {
+                        'color': '#3DC1D0',
+                          'radius': 1
+
+                      },
+                      'lineWidth': 1,
+                      'states': {
+                          'hover': {
+                              'lineWidth': 1
+                          }
+                      }
+                },
+                'terms': {
+                    'mes': [
+                        'estadual_plena',
+                        'municipal_plena'
+                    ]
+                }
+            }],
+            chart_options={
+                'title': {
+                    'text': 'Janeiro à Setembro/2017',
+                    'style': {
+                        'fontSize': '14px',
+                        'fontFamily': 'Lato sans-serif'
+                    }
+                },
+
+                'xAxis': {
+                    'title': {
+                        'text': 'mes'
+                    }
+                },
+                'yAxis': {
+                    'title': {
+                        'text': 'valor'
+                    }
+                }
+            }
+    )
+
+    ds_total = DataPool(
+            series=[{
+                'options': {
+                    'source': view_total
+                },
+                'terms': [
+                    'mes',
+                    'total'
+                ]
+            }]
+    )
+
+    total = Chart(
+            datasource=ds_total,
+            series_options=[{
+                'options': {
+                    'type': 'line',
+                    'zoomType': 'x',
+                    'stacking': False,
+                    'fillColor': {
+                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
+                        'stops': [
+                            [0, 'red'],
+                            [1, '#3DC1D0']
+                        ]
+                    },
+                     'color': '#3DC1D0',
+                      'marker': {
+                        'color': '#3DC1D0',
+                          'radius': 1
+
+                      },
+                      'lineWidth': 1,
+                      'states': {
+                          'hover': {
+                              'lineWidth': 1
+                          }
+                      }
+                },
+                'terms': {
+                    'mes': [
+                        'total'
+                    ]
+                }
+            }],
+            chart_options={
+                'title': {
+                    'text': 'Janeiro à Setembro/2017',
+                    'style': {
+                        'fontSize': '14px',
+                        'fontFamily': 'Lato sans-serif'
+                    }
+                },
+
+                'xAxis': {
+                    'title': {
+                        'text': 'mes'
+                    }
+                },
+                'yAxis': {
+                    'title': {
+                        'text': 'valor'
+                    }
+                }
+            }
+    )
+
+    return render(request, 'avec/fns/teto_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial, 'chart_list': [ambulatorial, hospitalar, total] })
 
 def teto_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
