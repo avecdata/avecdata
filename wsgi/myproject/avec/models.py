@@ -754,6 +754,7 @@ class pgf_acao(models.Model):
     mes = models.CharField(max_length=30 , null= True)
     acao_num = models.CharField(max_length=30 , null=True)
     cnpj = models.CharField(max_length=30 , null=True)
+    cd_municipio = models.CharField(max_length=30, null=True)
 
     def publish_pgf_acao(self):
         self.save()
@@ -859,55 +860,6 @@ class pgf_acao_datasus_grupo(models.Model):
 
     def publish_pgf_acao_datasus_grupo(self):
         self.save()
-
-    def __str__(self):
-        return self.cd_municipio
-
-class v_pgf_municipio_saude(models.Model):
-    ano = models.CharField()
-    numero = models.CharField()
-    cd_municipio = models.CharField()
-
-    class Meta:
-      managed = False
-
-    def __str__(self):
-        return self.cd_municipio
-
-class v_pgf_ambulatorial(models.Model):
-    cd_municipio = models.CharField()
-    tipo = models.CharField()
-    mes = models.CharField()
-    estadual_plena = models.CharField()
-    pacto_gestao = models.CharField()
-
-    class Meta:
-      managed = False
-
-    def __str__(self):
-        return self.cd_municipio
-
-class v_pgf_hospitalar(models.Model):
-    cd_municipio = models.CharField()
-    tipo = models.CharField()
-    mes = models.CharField()
-    estadual_plena = models.CharField()
-    municipal_plena = models.CharField()
-
-    class Meta:
-      managed = False
-
-    def __str__(self):
-        return self.cd_municipio
-
-class v_pgf_total(models.Model):
-    cd_municipio = models.CharField()
-    tipo = models.CharField()
-    mes = models.CharField()
-    total = models.CharField()
-
-    class Meta:
-      managed = False
 
     def __str__(self):
         return self.cd_municipio
