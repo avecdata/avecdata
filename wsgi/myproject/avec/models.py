@@ -934,3 +934,29 @@ class v_pgf_repasse_faec(models.Model):
 
     def __str__(self):
         return self.cnpj
+
+class v_pgf_analise_teto(models.Model):
+    cd_municipio = models.CharField()
+    mes = models.CharField()
+    total_producao = models.CharField()
+    total_repasse = models.CharField()
+    analise = models.CharField()
+
+    class Meta:
+      managed = False
+
+    def __str__(self):
+        return self.cd_municipio
+
+class v_pgf_analise_faec(models.Model):
+    cd_municipio = models.CharField()
+    mes = models.CharField()
+    total_producao = models.CharField()
+    total_repasse = models.CharField()
+    analise = models.CharField()
+
+    class Meta:
+      managed = False
+
+    def __str__(self):
+        return self.cd_municipio

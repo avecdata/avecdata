@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis, pgf_acao_datasus, pgf_acao_datasus_grupo#, v_pgf_municipio_saude, v_pgf_ambulatorial, v_pgf_hospitalar, v_pgf_total, v_pgf_repasse_teto, v_pgf_repasse_faec
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis, pgf_acao_datasus, pgf_acao_datasus_grupo, v_pgf_municipio_saude, v_pgf_ambulatorial, v_pgf_hospitalar, v_pgf_total, v_pgf_repasse_teto, v_pgf_repasse_faec, v_pgf_analise_faec, v_pgf_analise_teto
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -891,11 +891,11 @@ def pgf(request, cd_municipio):
                 'options': {
                     'type': 'area',
                     'zoomType': 'x',
-                    'stacking': True,
+                    'stacking': False,
                     'fillColor': {
                         'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
                         'stops': [
-                            [0, '#ffffff'],
+                            [0, 'red'],
                             [1, '#3DC1D0']
                         ]
                     },
@@ -1268,11 +1268,85 @@ def teto_analise(request, cnpj):
     datasus_filter = AcaoFilterDatasus(request.GET, queryset=acao_datasus)
     pagamento_filter = AcaoFilter(request.GET, queryset=acao_pagamento)
 
+    view_total = v_pgf_analise_teto.objects.filter(cd_municipio=cd_municipio)
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
 
-    return render(request, 'avec/fns/teto_analise.html', {'int_cnpj' : int_cnpj,'acao_datasus': acao_datasus, 'acao_pagamento': acao_pagamento, 'cidade' : cidade, 'entidade' : entidade, 'pagamento_filter' : pagamento_filter, 'datasus_filter' : datasus_filter,'entidade' : entidade } )
+    ds_total = DataPool(
+            series=[{
+                'options': {
+                    'source': view_total
+                },
+                'terms': [
+                    'mes',
+                    'total_repasse',
+                    'total_producao',
+                    'analise'
+                ]
+            }]
+    )
+
+    total = Chart(
+            datasource=ds_total,
+            series_options=[{
+                'options': {
+                    'type': 'line',
+                    'zoomType': 'x',
+                    'stacking': False,
+                    'fillColor': {
+                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
+                        'stops': [
+                            [0, 'red'],
+                            [1, '#3DC1D0']
+                        ]
+                    },
+                     'color': '#3DC1D0',
+                      'marker': {
+                        'color': '#3DC1D0',
+                          'radius': 1
+
+                      },
+                      'lineWidth': 1,
+                      'states': {
+                          'hover': {
+                              'lineWidth': 1
+                          }
+                      }
+                },
+                'terms': {
+                    'mes': [
+                        'total_repasse',
+                        'total_producao',
+                        'analise'
+                    ]
+                }
+            }],
+            chart_options={
+                'title': {
+                    'text': 'Janeiro a Setembro/2017',
+                    'style': {
+                        'fontSize': '14px',
+                        'fontFamily': 'Lato sans-serif'
+                    }
+                },
+                'tooltip': {
+                    'valuePrefix' : 'R$ '
+                },
+                'xAxis': {
+                    'title': {
+                        'text': 'mes'
+                    }
+                },
+                'yAxis': {
+                    'title': {
+                        'text': 'valor'
+                    }
+                }
+            }
+    )
+
+    return render(request, 'avec/fns/teto_analise.html', {'int_cnpj' : int_cnpj,'acao_datasus': acao_datasus, 'acao_pagamento': acao_pagamento, 'cidade' : cidade, 'entidade' : entidade, 'pagamento_filter' : pagamento_filter, 'datasus_filter' : datasus_filter,'entidade' : entidade, 'chart_list': [total]  } )
 
 def faec(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -1601,11 +1675,85 @@ def faec_analise(request, cnpj):
     datasus_filter = AcaoFilterDatasus(request.GET, queryset=acao_datasus)
     pagamento_filter = AcaoFilter(request.GET, queryset=acao_pagamento)
 
+    view_total = v_pgf_analise_faec.objects.filter(cd_municipio=cd_municipio)
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
 
-    return render(request, 'avec/fns/faec_analise.html', {'int_cnpj' : int_cnpj,'acao_datasus': acao_datasus, 'acao_pagamento': acao_pagamento, 'cidade' : cidade, 'entidade' : entidade, 'pagamento_filter' : pagamento_filter, 'datasus_filter' : datasus_filter,'entidade' : entidade })
+    ds_total = DataPool(
+            series=[{
+                'options': {
+                    'source': view_total
+                },
+                'terms': [
+                    'mes',
+                    'total_repasse',
+                    'total_producao',
+                    'analise'
+                ]
+            }]
+    )
+
+    total = Chart(
+            datasource=ds_total,
+            series_options=[{
+                'options': {
+                    'type': 'line',
+                    'zoomType': 'x',
+                    'stacking': False,
+                    'fillColor': {
+                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
+                        'stops': [
+                            [0, 'red'],
+                            [1, '#3DC1D0']
+                        ]
+                    },
+                     'color': '#3DC1D0',
+                      'marker': {
+                        'color': '#3DC1D0',
+                          'radius': 1
+
+                      },
+                      'lineWidth': 1,
+                      'states': {
+                          'hover': {
+                              'lineWidth': 1
+                          }
+                      }
+                },
+                'terms': {
+                    'mes': [
+                        'total_repasse',
+                        'total_producao',
+                        'analise'
+                    ]
+                }
+            }],
+            chart_options={
+                'title': {
+                    'text': 'Janeiro a Setembro/2017',
+                    'style': {
+                        'fontSize': '14px',
+                        'fontFamily': 'Lato sans-serif'
+                    }
+                },
+                'tooltip': {
+                    'valuePrefix' : 'R$ '
+                },
+                'xAxis': {
+                    'title': {
+                        'text': 'mes'
+                    }
+                },
+                'yAxis': {
+                    'title': {
+                        'text': 'valor'
+                    }
+                }
+            }
+    )
+
+    return render(request, 'avec/fns/faec_analise.html', {'int_cnpj' : int_cnpj,'acao_datasus': acao_datasus, 'acao_pagamento': acao_pagamento, 'cidade' : cidade, 'entidade' : entidade, 'pagamento_filter' : pagamento_filter, 'datasus_filter' : datasus_filter,'entidade' : entidade, 'chart_list': [total]  })
 
 def ceo(request, cnpj):
     int_cnpj = s = str(int(cnpj))
