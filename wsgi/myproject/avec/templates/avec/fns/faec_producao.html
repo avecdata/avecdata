@@ -43,6 +43,33 @@
 {% endblock %}
 
 {% block content %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="{% static 'js/highcharts/highcharts.js' %}" type="text/javascript"></script>
+<!--<script src="https://code.highcharts.com/highcharts.src.js"></script>-->
+<script src="{% static 'js/highcharts/themes/light.js' %}" type="text/javascript"></script>
+
+
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+{% load chartit %}
+{{ chart_list|load_charts:"ambulatorial, hospitalar, total" }}<!--Addthis-->
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5690690cf94ece"></script>
+<!--Disqus-->
+<script type="text/javascript">
+    var disqus_shortname = 'django-chartit'; (function() {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+</script>
+<noscript>
+    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
 {% for ent in entidade%}
     <div id="page-wrapper">
 
@@ -328,26 +355,20 @@
         <div class="widget full-width">
             <div class="widget_title">
                 <h3 class="text-left">
-                    <i class="fa fa-bar-chart"></i> Pacto de Gestão - Últimos 12 meses
+                    <i class="fa fa-bar-chart"></i> Produção Ambulatorial - Últimos 12 meses
                 </h3>
             </div>
-            <div class="widget_content border rounded py-3 px-4">
-                <figure class="figure">
-                    <img src="{% static 'pgf/images/grafico.jpg' %}" alt="" class="figure-img" />
-                </figure>
+            <div id="ambulatorial" class="widget_content border rounded py-3 px-4">
             </div>
         </div>
 
         <div class="widget full-width">
             <div class="widget_title">
                 <h3 class="text-left">
-                    <i class="fa fa-bar-chart"></i> Municipal Plena - Últimos 12 meses
+                    <i class="fa fa-bar-chart"></i> Produção Hospitalar - Últimos 12 meses
                 </h3>
             </div>
-            <div class="widget_content border rounded py-3 px-4">
-                <figure class="figure">
-                    <img src="{% static 'pgf/images/grafico.jpg' %}" alt="" class="figure-img" />
-                </figure>
+            <div id="hospitalar" class="widget_content border rounded py-3 px-4">
             </div>
         </div>
 
@@ -357,10 +378,7 @@
                     <i class="fa fa-bar-chart"></i> Total - Últimos 12 meses
                 </h3>
             </div>
-            <div class="widget_content border rounded py-3 px-4">
-                <figure class="figure">
-                    <img src="{% static 'pgf/images/grafico.jpg' %}" alt="" class="figure-img" />
-                </figure>
+            <div id="total" class="widget_content border rounded py-3 px-4">
             </div>
         </div>
 

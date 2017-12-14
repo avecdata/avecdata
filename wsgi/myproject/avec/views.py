@@ -1019,7 +1019,9 @@ def teto_producao(request, cnpj):
                         'fontFamily': 'Lato sans-serif'
                     }
                 },
-
+                'tooltip': {
+                    'valuePrefix' : 'R$ '
+                },
                 'xAxis': {
                     'title': {
                         'text': 'mes'
@@ -1088,7 +1090,9 @@ def teto_producao(request, cnpj):
                         'fontFamily': 'Lato sans-serif'
                     }
                 },
-
+                'tooltip': {
+                    'valuePrefix' : 'R$ '
+                },
                 'xAxis': {
                     'title': {
                         'text': 'mes'
@@ -1155,7 +1159,9 @@ def teto_producao(request, cnpj):
                         'fontFamily': 'Lato sans-serif'
                     }
                 },
-
+                'tooltip': {
+                    'valuePrefix' : 'R$ '
+                },
                 'xAxis': {
                     'title': {
                         'text': 'mes'
@@ -1213,11 +1219,226 @@ def faec_producao(request, cnpj):
     grupo_ambulatorial = pgf_acao_datasus.objects.filter(id__in=acao).filter(amb_hosp='Ambulatorial').distinct('grupo')
     acao_filter = AcaoFilterDatasus(request.GET, queryset=acao)
 
+    view_ambulatorial = v_pgf_ambulatorial.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)')
+    view_hospitalar = v_pgf_hospitalar.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)')
+    view_total = v_pgf_total.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)')
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
 
-    return render(request, 'avec/fns/faec_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial})
+    ds_ambulatorial = DataPool(
+            series=[{
+                'options': {
+                    'source': view_ambulatorial
+                },
+                'terms': [
+                    'mes',
+                    'estadual_plena',
+                    'pacto_gestao'
+                ]
+            }]
+    )
+
+    ambulatorial = Chart(
+            datasource=ds_ambulatorial,
+            series_options=[{
+
+                'options': {
+                    'type': 'line',
+                    'zoomType': 'x',
+                    'stacking': False,
+                    'fillColor': {
+                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
+                        'stops': [
+                            [0, 'red'],
+                            [1, '#3DC1D0']
+                        ]
+                    },
+                     'color': '#3DC1D0',
+                      'marker': {
+                        'color': '#3DC1D0',
+                          'radius': 1
+
+                      },
+                      'lineWidth': 1,
+                      'states': {
+                          'hover': {
+                              'lineWidth': 1
+                          }
+                      }
+                },
+                'terms': {
+                    'mes': [
+                        'estadual_plena',
+                        'pacto_gestao'
+                    ]
+                }
+            }],
+            chart_options={
+                'title': {
+                    'text': 'Janeiro a Setembro/2017',
+                    'style': {
+                        'fontSize': '14px',
+                        'fontFamily': 'Lato sans-serif'
+                    }
+                },
+                'tooltip': {
+                    'valuePrefix' : 'R$ '
+                },
+                'xAxis': {
+                    'title': {
+                        'text': 'mes'
+                    }
+                },
+                'yAxis': {
+                    'title': {
+                        'text': 'valor'
+                    }
+                }
+            }
+    )
+
+    ds_hospitalar = DataPool(
+            series=[{
+                'options': {
+                    'source': view_hospitalar
+                },
+                'terms': [
+                    'mes',
+                    'estadual_plena',
+                    'municipal_plena'
+                ]
+            }]
+    )
+
+    hospitalar = Chart(
+            datasource=ds_hospitalar,
+            series_options=[{
+                'options': {
+                    'type': 'line',
+                    'zoomType': 'x',
+                    'stacking': False,
+                    'fillColor': {
+                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
+                        'stops': [
+                            [0, 'red'],
+                            [1, '#3DC1D0']
+                        ]
+                    },
+                     'color': '#3DC1D0',
+                      'marker': {
+                        'color': '#3DC1D0',
+                          'radius': 1
+
+                      },
+                      'lineWidth': 1,
+                      'states': {
+                          'hover': {
+                              'lineWidth': 1
+                          }
+                      }
+                },
+                'terms': {
+                    'mes': [
+                        'estadual_plena',
+                        'municipal_plena'
+                    ]
+                }
+            }],
+            chart_options={
+                'title': {
+                    'text': 'Janeiro à Setembro/2017',
+                    'style': {
+                        'fontSize': '14px',
+                        'fontFamily': 'Lato sans-serif'
+                    }
+                },
+                'tooltip': {
+                    'valuePrefix' : 'R$ '
+                },
+                'xAxis': {
+                    'title': {
+                        'text': 'mes'
+                    }
+                },
+                'yAxis': {
+                    'title': {
+                        'text': 'valor'
+                    }
+                }
+            }
+    )
+
+    ds_total = DataPool(
+            series=[{
+                'options': {
+                    'source': view_total
+                },
+                'terms': [
+                    'mes',
+                    'total'
+                ]
+            }]
+    )
+
+    total = Chart(
+            datasource=ds_total,
+            series_options=[{
+                'options': {
+                    'type': 'line',
+                    'zoomType': 'x',
+                    'stacking': False,
+                    'fillColor': {
+                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
+                        'stops': [
+                            [0, 'red'],
+                            [1, '#3DC1D0']
+                        ]
+                    },
+                     'color': '#3DC1D0',
+                      'marker': {
+                        'color': '#3DC1D0',
+                          'radius': 1
+
+                      },
+                      'lineWidth': 1,
+                      'states': {
+                          'hover': {
+                              'lineWidth': 1
+                          }
+                      }
+                },
+                'terms': {
+                    'mes': [
+                        'total'
+                    ]
+                }
+            }],
+            chart_options={
+                'title': {
+                    'text': 'Janeiro à Setembro/2017',
+                    'style': {
+                        'fontSize': '14px',
+                        'fontFamily': 'Lato sans-serif'
+                    }
+                },
+                'tooltip': {
+                    'valuePrefix' : 'R$ '
+                },
+                'xAxis': {
+                    'title': {
+                        'text': 'mes'
+                    }
+                },
+                'yAxis': {
+                    'title': {
+                        'text': 'valor'
+                    }
+                }
+            }
+    )
+
+    return render(request, 'avec/fns/faec_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial, 'chart_list': [ambulatorial, hospitalar, total] })
 
 def faec_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
