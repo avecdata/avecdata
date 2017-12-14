@@ -889,7 +889,7 @@ def pgf(request, cd_municipio):
             datasource=ds,
             series_options=[{
                 'options': {
-                    'type': 'area',
+                    'type': 'line',
                     'zoomType': 'x',
                     'stacking': False,
                     'fillColor': {
