@@ -1294,31 +1294,26 @@ def teto_analise(request, cnpj):
                     'type': 'line',
                     'zoomType': 'x',
                     'stacking': False,
-                    'fillColor': {
-                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
-                        'stops': [
-                            [0, 'red'],
-                            [1, '#3DC1D0']
-                        ]
-                    },
-                     'color': '#3DC1D0',
-                      'marker': {
-                        'color': '#3DC1D0',
-                          'radius': 1
-
-                      },
-                      'lineWidth': 1,
                       'states': {
                           'hover': {
-                              'lineWidth': 1
+                              'lineWidth': 4
                           }
                       }
                 },
                 'terms': {
                     'mes': [
-                        'total_repasse',
-                        'total_producao',
-                        'analise'
+                        {'total_producao': {
+                            'color' : '#3DC1D0',
+                            'lineWidth': 1,
+                                }},
+                        {'total_repasse': {
+                            'color' : '#3DC1D0',
+                            'lineWidth': 1,
+                                }},
+                        {'analise': {
+                            'color' : '#3DC1D0',
+                            'lineWidth' : 3
+                                }}
                     ]
                 }
             }],

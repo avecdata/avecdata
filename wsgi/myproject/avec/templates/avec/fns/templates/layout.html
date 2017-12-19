@@ -55,9 +55,9 @@
             <hr />
             <h3>Média e Alta Complexibilidade</h3>
         </div>
-
-        <h4 class="d-md-none d-lg-block">{{cid.nm_municipio}}</h4>
         {% for ent in entidade %}
+        <h4 class="d-md-none d-lg-block">{{cid.nm_municipio}}/{{ent.sg_uf}}</h4>
+
         <span class="rounded-labels label-pref d-block d-md-none d-lg-block">Pref. {{ent.nm_prefeito}}</span>
         <span class="rounded-labels label-sec d-block d-md-none d-lg-block">Sec. {{ent.nm_secretario}}</span>
         {% endfor %}
