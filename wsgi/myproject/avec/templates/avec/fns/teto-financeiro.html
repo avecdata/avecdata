@@ -61,7 +61,7 @@
                 <div class="grid-boxes">
 
                     <div class="box">
-                        <a href="{% url 'teto_producao' cnpj=ent.cpf_cnpj %}" class="btn-box">
+                        <a href="{% url 'teto_producao' cnpj=ent.cpf_cnpj %}?mes_producao={{max_producao}}" class="btn-box">
                             <div class="box-title d-block d-sm-none d-xl-block">
                                 <h3>Produção</h3>
                             </div>
@@ -99,7 +99,7 @@
                     </div>
 
                     <div class="box box-turc">
-                        <a href="{% url 'teto_analise' cnpj=ent.cpf_cnpj %}" class="btn-box">
+                        <a href="{% url 'teto_analise' cnpj=ent.cpf_cnpj %}?mes_producao={{max_producao}}&mes_repasse={{max_repasse}}" class="btn-box">
                             <div class="box-title d-block d-sm-none d-xl-block">
                                 <h3>Análise</h3>
                             </div>
