@@ -1303,16 +1303,27 @@ def teto_analise(request, cnpj):
                 'terms': {
                     'mes': [
                         {'total_producao': {
-                            'color' : '#3DC1D0',
+
+                            'color' : '#A5E2E9',
                             'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
                                 }},
                         {'total_repasse': {
                             'color' : '#3DC1D0',
                             'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
                                 }},
                         {'analise': {
-                            'color' : '#3DC1D0',
-                            'lineWidth' : 3
+                            'color' : '#2D8D98',
+                            'lineWidth' : 3,
+                            'marker': {
+                                'symbol': 'square'
+                            }
+
                                 }}
                     ]
                 }
@@ -1322,7 +1333,8 @@ def teto_analise(request, cnpj):
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
+                        'fontFamily': 'Lato',
+                        'fontWeight' : 400,
                     }
                 },
                 'tooltip': {
