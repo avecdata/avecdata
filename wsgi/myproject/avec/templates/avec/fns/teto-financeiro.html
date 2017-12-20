@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="box">
-                        <a href="{% url 'teto_pagamento' cnpj=ent.cpf_cnpj %}" class="btn-box">
+                        <a href="{% url 'teto_pagamento' cnpj=ent.cpf_cnpj %}?mes_repasse={{max_repasse}}" class="btn-box">
                             <div class="box-title d-block d-sm-none d-xl-block">
                                 <h3>Repasses SUS</h3>
                             </div>

@@ -22,6 +22,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from avec import utils
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Max
 
 from chartit import DataPool, Chart
 from .decorators import add_source_code_and_doc
@@ -914,7 +915,13 @@ def pgf(request, cd_municipio):
                 },
                 'terms': {
                     'ano': [
-                        'numero'
+                        {'numero': {
+                            'color' : '#2D8D98',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }}
                     ]
                 }
             }],
@@ -923,7 +930,6 @@ def pgf(request, cd_municipio):
                     'text': '1994 À 2015',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
                     }
                 },
 
@@ -944,10 +950,13 @@ def pgf(request, cd_municipio):
 
 def teto(request, cnpj):
     int_cnpj = s = str(int(cnpj))
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
-    return render(request, 'avec/fns/teto-financeiro.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade})
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
+    return render(request, 'avec/fns/teto-financeiro.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao})
 
 def teto_producao(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -957,6 +966,8 @@ def teto_producao(request, cnpj):
     grupo_ambulatorial = pgf_acao_datasus.objects.filter(id__in=acao).filter(amb_hosp='Ambulatorial').distinct('grupo')
     acao_filter = AcaoFilterDatasus(request.GET, queryset=acao)
 
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
     view_ambulatorial = v_pgf_ambulatorial.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade')
     view_hospitalar = v_pgf_hospitalar.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade')
     view_total = v_pgf_total.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade')
@@ -1006,8 +1017,21 @@ def teto_producao(request, cnpj):
                 },
                 'terms': {
                     'mes': [
-                        'estadual_plena',
-                        'pacto_gestao'
+                        {'estadual_plena': {
+
+                            'color' : '#A5E2E9',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }},
+                        {'pacto_gestao': {
+                            'color' : '#3DC1D0',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }}
                     ]
                 }
             }],
@@ -1016,7 +1040,6 @@ def teto_producao(request, cnpj):
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
                     }
                 },
                 'tooltip': {
@@ -1077,8 +1100,21 @@ def teto_producao(request, cnpj):
                 },
                 'terms': {
                     'mes': [
-                        'estadual_plena',
-                        'municipal_plena'
+                        {'estadual_plena': {
+
+                            'color' : '#A5E2E9',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }},
+                        {'municipal_plena': {
+                            'color' : '#3DC1D0',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }}
                     ]
                 }
             }],
@@ -1087,7 +1123,6 @@ def teto_producao(request, cnpj):
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
                     }
                 },
                 'tooltip': {
@@ -1147,8 +1182,15 @@ def teto_producao(request, cnpj):
                 },
                 'terms': {
                     'mes': [
-                        'total'
+                        {'total': {
+                            'color' : '#2D8D98',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }}
                     ]
+
                 }
             }],
             chart_options={
@@ -1156,7 +1198,6 @@ def teto_producao(request, cnpj):
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
                     }
                 },
                 'tooltip': {
@@ -1175,19 +1216,22 @@ def teto_producao(request, cnpj):
             }
     )
 
-    return render(request, 'avec/fns/teto_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial, 'chart_list': [ambulatorial, hospitalar, total] })
+    return render(request, 'avec/fns/teto_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial, 'chart_list': [ambulatorial, hospitalar, total], 'max_repasse' : max_repasse, 'max_producao' : max_producao })
 
 def teto_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
-
     acao_filter = AcaoFilter(request.GET, queryset=acao)
 
     view_total = v_pgf_repasse_teto.objects.filter(cnpj=cnpj)
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
+
 
     ds_total = DataPool(
             series=[{
@@ -1230,7 +1274,14 @@ def teto_pagamento(request, cnpj):
                 },
                 'terms': {
                     'mes': [
-                        'total'
+                        {'total': {
+
+                            'color' : '#2D8D98',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }}
                     ]
                 }
             }],
@@ -1239,7 +1290,6 @@ def teto_pagamento(request, cnpj):
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
                     }
                 },
                 'tooltip': {
@@ -1258,7 +1308,7 @@ def teto_pagamento(request, cnpj):
             }
     )
 
-    return render(request, 'avec/fns/teto_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade, 'chart_list': [total] } )
+    return render(request, 'avec/fns/teto_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade, 'chart_list': [total], 'max_repasse' : max_repasse, 'max_producao' : max_producao } )
 
 def teto_analise(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -1267,6 +1317,8 @@ def teto_analise(request, cnpj):
     acao_pagamento = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).order_by('mes')
     datasus_filter = AcaoFilterDatasus(request.GET, queryset=acao_datasus)
     pagamento_filter = AcaoFilter(request.GET, queryset=acao_pagamento)
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(acao_num__in=["33403","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
 
     view_total = v_pgf_analise_teto.objects.filter(cd_municipio=cd_municipio)
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
@@ -1332,7 +1384,7 @@ def teto_analise(request, cnpj):
                 'title': {
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
-                        'fontSize': '14px',                        
+                        'fontSize': '14px',
                     }
                 },
                 'tooltip': {
@@ -1351,14 +1403,18 @@ def teto_analise(request, cnpj):
             }
     )
 
-    return render(request, 'avec/fns/teto_analise.html', {'int_cnpj' : int_cnpj,'acao_datasus': acao_datasus, 'acao_pagamento': acao_pagamento, 'cidade' : cidade, 'entidade' : entidade, 'pagamento_filter' : pagamento_filter, 'datasus_filter' : datasus_filter,'entidade' : entidade, 'chart_list': [total]  } )
+    return render(request, 'avec/fns/teto_analise.html', {'int_cnpj' : int_cnpj,'acao_datasus': acao_datasus, 'acao_pagamento': acao_pagamento, 'cidade' : cidade, 'entidade' : entidade, 'pagamento_filter' : pagamento_filter, 'datasus_filter' : datasus_filter,'entidade' : entidade, 'chart_list': [total] , 'max_repasse' : max_repasse, 'max_producao' : max_producao } )
 
 def faec(request, cnpj):
     int_cnpj = s = str(int(cnpj))
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
-    return render(request, 'avec/fns/faec.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade})
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').aggregate(Max('mes'))['mes__max']
+
+    return render(request, 'avec/fns/faec.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao})
 
 def faec_producao(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -1367,6 +1423,9 @@ def faec_producao(request, cnpj):
     grupo_hospitalar = pgf_acao_datasus.objects.filter(id__in=acao).filter(amb_hosp='Hospitalar').distinct('grupo')
     grupo_ambulatorial = pgf_acao_datasus.objects.filter(id__in=acao).filter(amb_hosp='Ambulatorial').distinct('grupo')
     acao_filter = AcaoFilterDatasus(request.GET, queryset=acao)
+
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').aggregate(Max('mes'))['mes__max']
 
     view_ambulatorial = v_pgf_ambulatorial.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)')
     view_hospitalar = v_pgf_hospitalar.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)')
@@ -1418,8 +1477,21 @@ def faec_producao(request, cnpj):
                 },
                 'terms': {
                     'mes': [
-                        'estadual_plena',
-                        'pacto_gestao'
+                        {'estadual_plena': {
+
+                            'color' : '#A5E2E9',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }},
+                        {'pacto_gestao': {
+                            'color' : '#3DC1D0',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }}
                     ]
                 }
             }],
@@ -1428,7 +1500,6 @@ def faec_producao(request, cnpj):
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
                     }
                 },
                 'tooltip': {
@@ -1489,9 +1560,23 @@ def faec_producao(request, cnpj):
                 },
                 'terms': {
                     'mes': [
-                        'estadual_plena',
-                        'municipal_plena'
+                        {'estadual_plena': {
+
+                            'color' : '#A5E2E9',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }},
+                        {'municipal_plena': {
+                            'color' : '#3DC1D0',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }}
                     ]
+
                 }
             }],
             chart_options={
@@ -1499,7 +1584,6 @@ def faec_producao(request, cnpj):
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
                     }
                 },
                 'tooltip': {
@@ -1559,7 +1643,13 @@ def faec_producao(request, cnpj):
                 },
                 'terms': {
                     'mes': [
-                        'total'
+                        {'total': {
+                            'color' : '#2D8D98',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }}
                     ]
                 }
             }],
@@ -1568,7 +1658,6 @@ def faec_producao(request, cnpj):
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
                     }
                 },
                 'tooltip': {
@@ -1587,19 +1676,21 @@ def faec_producao(request, cnpj):
             }
     )
 
-    return render(request, 'avec/fns/faec_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial, 'chart_list': [ambulatorial, hospitalar, total] })
+    return render(request, 'avec/fns/faec_producao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial, 'chart_list': [ambulatorial, hospitalar, total], 'max_repasse' : max_repasse, 'max_producao' : max_producao })
 
 def faec_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
-
     acao_filter  = AcaoFilter(request.GET, queryset=acao)
 
     view_total = v_pgf_repasse_faec.objects.filter(cnpj=cnpj)
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').aggregate(Max('mes'))['mes__max']
 
     ds_total = DataPool(
             series=[{
@@ -1642,7 +1733,13 @@ def faec_pagamento(request, cnpj):
                 },
                 'terms': {
                     'mes': [
-                        'total'
+                        {'total': {
+                            'color' : '#2D8D98',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }}
                     ]
                 }
             }],
@@ -1651,7 +1748,6 @@ def faec_pagamento(request, cnpj):
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
                     }
                 },
                 'tooltip': {
@@ -1670,7 +1766,7 @@ def faec_pagamento(request, cnpj):
             }
     )
 
-    return render(request, 'avec/fns/faec_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade, sum : 'sum', 'chart_list': [total] } )
+    return render(request, 'avec/fns/faec_pagamento.html', {'int_cnpj' : int_cnpj,'acao': acao, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'filter' : acao_filter,'entidade' : entidade, sum : 'sum', 'chart_list': [total], 'max_repasse' : max_repasse, 'max_producao' : max_producao } )
 
 def faec_analise(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -1679,6 +1775,9 @@ def faec_analise(request, cnpj):
     acao_pagamento = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941"]).order_by('mes')
     datasus_filter = AcaoFilterDatasus(request.GET, queryset=acao_datasus)
     pagamento_filter = AcaoFilter(request.GET, queryset=acao_pagamento)
+
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').aggregate(Max('mes'))['mes__max']
 
     view_total = v_pgf_analise_faec.objects.filter(cd_municipio=cd_municipio)
     entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
@@ -1728,9 +1827,29 @@ def faec_analise(request, cnpj):
                 },
                 'terms': {
                     'mes': [
-                        'total_repasse',
-                        'total_producao',
-                        'analise'
+                        {'total_producao': {
+
+                            'color' : '#A5E2E9',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }},
+                        {'total_repasse': {
+                            'color' : '#3DC1D0',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }},
+                        {'analise': {
+                            'color' : '#2D8D98',
+                            'lineWidth' : 3,
+                            'marker': {
+                                'symbol': 'square'
+                            }
+
+                                }}
                     ]
                 }
             }],
@@ -1739,7 +1858,6 @@ def faec_analise(request, cnpj):
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
                         'fontSize': '14px',
-                        'fontFamily': 'Lato sans-serif'
                     }
                 },
                 'tooltip': {
@@ -1758,7 +1876,7 @@ def faec_analise(request, cnpj):
             }
     )
 
-    return render(request, 'avec/fns/faec_analise.html', {'int_cnpj' : int_cnpj,'acao_datasus': acao_datasus, 'acao_pagamento': acao_pagamento, 'cidade' : cidade, 'entidade' : entidade, 'pagamento_filter' : pagamento_filter, 'datasus_filter' : datasus_filter,'entidade' : entidade, 'chart_list': [total]  })
+    return render(request, 'avec/fns/faec_analise.html', {'int_cnpj' : int_cnpj,'acao_datasus': acao_datasus, 'acao_pagamento': acao_pagamento, 'cidade' : cidade, 'entidade' : entidade, 'pagamento_filter' : pagamento_filter, 'datasus_filter' : datasus_filter,'entidade' : entidade, 'chart_list': [total], 'max_repasse' : max_repasse, 'max_producao' : max_producao  })
 
 def ceo(request, cnpj):
     int_cnpj = s = str(int(cnpj))

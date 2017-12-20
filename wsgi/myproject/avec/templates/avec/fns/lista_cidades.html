@@ -1,76 +1,42 @@
-{% extends 'avec/layout_interno.html' %}
+{% extends "avec/fns/templates/layout_lista.html" %}
+
 {% load staticfiles %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
-    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-    <script src="https://www.amcharts.com/lib/3/gauge.js"></script>
-    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<div id="page-wrapper-main">
 
-    <link rel="stylesheet" type="text/css" media="all" href="{% static 'css/autocomplete.css' %}">
-    <link rel="stylesheet" href="{% static 'avecv2.0-template/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/avec2-style.css' %}">
-<style>
-#autocomplete2 {
-    margin: 17px 0px 17px 17px;
-    font-size: 16px;
-    width: 97%;
-    border: none;
-}
-</style>
+  <div class="wrapper-content">
+      <div class="row" style="padding-bottom: 20px;">
+          <div class="col-12">
 
+              <div class="grid-boxes">
 
-    <!-- MAIN CONTENT
-    ================================================== -->
-    <div class="container">
+                  <div class="box2 box-dados">
+                      <div class="box-icon">
+                          <i class="icon ion-ios-cube"></i>
+                      </div>
+                      <div class="box-title d-block d-sm-none d-xl-block">
+                          <h3>Bem vindo ao Painel de Gestão Financeira</h3>
+                      </div>
 
-      <div class="row">
-        <div class="col-sm-3">
-          <div  data-spy="affix" style="background-color : #3e4c5b!important; " >
-            <div class="resume__profile" style="color : #ffffff; background-color : #3e4c5b!important;" >
-
-              <h3 class="profile__section">
-                Painel de Gestão Financeira
-              </h3>
-              <h4 class="profile__section" style="color : #2d9ba6;">
-                Média e Alta </br> Complexidade
-              </h4>
+                      <div class="box-content">
+                        <form class="avec-search-results">
+                          <div class="input-group stylish-input-group">
+                            <input type="text" id="autocomplete2" class="form-control avec-auto-complete" placeholder="Encontre a cidade">
+                          </div>
+                          <button type="submit" class="btn-avec-success btn-search-data">
+                            <i class="fa">Buscar</i>
+                          </button>
+                        </form>
+                      </div>
+                  </div>
+              </div>
           </div>
-          </div>
-
-        </div>
-        <div class="col-sm-8">
-
-          <div class="row">
-            <div class="col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
-              <form class="avec-search-results">
-                <div class="input-group stylish-input-group">
-                  <input type="text" id="autocomplete2" class="form-control avec-auto-complete" placeholder="Encontre a cidade">
-                  <span class="input-group-addon avec-input-group-addon">
-                    <button type="submit" class="btn-avec-success btn-search-data">
-                      <i class="fa fa-search"></i>
-                    </button>
-                  </span>
-                </div>
-              </form>
-            </div>
-          </div>
-
-
-        </div>
-      </div> <!-- / .row -->
-    </div> <!-- / .container -->
-
-
-
+      </div>
+</div>
 {% endblock %}
-
-  <!-- Google Tag Manager -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDBL3P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDBL3P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>

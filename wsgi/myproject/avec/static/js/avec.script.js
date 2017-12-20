@@ -4,8 +4,8 @@
 
 $(document).ready(function () {
 
-	//window.url_config = 'http://localhost:8080';
-	window.url_config = 'http://www.avecdata.com';
+	window.url_config = 'http://localhost:8080';
+	//window.url_config = 'http://www.avecdata.com';
 	//window.url_config = 'http://ec2-34-211-223-88.us-west-2.compute.amazonaws.com';
 
 	$('li.moment-data__item').mouseover(function() {

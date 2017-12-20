@@ -20,7 +20,7 @@
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a href="#" class="nav-link d-lg-flex text-center text-lg-left">
+                    <a href="{% url 'faec' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
                         <i class="icons icon-notebook"></i>
                         <span class="d-none d-lg-block">FAEC</span>
                     </a>
@@ -82,13 +82,13 @@
                 <div class="submenu">
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item">
-          <a class="nav-link " href="{% url 'faec_producao' cnpj=ent.cpf_cnpj %}">Produção</a>
+          <a class="nav-link " href="{% url 'faec_producao' cnpj=ent.cpf_cnpj %}?mes_producao={{max_producao}}">Produção</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link " href="{% url 'faec_pagamento' cnpj=ent.cpf_cnpj %}">Repasses SUS</a>
+          <a class="nav-link " href="{% url 'faec_pagamento' cnpj=ent.cpf_cnpj %}?mes_repasse={{max_repasse}}">Repasses SUS</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link active" href="{% url 'faec_analise' cnpj=ent.cpf_cnpj %}">Análise</a>
+          <a class="nav-link active" href="{% url 'faec_analise' cnpj=ent.cpf_cnpj %}?mes_producao={{max_producao}}&mes_repasse={{max_repasse}}">Análise</a>
       </li>
     </ul>
 </div>
