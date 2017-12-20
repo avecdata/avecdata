@@ -1332,9 +1332,7 @@ def teto_analise(request, cnpj):
                 'title': {
                     'text': 'Janeiro a Setembro/2017',
                     'style': {
-                        'fontSize': '14px',
-                        'fontFamily': 'Lato',
-                        'fontWeight' : 400,
+                        'fontSize': '14px',                        
                     }
                 },
                 'tooltip': {

@@ -13039,6 +13039,9 @@ body {
   background-color: #f7fafd;
   font-family: 'Lato', sans-serif; }
 
+.highcharts-title {
+  font-family: 'Lato', sans-serif;|important;
+}
 a:hover {
   text-decoration: none; }
 
