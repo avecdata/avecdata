@@ -1037,7 +1037,7 @@ def teto_producao(request, cnpj):
             }],
             chart_options={
                 'title': {
-                    'text': 'Janeiro a Setembro/2017',
+                    'text': 'Janeiro a Outubro/2017',
                     'style': {
                         'fontSize': '14px',
                     }
@@ -1120,7 +1120,7 @@ def teto_producao(request, cnpj):
             }],
             chart_options={
                 'title': {
-                    'text': 'Janeiro a Setembro/2017',
+                    'text': 'Janeiro a Outubro/2017',
                     'style': {
                         'fontSize': '14px',
                     }
@@ -1195,7 +1195,7 @@ def teto_producao(request, cnpj):
             }],
             chart_options={
                 'title': {
-                    'text': 'Janeiro a Setembro/2017',
+                    'text': 'Janeiro a Outubro/2017',
                     'style': {
                         'fontSize': '14px',
                     }
@@ -1287,7 +1287,7 @@ def teto_pagamento(request, cnpj):
             }],
             chart_options={
                 'title': {
-                    'text': 'Janeiro a Setembro/2017',
+                    'text': 'Janeiro a Dezembro/2017',
                     'style': {
                         'fontSize': '14px',
                     }
@@ -1382,7 +1382,7 @@ def teto_analise(request, cnpj):
             }],
             chart_options={
                 'title': {
-                    'text': 'Janeiro a Setembro/2017',
+                    'text': 'Janeiro a Outubro/2017',
                     'style': {
                         'fontSize': '14px',
                     }
@@ -1497,7 +1497,7 @@ def faec_producao(request, cnpj):
             }],
             chart_options={
                 'title': {
-                    'text': 'Janeiro a Setembro/2017',
+                    'text': 'Janeiro a Outubro/2017',
                     'style': {
                         'fontSize': '14px',
                     }
@@ -1581,7 +1581,7 @@ def faec_producao(request, cnpj):
             }],
             chart_options={
                 'title': {
-                    'text': 'Janeiro a Setembro/2017',
+                    'text': 'Janeiro a Outubro/2017',
                     'style': {
                         'fontSize': '14px',
                     }
@@ -1655,7 +1655,7 @@ def faec_producao(request, cnpj):
             }],
             chart_options={
                 'title': {
-                    'text': 'Janeiro a Setembro/2017',
+                    'text': 'Janeiro a Outubro/2017',
                     'style': {
                         'fontSize': '14px',
                     }
@@ -1745,7 +1745,7 @@ def faec_pagamento(request, cnpj):
             }],
             chart_options={
                 'title': {
-                    'text': 'Janeiro a Setembro/2017',
+                    'text': 'Janeiro a Dezembro/2017',
                     'style': {
                         'fontSize': '14px',
                     }
@@ -1855,7 +1855,7 @@ def faec_analise(request, cnpj):
             }],
             chart_options={
                 'title': {
-                    'text': 'Janeiro a Setembro/2017',
+                    'text': 'Janeiro a Outubro/2017',
                     'style': {
                         'fontSize': '14px',
                     }
