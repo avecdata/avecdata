@@ -330,6 +330,15 @@
                     {% for tabs in subj_det.view_tabsimple_set.all %}
                     {% with forloop.counter as count_tabs %}
                     <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                          <div class=row>
+                          <div class="col-sm-4">
+                            <nav>
+                              <ul class="pager">
+                                <li class="previous"><a href="javascript:showChart('chartdiv{{subj.title}}', 'chartdiv{{theme.title}}');"><span aria-hidden="true">←</span> Older</a></li>
+                              </ul>
+                            </nav>
+                          </div>
+                          </div>
                       <div class="chart-wrapper chart-wrapper-avec chart-wrapper-avec-hemo">
                         {{theme.title}} / {{subj.title}} / <strong>{{subj_det.title}}</strong><hr>
 
@@ -443,6 +452,15 @@
                   {% for tabs in subj_det.view_tabsimple_set.all %}
                   {% with forloop.counter as count_tabs %}
                   <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                        <div class=row>
+                        <div class="col-sm-4">
+                          <nav>
+                            <ul class="pager">
+                              <li class="previous"><a href="javascript:showChart('chartdiv{{subj.title}}', 'chartdiv{{theme.title}}');"><span aria-hidden="true">←</span> Older</a></li>
+                            </ul>
+                          </nav>
+                        </div>
+                        </div>
                     <div class="chart-wrapper chart-wrapper-avec chart-wrapper-avec-hemo">
                       {{theme.title}} / {{subj.title}} / <strong>{{subj_det.title}}</strong><hr>
 
