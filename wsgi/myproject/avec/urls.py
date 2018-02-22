@@ -38,7 +38,6 @@ urlpatterns = [
     url(r'^check_username/$', validators.check_username),
     url(r'^nescon/$', views.nescon, name='nescon'),
     url(r'^client/(?P<client>.+)/$', views.client, name='client'),
-    url(r'^client2/(?P<client>.+)/$', views.client2, name='client2'),
     url(r'^padrao2/$', views.padrao2, name='padrao2'),
     url(r'^paineis_detail/(?P<pk>[0-9]+)/$', views.paineis_detail, name='paineis_detail'),
     url(r'^comparaestados/$', views.comparaestados, name='comparaestados'),
