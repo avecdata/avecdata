@@ -11466,3 +11466,11 @@ html {
   padding-bottom: 20px;
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+.pager > li > a:hover, .pager > li > span:hover, .pager > li > a:focus, .pager > li > span:focus {
+    -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.0);
+    box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.0);
+    background-color: #EEEEEE;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    color: #333333; !important;
+}
