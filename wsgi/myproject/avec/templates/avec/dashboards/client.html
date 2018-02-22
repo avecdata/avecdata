@@ -108,12 +108,10 @@
 }
 
 .panel-body>a:focus, .panel-body>a:hover {
-    background-color: #f5f5f5;!important
     color: #ffffff;!important
 }
 
 .panel-body:focus, .panel-body:hover {
-    background-color: #f5f5f5;!important
     color: #ffffff;!important
 }
 
@@ -287,10 +285,9 @@
 
                     </div>
                   </div>
-                  {% endfor %}
-
-        {% endfor %}
+      {% endfor %}
     {% endfor %}
+  {% endfor %}
 {% endfor %}
 
 
@@ -299,263 +296,133 @@
 <div class="container" >
   <div class="tab-content">
 
-  		  {% for theme in view_themes %}
+  		  {% for theme in view_themes %}<!-- For para menu horizontal -->
 				{% with forloop.counter as count_theme %}
-					{% if  forloop.counter  == 1 %}
-					<div id="home" class="tab-pane fade in active avec-panel">
 
-						<div class="col-sm-3" style="padding-left:0px;">
+  					{% if  forloop.counter  == 1 %}<!--inicio IF para DIV dos menus horizontais-->
+  					<div id="home" class="tab-pane fade in active avec-panel">
+            {% else%}
+            <div id="menu{{count_theme}}" class="tab-pane fade avec-panel">
+            {% endif %}<!-- fim IF para DIV dos menus horizontais-->
 
-
-	              <div class="panel panel-default">
-	                <div class="panel-heading">
-                    Categorias
-	                </div>
-                  <div class="panel-body">
-                    <ul>
-                        {% for subj in theme.view_subject_set.all|dictsort:"published_date" %}
-                            <li><a class="avec-a fill-div" style="color: #2E9BA6;!important" href="javascript:showChart('chartdiv{{subj.title}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj.title}} ({{subj.view_subject_detail_set.all|length}})</a></li>
-
-                        {% endfor %}
-                    </ul>
-                  </div>
-	              </div>
-
-
-						</div>
-						<div class="col-sm-9">
-							<div class="banner-section" id="img-container">    </div>
-									{% for subj in theme.view_subject_set.all %}
-                  {% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
-                    {% for tabs in subj_det.view_tabsimple_set.all %}
-                    {% with forloop.counter as count_tabs %}
-                    <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
-                          <div class=row>
-                          <div class="col-sm-4">
-                            <nav>
-                              <ul class="pager">
-                                <li class="previous"><a href="javascript:showChart('chartdiv{{subj.title}}', 'chartdiv{{theme.title}}');"><span aria-hidden="true">←</span> Older</a></li>
-                              </ul>
-                            </nav>
-                          </div>
-                          </div>
-                      <div class="chart-wrapper chart-wrapper-avec chart-wrapper-avec-hemo">
-                        {{theme.title}} / {{subj.title}} / <strong>{{subj_det.title}}</strong><hr>
-
-
-                      <div id="chartdiv{{subj_det.pk}}" class="chartdiv-in" >
-                        <div class="chart-stage">
-                          <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
-                        </div>
-
-                      </div>
-                      <div class="chart-notes" style="height: 40px;">
-                        <div>
-                          <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Informações"></img></a>
-                          <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Informações</span>
-                        </div>
-                      </div>
-                      </div>
+  						<div class="col-sm-3" style="padding-left:0px;"> <!--inicio DIV menu vertical-->
+  	              <div class="panel panel-default">
+  	                <div class="panel-heading">
+                      Categorias
+  	                </div>
+                    <div class="panel-body">
+                      <ul>
+                          {% for subj in theme.view_subject_set.all|dictsort:"published_date" %}<!-- inicio FOR para itens vertical-->
+                              <li><a class="avec-a fill-div" href="javascript:showChart('chartdiv{{subj.title}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj.title}} ({{subj.view_subject_detail_set.all|length}})</a></li>
+                          {% endfor %}<!-- fim FOR para itens vertical-->
+                      </ul>
                     </div>
+  	              </div>
+  						</div> <!--fim DIV menu vertical-->
 
-                    {% endwith %}
-                    {% endfor %}
-
-                  {% endfor %}
-
-                  <div id="chartdiv{{subj.title}}" class="chartdiv" style="display: none;">
-                    <div class="col-sm-12">
-                      <div class="row">
-                          <div class="col-sm-12">
-                            <h3 class="headline avec-headline">
-                              <span>{{subj.title}}</span>
-                            </h3>
+  						<div class="col-sm-9"><!-- DIV principal para os graficos e links para eles-->
+  							<div class="banner-section" id="img-container"> </div>
+  									{% for subj in theme.view_subject_set.all %} <!-- FOR 01 para DIVs do painel central-->
+                    {% with forloop.counter as count_subj %} <!-- inicio WITH 01 para DIVs do painel central-->
+                        {% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %} <!-- Cria DIV dos graficos-->
+                        <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
+                              <div class=row>
+                                <div class="col-sm-4">
+                                  <nav>
+                                    <ul class="pager">
+                                      <li class="previous"><a href="javascript:showChart('chartdiv{{subj.title}}', 'chartdiv{{theme.title}}');"><span aria-hidden="true">←</span> Voltar</a></li>
+                                    </ul>
+                                  </nav>
+                                </div>
+                              </div>
+                          <div class="chart-wrapper chart-wrapper-avec chart-wrapper-avec-hemo">
+                            {{theme.title}} / {{subj.title}} / <strong>{{subj_det.title}}</strong><hr>
+                              {% for tabs in subj_det.view_tabsimple_set.all %}
+                                        <div id="chartdiv{{subj_det.pk}}" class="chartdiv-in" >
+                                          <div class="chart-stage">
+                                            <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
+                                          </div>
+                                        </div>
+                                        <div class="chart-notes" style="height: 40px;">
+                                          <div>
+                                            <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Informações"></img></a>
+                                            <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Informações</span>
+                                          </div>
+                                        </div>
+                                {% endfor %}
+                            </div>
                           </div>
-                      </div>
-                      {% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
-                                    {% if forloop.counter == 7 %}
-                                      <div id="vermaisP" class="collapse">
-                                    {% endif %}
-                                      {% if forloop.counter|divisibleby:'3' %}
-                                        <div class="row">
-                                      {% endif %}
-                                            <div class="col-sm-4">
 
-                                              <div class="home-features__item">
-                                                <i class="fa fa-cubes fa-avec"></i>
-                                                <div class="home-features-item__content">
-                                                  <h4><a href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');">{{ subj_det.title }}</a></h4>
-                                                  <p>{{ dash.text }}</p>
+                          {% endfor %} <!-- fim Cria DIV dos graficos-->
+
+                    <!--INICIO cria DIV com chamada dos graficos-->
+                    <div id="chartdiv{{subj.title}}" class="chartdiv" style="display: none;">
+                      <div class="col-sm-12">
+                          <div class="row">
+                              <div class="col-sm-12">
+                                <h3 class="headline avec-headline">
+                                  <span>{{subj.title}}</span>
+                                </h3>
+                              </div>
+                          </div>
+                        {% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}<!--inicio FOR com itens de chamada-->
+                                        {% if forloop.counter == 7 %}
+                                          <div id="vermaishome{{ count_subj }}" class="collapse">
+                                        {% endif %}
+                                        {% if forloop.counter|divisibleby:'3' %}
+                                          <div class="row">
+                                        {% endif %}
+                                              <div class="col-sm-4">
+                                                <div class="home-features__item">
+                                                  <i class="fa fa-cubes fa-avec"></i>
+                                                  <div class="home-features-item__content">
+                                                    <h4><a href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');">{{ subj_det.title }}</a></h4>
+                                                    <p>{{ dash.text }}</p>
+                                                  </div>
                                                 </div>
                                               </div>
-
-                                            </div>
-                                      {% if forloop.counter|divisibleby:'3' %}
-                                        </div> <!-- / .row -->
-                                      {% endif %}
-                                      {% if forloop.last and forloop.counter >= 7%}
-
-                                    </div> <!-- / .row demo collapse-->
-                                    <div class="row">
-                                      <div class="col-sm-12">
-                                        <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermaisP"> <span ></span>Ver Mais</button>
-                                      </div>
-                                    </div>
-                                      {% endif %}
-
-                        <!--<div class="panel-body">
-                          <a class="avec-a fill-div" style="color: #2E9BA6;!important" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
-                        </div>-->
-                      {% endfor %}
-                    </div>
-                  </div>
-
-
-									{% endfor %}
-
-                  <div id="chartdiv{{theme.title}}" class="chartdiv" style="display: block;">
-                    {% for client in view_client%}
-
-                    <div class="col-sm-9">
-                      <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important; opacity: 0.3;">
-                    </div>
-                    <div class="col-sm-3"></div>
-                    {% endfor %}
-
-                  </div>
-						</div>
-					</div>
-						{% else %}
-						<div id="menu{{count_theme}}" class="tab-pane fade avec-panel">
-
-							<div class="col-sm-3" style="padding-left:0px;">
-
-                <div class="panel panel-default">
-	                <div class="panel-heading">
-                    Categorias
-	                </div>
-                  <div class="panel-body">
-                    <ul>
-                        {% for subj in theme.view_subject_set.all|dictsort:"published_date" %}
-                            <li><a class="avec-a fill-div" style="color: #2E9BA6;!important" href="javascript:showChart('chartdiv{{subj.title}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj.title}} ({{subj.view_subject_detail_set.all|length}})</a></li>
-
-                        {% endfor %}
-                    </ul>
-                  </div>
-	              </div>
-
-							</div>
-							<div class="col-sm-9">
-								<div class="banner-section" id="img-container2">    </div>
-                {% for subj in theme.view_subject_set.all %}
-                {% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
-                  {% for tabs in subj_det.view_tabsimple_set.all %}
-                  {% with forloop.counter as count_tabs %}
-                  <div id="chartdiv{{subj_det.title}}{{subj_det.pk}}" class="chartdiv" style="display: none;">
-                        <div class=row>
-                        <div class="col-sm-4">
-                          <nav>
-                            <ul class="pager">
-                              <li class="previous"><a href="javascript:showChart('chartdiv{{subj.title}}', 'chartdiv{{theme.title}}');"><span aria-hidden="true">←</span> Older</a></li>
-                            </ul>
-                          </nav>
-                        </div>
-                        </div>
-                    <div class="chart-wrapper chart-wrapper-avec chart-wrapper-avec-hemo">
-                      {{theme.title}} / {{subj.title}} / <strong>{{subj_det.title}}</strong><hr>
-
-
-                    <div id="chartdiv{{subj_det.pk}}" class="chartdiv-in" >
-                      <div class="chart-stage">
-                        <p>{% autoescape on %}{{ tabs.html|safe }}{% endautoescape %} </p>
-                      </div>
-
-                    </div>
-                    <div class="chart-notes" style="height: 40px;">
-                      <div>
-                        <a style="vertical-align:middle height: 40px; width:40px;" data-toggle="modal" data-target="#myModal{{subj_det.pk}}"><img src="{% static 'img/Info.svg' %}" alt="Informações"></img></a>
-                        <span style="vertical-align:middle; padding-left: 5px; font-size: 13px; color: #3e4c5b; font-family: 'Lato', sans-serif; font-weight: 300;">Informações</span>
-                      </div>
-                    </div>
-                    </div>
-                  </div>
-
-                  {% endwith %}
-                  {% endfor %}
-
-                {% endfor %}
-
-                <div id="chartdiv{{subj.title}}" class="chartdiv" style="display: none;">
-                  <div class="col-sm-12">
-                    <div class="row">
-                        <div class="col-sm-12">
-                          <h3 class="headline avec-headline">
-                            <span>{{subj.title}}</span>
-                          </h3>
-                        </div>
-                    </div>
-                    {% for subj_det in subj.view_subject_detail_set.all|dictsortreversed:"published_date" %}
-                                  {% if forloop.counter == 7 %}
-                                    <div id="vermaisP" class="collapse">
-                                  {% endif %}
                                     {% if forloop.counter|divisibleby:'3' %}
-                                      <div class="row">
-                                    {% endif %}
-                                          <div class="col-sm-4">
+                                          </div>
+                                        {% endif %}
 
-                                            <div class="home-features__item">
-                                              <i class="fa fa-cubes fa-avec"></i>
-                                              <div class="home-features-item__content">
-                                                <h4><a href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');">{{ subj_det.title }}</a></h4>
-                                                <p>{{ dash.text }}</p>
+                                        {% if forloop.last and forloop.counter >= 7%}
+                                            </div>
+                                            <div class="row">
+                                              <div class="col-sm-12">
+                                                <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermaishome{{ count_subj }}"> <span ></span>Ver Mais</button>
                                               </div>
                                             </div>
-
-                                          </div>
-                                    {% if forloop.counter|divisibleby:'3' %}
-                                      </div> <!-- / .row -->
-                                    {% endif %}
-                                    {% if forloop.last and forloop.counter >= 7%}
-
-                                  </div> <!-- / .row demo collapse-->
-                                  <div class="row">
-                                    <div class="col-sm-12">
-                                      <button type="button" class="btn btn-info avec-btn" data-toggle="collapse" data-target="#vermaisP"> <span ></span>Ver Mais</button>
-                                    </div>
-                                  </div>
-                                    {% endif %}
-
-                      <!--<div class="panel-body">
-                        <a class="avec-a fill-div" style="color: #2E9BA6;!important" href="javascript:showChart('chartdiv{{subj_det.title}}{{subj_det.pk}}', 'chartdiv{{theme.title}}');" style="font-weight:normal;">{{subj_det.title}}</a>
-                      </div>-->
-                    {% endfor %}
-                  </div>
-                </div>
+                                        {% endif %}
+                        {% endfor %}<!--fim FOR com itens de chamada-->
+                        {% endwith %} <!-- fim WITH 01 para DIVs do painel central-->
+                      </div>
+                    </div> <!--FIM cria DIV com chamada dos graficos-->
 
 
-                {% endfor %}
+  									{% endfor %}  <!-- fim FOR 01 para DIVs do painel central-->
 
-                <div id="chartdiv{{theme.title}}" class="chartdiv" style="display: block;">
-                  {% for client in view_client%}
+                    <div id="chartdiv{{theme.title}}" class="chartdiv" style="display: block;">
+                      {% for client in view_client%}
+                      <div class="col-sm-9">
+                        <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important; opacity: 0.3;">
+                      </div>
+                      <div class="col-sm-3"></div>
+                      {% endfor %}
+                    </div>
+  						</div><!-- DIV principal para os graficos e links para eles-->
 
-                  <div class="col-sm-9">
-                    <img class="img-responsive center-block avec-center-block" src="{% static 'img/'|add:client.image2 %}" alt="..." style="padding-right: 0px!important; opacity: 0.3;">
-                  </div>
-                  <div class="col-sm-3"></div>
-                  {% endfor %}
-
-                </div>
-							</div>
-						</div>
-						{% endif %}
+  					</div>
 
 				{% endwith %}
-				{% endfor %}
+    		{% endfor %}<!-- For para menu horizontal -->
+
 
   </div>
  </div>
 
 </div>
+
+
 
 
 
