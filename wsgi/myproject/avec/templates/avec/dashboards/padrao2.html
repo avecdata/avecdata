@@ -6,9 +6,9 @@
 
 {% block content %}
 
-<head> 
-<title>Leaflet Panel Layers</title> 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<head>
+<title>Leaflet Panel Layers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
 <style>
@@ -19,7 +19,7 @@
 
 .leaflet-google-layer {
     z-index: 1 !important;
-}  
+}
 
 .leaflet-panel-layers-item .leaflet-panel-layers-title {
     display: block;
@@ -27,13 +27,13 @@
     float: none;
     cursor: pointer;
     text-align: right;!important
-} 
+}
 
 .span {
     padding-right: 5px;!important
 }
 
-.leaflet-panel-layers-overlays .leaflet-panel-layers-item { 
+.leaflet-panel-layers-overlays .leaflet-panel-layers-item {
     height: 41px;!important
     width: 180px;important;
 }
@@ -68,42 +68,26 @@
 <link rel="stylesheet" href="{% static 'data/paineis/ocdf/icons.css' %}" />
 <link rel="stylesheet" href="{% static 'data/paineis/ocdf/style.css' %}" />
 
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.3.1/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.3.1/leaflet.js"></script>
+<script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+<script src="{% static 'js/leaflet/leaflet-google.js' %}"></script>
 
-<script src="http://labs.easyblog.it/maps/leaflet/dist/leaflet.js"></script>
-<script src="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.js"></script>
-
-<script src="http://labs.easyblog.it/maps/leaflet-panel-layers/src/leaflet-panel-layers.js"></script>
-
-
-<script src="http://maps.google.com/maps/api/js?v=3.27&sensor=false&key=AIzaSyC42lmrMxjPPzfASOCAVfLvHDBt6rrhaQA"></script>
-<script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
-	
-<!-- GEOJSON DATA -->
-<script type="text/javascript" src="{% static 'data/paineis/ocdf/ocdf.js' %}"></script>
-<script type="text/javascript" src="{% static 'data/paineis/ocdf/bar.js' %}"></script>
+<!-- GEOJSON DATA-->
 <script type="text/javascript" src="{% static 'data/paineis/ocdf/Credito.js' %}"></script>
 
-<script src="http://labs.easyblog.it/maps/leaflet-panel-layers/examples/data/parking.js"></script>
 
 <script>
 	var iDiv = document.createElement('div');
 
 	var h = (screen.availHeight-10)+'px';
-	
+
 	iDiv.id = 'map';
 	iDiv.className = 'custom-popup';
 	document.getElementById("container-fluid").appendChild(iDiv);
 	document.getElementById("map").style.height= h;
-  	
-var map = L.map('map', {
-		zoom: 12,
-		attributionControl: false,
-		center: L.latLng([-15.798171,-47.886622]),		          
-          
-	}),
-	osmLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 
-/*map.addLayer(osmLayer);*/
+var map = new L.Map('map', {center: new L.LatLng(-15.798171,-47.886622), zoom: 4});
 var googleLayer = new L.Google('ROADMAP');
 map.addLayer(googleLayer);
 
@@ -123,104 +107,38 @@ function featureToMarker(feature, latlng) {
 			popupAnchor: [1, -34],
 			shadowSize: [41, 41]
 		})
- 	}).bindPopup('<h2 style="white-space: normal; font-size:18px;">'+feature.properties.Ramo+'</h2>   <p >'+feature.properties.amenity+'</p>               <table class="table table-striped">       <tbody>       <tr>         <td>Presidente</td>                  <td>'+feature.properties.Presidente+'</td>       </tr>                              <tr>         <td>Cnpj</td>               <td>'+feature.properties.Cnpj+'</td>       </tr>       <tr>         <td>Endereco</td>                  <td>'+feature.properties.Endereco+'</td>       </tr> <tr>         <td>Telefone</td>                  <td>'+feature.properties.Telefone+'</td>       </tr>    </tbody>   </table>' );
-	/*("<table><tr><td>Cell 1</td><td>Cell 2</td></tr></table>");*/
-	
-/*.bindPopup('<div class="d3plus_tooltip_container" style="background-color: rgb(255, 255, 255); padding: 6px; width: 236px;">    <div class="d3plus_tooltip_header" style="position: relative; z-index: 1;">         <div class="d3plus_tooltip_icon" style="width: 50px; height: 50px; z-index: 1; background-position: 50% center; background-size: 100%; background-image: url(&quot;/static/img/icons/hs/hs_02.png&quot;); display: inline-block; margin: 0px 3px 3px 0px; background-color: rgb(255, 196, 28);"></div>         <div class="d3plus_tooltip_title" style="max-width: 163px; color: rgb(68, 68, 68); vertical-align: top; width: 170px; display: inline-block; overflow: hidden; text-overflow: ellipsis; word-wrap: break-word; z-index: 1; font-size: 18px; line-height: 20px; padding: 3px 6px;">'+feature.properties.Ramo+'</div>     </div>     <div class="d3plus_tooltip_data_container" style="overflow-y: auto; z-index: -1; max-height: 304px;">         <div class="d3plus_tooltip_data_block" style="font-size: 12px; padding: 3px 6px; position: relative; color: rgb(0, 0, 0);">             <div class="d3plus_tooltip_data_name" style="display: inline-block; width: 105px; min-height: 15px;">Ramo:</div>             <div class="d3plus_tooltip_data_value" style="display: block; position: absolute; text-align: right; top: 3px; right: 6px; width: 89px;">'+feature.properties.amenity+'</div>         </div>         <div class="d3plus_tooltip_data_title" style="font-size: 12px; font-weight: bold; padding: 6px 3px 0px;">Valores Básicos</div>         <div class="d3plus_tooltip_data_block" style="font-size: 12px; padding: 3px 6px; position: relative; color: rgb(0, 0, 0);">             <div class="d3plus_tooltip_data_name" style="display: inline-block; cursor: pointer; width: 105px; min-height: 15px;">Presidente                 <div class="d3plus_tooltip_data_help" style="background-color: rgb(204, 204, 204); border-radius: 5px; color: rgb(255, 255, 255); cursor: pointer; display: inline-block; font-size: 8px; font-weight: bold; height: 10px; margin: 3px 0px 0px 3px; padding-right: 1px; text-align: center; width: 10px; vertical-align: top;">?</div>             </div>             <div class="d3plus_tooltip_data_value" style="display: inline-flex; position: absolute; text-align: right; top: 3px; right: 6px; width: 89px;">'+feature.properties.Presidente+'</div>             <div class="d3plus_tooltip_data_desc" style="color: rgb(136, 136, 136); overflow: hidden; transition: height 0.5s; width: 85%; height: 0px;">Baseado nos Estados Produtores</div>         </div>         <div class="d3plus_tooltip_data_seperator" style="background-color: rgb(221, 221, 221); display: inline-flex; height: 1px; margin: 0px 3px;"></div>         <div class="d3plus_tooltip_data_block" style="font-size: 12px; padding: 3px 6px; position: relative; color: rgb(0, 0, 0);">             <div class="d3plus_tooltip_data_name" style="display: inline-block; width: 105px; min-height: 15px;">Cnpj</div>             <div class="d3plus_tooltip_data_value" style="display: inline-flex; position: absolute; text-align: right; top: 3px; right: 6px; width: 89px;">'+feature.properties.Cnpj+'</div>         </div>         <div class="d3plus_tooltip_data_seperator" style="background-color: rgb(221, 221, 221); display: inline-flex; height: 1px; margin: 0px 3px;"></div>         <div class="d3plus_tooltip_data_block" style="font-size: 12px; padding: 3px 6px; position: relative; color: rgb(0, 0, 0);">             <div class="d3plus_tooltip_data_name" style="display: inline-block; width: 105px; min-height: 15px;">Endereco</div>                                                    <div class="d3plus_tooltip_data_value" style="display: inline-flex; position: absolute; text-align: right; top: 3px; right: 6px; width: 89px;">'+feature.properties.Endereco+'</div>         </div>         <div class="d3plus_tooltip_data_seperator" style="background-color: rgb(221, 221, 221); display: inline-flex; height: 1px; margin: 0px 3px;"></div>         <div class="d3plus_tooltip_data_block" style="font-size: 12px; padding: 3px 6px; position: relative; color: rgb(0, 0, 0);">             <div class="d3plus_tooltip_data_name" style="display: inline-block; width: 105px; min-height: 15px;">Telefone</div>             <div class="d3plus_tooltip_data_value" style="display: inline-flex; position: absolute; text-align: right; top: 3px; right: 6px; width: 89px;">'+feature.properties.Telefone+'</div>         </div>         <div class="d3plus_tooltip_data_title" style="font-size: 12px; font-weight: bold; padding: 6px 3px 0px;">Indicadores Estratégicos</div>         <div class="d3plus_tooltip_data_block" style="font-size: 12px; padding: 3px 6px; position: relative; color: rgb(0, 0, 0);">             <div class="d3plus_tooltip_data_name" style="display: inline-block; cursor: pointer; width: 105px; min-height: 15px;"><a href="../client/ocdf#menu2" style="color:gray"> Mais informações  </a>                 </div>');	*/
+ 	})/*.bindPopup('<h2 style="white-space: normal; font-size:18px;">'+feature.properties.Ramo+'</h2>   <p >'+feature.properties.amenity+'</p>               <table class="table table-striped">       <tbody>       <tr>         <td>Presidente</td>                  <td>'+feature.properties.Presidente+'</td>       </tr>                              <tr>         <td>Cnpj</td>               <td>'+feature.properties.Cnpj+'</td>       </tr>       <tr>         <td>Endereco</td>                  <td>'+feature.properties.Endereco+'</td>       </tr> <tr>         <td>Telefone</td>                  <td>'+feature.properties.Telefone+'</td>       </tr>    </tbody>   </table>' );*/
 }
 
 var baseLayers = [
 	{
 		name: "Google",
 		layer: googleLayer
-	}/*,
-	{	
-		name: "OpenCycleMap",
-		layer: L.tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png')
-	},
-	{
-		name: "OpenStreetMap",
-		layer: osmLayer
-	}*/
+	}
 ];
 
 var overLayers = [
 	{
 		active: true,
-		name: "Agropecuario",
-		icon: iconByName('Agropecuario'),
-		layer: L.geoJson(Agropecuario, {pointToLayer: featureToMarker })
-	},
-	{
-		active: true,
 		name: "Credito",
 		icon: iconByName('Credito'),
 		layer: L.geoJson(Credito, {pointToLayer: featureToMarker })
-	},	
+	}/*
+,
 	{
 		active: false,
 		name: "Consumo",
 		icon: iconByName('Consumo'),
 		layer: L.geoJson(Agropecuario, {pointToLayer: featureToMarker })
-	},	
-	{
-		active: false,
-		name: "Educacional",
-		icon: iconByName('Educacional'),
-		layer: L.geoJson(Agropecuario, {pointToLayer: featureToMarker })
-	},	
-	{
-		active: false,
-		name: "Especial",
-		icon: iconByName('Especial'),
-		layer: L.geoJson(Agropecuario, {pointToLayer: featureToMarker })
-	},	
-	{
-		active: false,
-		name: "Habitacional",
-		icon: iconByName('Habitacional'),
-		layer: L.geoJson(Agropecuario, {pointToLayer: featureToMarker })
-	},	
-	{
-		active: false,
-		name: "Producao",
-		icon: iconByName('Producao'),
-		layer: L.geoJson(Agropecuario, {pointToLayer: featureToMarker })
-	},	
-	{
-		active: false,
-		name: "Saude",
-		icon: iconByName('Saude'),
-		layer: L.geoJson(Agropecuario, {pointToLayer: featureToMarker })
-	},	
-	{
-		active: false,
-		name: "Trabalho",
-		icon: iconByName('Trabalho'),
-		layer: L.geoJson(Agropecuario, {pointToLayer: featureToMarker })
-	},	
-	{
-		active: false,
-		name: "Transporte",
-		icon: iconByName('Transporte'),
-		layer: L.geoJson(Agropecuario, {pointToLayer: featureToMarker })
-	},	
-	{
-		active: false,
-		name: "Turismo",
-		icon: iconByName('Turismo'),
-		layer: L.geoJson(Agropecuario, {pointToLayer: featureToMarker })
-	}	
+	}*/
 ];
 
-
 var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers);
-
 map.addControl(panelLayers);
 
+</script>
 
 
-</script> 
 
 
 

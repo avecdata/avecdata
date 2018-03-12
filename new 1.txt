@@ -1,0 +1,3 @@
+select cd_municipio,mes,desc_subgrupo,sum(cast(replace(total,',','.') as decimal(10,2))) from public.avec_pgf_acao_datasus
+group by cd_municipio,mes,desc_subgrupo,subgrupo
+order by cd_municipio,mes
