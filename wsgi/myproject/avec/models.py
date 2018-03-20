@@ -845,6 +845,7 @@ class pgf_acao_datasus(models.Model):
     tipo = models.CharField(max_length=100 , null=True)
     pacto_gestao = models.DecimalField(max_digits=15, decimal_places=2, null=True)
     amb_hosp = models.CharField(max_length=100 , null=True)
+    ano = models.CharField(max_length=30 , null=True)
 
     def publish_pgf_acao_datasus(self):
         self.save()
@@ -860,103 +861,6 @@ class pgf_acao_datasus_grupo(models.Model):
 
     def publish_pgf_acao_datasus_grupo(self):
         self.save()
-
-    def __str__(self):
-        return self.cd_municipio
-
-class v_pgf_municipio_saude(models.Model):
-    ano = models.CharField()
-    numero = models.CharField()
-    cd_municipio = models.CharField()
-
-    class Meta:
-      managed = False
-
-    def __str__(self):
-        return self.cd_municipio
-
-class v_pgf_ambulatorial(models.Model):
-    cd_municipio = models.CharField()
-    tipo = models.CharField()
-    mes = models.CharField()
-    estadual_plena = models.CharField()
-    pacto_gestao = models.CharField()
-
-    class Meta:
-      managed = False
-
-    def __str__(self):
-        return self.cd_municipio
-
-class v_pgf_hospitalar(models.Model):
-    cd_municipio = models.CharField()
-    tipo = models.CharField()
-    mes = models.CharField()
-    estadual_plena = models.CharField()
-    municipal_plena = models.CharField()
-
-    class Meta:
-      managed = False
-
-    def __str__(self):
-        return self.cd_municipio
-
-class v_pgf_total(models.Model):
-    cd_municipio = models.CharField()
-    tipo = models.CharField()
-    mes = models.CharField()
-    total = models.CharField()
-
-    class Meta:
-      managed = False
-
-    def __str__(self):
-        return self.cd_municipio
-
-class v_pgf_repasse_teto(models.Model):
-    cnpj = models.CharField()
-    mes = models.CharField()
-    total = models.CharField()
-
-    class Meta:
-      managed = False
-
-    def __str__(self):
-        return self.cnpj
-
-class v_pgf_repasse_faec(models.Model):
-    cnpj = models.CharField()
-    mes = models.CharField()
-    total = models.CharField()
-
-    class Meta:
-      managed = False
-
-    def __str__(self):
-        return self.cnpj
-
-class v_pgf_analise_teto(models.Model):
-    cd_municipio = models.CharField()
-    mes = models.CharField()
-    total_producao = models.CharField()
-    total_repasse = models.CharField()
-    analise = models.CharField()
-
-    class Meta:
-      managed = False
-
-    def __str__(self):
-        return self.cd_municipio
-
-class v_pgf_analise_faec(models.Model):
-    cd_municipio = models.CharField()
-    mes = models.CharField()
-    total_producao = models.CharField()
-    total_repasse = models.CharField()
-    analise = models.CharField()
-
-    class Meta:
-      managed = False
 
     def __str__(self):
         return self.cd_municipio
