@@ -834,7 +834,7 @@ class pgf_acao_detalhe_faec(models.Model):
         return self.parcela
 
 class pgf_acao_datasus(models.Model):
-    cd_acao = models.BigIntegerField(primary_key=True, null=False)
+    cd_acao = models.BigIntegerField(null=False)
     cd_municipio  = models.CharField(max_length=200 , null=True)
     mes  = models.CharField(max_length=20 , null=True)
     desc_subgrupo  = models.CharField(max_length=200 , null=True)
