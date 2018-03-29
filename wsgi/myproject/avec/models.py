@@ -854,24 +854,6 @@ class pgf_acao_datasus(models.Model):
     def __str__(self):
         return self.grupo
 
-class pgf_acao_datasus_detalhe(models.Model):
-    cd_acao = models.ForeignKey("pgf_acao_datasus", db_column="cd_acao")
-    cd_acao_str = models.CharField(max_length=30 , null=True)
-    cd_procedimento  = models.CharField(max_length=200 , null=True)
-    desc_procedimento  = models.CharField(max_length=200 , null=True)
-    total = models.DecimalField(max_digits=15, decimal_places=2)
-    municipal_plena = models.DecimalField(max_digits=15, decimal_places=2)
-    estadual_plena = models.DecimalField(max_digits=15, decimal_places=2)
-    pacto_gestao = models.DecimalField(max_digits=15, decimal_places=2, null=True)
-    cnpj = models.CharField(max_length=30 , null=True)
-    subgrupo = models.CharField(max_length=8 , null=True)
-    mes = models.CharField(max_length=30 , null=True)
-
-    def publish_pgf_acao_datasus_detalhe(self):
-        self.save()
-
-    def __int__(self):
-        return self.cd_acao
 
 class pgf_acao_datasus_grupo(models.Model):
     cd_municipio  = models.CharField(max_length=200 , null=True)
