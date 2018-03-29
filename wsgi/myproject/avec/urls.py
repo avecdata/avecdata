@@ -59,6 +59,7 @@ urlpatterns = [
     url(r'^teto_pagamento/(?P<cnpj>.+)/$', views.teto_pagamento, name='teto_pagamento'),
     url(r'^teto_analise/(?P<cnpj>.+)/$', views.teto_analise, name='teto_analise'),
     url(r'^teto_producao/(?P<cnpj>.+)/$', views.teto_producao, name='teto_producao'),
+    url(r'^teto_producao_procedimento/(?P<cd_acao>.+)/$', views.teto_producao_procedimento, name='teto_producao_procedimento'),
     url(r'^faec_pagamento/(?P<cnpj>.+)/$', views.faec_pagamento, name='faec_pagamento'),
     url(r'^faec_analise/(?P<cnpj>.+)/$', views.faec_analise, name='faec_analise'),
     url(r'^faec_producao/(?P<cnpj>.+)/$', views.faec_producao, name='faec_producao'),

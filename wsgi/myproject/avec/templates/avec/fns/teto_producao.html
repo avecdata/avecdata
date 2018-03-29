@@ -180,17 +180,30 @@
                                                         <th>Subgrupo Procedimento</th>
                                                         <th>Estado Pleno</th>
                                                         <th>Pacto de Gestão</th>
+                                                        <th style="width:40px;"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                   {% for b in filter.qs %}
                                                     {% if b.grupo == g.grupo and b.amb_hosp == 'Ambulatorial' %}
                                                       {% if b.pacto_gestao > 0 or b.estadual_plena > 0 %}
-                                                          <tr>
+
+                                                        <tr>
+
                                                               <td>{{b.desc_subgrupo}}</td>
                                                               <td>R$ {{b.estadual_plena}}</td>
-                                                              <td>R$ {{b.pacto_gestao}}</td>
+                                                              <td >R$ {{b.pacto_gestao}}</td>
+                                                              <td style="width:40px;!important; padding: 0px 0px;">
+                                                                <a style='    display: inline-block;
+                                                                background: #f5f5f5;
+                                                                height: 25px;
+                                                                width: 25px;
+                                                                border-radius: 25px;
+                                                                line-height: 25px;
+                                                                text-align: center;
+                                                                ' href="{% url 'teto_producao_procedimento' cd_acao=b.cd_acao %}" class="github"><i class="fa fa-search" title="Detalhar Procedimentos"></i></a></td>
                                                           </tr>
+
                                                        {% endif %}
                                                     {% endif %}
                                                   {% endfor %}
