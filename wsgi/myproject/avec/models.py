@@ -855,7 +855,7 @@ class pgf_acao_datasus(models.Model):
         return self.grupo
 
 class pgf_acao_datasus_detalhe(models.Model):
-    cd_acao = models.ForeignKey("pgf_acao_datasus", db_column="cd_acao", null=True)
+    cd_acao = models.ForeignKey("pgf_acao_datasus", db_column="cd_acao")
     cd_acao_str = models.CharField(max_length=30 , null=True)
     cd_procedimento  = models.CharField(max_length=200 , null=True)
     desc_procedimento  = models.CharField(max_length=200 , null=True)
