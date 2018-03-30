@@ -1,0 +1,147 @@
+{% extends "avec/fns/templates/layout.html" %}
+
+{% load staticfiles %}
+
+{% block navbar-side %}
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+            {% for ent in entidade %}
+                <li class="nav-item ">
+                    <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-grid"></i>
+                        <span class="d-none d-lg-block">Dados Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'teto' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-layers"></i>
+                        <span class="d-none d-lg-block">Teto Financeiro</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="{% url 'faec' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-notebook"></i>
+                        <span class="d-none d-lg-block">FAEC</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="#" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-note"></i>
+                        <span class="d-none d-lg-block">CEO</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'samu' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">SAMU</span>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+{% endblock %}
+{% block content %}
+{% for ent in entidade %}
+    <div id="page-wrapper">
+
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+              {% for detail in acao %}
+                {% if forloop.counter == 1 %}
+              <a href="{% url 'faec_producao' cnpj=ent.cpf_cnpj %}?mes_producao={{detail.mes}}" class="btn-box">
+                <h2>Voltar</h2>
+              <a>
+                {% endif %}
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-content">
+
+        <div class="widget full-width widget-table m-0">
+            <div class="widget_title">
+                <h3 class="text-left">
+                  {% for detail in acao %}
+                    {% if forloop.counter == 1 %}
+                      <i class="fa fa-bookmark color-turq-avec"></i> {{detail.mes}} -
+                      {% for mykey,subgrupo in subgrupo.items %}
+                           {{ subgrupo }}
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </h3>
+            </div>
+
+    </div>
+
+</div>
+<div class="wrapper-content">
+
+    <div class="widget full-width widget-table m-0">
+
+<div class="widget_content no-bg">
+
+    <div class="table-collapse">
+
+        <dl>
+          <dt class="grid_title">
+           <div class="row">
+                <div class="col-sm-6">
+                    <span>Procedimento</span>
+                </div>
+                <div class="col-sm-2">
+                    <span>Estado Pleno</span>
+                </div>
+                <div class="col-sm-2">
+                    <span>Pacto de Gestão</span>
+                </div>
+                <div class="col-sm-2">
+                    <span>Total</span>
+                </div>
+            </div>
+          </dt>
+            <dd class="grid_content">
+
+                <div id="repasses" role="tablist">
+
+                  {% for detail in acao %}
+
+
+
+                    <div class="card">
+                          <div class="card-header" role="tab" id="repasses_head_1">
+                              <h5 class="mb-1 grid_title">
+                                <div class="row">
+                                  <div class="no-border col-sm-6">
+                                      <span>{{ detail.desc_procedimento }}</span>
+                                  </div>
+                                  <div class="no-border col-sm-2">
+                                      <span>{{ detail.estadual_plena }}</span>
+                                  </div>
+                                  <div class="no-border col-sm-2">
+                                      <span>R$ {{ detail.pacto_gestao }}</span>
+                                  </div>
+                                  <div class="no-border col-sm-2">
+                                      <span>R$ {{ detail.total }}</span>
+                                  </div>
+                                </div>
+                              </h5>
+                          </div>
+                      </div>
+                  {% endfor %}
+
+                                                </div>
+
+            </dd>
+        </dl>
+
+    </div>
+
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+{% endblock %}
