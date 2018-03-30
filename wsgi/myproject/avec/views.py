@@ -1439,6 +1439,20 @@ def faec(request, cnpj):
 
     return render(request, 'avec/fns/faec.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao})
 
+def faec_producao_procedimento(request, cd_acao):
+    acao = pgf_acao_datasus_detalhe.objects.filter(cd_acao=cd_acao)
+    cnpj = pgf_acao_datasus_detalhe.objects.values('cnpj').filter(cd_acao=cd_acao).first()
+    cnpj = cnpj.__str__()
+    cnpj = re.sub('[^0-9a]+', '', str(cnpj))
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+    cod_subgrupo = pgf_acao_datasus_detalhe.objects.values('subgrupo').filter(cd_acao=cd_acao).first()
+    cod_subgrupo = re.sub('[^0-9a]+', '', str(cod_subgrupo))
+    subgrupo = pgf_acao_datasus.objects.values('desc_subgrupo').filter(subgrupo=cod_subgrupo).first()
+
+    return render(request, 'avec/fns/faec_producao_procedimento.html', {'acao' : acao, 'cidade' : cidade, 'entidade' : entidade, 'subgrupo' : subgrupo})
+
 def faec_producao(request, cnpj):
     int_cnpj = s = str(int(cnpj))
     cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)

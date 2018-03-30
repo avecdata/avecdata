@@ -63,6 +63,7 @@ urlpatterns = [
     url(r'^faec_pagamento/(?P<cnpj>.+)/$', views.faec_pagamento, name='faec_pagamento'),
     url(r'^faec_analise/(?P<cnpj>.+)/$', views.faec_analise, name='faec_analise'),
     url(r'^faec_producao/(?P<cnpj>.+)/$', views.faec_producao, name='faec_producao'),
+    url(r'^faec_producao_procedimento/(?P<cd_acao>.+)/$', views.faec_producao_procedimento, name='faec_producao_procedimento'),
     url(r'^ceo/(?P<cnpj>.+)/$', views.ceo, name='ceo'),
     url(r'^samu/(?P<cnpj>.+)/$', views.samu, name='samu'),
     url(r'^lista_cidades/$', views.lista_cidades, name='lista_cidades'),
