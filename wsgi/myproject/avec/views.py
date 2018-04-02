@@ -969,6 +969,9 @@ def teto(request, cnpj):
 
 def teto_producao_procedimento(request, cd_acao):
     acao = pgf_acao_datasus_detalhe.objects.filter(cd_acao=cd_acao)
+    acao_first = pgf_acao_datasus_detalhe.objects.values('cd_acao').filter(cd_acao=cd_acao).first()
+    acao_first = re.sub('[^0-9]+', '', str(acao_first))
+    parent = pgf_acao_datasus.objects.filter(cd_acao=acao_first)
     cnpj = pgf_acao_datasus_detalhe.objects.values('cnpj').filter(cd_acao=cd_acao).first()
     cnpj = cnpj.__str__()
     cnpj = re.sub('[^0-9a]+', '', str(cnpj))
@@ -979,7 +982,7 @@ def teto_producao_procedimento(request, cd_acao):
     cod_subgrupo = re.sub('[^0-9a]+', '', str(cod_subgrupo))
     subgrupo = pgf_acao_datasus.objects.values('desc_subgrupo').filter(subgrupo=cod_subgrupo).first()
 
-    return render(request, 'avec/fns/teto_producao_procedimento.html', {'acao' : acao, 'cidade' : cidade, 'entidade' : entidade, 'subgrupo' : subgrupo})
+    return render(request, 'avec/fns/teto_producao_procedimento.html', {'acao' : acao, 'cidade' : cidade, 'entidade' : entidade, 'subgrupo' : subgrupo, 'parent' : parent})
 
 def teto_producao(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -1441,6 +1444,9 @@ def faec(request, cnpj):
 
 def faec_producao_procedimento(request, cd_acao):
     acao = pgf_acao_datasus_detalhe.objects.filter(cd_acao=cd_acao)
+    acao_first = pgf_acao_datasus_detalhe.objects.values('cd_acao').filter(cd_acao=cd_acao).first()
+    acao_first = re.sub('[^0-9]+', '', str(acao_first))
+    parent = pgf_acao_datasus.objects.filter(cd_acao=acao_first)
     cnpj = pgf_acao_datasus_detalhe.objects.values('cnpj').filter(cd_acao=cd_acao).first()
     cnpj = cnpj.__str__()
     cnpj = re.sub('[^0-9a]+', '', str(cnpj))
@@ -1451,7 +1457,7 @@ def faec_producao_procedimento(request, cd_acao):
     cod_subgrupo = re.sub('[^0-9a]+', '', str(cod_subgrupo))
     subgrupo = pgf_acao_datasus.objects.values('desc_subgrupo').filter(subgrupo=cod_subgrupo).first()
 
-    return render(request, 'avec/fns/faec_producao_procedimento.html', {'acao' : acao, 'cidade' : cidade, 'entidade' : entidade, 'subgrupo' : subgrupo})
+    return render(request, 'avec/fns/faec_producao_procedimento.html', {'acao' : acao, 'cidade' : cidade, 'entidade' : entidade, 'subgrupo' : subgrupo, 'parent' : parent})
 
 def faec_producao(request, cnpj):
     int_cnpj = s = str(int(cnpj))

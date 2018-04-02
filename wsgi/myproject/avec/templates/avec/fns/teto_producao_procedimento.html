@@ -94,9 +94,18 @@
                 <div class="col-sm-2">
                     <span>Estado Pleno</span>
                 </div>
-                <div class="col-sm-2">
-                    <span>Pacto de Gestão</span>
-                </div>
+                {% for parent in parent %}
+                  {% if parent.amb_hosp == 'Ambulatorial' %}
+                    <div class="col-sm-2">
+                        <span>Pacto de Gestão</span>
+                    </div>
+                  {% endif %}
+                  {% if parent.amb_hosp == 'Hospitalar' %}
+                  <div class="col-sm-2">
+                      <span>Municipal Plena Assistida</span>
+                  </div>
+                  {% endif %}
+                {% endfor %}
                 <div class="col-sm-2">
                     <span>Total</span>
                 </div>
