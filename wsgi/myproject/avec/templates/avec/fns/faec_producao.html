@@ -289,7 +289,7 @@
                                                               border-radius: 25px;
                                                               line-height: 25px;
                                                               text-align: center;
-                                                              ' href="{% url 'faec_producao_procedimento' cd_acao=a.cd_acao %}" class="github"><i class="fa fa-search" title="Detalhar Procedimentos"></i></a></td>                                                            
+                                                              ' href="{% url 'faec_producao_procedimento' cd_acao=a.cd_acao %}" class="github"><i class="fa fa-search" title="Detalhar Procedimentos"></i></a></td>
                                                         </tr>
                                                        {% endif %}
                                                       {% endif %}
@@ -329,7 +329,7 @@
                                                 <span class="text-uppercase">Procedimentos ambulatoriais</span>
                                             </div>
                                             <div class="bg-pale-grey-five">
-                                                <span>R$ {{ filter.qs.values | running_total_amb_hosp:'Ambulatorial' }}</span>
+                                                <span>R$ {{ filter.qs.values | running_total_amb_hosp_pacto:'Ambulatorial' }}</span>
                                             </div>
                                         </h5>
                                     </div>
@@ -343,7 +343,7 @@
                                             <span class="text-uppercase">Procedimentos hospitalares</span>
                                         </div>
                                         <div class="bg-pale-grey-five">
-                                            <span>R$ {{ filter.qs.values | running_total_amb_hosp:'Hospitalar' }}</span>
+                                            <span>R$ {{ filter.qs.values | running_total_amb_hosp_municipal:'Hospitalar' }}</span>
                                         </div>
                                     </h5>
                                 </div>
@@ -357,7 +357,7 @@
                                             <span class="text-uppercase">Total</span>
                                         </div>
                                         <div class="bg-pale-grey-five">
-                                            <span>R$ {{ filter.qs.values | running_total }}</span>
+                                            <span>R$ {{ filter.qs.values | running_total_amb_hosp }}</span>
                                         </div>
                                     </h5>
                                 </div>

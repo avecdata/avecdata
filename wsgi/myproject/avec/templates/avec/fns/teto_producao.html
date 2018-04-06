@@ -335,7 +335,7 @@
                                                 <span class="text-uppercase">Procedimentos ambulatoriais</span>
                                             </div>
                                             <div class="bg-pale-grey-five">
-                                                <span>R$  {{ filter.qs.values | running_total_amb_hosp:'Ambulatorial' }}</span>
+                                                <span>R$  {{ filter.qs.values | running_total_amb_hosp_pacto:'Ambulatorial' }}</span>
                                             </div>
                                         </h5>
                                     </div>
@@ -349,7 +349,7 @@
                                             <span class="text-uppercase">Procedimentos hospitalares</span>
                                         </div>
                                         <div class="bg-pale-grey-five">
-                                            <span>R$  {{ filter.qs.values | running_total_amb_hosp:'Hospitalar' }}</span>
+                                            <span>R$  {{ filter.qs.values | running_total_amb_hosp_municipal:'Hospitalar' }}</span>
                                         </div>
                                     </h5>
                                 </div>
@@ -363,7 +363,7 @@
                                             <span class="text-uppercase">Total</span>
                                         </div>
                                         <div class="bg-pale-grey-five">
-                                            <span>R$ {{ filter.qs.values | running_total }}</span>
+                                            <span>R$ {{ filter.qs.values | running_total_amb_hosp }}</span>
                                         </div>
                                     </h5>
                                 </div>
