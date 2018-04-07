@@ -1323,3 +1323,7 @@ footer {
 .blog-tags > a:before{
   color: #3e4c5b !important;
 }
+
+.fa-info-circle-avec{
+  color: #61788e !important;  
+}

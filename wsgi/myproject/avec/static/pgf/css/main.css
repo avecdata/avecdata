@@ -13025,6 +13025,10 @@ a.text-dark:focus, a.text-dark:hover {
 .color-turq-avec {
   color: #3dc1d0; }
 
+.color-gray-avec {
+  color: #61788e;
+  font-weight: lighter;}
+
 .icon-superavit, .icon-deficit {
   font-size: 24px;
   margin-left: 10px; }
@@ -14008,4 +14012,30 @@ footer .copyright ul.social li a figure {
   -webkit-box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.125);
           box-shadow: inset 0 3px 5px 0 rgba(0, 0, 0, 0.125);
   outline: none;
+}
+
+.mytooltip {
+    position: relative;
+    display: inline-block;
+
+}
+
+.mytooltip .mytooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #61788e;;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+}
+
+.mytooltip:hover .mytooltiptext {
+    visibility: visible;
 }

@@ -85,7 +85,7 @@
           <a class="nav-link " href="{% url 'faec_producao' cnpj=ent.cpf_cnpj %}?mes_producao={{max_producao}}">Produção</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link " href="{% url 'faec_pagamento' cnpj=ent.cpf_cnpj %}?mes_repasse={{max_repasse}}">Repasses SUS</a>
+          <a class="nav-link " href="{% url 'faec_pagamento' cnpj=ent.cpf_cnpj %}?mes_repasse={{max_repasse}}">Repasse Federal</a>
       </li>
       <li class="nav-item">
           <a class="nav-link active" href="{% url 'faec_analise' cnpj=ent.cpf_cnpj %}?mes_producao={{max_producao}}&mes_repasse={{max_repasse}}">Análise</a>
