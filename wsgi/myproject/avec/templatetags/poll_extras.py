@@ -51,7 +51,7 @@ def running_total_amb_hosp_municipal(role_total, amb_hosp):
 def running_total_amb_hosp(role_total):
      m = round(float(sum( [d['municipal_plena'] for d in role_total ] )),2)
      p = round(float(sum( [d['pacto_gestao'] for d in role_total ] )),2)
-     return (m+p)
+     return round(float((m+p)),2)
 
 #datatus
 @register.filter
