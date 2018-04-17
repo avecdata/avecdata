@@ -1437,7 +1437,7 @@ def faec(request, cnpj):
     cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
-    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678"]).aggregate(Max('mes'))['mes__max']
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678","62081","62085","14310","14508","57298","44597","62010","27547","262","62089","28609","29491"]).aggregate(Max('mes'))['mes__max']
     max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').aggregate(Max('mes'))['mes__max']
 
     return render(request, 'avec/fns/faec.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao})
@@ -1467,7 +1467,7 @@ def faec_producao(request, cnpj):
     grupo_ambulatorial = pgf_acao_datasus.objects.filter(cd_acao__in=acao).filter(amb_hosp='Ambulatorial').distinct('grupo')
     acao_filter = AcaoFilterDatasus(request.GET, queryset=acao)
 
-    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678"]).aggregate(Max('mes'))['mes__max']
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678","62081","62085","14310","14508","57298","44597","62010","27547","262","62089","28609","29491"]).aggregate(Max('mes'))['mes__max']
     max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').aggregate(Max('mes'))['mes__max']
 
     view_ambulatorial = v_pgf_ambulatorial.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)')
@@ -1723,7 +1723,7 @@ def faec_producao(request, cnpj):
 
 def faec_pagamento(request, cnpj):
     int_cnpj = s = str(int(cnpj))
-    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678"]).order_by('mes')
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678","62081","62085","14310","14508","57298","44597","62010","27547","262","62089","28609","29491"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
     acao_filter  = AcaoFilter(request.GET, queryset=acao)
 
@@ -1732,7 +1732,7 @@ def faec_pagamento(request, cnpj):
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
     cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
-    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678"]).aggregate(Max('mes'))['mes__max']
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678","62081","62085","14310","14508","57298","44597","62010","27547","262","62089","28609","29491"]).aggregate(Max('mes'))['mes__max']
     max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').aggregate(Max('mes'))['mes__max']
 
     ds_total = DataPool(
@@ -1815,11 +1815,11 @@ def faec_analise(request, cnpj):
     int_cnpj = s = str(int(cnpj))
     cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     acao_datasus = pgf_acao_datasus.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').order_by('mes')
-    acao_pagamento = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678"]).order_by('mes')
+    acao_pagamento = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678","62081","62085","14310","14508","57298","44597","62010","27547","262","62089","28609","29491"]).order_by('mes')
     datasus_filter = AcaoFilterDatasus(request.GET, queryset=acao_datasus)
     pagamento_filter = AcaoFilter(request.GET, queryset=acao_pagamento)
 
-    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678"]).aggregate(Max('mes'))['mes__max']
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678","62081","62085","14310","14508","57298","44597","62010","27547","262","62089","28609","29491"]).aggregate(Max('mes'))['mes__max']
     max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').aggregate(Max('mes'))['mes__max']
 
     view_total = v_pgf_analise_faec.objects.filter(cd_municipio=cd_municipio)
