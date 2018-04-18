@@ -1438,7 +1438,7 @@ def faec(request, cnpj):
     list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
     max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["44558","39898","31478","20527","28650","16530","14334","14331","14322","28649","14316","37943","15505","14345","14333","14329","14330","14321","31515","31514","156","37941","62087","62104","62085","62089","62010","14508","29491","57298","28609","62678","62081","62085","14310","14508","57298","44597","62010","27547","262","62089","28609","29491"]).aggregate(Max('mes'))['mes__max']
-    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(ano='2018').filter(tipo__startswith='Fundo de Ações Estratégicas e Compensações (FAEC)').aggregate(Max('mes'))['mes__max']
 
     return render(request, 'avec/fns/faec.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao})
 
