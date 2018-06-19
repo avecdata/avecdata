@@ -1953,7 +1953,7 @@ def cidades_list(request):
     resultado_json = {}
 
     if request.method == 'POST':
-        entidade = pgf_entidade.objects.values('cd_municipio').filter(sg_uf='BA') | pgf_entidade.objects.values('cd_municipio').filter(sg_uf='RJ') | pgf_entidade.objects.values('cd_municipio').filter(sg_uf='MG')
+        entidade = pgf_entidade.objects.values('cd_municipio').filter(sg_uf='BA') | pgf_entidade.objects.values('cd_municipio').filter(sg_uf='RJ') | pgf_entidade.objects.values('cd_municipio').filter(sg_uf='MG') | pgf_entidade.objects.values('cd_municipio').filter(sg_uf='GO')
         municipios = pgf_municipio.objects.filter(nm_municipio__unaccent__icontains=str(request.POST.get('query'))).filter(cd_municipio_semdigito__in=entidade).order_by('nm_municipio')
 
         municipios_data = []
