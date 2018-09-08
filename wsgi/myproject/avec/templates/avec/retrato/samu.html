@@ -1,0 +1,121 @@
+{% extends "avec/fns/templates/layout.html" %}
+
+{% load staticfiles %}
+
+{% block navbar-side %}
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+            {% for ent in entidade %}
+                <li class="nav-item ">
+                    <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-grid"></i>
+                        <span class="d-none d-lg-block">Dados Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'teto' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-layers"></i>
+                        <span class="d-none d-lg-block">Teto Financeiro</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'faec' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-notebook"></i>
+                        <span class="d-none d-lg-block">FAEC</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'ceo' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-note"></i>
+                        <span class="d-none d-lg-block">CEO</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">SAMU</span>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+{% endblock %}
+{% block content %}
+{% for ent in entidade %}
+  <div id="page-wrapper">
+
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>SAMU</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-content">
+
+        <div class="widget full-width widget-table m-0">
+            <div class="widget_title">
+                <h3 class="text-left">
+                    <i class="fa fa-bookmark color-turq-avec"></i> Repasses
+                </h3>
+            </div>
+            <div class="widget_content no-bg">
+
+                <div class="table-collapse">
+
+                    <dl>
+                        <dt class="grid_title">
+                            <div>
+                                <span>Parcela</span>
+                            </div>
+                            <div>
+                                <span>Data de Pagamento</span>
+                            </div>
+                            <div>
+                                <span>Valor</span>
+                            </div>
+                        </dt>
+                        <dd class="grid_content">
+
+                            <div id="repasses" role="tablist">
+
+                                     {% for detail in acao_detalhe %}
+
+                                                                         <div class="card">
+                                             <div class="card-header" role="tab" id="repasses_head_1">
+                                                 <h5 class="mb-0 grid_title">
+                                                     <div class="no-border">
+                                                         <span>{{ detail.parcela }}</span>
+                                                     </div>
+                                                     <div class="no-border">
+                                                         <span>{{ detail.dt_ob }}</span>
+                                                     </div>
+                                                     <div class="no-border">
+                                                         <span>R$ {{ detail.vl_total }}</span>
+                                                     </div>
+                                                 </h5>
+                                             </div>
+                                         </div>
+
+                                      {% endfor %}
+
+
+
+                                                            </div>
+
+                        </dd>
+                    </dl>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,346 @@
+{% extends "avec/retrato/templates/layout.html" %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+{% load poll_extras %}
+
+{% block navbar-side %}
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+              {% for ent in entidade %}
+                  <li class="nav-item ">
+                      <a href="{% url 'retrato' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                          <i class="icons icon-grid"></i>
+                          <span class="d-none d-lg-block">Dados Gerais</span>
+                      </a>
+                  </li>
+                  <li class="nav-item active">
+                      <a href="{% url 'teto' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                          <i class="icons icon-layers"></i>
+                          <span class="d-none d-lg-block">Teto Financeiro</span>
+                      </a>
+                  </li>
+                  <li class="nav-item ">
+                      <a href="{% url 'faec' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                          <i class="icons icon-notebook"></i>
+                          <span class="d-none d-lg-block">FAEC</span>
+                      </a>
+                  </li>
+                  <li class="nav-item ">
+                      <a href="{% url 'ceo' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                          <i class="icons icon-note"></i>
+                          <span class="d-none d-lg-block">CEO</span>
+                      </a>
+                  </li>
+                  <li class="nav-item ">
+                      <a href="{% url 'samu' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                          <i class="icons icon-compass"></i>
+                          <span class="d-none d-lg-block">SAMU</span>
+                      </a>
+                  </li>
+              {% endfor %}
+
+            </ul>
+        </div>
+{% endblock %}
+
+{% block content %}
+
+{% for ent in entidade%}
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+<script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+    <div id="page-wrapper">
+
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>Assistencia/morbidade hospitalar</h2>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+      <div class="row">
+          <div class="col">
+              <div class="page-heading">
+                  <div class="submenu">
+
+                    <ul class="nav nav-pills nav-fill">
+                      <li class="nav-item active"><a class="nav-link active" data-toggle="pill" href="#faixa_etaria">Faixa etária</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#genero">Gênero</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#menu2">Caráter de atendimento</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#menu3">Capítulo CID-10 selecionados</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#menu4">Parto puerpério</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#menu5">Causas externas Cid 10</a></li>
+                    </ul>
+
+                  </div>
+
+              </div>
+          </div>
+      </div>
+
+      <div class="wrapper-content">
+
+      <div class="tab-content">
+        <div id="faixa_etaria" class="widget full-width tab-pane fade  active in">
+            <div class="widget_title">
+                <h3 class="text-left">
+                    <i class="fa fa-bar-chart"></i> Internações hospitalares por FAIXA ETÁRIA
+                </h3>
+            </div>
+            <div id="ambulatorial" class="widget_content border rounded py-3 px-4">
+            </div>
+        </div>
+        <div id="genero" class="widget full-width tab-pane fade">
+            <div class="widget_title">
+                <h3 class="text-left">
+                    <i class="fa fa-bar-chart"></i> Internações hospitalares por GÊNERO
+                </h3>
+            </div>
+            <div id="ambulatorial" class="widget_content border rounded py-3 px-4">
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+</div>
+
+</div>
+<script type="text/javascript">
+
+var data = [
+{% for row in view_aparecida %}
+  {
+    "Ano": "{{ row.Ano}}",
+    "Menor 1 ano": {{ row.Menor_1_ano}},
+    "1 a 4 anos": {{ row.a_1_a_4_anos }},
+    "5 a 9 anos": {{ row.a_5_a_9_anos }},
+    "10 a 14 anos": {{ row.a_10_a_14_anos }},
+    "15 a 19 anos": {{ row.a_15_a_19_anos }},
+    "20 a 29 anos": {{ row.a_20_a_29_anos }},
+    "30 a 39 anos": {{ row.a_30_a_39_anos }},
+    "40 a 49 anos": {{ row.a_40_a_49_anos }},
+    "50 a 59 anos": {{ row.a_50_a_59_anos }},
+    "60 a 69 anos": {{ row.a_60_a_69_anos }},
+    "70 a 79 anos": {{ row.a_70_a_79_anos }},
+    "80 anos e mais": {{ row.a_80_anos_e_mais }},
+    "Total": {{ row.Total }},
+
+  }{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+
+console.log(data);
+
+AmCharts.makeChart("faixa_etaria",
+  {
+    "type": "serial",
+    "categoryField": "Ano",
+    "columnSpacing": 4,
+    "columnSpacing3D": 2,
+    "columnWidth": 0,
+    "dataDateFormat": "YYYY",
+    "sequencedAnimation": false,
+    "backgroundAlpha": 0.8,
+    "decimalSeparator": ",",
+    "fontFamily": "lato",
+    "fontSize": 13,
+    "handDrawScatter": 8,
+    "thousandsSeparator": ".",
+    "export": {
+      "enabled": true
+    },
+    "categoryAxis": {
+      "gridPosition": "start",
+      "minPeriod": "YYYY",
+      "parseDates": true,
+      "axisColor": "#FFFFFF",
+      "axisThickness": 2,
+      "boldLabels": true,
+      "dashLength": 5
+    },
+    "chartCursor": {
+      "enabled": true,
+      "bulletsEnabled": true,
+      "categoryBalloonDateFormat": "YYYY",
+      "categoryBalloonText": "<span style='font-family:lato;font-size:13px;'>[[category]]",
+      "cursorColor": "#3DC1D0",
+      "oneBalloonOnly": true
+    },
+    "trendLines": [],
+    "graphs": [
+      {
+        "balloonText": "  <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[title]]</b></span style></p><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "columnWidth": 0.75,
+        "id": "AmGraph-4",
+        "lineColor": "#2D8D98",
+        "lineThickness": 3,
+        "markerType": "circle",
+        "noStepRisers": true,
+        "title": "Total",
+        "valueField": "Total"
+      },
+      {
+        "balloonText": "  <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "columnWidth": 0.75,
+        "hidden": true,
+        "id": "AmGraph-5",
+        "lineColor": "#3E4C5B",
+        "lineThickness": 2,
+        "noStepRisers": true,
+        "title": "Menor 1 ano",
+        "valueField": "Menor 1 ano"
+      },
+      {
+        "balloonText": "  <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "columnWidth": 0.75,
+        "hidden": true,
+        "id": "AmGraph-6",
+        "lineColor": "#506375",
+        "lineThickness": 2,
+        "noStepRisers": true,
+        "title": "1 a 4 anos",
+        "valueField": "1 a 4 anos"
+      },
+      {
+        "balloonText": " <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "columnWidth": 0.75,
+        "hidden": true,
+        "id": "AmGraph-7",
+        "lineColor": "#61788E",
+        "lineThickness": 2,
+        "noStepRisers": true,
+        "title": "5 a 9 anos",
+        "valueField": "5 a 9 anos"
+      },
+      {
+        "balloonText": " <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "columnWidth": 0.75,
+        "hidden": true,
+        "id": "AmGraph-8",
+        "legendPeriodValueText": "",
+        "lineColor": "#6F8398",
+        "lineThickness": 2,
+        "markerType": "square",
+        "noStepRisers": true,
+        "title": "10 a 14 anos",
+        "valueAxis": "ValueAxis-2",
+        "valueField": "10 a 14 anos"
+      },
+      {
+        "balloonText": "<span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "connect": false,
+        "fillColors": "#8C9BAC",
+        "hidden": true,
+        "id": "AmGraph-9",
+        "lineColor": "#8C9BAC",
+        "markerType": "square",
+        "tabIndex": -2,
+        "title": "15 a 19 anos",
+        "valueField": "15 a 19 anos"
+      },
+      {
+        "balloonText": "   <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "hidden": true,
+        "id": "AmGraph-10",
+        "lineColor": "#A8B4C1",
+        "lineThickness": 2,
+        "title": "20 a 29 anos",
+        "valueField": "20 a 29 anos"
+      },
+      {
+        "balloonText": " <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "hidden": true,
+        "id": "AmGraph-11",
+        "lineColor": "#A8B4C1",
+        "title": "30 a 39 anos",
+        "valueField": "30 a 39 anos"
+      },
+      {
+        "balloonText": "<span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "hidden": true,
+        "id": "AmGraph-12",
+        "lineColor": "#A8B4C1",
+        "title": "40 a 49 anos",
+        "valueField": "40 a 49 anos"
+      },
+      {
+        "balloonText": "  <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "hidden": true,
+        "id": "AmGraph-13",
+        "title": "50 a 59 anos",
+        "valueField": "50 a 59 anos"
+      },
+      {
+        "balloonText": "<span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "hidden": true,
+        "id": "AmGraph-14",
+        "title": "60 a 69 anos",
+        "valueField": "60 a 69 anos"
+      },
+      {
+        "balloonText": "<span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "hidden": true,
+        "id": "AmGraph-15",
+        "title": "70 a 79 anos",
+        "valueField": "70 a 79 anos"
+      },
+      {
+        "balloonText": "  <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:19px;'><b>[[title]]</b></span style><br><span style='font-family:lato;font-size:15px;'>Internações:  </b></span style><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+        "hidden": true,
+        "id": "AmGraph-16",
+        "lineColor": "#A8B4C1",
+        "title": "80 anos e mais",
+        "valueField": "80 anos e mais"
+      }
+    ],
+    "guides": [],
+    "valueAxes": [
+      {
+        "id": "ValueAxis-2",
+        "unit": " ",
+        "axisThickness": 0,
+        "gridThickness": 0,
+        "offset": -1
+      }
+    ],
+    "allLabels": [],
+    "balloon": {
+      "borderThickness": 0,
+      "color": "#FFFFFF",
+      "cornerRadius": 4,
+      "fillAlpha": 1,
+      "fillColor": "#3DC1D0",
+      "fontSize": 12,
+      "horizontalPadding": 9,
+      "offsetY": 3,
+      "pointerWidth": 10,
+      "shadowAlpha": 0,
+      "textAlign": "right",
+      "verticalPadding": 3
+    },
+    "legend": {
+      "enabled": true,
+      "align": "right",
+      "markerSize": 18,
+      "position": "right",
+      "switchType": "v",
+      "valueText": " "
+    },
+    "titles": [],
+    "dataProvider":
+  data
+  }
+);
+
+</script>
+{% endfor %}
+{% endblock %}

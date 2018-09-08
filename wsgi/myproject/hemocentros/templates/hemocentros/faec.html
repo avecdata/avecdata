@@ -1,0 +1,132 @@
+{% extends "avec/fns/templates/layout.html" %}
+
+{% load staticfiles %}
+
+{% block navbar-side %}
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+            {% for ent in entidade %}
+                <li class="nav-item ">
+                    <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-grid"></i>
+                        <span class="d-none d-lg-block">Dados Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'teto' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-layers"></i>
+                        <span class="d-none d-lg-block">Teto Financeiro</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-notebook"></i>
+                        <span class="d-none d-lg-block">FAEC</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'ceo' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-note"></i>
+                        <span class="d-none d-lg-block">CEO</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'samu' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">SAMU</span>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+
+{% endblock %}
+
+{% block content %}
+{% for ent in entidade %}
+    <div id="page-wrapper">
+
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>FAEC</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-content">
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="grid-boxes">
+
+                    <div class="box">
+                        <a href="{% url 'faec_producao' cnpj=ent.cpf_cnpj %}?mes_producao={{max_producao}}" class="btn-box">
+                            <div class="box-title d-block d-sm-none d-xl-block">
+                                <h3>Produção</h3>
+                            </div>
+                            <div class="box-icon">
+                                <i class="icon ion-ios-barcode-outline"></i>
+                            </div>
+                            <hr class="d-none d-sm-block d-xl-none" />
+                            <div class="box-content">
+                                <h3 class="d-none d-sm-block d-xl-none">Produção</h3>
+                                <p>
+                                    Visualize aqui os valores decorrentes de atendimentos ambulatoriais e hospitalares
+                                    realizados, segundo dados da tabela SUS.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="box">
+                        <a href="{% url 'faec_pagamento' cnpj=ent.cpf_cnpj %}?mes_repasse={{max_repasse}}" class="btn-box">
+                            <div class="box-title d-block d-sm-none d-xl-block">
+                                <h3>Repasses SUS</h3>
+                            </div>
+                            <div class="box-icon">
+                                <i class="icon ion-ios-list-outline"></i>
+                            </div>
+                            <hr class="d-none d-sm-block d-xl-none" />
+                            <div class="box-content">
+                                <h3 class="d-none d-sm-block d-xl-none">Repasses SUS</h3>
+                                <p>
+                                    Veja os repasses fundo a fundo do Teto Municipal da Média e Alta Complexidade
+                                    Ambulatorial e Hospitalar.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="box box-turc">
+                        <a href="{% url 'faec_analise' cnpj=ent.cpf_cnpj %}?mes_producao={{max_producao}}&mes_repasse={{max_repasse}}" class="btn-box">
+                            <div class="box-title d-block d-sm-none d-xl-block">
+                                <h3>Análise</h3>
+                            </div>
+                            <div class="box-icon">
+                                <i class="icon ion-ios-pulse"></i>
+                            </div>
+                            <hr class="d-none d-sm-block d-xl-none" />
+                            <div class="box-content">
+                                <h3 class="d-none d-sm-block d-xl-none">Análise</h3>
+                                <p>
+                                    Comparativo entre Valores de Produção e Teto MAC.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+{% endfor %}
+{% endblock %}

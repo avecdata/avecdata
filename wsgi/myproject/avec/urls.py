@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from . import views
+from . import views as views
 from accounts import views as ac_views
 from . import validators
 from django.contrib.auth.views import login, logout
@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^dashboard/', views.dashboard, name='dashboard'),
     url(r'^contact/$', views.contact, name='contact'),
     url(r'^conta/', include('accounts.urls', namespace='accounts')),
+    url(r'^hemocentros/', include('hemocentros.urls', namespace='hemocentros')),
     url(r'^termos-condicoes-gerais/', views.terms_conditions, name='terms_conditions'),
     url(r'^politica-privacidade/', views.privacy_statement, name='privacy_statement'),
     url(r'^check_email/$', validators.check_email),
@@ -68,5 +69,13 @@ urlpatterns = [
     url(r'^samu/(?P<cnpj>.+)/$', views.samu, name='samu'),
     url(r'^lista_cidades/$', views.lista_cidades, name='lista_cidades'),
     url(r'^mapa/$', views.mapa, name='mapa'),
+    url(r'^highchart/(?P<cnpj>.+)/$', views.highchart, name='highchart'),
     #url(r'^hemocentro/(?P<client>.+)/$', views.hemocentro, name='hemocentro'),
+    url(r'^retrato/(?P<cd_municipio>.+)/$', views.retrato, name='retrato'),
+    
+    url(r'^coleta/(?P<cnpj>.+)/$', views.coleta, name='coleta'),
+    url(r'^laboratorio/(?P<cnpj>.+)/$', views.laboratorio, name='laboratorio'),
+    url(r'^hemocomponentes/(?P<cnpj>.+)/$', views.hemocomponentes, name='hemocomponentes'),
+    url(r'^gestao/(?P<cnpj>.+)/$', views.gestao, name='gestao'),
+    url(r'^morbidade/(?P<cnpj>.+)/$', views.morbidade, name='morbidade'),
 ]

@@ -1,0 +1,421 @@
+{% extends "avec/retrato/templates/layout.html" %}
+
+{% load staticfiles %}
+
+{% block navbar-side %}
+<div class="navbar-side-menu">
+    <ul class="nav d-flex flex-md-column justify-content-between">
+
+      {% for ent in entidade %}
+        <li class="nav-item active">
+            <a href="{% url 'hemocentros:retrato' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                <i class="icons icon-grid"></i>
+                <span class="d-none d-lg-block">Dados Gerais</span>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a href="{% url 'hemocentros:candidato_doacao' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                <i class="icons icon-layers"></i>
+                <span class="d-none d-lg-block">Candidatos à doação</span>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a href="{% url 'hemocentros:coleta' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                <i class="icons icon-notebook"></i>
+                <span class="d-none d-lg-block">Coleta</span>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a href="{% url 'hemocentros:laboratorio' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                <i class="icons icon-note"></i>
+                <span class="d-none d-lg-block">Laboratório</span>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a href="{% url 'hemocentros:hemocomponentes' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                <i class="icons icon-compass"></i>
+                <span class="d-none d-lg-block">Hemocomponentes</span>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a href="{% url 'hemocentros:gestao' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                <i class="icons icon-compass"></i>
+                <span class="d-none d-lg-block">Gestão</span>
+            </a>
+        </li>
+        {% endfor %}
+
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+  <script src="{% static 'js/highcharts/highcharts.js' %}" type="text/javascript"></script>
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
+  <script src="{% static 'js/highcharts/themes/light.js' %}" type="text/javascript"></script>
+
+
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  {% load chartit %}
+
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5690690cf94ece"></script>
+  <!--Disqus-->
+  <script type="text/javascript">
+      var disqus_shortname = 'django-chartit'; (function() {
+          var dsq = document.createElement('script');
+          dsq.type = 'text/javascript';
+          dsq.async = true;
+          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+
+  </script>
+  <noscript>
+      Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+
+    <div id="page-wrapper">
+
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+              {% for hemo in hemocentro %}
+                <h2>Dados Gerais sobre {{hemo.nm_hemocentro}}</h2>
+              {% endfor %}
+              {% for row in list %}
+                <p>
+                    {% for item in row %}
+                        {{ item }}
+                    {% endfor %}
+                </p>
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-content">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="grid-boxes">
+
+                    <div class="box box-dados">
+                        <div class="box-icon">
+                            <i class="icon ion-ios-people-outline"></i>
+                        </div>
+                        <div class="box-title d-block d-sm-none d-xl-block">
+                            <h3>Rede Assistencial</h3>
+                        </div>
+                        <hr class="d-none d-sm-block d-xl-none" />
+                        <div class="box-content">
+                            <h3 class="d-none d-sm-block d-xl-none">Rede Assistencial</h3>
+                            <dl>
+                                <dt>Hospital Especializado</dt>
+                                <dd>{{cid.populacao_estimada}}</dd>
+
+                                <dt>Hospital Geral</dt>
+                                <dd>{{cid.area_territorial}}</dd>
+
+                                <dt>Hospital Dia</dt>
+                                <dd>{{cid.regiao_saude}}</dd>
+
+                                <dt>Pronto Socorro especializado</dt>
+                                <dd>{{cid.regiao_saude}}</dd>
+
+                                <dt>Pronto Socorro Geral</dt>
+                                <dd>{{cid.regiao_saude}}</dd>
+                            </dl>
+                            <i class="icon icon-options"></i>
+                        </div>
+                    </div>
+
+                    <div class="box box-dados">
+                        <div class="box-icon">
+                            <i class="icon ion-ios-color-filter-outline"></i>
+                        </div>
+                        <div class="box-title d-block d-sm-none d-xl-block">
+                            <h3>Leitos</h3>
+                        </div>
+                        <hr class="d-none d-sm-block d-xl-none" />
+                        <div class="box-content">
+                            <h3 class="d-none d-sm-block d-xl-none">Leitos</h3>
+                            <dl>
+                                <dt>Ambulatorio - Leitos de respouso</dt>
+                                <dd>{{cid.pib}}</dd>
+
+                                <dt>Hospitalar Leitos de Internação</dt>
+                                <dd>Qtde. Disponível {{cid.pib_percapita}} </dd>
+                                <dd>Qtde. SUS {{cid.pib_percapita}} </dd>
+                                <dd>Qtde. não SUS {{cid.pib_percapita}} </dd>
+                                <dd>TOTAL {{cid.pib_percapita}} </dd>
+
+                                <dt>Hospitalar - Leitos complementares</dt>
+                                <dd>Qtde. Disponível {{cid.pib_percapita}} </dd>
+                                <dd>Qtde. SUS {{cid.pib_percapita}} </dd>
+                                <dd>Qtde. não SUS {{cid.pib_percapita}} </dd>
+                                <dd>TOTAL {{cid.pib_percapita}} </dd>
+
+                            </dl>
+                            <i class="icon icon-options"></i>
+                        </div>
+                    </div>
+
+                    <div class="box box-dados">
+                        <div class="box-icon">
+                            <i class="icon ion-ios-medkit-outline"></i>
+                        </div>
+                        <div class="box-title d-block d-sm-none d-xl-block">
+                            <h3>Indicadores SUS</h3>
+                        </div>
+                        <hr class="d-none d-sm-block d-xl-none" />
+                        <div class="box-content">
+                            <h3 class="d-none d-sm-block d-xl-none">Indicadores SUS</h3>
+                            <dl>
+                                <dt>% de doadores por mil habitantes</dt>
+                                <dd>{{cid.nascidos_vivos}}</dd>
+
+                                <dt>Coletas de Sangue</dt>
+                                <dd>Sangue Total {{cid.mortalidade_infantil}}</dd>
+                                <dd>Aferese {{cid.mortalidade_infantil}}</dd>
+                                <dd>Total {{cid.mortalidade_infantil}}</dd>
+
+                                <dt>Transfusões de sangue</dt>
+                                <dd>Ambulatorial {{cid.tx_mortalidade_infantil}}</dd>
+                                <dd>Hospitalar {{cid.tx_mortalidade_infantil}}</dd>
+                                <dd>Total {{cid.tx_mortalidade_infantil}}</dd>
+
+                            </dl>
+                            <i class="icon icon-options"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+      <!--  <div class="widget">
+            <div class="widget_title">
+                <h3>
+                    <i class="fa fa-bar-chart d-none d-md-inline-block"></i> Nascidos vivos por ano
+                </h3>
+            </div>
+            <div class="widget_content border rounded py-3 px-4">
+                <div id="chart_1"></div>
+            </div>
+        </div>
+
+        <div class="widget">
+            <div class="widget_content border rounded">
+                <div id="map"></div>
+            </div>
+        </div>
+
+    </div>-->
+
+</div>
+
+<!--<script>
+      pop = {{cid.populacao_estimada}};
+      if (pop < 70000){
+        myzoom = 16;
+      };
+      if (pop >= 70000 &&  pop < 500000){
+        myzoom = 15;
+      };
+      if (pop >= 500000 &&  pop < 1000000){
+        myzoom = 14;
+      };
+      if (pop >= 1000000 &&  pop < 3000000){
+        myzoom = 13;
+      };
+      if (pop >= 3000000){
+        myzoom = 12;
+      };
+
+      function initMap() {
+        {% for gis in gis %}
+          const center_old = {lat: -7.120436, lng: -34.877824};
+          const center = {lat: {{gis.latitude}}, lng: {{gis.longitude}}};
+          const map = new google.maps.Map(document.getElementById('map'), {
+              zoom : myzoom,
+              center: center,
+              disableDefaultUI: true,
+        {% endfor %}
+            styles: [
+                {
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#f5f5f5"
+                        }
+                    ]
+                },
+                {
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#616161"
+                        }
+                    ]
+                },
+                {
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "color": "#f5f5f5"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "administrative.land_parcel",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#bdbdbd"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#eeeeee"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#757575"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.park",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#e5e5e5"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.park",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#9e9e9e"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#ffffff"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#757575"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#dadada"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#616161"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.local",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#9e9e9e"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.line",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#e5e5e5"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.station",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#eeeeee"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#c9c9c9"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#9e9e9e"
+                        }
+                    ]
+                }
+            ]
+        });
+
+        const marker = new google.maps.Marker({
+            position: center,
+            map: map,
+            icon: 'http://avecdata.alexandremedeiros.com.br/images/marker.png'
+        });
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQlsvwXkClFENZeuVSGfwuFnYeLgnoQE4&callback=initMap"></script>
+-->
+{% endblock %}

@@ -1,0 +1,246 @@
+{% extends "avec/fns/templates/layout.html" %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+{% load poll_extras %}
+
+{% block navbar-side %}
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+            {% for ent in entidade %}
+                <li class="nav-item ">
+                    <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-grid"></i>
+                        <span class="d-none d-lg-block">Dados Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="{% url 'teto' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-layers"></i>
+                        <span class="d-none d-lg-block">Teto Financeiro</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'faec' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-notebook"></i>
+                        <span class="d-none d-lg-block">FAEC</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'ceo' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-note"></i>
+                        <span class="d-none d-lg-block">CEO</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'samu' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">SAMU</span>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endblock %}
+
+{% block content %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="{% static 'js/highcharts/highcharts.js' %}" type="text/javascript"></script>
+<!--<script src="https://code.highcharts.com/highcharts.src.js"></script>-->
+<script src="{% static 'js/highcharts/themes/light.js' %}" type="text/javascript"></script>
+
+
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+{% load chartit %}
+{{ chart_list|load_charts:"total" }}<!--Addthis-->
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5690690cf94ece"></script>
+<!--Disqus-->
+<script type="text/javascript">
+    var disqus_shortname = 'django-chartit'; (function() {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+</script>
+<noscript>
+    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+{% for ent in entidade %}
+    <div id="page-wrapper">
+
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>Teto Financeiro</h2>
+
+                <div class="submenu">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+          <a class="nav-link" href="{% url 'teto_producao' cnpj=ent.cpf_cnpj %}?mes_producao={{max_producao}}">Produção</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link " href="{% url 'teto_pagamento' cnpj=ent.cpf_cnpj %}?mes_repasse={{max_repasse}}">Repasse Federal</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link active " href="{% url 'teto_analise' cnpj=ent.cpf_cnpj %}?mes_producao={{max_producao}}&mes_repasse={{max_repasse}}">Análise</a>
+      </li>
+    </ul>
+</div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-content">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="filters">
+                    <form method="get" class="form-inline d-flex justify-content-between">
+                        <div class="form-group d-flex date-container">
+                            <label class="col-form-label" for="mes_producao">Mês da Produção</label>
+                            <div class="input-group">
+                              {% for field_d in datasus_filter.form %}
+
+                                {{ datasus_filter.form.mes_producao|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:mes_producao"|attr:"placeholder:Selecione"  }}
+
+                                      <span class="input-group-btn">
+                                          <button class="btn btn-light btn-datepicker" type="button">
+                                              <i class="fa fa-calendar"></i>
+                                          </button>
+                                      </span>
+                              {% endfor %}
+                            </div>
+                        </div>
+                        <div class="form-group d-flex date-container">
+                            <label class="col-form-label" for="mes_repasse">Mês do Repasse</label>
+                            <div class="input-group">
+                              {% for field_p in pagamento_filter.form %}
+
+                                {{ pagamento_filter.form.mes_repasse|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:mes_repasse"|attr:"placeholder:Selecione"  }}
+
+                                      <span class="input-group-btn">
+                                          <button class="btn btn-light btn-datepicker" type="button">
+                                              <i class="fa fa-calendar"></i>
+                                          </button>
+                                      </span>
+                              {% endfor %}
+                            </div>
+                        </div>
+                        <div class="form-group no-border p-0">
+                            <button type="submit" class="btn btn-primary btn-rounded">
+                                <i class="fa fa-filter d-none d-sm-block d-xl-none"></i>
+                                <span class="d-block d-sm-none d-xl-block">Filtrar</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget full-width widget-table">
+            <div class="widget_title">
+                <h3 class="text-left">
+                    <i class="fa fa-bookmark color-turq-avec"></i> Produção X Repasse Federal
+                </h3>
+            </div>
+            <div class="widget_content no-bg">
+
+                <div class="table-collapse">
+
+                    <dl>
+                        <dd class="grid_content">
+
+                            <div id="ac_prod_pag" role="tablist">
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="ac_prod_pag_head_1">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="total_label">
+                                                <span>Valor da produção</span>
+                                            </div>
+                                            <div>
+                                                <span>R$ {{ datasus_filter.qs.values | running_total_amb_hosp }}</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="ac_prod_pag_head_2">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="total_label">
+                                                <span>Valor Recebido</span>
+                                            </div>
+                                            <div>
+                                                <span>R$ {{ pagamento_filter.qs.values | running_total_repasse }}</span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="ac_prod_pag_head_3">
+                                        <h5 class="mb-0 grid_title">
+                                            <div class="total_label bg-pale-grey-five">
+                                                <span>Valor (Déficit/Superávit)</span>
+                                            </div>
+                                            <div class="bg-pale-grey-five">
+                                                <span class="d-flex align-items-center justify-content-center">
+                                                    R$ {{ pagamento_filter.qs.values | running_total_diff:datasus_filter.qs.values }}
+                                                      <i id="diff" class="icon"></i>
+
+                                                </span>
+                                            </div>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </dd>
+                    </dl>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="widget full-width">
+            <div class="widget_title">
+                <h3 class="text-left">
+                    <i class="fa fa-bar-chart"></i> Déficit/Superavit
+                </h3>
+            </div>
+            <div id="total" class="widget_content border rounded py-3 px-4">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+<script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+<script>
+function diff() {
+  diff	= "{{ pagamento_filter.qs.values | running_total_diff:datasus_filter.qs.values }}";
+  diff = parseInt(diff);
+  if (diff >=0){
+    $('#diff').addClass(" ion-md-arrow-dropup icon-superavit");
+  }
+  else{
+    $('#diff').addClass(" ion-md-arrow-dropdown icon-deficit");
+  }
+}
+$(window).load( function(){
+  diff();
+});
+
+</script>
+{% endfor %}
+{% endblock %}

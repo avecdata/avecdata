@@ -1,0 +1,42 @@
+{% extends "avec/fns/templates/layout_lista.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<div id="page-wrapper-main">
+
+  <div class="wrapper-content">
+      <div class="row" style="padding-bottom: 20px;">
+          <div class="col-12">
+
+              <div class="grid-boxes">
+
+                  <div class="box2 box-dados">
+                      <div class="box-icon">
+                          <i class="icon ion-ios-cube"></i>
+                      </div>
+                      <div class="box-title d-block d-sm-none d-xl-block">
+                          <h3>Bem vindo ao Painel de Gestão Financeira</h3>
+                      </div>
+
+                      <div class="box-content">
+                        <form class="avec-search-results">
+                          <div class="input-group stylish-input-group">
+                            <input type="text" id="autocomplete2" class="form-control avec-auto-complete" placeholder="Encontre a cidade">
+                          </div>
+                          <button type="submit" class="btn-avec-success btn-search-data">
+                            <i class="fa">Buscar</i>
+                          </button>
+                        </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+</div>
+{% endblock %}
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDBL3P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>

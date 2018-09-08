@@ -1,0 +1,196 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>AVEC - Ciência de dados</title>
+
+    <link href="{% static 'retrato/css/main.css' %}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-light bg-white p-3">
+    <a class="navbar-brand" href="{% url 'lista_cidades' %}">
+        <img src="{% static 'avecv2.0-template/img/avec-logo.svg' %}" class="mainlogo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="icons icon-menu"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown text-center text-sm-left">
+                <a class="nav-link dropdown-toggle" href="#" id="suacontaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sua conta
+                </a>
+                <div class="dropdown-menu text-center text-sm-left" aria-labelledby="suacontaDropdown">
+                    <a class="dropdown-item" href="#">Preferências</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-pencil-square-o"></i> Alterar senha</a>
+                </div>
+            </li>
+            <li class="nav-item d-none d-sm-block">
+                <a class="nav-logout" href="#">
+                    Sair
+                </a>
+            </li>
+            <li class="nav-item d-block d-sm-none text-center">
+                <a class="nav-link" href="#">
+                    <i class="fa fa-sign-out"></i> Sair
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+{% for cid in cidade %}
+<div id="wrapper">
+
+    <nav class="navbar-side">
+        <div class="nav-header d-md-none d-lg-block">
+            <h2>Retrato Municipal</h2>
+            <hr />
+            {% for ent in entidade %}
+            <h3 class="d-md-none d-lg-block">{{cid.nm_municipio}}/{{ent.sg_uf}}</h3>        
+            {% endfor %}
+        </div>
+        <!--<span class="rounded-labels label-pref d-block d-md-none d-lg-block">Pref. {{ent.nm_prefeito}}</span>
+        <span class="rounded-labels label-sec d-block d-md-none d-lg-block">Sec. {{ent.nm_secretario}}</span>-->
+  	     {% block navbar-side %}{% endblock %}
+
+        <div class="help d-none d-sm-block">
+            <div class="help-content">
+                <hr />
+                <div class="d-none d-lg-block">
+                    <h3>Precisa de Ajuda?</h3>
+                    <p>
+                        +55 61 3033-7401<br />
+                        contato@avecdata.com
+                    </p>
+                    <a href="" title="Visite Contato">Visite Contato</a>
+                </div>
+                <div class="d-lg-none text-center">
+                    <a href="" title="" class="icon">
+                        <i class="icon-bubbles"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+
+  	{% block content %}{% endblock %}
+
+    <footer>
+        <div class="copyright">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p class="text-sm-left">© Copyright 2017 Avec Data Science. All Rights Reserved. SCS Q 06, Bl A, Sala 403, Ed. Carioca » Asa Sul, Brasilia DF - Brasil</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <ul class="social d-flex flex-row justify-content-center">
+                            <li>
+                                <a href="" title="">
+                                    <figure></figure>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" title="">
+                                    <figure></figure>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" title="">
+                                    <figure></figure>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" title="">
+                                    <figure></figure>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+<script type="text/javascript" src="{% static 'js/jquery.autocomplete.min.js' %}"></script>
+<script src="{% static 'pgf/js/libs/jquery.slim.min.js' %}"></script>
+<script src="{% static 'pgf/js/libs/popper.min.js' %}"></script>
+<script src="{% static 'pgf/js/libs/bootstrap.min.js' %}"></script>
+<script src="{% static 'pgf/js/libs/datepicker.min.js' %}"></script>
+<script src="{% static 'pgf/js/libs/datepicker.pt-BR.js' %}"></script>
+<script src="{% static 'pgf/js/libs/jquery.maskedinput.js' %}"></script>
+
+
+<script>
+
+    const fix_height = function () {
+        $("#page-wrapper").css("min-height", '1024px');
+        $(".navbar-side").css("min-height", $('#page-wrapper').height()+96 + "px");
+    };
+
+    const windowResize = function(mq) {
+        if ( !mq.matches ) {
+            fix_height();
+        } else {
+            $(".navbar-side").css('min-height', 'auto');
+        }
+    };
+
+    $(function() {
+        /* JavaScript Media Queries */
+        if (matchMedia) {
+            const mq = window.matchMedia("(max-width: 767px)");
+
+            mq.addListener(windowResize);
+            windowResize(mq);
+        }
+
+        $('[data-toggle="datepicker"]').mask('99/9999');
+
+        $('[data-toggle="datepicker"]').datepicker({
+            autoHide: true,
+            language: 'pt-BR',
+            format: 'mm/yyyy',
+            startView: 1,
+            offset: 0,
+            monthsShort: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+//            trigger: $(this).closest('.date-container'),
+            template: [
+                '<div class="datepicker-container">',
+                    '<div class="datepicker-panel" data-view="years picker">',
+                        '<ul class="nav-picker">',
+                            '<li data-view="years prev"><i class="ion-ios-arrow-back"></i></li>',
+                            '<li data-view="years current" class="ml-auto mr-auto"></li>',
+                            '<li data-view="years next"><i class="ion-ios-arrow-forward"></i></li>',
+                        '</ul>',
+                        '<ul data-view="years"></ul>',
+                    '</div>',
+                    '<div class="datepicker-panel" data-view="months picker">',
+                        '<ul class="nav-picker">',
+                            '<li data-view="year prev"><i class="ion-ios-arrow-back"></i></li>',
+                            '<li data-view="year current" class="ml-auto mr-auto"></li>',
+                            '<li data-view="year next"><i class="ion-ios-arrow-forward"></i></li>',
+                        '</ul>',
+                        '<ul data-view="months"></ul>',
+                    '</div>',
+                '</div>'
+            ].join('')
+        });
+    });
+</script>
+
+{% endfor %}
+</body>
+</html>

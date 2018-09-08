@@ -2,7 +2,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.utils import timezone
-from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis, pgf_acao_datasus, pgf_acao_datasus_detalhe, pgf_acao_datasus_grupo, v_pgf_municipio_saude, v_pgf_ambulatorial, v_pgf_hospitalar, v_pgf_total, v_pgf_repasse_teto, v_pgf_repasse_faec, v_pgf_analise_faec, v_pgf_analise_teto
+from .models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis, pgf_acao_datasus, pgf_acao_datasus_detalhe, pgf_acao_datasus_grupo, v_pgf_municipio_saude, v_pgf_ambulatorial, v_pgf_hospitalar, v_pgf_total, v_pgf_repasse_teto, v_pgf_repasse_faec, v_pgf_analise_faec, v_pgf_analise_teto, v_pgf_aparecida
 from django.contrib.auth.models import Group
 from accounts.models import User
 from django.template import RequestContext
@@ -1974,3 +1974,177 @@ def cidades_list(request):
 #mapa
 def mapa(request):
     return render(request, 'avec/dashboards/padrao2.html')
+
+def highchart(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    #acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30472).order_by('mes')
+    #acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cnpj=cnpj).filter(acao_num=30472).order_by('dt_ob_date')
+    view_aparecida = v_pgf_aparecida.objects.values()
+
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+
+    return render(request, 'avec/retrato/highchart.html', {'int_cnpj' : int_cnpj, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'entidade' : entidade, 'view_aparecida' : view_aparecida})
+
+
+#####################################
+#####################################
+###########RETRATOS##################
+
+def retrato(request, cd_municipio):
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=cd_municipio)
+    entidade = pgf_entidade.objects.filter(cd_municipio=cd_municipio)
+    gis = pgf_municipio_gis.objects.filter(cd_municipio__startswith=cd_municipio)
+    v_pgf_municipio_saude.objects.filter(cd_municipio=cd_municipio)
+    city='Brasil'
+    filtro=12
+    ds = DataPool(
+            series=[{
+                'options': {
+                    'source': v_pgf_municipio_saude.objects.filter(cd_municipio=cd_municipio)
+                },
+                'terms': [
+                    'ano',
+                    'numero'
+                ]
+            }]
+    )
+
+    chart_1 = Chart(
+            datasource=ds,
+            series_options=[{
+                'options': {
+                    'type': 'line',
+                    'zoomType': 'x',
+                    'stacking': False,
+                    'fillColor': {
+                        'linearGradient': { 'x1': 0, 'y1': 0, 'x2': 0, 'y2': 1},
+                        'stops': [
+                            [0, 'red'],
+                            [1, '#3DC1D0']
+                        ]
+                    },
+                     'color': '#3DC1D0',
+                      'marker': {
+                        'color': '#3DC1D0',
+                          'radius': 1
+
+                      },
+                      'lineWidth': 1,
+                      'states': {
+                          'hover': {
+                              'lineWidth': 1
+                          }
+                      }
+                },
+                'terms': {
+                    'ano': [
+                        {'numero': {
+                            'color' : '#2D8D98',
+                            'lineWidth': 1,
+                            'marker': {
+                                'symbol': 'circle'
+                            }
+                                }}
+                    ]
+                }
+            }],
+            chart_options={
+                'title': {
+                    'text': '1994 À 2015',
+                    'style': {
+                        'fontSize': '14px',
+                    }
+                },
+
+                'xAxis': {
+                    'title': {
+                        'text': 'Ano'
+                    }
+                },
+                'yAxis': {
+                    'title': {
+                        'text': 'Nascidos Vivos'
+                    }
+                }
+            }
+    )
+
+    return render(request, 'avec/retrato/index.html', {'cidade': cidade, 'entidade': entidade, 'gis' : gis, 'chart_list': [chart_1] })
+
+
+def coleta(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(ano='2018').filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).order_by('mes')
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilter(request.GET, queryset=acao)
+    return render(request, 'avec/retrato/coleta.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter})
+
+def laboratorio(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(ano='2018').filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).order_by('mes')
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilter(request.GET, queryset=acao)
+    return render(request, 'avec/retrato/laboratorio.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter})
+
+def hemocomponentes(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(ano='2018').filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).order_by('mes')
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilter(request.GET, queryset=acao)
+    return render(request, 'avec/retrato/hemocomponentes.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter})
+
+def gestao(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(ano='2018').filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).order_by('mes')
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilter(request.GET, queryset=acao)
+    return render(request, 'avec/retrato/gestao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter})
+
+
+def morbidade(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    acao = pgf_acao_datasus.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade').order_by('mes')
+    grupo_hospitalar = pgf_acao_datasus.objects.filter(cd_acao__in=acao).filter(amb_hosp='Hospitalar').distinct('grupo')
+    grupo_ambulatorial = pgf_acao_datasus.objects.filter(cd_acao__in=acao).filter(amb_hosp='Ambulatorial').distinct('grupo')
+    acao_filter = AcaoFilterDatasus(request.GET, queryset=acao)
+    view_aparecida = v_pgf_aparecida.objects.values()
+
+
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(ano='2018').filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
+    view_ambulatorial = v_pgf_ambulatorial.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade')
+    view_hospitalar = v_pgf_hospitalar.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade')
+    view_total = v_pgf_total.objects.filter(cd_municipio=cd_municipio).filter(tipo__startswith='Média e Alta Complexidade')
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+
+    return render(request, 'avec/retrato/morbidade.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'view_aparecida' : view_aparecida })

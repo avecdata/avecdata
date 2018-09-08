@@ -1,0 +1,341 @@
+{% extends 'avec/layout.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/avecVinicius-style.css' %}">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+    <link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.css" />
+
+
+    <link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-panel-layers/src/leaflet-panel-layers.css" />
+    <link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-panel-layers/examples/icons.css" />
+
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBiinpre3Z9O1-N56coxIDYhOifIwklFTo"></script>
+    <script src="http://matchingnotes.com/javascripts/leaflet-google.js"></script>
+
+    <style>
+    .custom-popup .leaflet-popup-content-wrapper {
+      color:#fff;
+      font-size:16px;
+      line-height:24px;
+      }
+    .custom-popup .leaflet-popup-content-wrapper a {
+      color:rgba(255,255,255,0.5);
+      }
+    .custom-popup .leaflet-popup-tip-container {
+      width:30px;
+      height:15px;
+      }
+    .custom-popup .leaflet-popup-tip {
+      border-left:15px solid transparent;
+      border-right:15px solid transparent;
+      border-top:15px solid #2c3e50;
+      }
+
+    .leaflet-map-pane {
+        z-index: 2 !important;
+    }
+
+    .leaflet-google-layer {
+        z-index: 1 !important;
+    }
+    </style>
+
+{% for cid in cidade %}
+
+    <!-- MAIN CONTENT
+    ================================================== -->
+    <div class="container">
+
+      <div class="row">
+        <div class="col-sm-3">
+          <div  data-spy="affix" style="background-color : #3e4c5b!important; " >
+            <div class="resume__profile" style="color : #ffffff; background-color : #3e4c5b!important;" >
+
+
+             <a href="{% url 'lista_cidades' %}" style="color: #FFFFFF!important;">
+               <h3 class="profile__section">
+                 Painel de Gestão Financeira
+               </h3>
+             </a>
+              <h4 class="profile__section" style="color : #2d9ba6;">
+                Média e Alta </br> Complexidade
+              </h4>
+          </div>
+          </div>
+
+          <div class="section" data-spy="affix" style="background-color : #4f6077!important;">
+            <div class="resume__profile" style="color : #ffffff; background-color : #4f6077!important;">
+
+              <h3 class="resume-profile__title">
+                {{cid.nm_municipio}}
+              </h3>
+
+              <div class="resume-profile__section">
+                Prefeito
+                <p class="text-muted">{{cid.nome_prefeito}}</p>
+              </div>
+
+              <div class="resume-profile__section">
+                Secretário
+                <p class="text-muted">
+                  {{cid.nome_secretario}}
+                </p>
+              </div>
+              <a href="#">
+                <div class="resume-profile__section">
+                  <strong><i class="fa fa-th-large"></i>   DADOS GERAIS</strong>
+
+                </div>
+              </a>
+              {% for ent in entidade %}
+              <a href="{% url 'teto' cnpj=ent.cpf_cnpj%}">
+                <div class="resume-profile__section" style="color : #FFFFFF;">
+                  <strong><i class="fa fa-copy"></i>   TETO FINANCEIRO</strong>
+
+                </div>
+              </a>
+              <a href="{% url 'faec' cnpj=ent.cpf_cnpj%}">
+                <div class="resume-profile__section" style="color : #FFFFFF;">
+                  <strong><i class="fa fa-tasks"></i>   FAEC</strong>
+
+                </div>
+              </a>
+              <a href="{% url 'ceo' cnpj=ent.cpf_cnpj%}">
+                <div class="resume-profile__section" style="color : #FFFFFF;">
+                  <strong><i class="fa fa-sticky-note-o"></i>   CEO</strong>
+
+                </div>
+              </a>
+              <a href="{% url 'samu' cnpj=ent.cpf_cnpj%}">
+                <div class="resume-profile__section" style="color : #FFFFFF;">
+                  <strong><i class="fa fa-ambulance"></i>   SAMU</strong>
+
+                </div>
+              </a>
+              {% endfor %}
+            </div> <!-- / .resume__profile -->
+
+
+          </div>
+
+        </div>
+        <div class="col-sm-8">
+
+          <div class="section" id="plans">
+            <div class="section__inner avec-section__inner">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <h1 class="avec-home-app">Dados gerais sobre os municipios</h1>
+                  </div>
+                </div>
+                <!-- / .row -->
+
+                <div class="row">
+                  <div class="col-sm-6 col-md-3">
+
+                    <div class="pricing-option">
+                      <div class="pricing-option__inner">
+
+                        <div class="home-app-pricing__price">
+                          <i class="fa fa-search"></i>
+                        </div>
+                        <div class="pricing-option__body">
+                          <div class="home-app-pricing__extra">Demografia</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>População estimada 2017</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.populacao_estimada}} pessoas</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>Área</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.area_territorial}} km²</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>Altitude</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">0 m</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>Clima</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">-</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>Distância até a capital</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">0 km</div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <!-- / .pricing-option -->
+
+                  </div>
+                  <div class="col-sm-6 col-md-3">
+
+                    <div class="pricing-option">
+                      <div class="pricing-option__inner">
+
+                        <div class="home-app-pricing__price">
+                          <i class="fa fa-search"></i>
+                        </div>
+                        <div class="pricing-option__body">
+                          <div class="home-app-pricing__extra">Indicadores</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>PIB Municipial 2016</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">R$ {{cid.pib}}</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>PIB Per Capita Municipal 2016</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">R$ {{cid.pib_percapita}}</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>IDHM</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.idhm}}</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>IDHM Longevidade</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.idhm_longevidade}}</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>IDHM Educação</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.idhm_educacao}}</div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <!-- / .pricing-option -->
+
+                  </div>
+                  <div class="clearfix visible-sm"></div>
+                  <div class="col-sm-6 col-md-3">
+
+                    <div class="pricing-option">
+                      <div class="pricing-option__inner">
+
+                        <div class="home-app-pricing__price">
+                          <i class="fa fa-search"></i>
+                        </div>
+                        <div class="pricing-option__body">
+                          <div class="home-app-pricing__extra">Saúde</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>Taxa de mortalidade infantil</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.mortalidade_infantil}} óbitos por mil nascidos vivos</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>Internações por diarreia</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">0 internações</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>Estabelecimentos de saúde do SUS</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">0 estabelecimentos</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>Taxa de partos cesáreos</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">{{cid.tx_parto_cesario}}</div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise"><strong>Óbito Maternos</strong></div>
+                          <div class="home-app-pricing__extra home-app-pricing__extra-enterprise">0 internações por mil hab.</div>
+
+
+                        </div>
+                      </div>
+                    </div>
+                    <!-- / .pricing-option -->
+
+                  </div>
+
+                </div>
+
+                </div>
+
+                <!-- / .row -->
+              </div>
+              <!-- / .container -->
+            </div>
+            <!-- / .section__inner -->
+          </div>
+
+
+        </div>
+      </div> <!-- / .row -->
+    </div> <!-- / .container -->
+
+{% endfor %}
+
+<div id="map"></div>
+
+<script>
+
+  // Google layers
+  var g_roadmap   = new L.Google('ROADMAP');
+var g_satellite = new L.Google('SATELLITE');
+var g_terrain   = new L.Google('TERRAIN');
+
+// OSM layers
+var osmUrl='http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+
+// Bing layers
+var bing1 = new L.BingLayer("AvZ2Z8Jve41V_bnPTe2mw4Xi8YWTyj2eT87tSGSsezrYWiyaj0ldMaVdkyf8aik6", {type: 'Aerial'});
+var bing2 = new L.BingLayer("AvZ2Z8Jve41V_bnPTe2mw4Xi8YWTyj2eT87tSGSsezrYWiyaj0ldMaVdkyf8aik6", {type: 'Road'});
+
+
+var map = L.map('map', {
+  center: [-7.904449, -34.899131],
+  zoom: 14
+});
+
+  map.addLayer(g_roadmap);
+
+var baseMaps = [
+                {
+          groupName : "Google Base Maps",
+          expanded : true,
+          layers    : {
+            "Satellite" :  g_satellite,
+            "Road Map"  :  g_roadmap,
+            "Terreno"   :  g_terrain
+          }
+            }, {
+            groupName : "OSM Base Maps",
+          layers    : {
+            "OpenStreetMaps" : osm
+          }
+                      }/*, {
+            groupName : "Bing Base Maps",
+          layers    : {
+            "Satellite" : bing1,
+            "Road"      : bing2
+          }
+                      } */
+];
+
+
+// configure StyledLayerControl options for the layer soybeans_sp
+soybeans_sp.StyledLayerControl = {
+  removable : true,
+  visible : false
+}
+
+// configure the visible attribute with true to corn_bh
+corn_bh.StyledLayerControl = {
+  removable : false,
+  visible : true
+}
+
+var options = {
+  container_width 	: "300px",
+  group_maxHeight     : "80px",
+  //container_maxHeight : "350px",
+  exclusive       	: false,
+  collapsed : true,
+  position: 'topright'
+};
+
+  var control = L.Control.styledLayerControl(baseMaps);
+map.addControl(control);
+
+// test for adding new base layers dynamically
+// to create a new group simply add a layer with new group name
+control.addBaseLayer( bing1, "Bing Satellite", {groupName : "Bing Maps", expanded: true} );
+control.addBaseLayer( bing2, "Bing Road", {groupName : "Bing Maps"} );
+
+
+var popup = L.popup()
+.setLatLng([-11,722259,-61,785781])
+.setContent("The data that appears in this application are fictitious and do not represent actual data!")
+.openOn(map);
+
+
+
+</script>
+
+{% endblock %}
+
+  <!-- Google Tag Manager -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDBL3P" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>

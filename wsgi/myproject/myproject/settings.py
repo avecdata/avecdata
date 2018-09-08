@@ -62,6 +62,7 @@ INSTALLED_APPS = (
 	'widget_tweaks',
 	'django.contrib.sites',
     'paypal.standard.ipn',
+    'hemocentros',
 )
 
 SITE_ID = 4

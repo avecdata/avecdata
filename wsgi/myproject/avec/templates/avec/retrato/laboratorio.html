@@ -1,0 +1,861 @@
+{% extends "avec/retrato/templates/layout.html" %}
+{% load widget_tweaks %}
+{% load poll_extras %}
+{% load staticfiles %}
+
+{% block navbar-side %}
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+              {% for ent in entidade %}
+                <li class="nav-item">
+                    <a href="{% url 'retrato' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-grid"></i>
+                        <span class="d-none d-lg-block">Dados Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'candidato_doacao' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-layers"></i>
+                        <span class="d-none d-lg-block">Candidatos à doação</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'coleta' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-notebook"></i>
+                        <span class="d-none d-lg-block">Coleta</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="{% url 'laboratorio' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-note"></i>
+                        <span class="d-none d-lg-block">Laboratório</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'hemocomponentes' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">Hemocomponentes</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'gestao' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">Gestão</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endblock %}
+
+{% block content %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="{% static 'js/highcharts/highcharts.js' %}" type="text/javascript"></script>
+<!--<script src="https://code.highcharts.com/highcharts.src.js"></script>-->
+<script src="{% static 'js/highcharts/themes/light.js' %}" type="text/javascript"></script>
+
+
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+{% load chartit %}
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5690690cf94ece"></script>
+<!--Disqus-->
+<script type="text/javascript">
+    var disqus_shortname = 'django-chartit'; (function() {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+</script>
+<noscript>
+    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+{% for ent in entidade %}
+    <div id="page-wrapper">
+
+      <div class="row">
+          <div class="col">
+              <div class="page-heading">
+                  <div class="submenu">
+
+                    <ul class="nav nav-pills nav-fill">
+                      <li class="nav-item active"><a class="nav-link active" data-toggle="pill" href="#imuno_doador">Imuno Doador</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#imuno_paciente">Imuno Pacientes</a></li>
+                      <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#inaptidao_sorologica">Inaptidão Sorológica</a></li>
+                    </ul>
+
+                  </div>
+
+              </div>
+          </div>
+      </div>
+
+    <div class="wrapper-content">
+
+      <div class="tab-content">
+        <div id="imuno_doador" class="widget full-width tab-pane fade  active in">
+          <div class="row">
+              <div class="col-12">
+                  <div class="filters">
+                      <form method="get" class="form-inline d-flex justify-content-between">
+                          <div class="form-group d-flex date-container">
+                              <label class="col-form-label" for="competencia">Parcela</label>
+                              <div class="input-group">
+                                {% for field in filter.form %}
+
+                                  {{ filter.form.mes_repasse|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:competencia"|attr:"placeholder:Selecione"  }}
+
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-light btn-datepicker" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                {% endfor %}
+                              </div>
+                          </div>
+                          <div class="form-group d-none d-sm-block">
+                              <button type="submit" class="btn btn-primary btn-rounded">
+                                  <i class="fa fa-filter d-xl-none"></i>
+                                  <span class="d-none d-xl-block">Filtrar</span>
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+          <div class="widget full-width widget-table">
+              <div class="widget_title">
+                  <h3 class="text-left">
+                      <i class="fa fa-bookmark color-turq-avec"></i> Imuno Doador
+                  </h3>
+              </div>
+              <div class="widget_content no-bg">
+
+                  <div class="table-collapse">
+
+                      <dl>
+                          <dt class="grid_title">
+                              <div class="total_label">
+                                  <span>Bloco/Grupo</span>
+                              </div>
+                              <div>
+                                  <span>Valor</span>
+                              </div>
+                          </dt>
+                          <dd class="grid_content">
+
+                              <div id="ac_pag_rec" role="tablist">
+                                  <div class="card">
+                                      <div class="card-header" role="tab" id="ac_pag_rec_head_1">
+                                          <h5 class="mb-0">
+                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_1" aria-expanded="true" aria-controls="ac_pag_rec_collapse_1" class="grid_title">
+                                                  <div class="total_label no-border">
+                                                      <span>Média e Alta complexidade ambulatorial e hospitalar</span>
+                                                  </div>
+                                                  <div class="no-border">
+
+                                                      <span>R$ {{ filter.qs.values | running_total_repasse }}</span>
+
+                                                  </div>
+                                              </a>
+                                          </h5>
+                                      </div>
+
+                                      <div id="ac_pag_rec_collapse_1" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_1" data-parent="#ac_pag_rec">
+                                          <div class="card-body">
+                                              <table class="table table-hover">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Repasse Federal (SUS)</th>
+                                                          <th>Data</th>
+                                                          <th>Valor Total</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    {% for a in filter.qs %}
+                                                    <tr>
+                                                        <td>{{a.nm_acao}}</td>
+                                                        <td>{{a.mes}}</td>
+                                                        <td>R$ {{a.vl_total}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="card">
+                                      <div class="card-header" role="tab" id="ac_pag_rec_head_2">
+                                          <h5 class="mb-0">
+                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_2" aria-expanded="true" aria-controls="ac_pag_rec_collapse_2" class="grid_title">
+                                                  <div class="total_label no-border">
+                                                      <span>Incremento MAC</span>
+                                                  </div>
+                                                  <div class="no-border">
+                                                      <span>-</span>
+                                                  </div>
+                                              </a>
+                                          </h5>
+                                      </div>
+
+                                      <div id="ac_pag_rec_collapse_2" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_2" data-parent="#ac_pag_rec">
+                                          <div class="card-body">
+                                              <table class="table table-hover">
+                                                  <thead>
+                                                  <tr>
+                                                      <th>Repasse Federal (SUS)</th>
+                                                      <th>Data</th>
+                                                      <th>Valor Total</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  <tr>
+                                                      <td>-</td>
+                                                      <td>-</td>
+                                                      <td>-</td>
+                                                  </tr>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </dd>
+                      </dl>
+
+                  </div>
+
+              </div>
+          </div>
+
+          <div class="widget full-width">
+              <div class="widget_title">
+                  <h3 class="text-left">
+                      <i class="fa fa-bar-chart"></i> Ações/Serviços/Estratégias
+                  </h3>
+              </div>
+              <div id="total" class="widget_content border rounded py-3 px-4">
+              </div>
+          </div>
+        </div>
+        <!--INICIO FAIXA ETARIA-->
+        <div id="imuno_paciente" class="widget full-width tab-pane fade">
+          <div class="row">
+              <div class="col-12">
+                  <div class="filters">
+                      <form method="get" class="form-inline d-flex justify-content-between">
+                          <div class="form-group d-flex date-container">
+                              <label class="col-form-label" for="competencia">Parcela</label>
+                              <div class="input-group">
+                                {% for field in filter.form %}
+
+                                  {{ filter.form.mes_repasse|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:competencia"|attr:"placeholder:Selecione"  }}
+
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-light btn-datepicker" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                {% endfor %}
+                              </div>
+                          </div>
+                          <div class="form-group d-none d-sm-block">
+                              <button type="submit" class="btn btn-primary btn-rounded">
+                                  <i class="fa fa-filter d-xl-none"></i>
+                                  <span class="d-none d-xl-block">Filtrar</span>
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+          <div class="widget full-width widget-table">
+              <div class="widget_title">
+                  <h3 class="text-left">
+                      <i class="fa fa-bookmark color-turq-avec"></i> Imuno Pacientes
+                  </h3>
+              </div>
+              <div class="widget_content no-bg">
+
+                  <div class="table-collapse">
+
+                      <dl>
+                          <dt class="grid_title">
+                              <div class="total_label">
+                                  <span>Bloco/Grupo</span>
+                              </div>
+                              <div>
+                                  <span>Valor</span>
+                              </div>
+                          </dt>
+                          <dd class="grid_content">
+
+                              <div id="ac_pag_rec" role="tablist">
+                                  <div class="card">
+                                      <div class="card-header" role="tab" id="ac_pag_rec_head_1">
+                                          <h5 class="mb-0">
+                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_1" aria-expanded="true" aria-controls="ac_pag_rec_collapse_1" class="grid_title">
+                                                  <div class="total_label no-border">
+                                                      <span>Média e Alta complexidade ambulatorial e hospitalar</span>
+                                                  </div>
+                                                  <div class="no-border">
+
+                                                      <span>R$ {{ filter.qs.values | running_total_repasse }}</span>
+
+                                                  </div>
+                                              </a>
+                                          </h5>
+                                      </div>
+
+                                      <div id="ac_pag_rec_collapse_1" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_1" data-parent="#ac_pag_rec">
+                                          <div class="card-body">
+                                              <table class="table table-hover">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Repasse Federal (SUS)</th>
+                                                          <th>Data</th>
+                                                          <th>Valor Total</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    {% for a in filter.qs %}
+                                                    <tr>
+                                                        <td>{{a.nm_acao}}</td>
+                                                        <td>{{a.mes}}</td>
+                                                        <td>R$ {{a.vl_total}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="card">
+                                      <div class="card-header" role="tab" id="ac_pag_rec_head_2">
+                                          <h5 class="mb-0">
+                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_2" aria-expanded="true" aria-controls="ac_pag_rec_collapse_2" class="grid_title">
+                                                  <div class="total_label no-border">
+                                                      <span>Incremento MAC</span>
+                                                  </div>
+                                                  <div class="no-border">
+                                                      <span>-</span>
+                                                  </div>
+                                              </a>
+                                          </h5>
+                                      </div>
+
+                                      <div id="ac_pag_rec_collapse_2" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_2" data-parent="#ac_pag_rec">
+                                          <div class="card-body">
+                                              <table class="table table-hover">
+                                                  <thead>
+                                                  <tr>
+                                                      <th>Repasse Federal (SUS)</th>
+                                                      <th>Data</th>
+                                                      <th>Valor Total</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  <tr>
+                                                      <td>-</td>
+                                                      <td>-</td>
+                                                      <td>-</td>
+                                                  </tr>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </dd>
+                      </dl>
+
+                  </div>
+
+              </div>
+          </div>
+
+          <div class="widget full-width">
+              <div class="widget_title">
+                  <h3 class="text-left">
+                      <i class="fa fa-bar-chart"></i> Ações/Serviços/Estratégias
+                  </h3>
+              </div>
+              <div id="total" class="widget_content border rounded py-3 px-4">
+              </div>
+          </div>
+        </div><!--FIM imuno_paciente-->
+        <!--INICIO inaptidao_sorologica-->
+        <div id="inaptidao_sorologica" class="widget full-width tab-pane fade">
+          <div class="row">
+              <div class="col-12">
+                  <div class="filters">
+                      <form method="get" class="form-inline d-flex justify-content-between">
+                          <div class="form-group d-flex date-container">
+                              <label class="col-form-label" for="competencia">Parcela</label>
+                              <div class="input-group">
+                                {% for field in filter.form %}
+
+                                  {{ filter.form.mes_repasse|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:competencia"|attr:"placeholder:Selecione"  }}
+
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-light btn-datepicker" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                {% endfor %}
+                              </div>
+                          </div>
+                          <div class="form-group d-none d-sm-block">
+                              <button type="submit" class="btn btn-primary btn-rounded">
+                                  <i class="fa fa-filter d-xl-none"></i>
+                                  <span class="d-none d-xl-block">Filtrar</span>
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+          <div class="widget full-width widget-table">
+              <div class="widget_title">
+                  <h3 class="text-left">
+                      <i class="fa fa-bookmark color-turq-avec"></i> Inaptidao Sorologica
+                  </h3>
+              </div>
+              <div class="widget_content no-bg">
+
+                  <div class="table-collapse">
+
+                      <dl>
+                          <dt class="grid_title">
+                              <div class="total_label">
+                                  <span>Bloco/Grupo</span>
+                              </div>
+                              <div>
+                                  <span>Valor</span>
+                              </div>
+                          </dt>
+                          <dd class="grid_content">
+
+                              <div id="ac_pag_rec" role="tablist">
+                                  <div class="card">
+                                      <div class="card-header" role="tab" id="ac_pag_rec_head_1">
+                                          <h5 class="mb-0">
+                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_1" aria-expanded="true" aria-controls="ac_pag_rec_collapse_1" class="grid_title">
+                                                  <div class="total_label no-border">
+                                                      <span>Média e Alta complexidade ambulatorial e hospitalar</span>
+                                                  </div>
+                                                  <div class="no-border">
+
+                                                      <span>R$ {{ filter.qs.values | running_total_repasse }}</span>
+
+                                                  </div>
+                                              </a>
+                                          </h5>
+                                      </div>
+
+                                      <div id="ac_pag_rec_collapse_1" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_1" data-parent="#ac_pag_rec">
+                                          <div class="card-body">
+                                              <table class="table table-hover">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Repasse Federal (SUS)</th>
+                                                          <th>Data</th>
+                                                          <th>Valor Total</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    {% for a in filter.qs %}
+                                                    <tr>
+                                                        <td>{{a.nm_acao}}</td>
+                                                        <td>{{a.mes}}</td>
+                                                        <td>R$ {{a.vl_total}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="card">
+                                      <div class="card-header" role="tab" id="ac_pag_rec_head_2">
+                                          <h5 class="mb-0">
+                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_2" aria-expanded="true" aria-controls="ac_pag_rec_collapse_2" class="grid_title">
+                                                  <div class="total_label no-border">
+                                                      <span>Incremento MAC</span>
+                                                  </div>
+                                                  <div class="no-border">
+                                                      <span>-</span>
+                                                  </div>
+                                              </a>
+                                          </h5>
+                                      </div>
+
+                                      <div id="ac_pag_rec_collapse_2" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_2" data-parent="#ac_pag_rec">
+                                          <div class="card-body">
+                                              <table class="table table-hover">
+                                                  <thead>
+                                                  <tr>
+                                                      <th>Repasse Federal (SUS)</th>
+                                                      <th>Data</th>
+                                                      <th>Valor Total</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  <tr>
+                                                      <td>-</td>
+                                                      <td>-</td>
+                                                      <td>-</td>
+                                                  </tr>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </dd>
+                      </dl>
+
+                  </div>
+
+              </div>
+          </div>
+
+          <div class="widget full-width">
+              <div class="widget_title">
+                  <h3 class="text-left">
+                      <i class="fa fa-bar-chart"></i> Ações/Serviços/Estratégias
+                  </h3>
+              </div>
+              <div id="total" class="widget_content border rounded py-3 px-4">
+              </div>
+          </div>
+        </div>     <!--FIM inaptidao_sorologica-->
+        <!--INICIO TP_DOADOR-->
+        <div id="tp_doador" class="widget full-width tab-pane fade">
+          <div class="row">
+              <div class="col-12">
+                  <div class="filters">
+                      <form method="get" class="form-inline d-flex justify-content-between">
+                          <div class="form-group d-flex date-container">
+                              <label class="col-form-label" for="competencia">Parcela</label>
+                              <div class="input-group">
+                                {% for field in filter.form %}
+
+                                  {{ filter.form.mes_repasse|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:competencia"|attr:"placeholder:Selecione"  }}
+
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-light btn-datepicker" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                {% endfor %}
+                              </div>
+                          </div>
+                          <div class="form-group d-none d-sm-block">
+                              <button type="submit" class="btn btn-primary btn-rounded">
+                                  <i class="fa fa-filter d-xl-none"></i>
+                                  <span class="d-none d-xl-block">Filtrar</span>
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+          <div class="widget full-width widget-table">
+              <div class="widget_title">
+                  <h3 class="text-left">
+                      <i class="fa fa-bookmark color-turq-avec"></i> Tipo Doador
+                  </h3>
+              </div>
+              <div class="widget_content no-bg">
+
+                  <div class="table-collapse">
+
+                      <dl>
+                          <dt class="grid_title">
+                              <div class="total_label">
+                                  <span>Bloco/Grupo</span>
+                              </div>
+                              <div>
+                                  <span>Valor</span>
+                              </div>
+                          </dt>
+                          <dd class="grid_content">
+
+                              <div id="ac_pag_rec" role="tablist">
+                                  <div class="card">
+                                      <div class="card-header" role="tab" id="ac_pag_rec_head_1">
+                                          <h5 class="mb-0">
+                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_1" aria-expanded="true" aria-controls="ac_pag_rec_collapse_1" class="grid_title">
+                                                  <div class="total_label no-border">
+                                                      <span>Média e Alta complexidade ambulatorial e hospitalar</span>
+                                                  </div>
+                                                  <div class="no-border">
+
+                                                      <span>R$ {{ filter.qs.values | running_total_repasse }}</span>
+
+                                                  </div>
+                                              </a>
+                                          </h5>
+                                      </div>
+
+                                      <div id="ac_pag_rec_collapse_1" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_1" data-parent="#ac_pag_rec">
+                                          <div class="card-body">
+                                              <table class="table table-hover">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Repasse Federal (SUS)</th>
+                                                          <th>Data</th>
+                                                          <th>Valor Total</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    {% for a in filter.qs %}
+                                                    <tr>
+                                                        <td>{{a.nm_acao}}</td>
+                                                        <td>{{a.mes}}</td>
+                                                        <td>R$ {{a.vl_total}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="card">
+                                      <div class="card-header" role="tab" id="ac_pag_rec_head_2">
+                                          <h5 class="mb-0">
+                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_2" aria-expanded="true" aria-controls="ac_pag_rec_collapse_2" class="grid_title">
+                                                  <div class="total_label no-border">
+                                                      <span>Incremento MAC</span>
+                                                  </div>
+                                                  <div class="no-border">
+                                                      <span>-</span>
+                                                  </div>
+                                              </a>
+                                          </h5>
+                                      </div>
+
+                                      <div id="ac_pag_rec_collapse_2" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_2" data-parent="#ac_pag_rec">
+                                          <div class="card-body">
+                                              <table class="table table-hover">
+                                                  <thead>
+                                                  <tr>
+                                                      <th>Repasse Federal (SUS)</th>
+                                                      <th>Data</th>
+                                                      <th>Valor Total</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  <tr>
+                                                      <td>-</td>
+                                                      <td>-</td>
+                                                      <td>-</td>
+                                                  </tr>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </dd>
+                      </dl>
+
+                  </div>
+
+              </div>
+          </div>
+
+          <div class="widget full-width">
+              <div class="widget_title">
+                  <h3 class="text-left">
+                      <i class="fa fa-bar-chart"></i> Ações/Serviços/Estratégias
+                  </h3>
+              </div>
+              <div id="total" class="widget_content border rounded py-3 px-4">
+              </div>
+          </div>
+        </div>     <!--FIM TP_DOADOR-->
+        <!--INICIO TP_DOACAO-->
+        <div id="tp_doacao" class="widget full-width tab-pane fade">
+          <div class="row">
+              <div class="col-12">
+                  <div class="filters">
+                      <form method="get" class="form-inline d-flex justify-content-between">
+                          <div class="form-group d-flex date-container">
+                              <label class="col-form-label" for="competencia">Parcela</label>
+                              <div class="input-group">
+                                {% for field in filter.form %}
+
+                                  {{ filter.form.mes_repasse|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:competencia"|attr:"placeholder:Selecione"  }}
+
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-light btn-datepicker" type="button">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                {% endfor %}
+                              </div>
+                          </div>
+                          <div class="form-group d-none d-sm-block">
+                              <button type="submit" class="btn btn-primary btn-rounded">
+                                  <i class="fa fa-filter d-xl-none"></i>
+                                  <span class="d-none d-xl-block">Filtrar</span>
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+          <div class="widget full-width widget-table">
+              <div class="widget_title">
+                  <h3 class="text-left">
+                      <i class="fa fa-bookmark color-turq-avec"></i> Tipo Doação
+                  </h3>
+              </div>
+              <div class="widget_content no-bg">
+
+                  <div class="table-collapse">
+
+                      <dl>
+                          <dt class="grid_title">
+                              <div class="total_label">
+                                  <span>Bloco/Grupo</span>
+                              </div>
+                              <div>
+                                  <span>Valor</span>
+                              </div>
+                          </dt>
+                          <dd class="grid_content">
+
+                              <div id="ac_pag_rec" role="tablist">
+                                  <div class="card">
+                                      <div class="card-header" role="tab" id="ac_pag_rec_head_1">
+                                          <h5 class="mb-0">
+                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_1" aria-expanded="true" aria-controls="ac_pag_rec_collapse_1" class="grid_title">
+                                                  <div class="total_label no-border">
+                                                      <span>Média e Alta complexidade ambulatorial e hospitalar</span>
+                                                  </div>
+                                                  <div class="no-border">
+
+                                                      <span>R$ {{ filter.qs.values | running_total_repasse }}</span>
+
+                                                  </div>
+                                              </a>
+                                          </h5>
+                                      </div>
+
+                                      <div id="ac_pag_rec_collapse_1" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_1" data-parent="#ac_pag_rec">
+                                          <div class="card-body">
+                                              <table class="table table-hover">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Repasse Federal (SUS)</th>
+                                                          <th>Data</th>
+                                                          <th>Valor Total</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    {% for a in filter.qs %}
+                                                    <tr>
+                                                        <td>{{a.nm_acao}}</td>
+                                                        <td>{{a.mes}}</td>
+                                                        <td>R$ {{a.vl_total}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="card">
+                                      <div class="card-header" role="tab" id="ac_pag_rec_head_2">
+                                          <h5 class="mb-0">
+                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_2" aria-expanded="true" aria-controls="ac_pag_rec_collapse_2" class="grid_title">
+                                                  <div class="total_label no-border">
+                                                      <span>Incremento MAC</span>
+                                                  </div>
+                                                  <div class="no-border">
+                                                      <span>-</span>
+                                                  </div>
+                                              </a>
+                                          </h5>
+                                      </div>
+
+                                      <div id="ac_pag_rec_collapse_2" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_2" data-parent="#ac_pag_rec">
+                                          <div class="card-body">
+                                              <table class="table table-hover">
+                                                  <thead>
+                                                  <tr>
+                                                      <th>Repasse Federal (SUS)</th>
+                                                      <th>Data</th>
+                                                      <th>Valor Total</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  <tr>
+                                                      <td>-</td>
+                                                      <td>-</td>
+                                                      <td>-</td>
+                                                  </tr>
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </dd>
+                      </dl>
+
+                  </div>
+
+              </div>
+          </div>
+
+          <div class="widget full-width">
+              <div class="widget_title">
+                  <h3 class="text-left">
+                      <i class="fa fa-bar-chart"></i> Ações/Serviços/Estratégias
+                  </h3>
+              </div>
+              <div id="total" class="widget_content border rounded py-3 px-4">
+              </div>
+          </div>
+        </div>     <!--FIM TP_DOACAO-->
+
+
+
+      </div>
+    </div>
+
+</div>
+
+</div>
+<script>
+window.onload = function(){
+  document.forms['FORM_NAME'].submit()
+}
+</script>
+{% endfor %}
+{% endblock %}
