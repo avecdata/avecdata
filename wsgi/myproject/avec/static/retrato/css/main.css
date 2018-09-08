@@ -13200,7 +13200,8 @@ a:hover {
 
 #page-wrapper, #page-wrapper-main {
   padding: 0 15px;
-  position: relative !important; }
+  position: relative !important;
+min-height: 2200px !important;  }
 
 .page-heading {
   margin: 20px 0;
@@ -13899,7 +13900,8 @@ footer .copyright ul.social li a figure {
 @media (min-width: 1200px) {
   #page-wrapper {
     padding: 48px;
-    margin-left: 248px; }
+    margin-left: 248px;
+  }
   #page-wrapper-main {
     padding: 48px;
     margin-left: 0px; }
