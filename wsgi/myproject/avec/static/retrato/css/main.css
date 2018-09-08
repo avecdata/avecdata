@@ -13247,7 +13247,9 @@ a:hover {
   background-color: #8091a4; }
 
 .wrapper-content {
-  margin-bottom: 50px; }
+  margin-bottom: 50px;
+  min-height: : 1200px;
+}
 
 .wrapper-content .box {
   width: 263px;
@@ -13430,7 +13432,8 @@ a:hover {
  }
 
 .wrapper-content .widget.widget-table .widget_title {
-  margin-bottom: 22px; }
+  margin-bottom: 22px;
+}
 
 .wrapper-content .widget.widget-table .widget_title h3 {
   margin-left: 14px;
@@ -13439,8 +13442,11 @@ a:hover {
   text-transform: uppercase; }
 
 .wrapper-content .widget.widget-table .widget_content {
-  min-height: 50px; }
+  min-height: 50px}
 
+.widget.widget-table.widget-table{
+  min-height: 0px !important;
+}
 .filters {
   border-radius: 4px;
   background-color: #fff;

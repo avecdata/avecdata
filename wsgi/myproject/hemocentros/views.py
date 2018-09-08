@@ -79,7 +79,7 @@ def candidato_doacao(request, cnpj):
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
     acao_filter = AcaoFilter(request.GET, queryset=acao)
     #simpledashs = SimpleDashboard.objects.filter(id__in=["37"]).order_by('-published_date')[:3]
-    simpledashs = View_tabSimple.objects.filter(View_Subject_detail_id__in=["363","384"])
+    simpledashs = View_tabSimple.objects.filter()
 
     return render(request, 'hemocentros/candidato_doacao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter, 'simpledashs' : simpledashs})
 
