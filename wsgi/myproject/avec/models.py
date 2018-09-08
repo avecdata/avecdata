@@ -887,9 +887,9 @@ class pgf_acao_datasus_grupo(models.Model):
         return self.cd_municipio
 
 class v_pgf_municipio_saude(models.Model):
-    ano = models.CharField()
-    numero = models.CharField()
-    cd_municipio = models.CharField()
+    ano = models.CharField(max_length=200)
+    numero = models.CharField(max_length=200)
+    cd_municipio = models.CharField(max_length=200)
 
     class Meta:
       managed = False
@@ -898,11 +898,11 @@ class v_pgf_municipio_saude(models.Model):
         return self.cd_municipio
 
 class v_pgf_ambulatorial(models.Model):
-    cd_municipio = models.CharField()
-    tipo = models.CharField()
-    mes = models.CharField()
-    estadual_plena = models.CharField()
-    pacto_gestao = models.CharField()
+    cd_municipio = models.CharField(max_length=200)
+    tipo = models.CharField(max_length=200)
+    mes = models.CharField(max_length=200)
+    estadual_plena = models.CharField(max_length=200)
+    pacto_gestao = models.CharField(max_length=200)
 
     class Meta:
       managed = False
@@ -911,11 +911,11 @@ class v_pgf_ambulatorial(models.Model):
         return self.cd_municipio
 
 class v_pgf_hospitalar(models.Model):
-    cd_municipio = models.CharField()
-    tipo = models.CharField()
-    mes = models.CharField()
-    estadual_plena = models.CharField()
-    municipal_plena = models.CharField()
+    cd_municipio = models.CharField(max_length=200)
+    tipo = models.CharField(max_length=200)
+    mes = models.CharField(max_length=200)
+    estadual_plena = models.CharField(max_length=200)
+    municipal_plena = models.CharField(max_length=200)
 
     class Meta:
       managed = False
@@ -924,10 +924,10 @@ class v_pgf_hospitalar(models.Model):
         return self.cd_municipio
 
 class v_pgf_total(models.Model):
-    cd_municipio = models.CharField()
-    tipo = models.CharField()
-    mes = models.CharField()
-    total = models.CharField()
+    cd_municipio = models.CharField(max_length=200)
+    tipo = models.CharField(max_length=200)
+    mes = models.CharField(max_length=200)
+    total = models.CharField(max_length=200)
 
     class Meta:
       managed = False
@@ -936,9 +936,9 @@ class v_pgf_total(models.Model):
         return self.cd_municipio
 
 class v_pgf_repasse_teto(models.Model):
-    cnpj = models.CharField()
-    mes = models.CharField()
-    total = models.CharField()
+    cnpj = models.CharField(max_length=200)
+    mes = models.CharField(max_length=200)
+    total = models.CharField(max_length=200)
 
     class Meta:
       managed = False
@@ -947,9 +947,9 @@ class v_pgf_repasse_teto(models.Model):
         return self.cnpj
 
 class v_pgf_repasse_faec(models.Model):
-    cnpj = models.CharField()
-    mes = models.CharField()
-    total = models.CharField()
+    cnpj = models.CharField(max_length=200)
+    mes = models.CharField(max_length=200)
+    total = models.CharField(max_length=200)
 
     class Meta:
       managed = False
@@ -958,11 +958,11 @@ class v_pgf_repasse_faec(models.Model):
         return self.cnpj
 
 class v_pgf_analise_teto(models.Model):
-    cd_municipio = models.CharField()
-    mes = models.CharField()
-    total_producao = models.CharField()
-    total_repasse = models.CharField()
-    analise = models.CharField()
+    cd_municipio = models.CharField(max_length=200)
+    mes = models.CharField(max_length=200)
+    total_producao = models.CharField(max_length=200)
+    total_repasse = models.CharField(max_length=200)
+    analise = models.CharField(max_length=200)
 
     class Meta:
       managed = False
@@ -971,14 +971,36 @@ class v_pgf_analise_teto(models.Model):
         return self.cd_municipio
 
 class v_pgf_analise_faec(models.Model):
-    cd_municipio = models.CharField()
-    mes = models.CharField()
-    total_producao = models.CharField()
-    total_repasse = models.CharField()
-    analise = models.CharField()
+    cd_municipio = models.CharField(max_length=200)
+    mes = models.CharField(max_length=200)
+    total_producao = models.CharField(max_length=200)
+    total_repasse = models.CharField(max_length=200)
+    analise = models.CharField(max_length=200)
 
     class Meta:
       managed = False
 
     def __str__(self):
         return self.cd_municipio
+
+class v_pgf_aparecida(models.Model):
+    Ano = models.DateTimeField(null=True)
+    Menor_1_ano = models.CharField(max_length=200)
+    a_1_a_4_anos = models.CharField(max_length=200)
+    a_5_a_9_anos = models.CharField(max_length=200)
+    a_10_a_14_anos= models.CharField(max_length=200)
+    a_15_a_19_anos= models.CharField(max_length=200)
+    a_20_a_29_anos = models.CharField(max_length=200)
+    a_30_a_39_anos = models.CharField(max_length=200)
+    a_40_a_49_anos = models.CharField(max_length=200)
+    a_50_a_59_anos= models.CharField(max_length=200)
+    a_60_a_69_anos= models.CharField(max_length=200)
+    a_70_a_79_anos= models.CharField(max_length=200)
+    a_80_anos_e_mais= models.CharField(max_length=200)
+    Total= models.CharField(max_length=200)
+
+    class Meta:
+      managed = False
+
+    def __str__(self):
+        return self.ano
