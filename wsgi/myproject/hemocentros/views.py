@@ -94,7 +94,8 @@ def coleta(request, cnpj):
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
     acao_filter = AcaoFilter(request.GET, queryset=acao)
-    return render(request, 'hemocentros/coleta.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter})
+    simpledashs = View_tabSimple.objects.filter()
+    return render(request, 'hemocentros/coleta.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter, 'simpledashs' : simpledashs})
 
 def laboratorio(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -107,7 +108,8 @@ def laboratorio(request, cnpj):
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
     acao_filter = AcaoFilter(request.GET, queryset=acao)
-    return render(request, 'hemocentros/laboratorio.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter})
+    simpledashs = View_tabSimple.objects.filter()
+    return render(request, 'hemocentros/laboratorio.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter, 'simpledashs' : simpledashs})
 
 def hemocomponentes(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -120,7 +122,22 @@ def hemocomponentes(request, cnpj):
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
     acao_filter = AcaoFilter(request.GET, queryset=acao)
-    return render(request, 'hemocentros/hemocomponentes.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter})
+    simpledashs = View_tabSimple.objects.filter()
+    return render(request, 'hemocentros/hemocomponentes.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter, 'simpledashs' : simpledashs})
+
+def metas(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    cd_municipio = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+    max_repasse = pgf_acao.objects.all().filter(cnpj=cnpj).filter(ano='2018').filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).aggregate(Max('mes'))['mes__max']
+    max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(ano='2018').filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
+    acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).order_by('mes')
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_filter = AcaoFilter(request.GET, queryset=acao)
+    simpledashs = View_tabSimple.objects.filter()
+    return render(request, 'hemocentros/metas.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter, 'simpledashs' : simpledashs})
 
 def gestao(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -133,7 +150,8 @@ def gestao(request, cnpj):
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
     acao_filter = AcaoFilter(request.GET, queryset=acao)
-    return render(request, 'hemocentros/gestao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter})
+    simpledashs = View_tabSimple.objects.filter()
+    return render(request, 'hemocentros/gestao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter, 'simpledashs' : simpledashs})
 
 
 def morbidade(request, cnpj):
