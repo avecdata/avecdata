@@ -38,6 +38,12 @@
             </a>
         </li>
         <li class="nav-item ">
+            <a href="{% url 'hemocentros:metas' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                <i class="icons icon-compass"></i>
+                <span class="d-none d-lg-block">Metas</span>
+            </a>
+        </li>
+        <li class="nav-item ">
             <a href="{% url 'hemocentros:gestao' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
                 <i class="icons icon-compass"></i>
                 <span class="d-none d-lg-block">Gestão</span>
