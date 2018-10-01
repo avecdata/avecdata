@@ -1,0 +1,266 @@
+{% extends "avec/fns/templates/layout.html" %}
+
+{% load staticfiles %}
+
+{% block navbar-side %}
+        <div class="navbar-side-menu">
+            <ul class="nav d-flex flex-md-column justify-content-between">
+            {% for ent in entidade %}
+                <li class="nav-item ">
+                    <a href="{% url 'pgf' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-grid"></i>
+                        <span class="d-none d-lg-block">Dados Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'teto' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-layers"></i>
+                        <span class="d-none d-lg-block">Teto Financeiro</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'faec' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-notebook"></i>
+                        <span class="d-none d-lg-block">FAEC</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-note"></i>
+                        <span class="d-none d-lg-block">CEO</span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'samu' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                        <i class="icons icon-compass"></i>
+                        <span class="d-none d-lg-block">SAMU</span>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+{% endblock %}
+{% block content %}
+{% for ent in entidade %}
+    <div id="page-wrapper">
+
+    <div class="row">
+        <div class="col">
+            <div class="page-heading">
+                <h2>CEO</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-content">
+
+        <div class="widget full-width widget-table m-0">
+            <div class="widget_title">
+                <h3 class="text-left">
+                    <i class="fa fa-bookmark color-turq-avec"></i> Repasses
+                </h3>
+            </div>
+
+            <div id="chartdiv" style="width: 100%; height: 400px; background-color: #FFFFFF;" ></div>
+            <script src="https://code.highcharts.com/highcharts.src.js"></script>
+            <script src="{% static 'js/amcharts/amcharts.js' %}"></script>
+          	<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+          	<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+          	<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+          	<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+            <!--<script>
+              Highcharts.chart('container', {
+                  chart: {
+                      type: 'column'
+                  },
+                  title: {
+                      text: 'Titanic Survivors by Ticket Class'
+                  },
+                  xAxis: {
+                      categories: [
+                        {% for entry in acao_detalhe %}'{{ entry.parcela }} Class'{% if not forloop.last %}, {% endif %}{% endfor %}
+                      ]
+                  },
+                  series: [{
+                      name: 'Survived',
+                      data: [
+                        {% for entry in acao_detalhe %}{{ entry.vl_total }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                      ],
+                      color: 'green'
+                  }, {
+                      name: 'Not survived',
+                      data: [
+                        {% for entry in acao_detalhe %}{{ entry.vl_total }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                      ],
+                      color: 'red'
+                  }]
+              });
+            </script>-->
+            <!-- amCharts javascript code -->
+        		<script type="text/javascript">
+
+            var data = [
+            {% for row in view_aparecida %}
+              {
+                "periodo": "{{ row.periodo}}",
+                "qtd": "{{ row.qtd}}",
+                "vlr": "{{ row.vlr }}",
+
+              }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+          ];
+
+          AmCharts.makeChart("chartdiv",
+    				{
+    					"type": "serial",
+    					"categoryField": "periodo",
+    					"columnSpacing": 4,
+    					"columnSpacing3D": 2,
+    					"columnWidth": 0,
+    					"dataDateFormat": "MM/YYYY",
+    					"sequencedAnimation": false,
+    					"backgroundAlpha": 0.8,
+    					"decimalSeparator": ",",
+    					"fontFamily": "lato",
+    					"fontSize": 13,
+    					"handDrawScatter": 8,
+    					"thousandsSeparator": ".",
+    					"export": {
+    						"enabled": true
+    					},
+    					"categoryAxis": {
+    						"gridPosition": "start",
+    						"minPeriod": "MM",
+    						"parseDates": true,
+    						"axisColor": "#FFFFFF",
+    						"axisThickness": 2,
+    						"boldLabels": true,
+    						"dashLength": 5
+    					},
+    					"chartCursor": {
+    						"enabled": true,
+    						"bulletsEnabled": true,
+    						"categoryBalloonDateFormat": "MMM/YYYY",
+    						"categoryBalloonText": "<span style='font-family:lato;font-size:13px;'>[[category]]",
+    						"cursorColor": "#3DC1D0",
+    						"oneBalloonOnly": true
+    					},
+    					"trendLines": [],
+    					"graphs": [
+    						{
+    							"balloonText": "   <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:17px;'>Quantidade de família beneficiadas</span style><p><span style='font-family:lato;font-size:19px;'><b>[[value]]",
+    							"columnWidth": 0.75,
+    							"id": "AmGraph-4",
+    							"lineColor": "#2D8D98",
+    							"lineThickness": 3,
+    							"markerType": "circle",
+    							"noStepRisers": true,
+    							"title": "Quantidade de Famílias Beneficiadas",
+    							"valueField": "qtd"
+    						},
+    						{
+    							"balloonText": "  <span style='font-family:lato;font-size:18px;'><p align=middle><b>[[category]]</b><p align=right></span style><span style='font-family:lato;font-size:15px;'></b></span style><span style='font-family:lato;font-size:17px;'>Valor repassado p/ o Município</span style><p><span style='font-family:lato;font-size:19px;'><b>R$ [[value]]",
+    							"columnWidth": 0.75,
+    							"hidden": true,
+    							"id": "AmGraph-5",
+    							"lineColor": "#3E4C5B",
+    							"lineThickness": 2,
+    							"noStepRisers": true,
+    							"title": "Valor repassado de Bolsa Família p/ o Município",
+    							"valueAxis": "ValueAxis-3",
+    							"valueField": "vlr"
+    						}
+    					],
+    					"guides": [],
+    					"valueAxes": [
+    						{
+    							"id": "ValueAxis-2",
+    							"unit": " ",
+    							"axisThickness": 0,
+    							"gridThickness": 0,
+    							"offset": -1
+    						},
+    						{
+    							"id": "ValueAxis-3",
+    							"position": "right",
+    							"unit": " R$",
+    							"usePrefixes": true,
+    							"axisThickness": 0,
+    							"gridCount": 0,
+    							"gridThickness": 0
+    						}
+    					],
+    					"allLabels": [],
+    					"balloon": {
+    						"borderThickness": 0,
+    						"color": "#FFFFFF",
+    						"cornerRadius": 4,
+    						"fillAlpha": 1,
+    						"fillColor": "#3DC1D0",
+    						"fontSize": 12,
+    						"horizontalPadding": 9,
+    						"offsetY": 3,
+    						"pointerWidth": 10,
+    						"shadowAlpha": 0,
+    						"textAlign": "right",
+    						"verticalPadding": 3
+    					},
+    					"legend": {
+    						"enabled": true,
+    						"equalWidths": false,
+    						"fontSize": 12,
+    						"markerSize": 18,
+    						"position": "top",
+    						"switchType": "v",
+    						"valueText": " "
+    					},
+    					"titles": [],
+    					"dataProvider":  data
+
+    				}
+    			);
+/*            AmCharts.makeChart("chartdiv", {
+              "type": "serial",
+              "dataProvider": data,
+              "categoryField": "date",
+              "autoMargins": false,
+              "marginLeft": 0,
+              "marginRight": 5,
+              "marginTop": 0,
+              "marginBottom": 0,
+              "graphs": [{
+                "valueField": "value",
+                "showBalloon": false,
+                "lineColor": "#ffbf63",
+                "negativeLineColor": "#289eaf"
+              }],
+              "valueAxes": [{
+                "gridAlpha": 0,
+                "axisAlpha": 0,
+                "guides": [{
+                  "value": 0,
+                  "lineAlpha": 0.1
+                }]
+              }],
+              "dataDateFormat": "YYYY-MM-DD JJ:NN:SS",
+              "categoryAxis": {
+                "gridAlpha": 0,
+                "parseDates": true,
+                "minPeriod": "mm",
+                "axisAlpha": 0,
+                "startOnAxis": true
+              }
+            });*/
+        		</script>
+        	</head
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+{% endfor %}
+{% endblock %}
