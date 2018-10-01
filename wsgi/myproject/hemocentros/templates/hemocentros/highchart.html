@@ -19,7 +19,7 @@
                     </a>
                 </li>-->
                 <li class="nav-item ">
-                    <a href="{% url 'assistencia' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
+                    <a href="#" class="nav-link d-lg-flex text-center text-lg-left">
                         <i class="icons icon-notebook"></i>
                         <span class="d-none d-lg-block">Assistência a saúde</span>
                     </a>
@@ -69,47 +69,26 @@
           	<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
           	<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
-            <!--<script>
-              Highcharts.chart('container', {
-                  chart: {
-                      type: 'column'
-                  },
-                  title: {
-                      text: 'Titanic Survivors by Ticket Class'
-                  },
-                  xAxis: {
-                      categories: [
-                        {% for entry in acao_detalhe %}'{{ entry.parcela }} Class'{% if not forloop.last %}, {% endif %}{% endfor %}
-                      ]
-                  },
-                  series: [{
-                      name: 'Survived',
-                      data: [
-                        {% for entry in acao_detalhe %}{{ entry.vl_total }}{% if not forloop.last %}, {% endif %}{% endfor %}
-                      ],
-                      color: 'green'
-                  }, {
-                      name: 'Not survived',
-                      data: [
-                        {% for entry in acao_detalhe %}{{ entry.vl_total }}{% if not forloop.last %}, {% endif %}{% endfor %}
-                      ],
-                      color: 'red'
-                  }]
-              });
-            </script>-->
             <!-- amCharts javascript code -->
         		<script type="text/javascript">
 
             var data = [
-            {% for row in view_aparecida %}
+            {% for row in view_teste %}
               {
-                "periodo": "{{ row.periodo}}",
-                "qtd": "{{ row.qtd}}",
-                "vlr": "{{ row.vlr }}",
+                'periodo': {{ row.periodo}},
+                'qtd': {{ row.qtd}},
+                'vlr': {{ row.vlr }},
 
               }{% if not forloop.last %},{% endif %}
             {% endfor %}
           ];
+    var data2 =      [
+  {'periodo': 2010, 'qtd': 200, 'vlr': 123},
+  {'periodo': 2011, 'qtd': 119, 'vlr': 158},
+  {'periodo': 2012, 'qtd': 181, 'vlr': 528}
+];
+console.log(data);
+console.log(data2);
 
           AmCharts.makeChart("chartdiv",
     				{
@@ -118,7 +97,7 @@
     					"columnSpacing": 4,
     					"columnSpacing3D": 2,
     					"columnWidth": 0,
-    					"dataDateFormat": "MM/YYYY",
+    					"dataDateFormat": "YYYY",
     					"sequencedAnimation": false,
     					"backgroundAlpha": 0.8,
     					"decimalSeparator": ",",

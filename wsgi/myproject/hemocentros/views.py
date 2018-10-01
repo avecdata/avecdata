@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from avec.models import Post, Subject, Themes, Keywords, Subject_detail, Reports, Price, Order, Dashboard, SimpleDashboard, tabSimple, Paineis, tabPaineis, View_Client, View_Themes, View_Subject, View_Subject_detail, v_emendas_autor, v_emendas_emendas, v_emendas_orgao, v_emendas_emenda_proposta, v_emendas_proposta, v_emendas_parlamentar_por_orgao, pgf_municipio, pgf_entidade, pgf_acao, pgf_acao_detalhe, pgf_acao_faec, pgf_acao_detalhe_faec, View_tabSimple, pgf_municipio_gis, pgf_acao_datasus, pgf_acao_datasus_detalhe, pgf_acao_datasus_grupo, v_pgf_municipio_saude, v_pgf_ambulatorial, v_pgf_hospitalar, v_pgf_total, v_pgf_repasse_teto, v_pgf_repasse_faec, v_pgf_analise_faec, v_pgf_analise_teto, v_pgf_aparecida
-from .models import Hemocentro
+from .models import Hemocentro, v_hemocentro_teste, v_coleta_anual
 from chartit import DataPool, Chart
 from django.template import RequestContext
 from django.http import HttpResponse, JsonResponse
@@ -43,7 +43,7 @@ from allauth.socialaccount.adapter import DefaultSocialAccountAdapter, get_adapt
 from allauth.account.utils import perform_login, complete_signup
 from pprint import pprint
 
-from avec.filters import AcaoFilter, AcaoFilterFaec, AcaoFilterDatasus
+from hemocentros.filters import AnoFilter
 
 from django.db.models import Sum
 import django.db.models.functions
@@ -77,11 +77,13 @@ def candidato_doacao(request, cnpj):
     max_producao = pgf_acao_datasus.objects.all().filter(cd_municipio=cd_municipio).filter(ano='2018').filter(tipo__startswith='Média e Alta Complexidade').aggregate(Max('mes'))['mes__max']
     acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num__in=["33403","33406","33375","33376","33405","33399","33386","33391","33371","50699","33394","33393","61659"]).order_by('mes')
     acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
-    acao_filter = AcaoFilter(request.GET, queryset=acao)
+
     #simpledashs = SimpleDashboard.objects.filter(id__in=["37"]).order_by('-published_date')[:3]
     simpledashs = View_tabSimple.objects.filter()
+    view_teste = v_coleta_anual.objects.values().order_by('ano')
+    acao_filter = AnoFilter(request.GET, queryset=view_teste)
 
-    return render(request, 'hemocentros/candidato_doacao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter, 'simpledashs' : simpledashs})
+    return render(request, 'hemocentros/candidato_doacao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter, 'simpledashs' : simpledashs, 'view_teste' : view_teste})
 
 def coleta(request, cnpj):
     int_cnpj = s = str(int(cnpj))
@@ -174,3 +176,16 @@ def morbidade(request, cnpj):
     cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
 
     return render(request, 'hemocentros/morbidade.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'filter' : acao_filter, 'acao' : acao, 'grupo_hospitalar' : grupo_hospitalar, 'grupo_ambulatorial' : grupo_ambulatorial, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'view_aparecida' : view_aparecida })
+
+def highchart(request, cnpj):
+    int_cnpj = s = str(int(cnpj))
+    #acao = pgf_acao.objects.filter(cnpj=cnpj).filter(acao_num=30472).order_by('mes')
+    #acao_detalhe = pgf_acao_detalhe.objects.filter(cd_acao__in=acao)
+    acao_detalhe = pgf_acao_detalhe.objects.filter(cnpj=cnpj).filter(acao_num=30472).order_by('dt_ob_date')
+    view_teste = v_hemocentro_teste.objects.values().order_by('periodo')
+
+    entidade = pgf_entidade.objects.filter(cpf_cnpj=cnpj)
+    list_entidade = pgf_entidade.objects.values('cd_municipio').filter(cpf_cnpj=cnpj)
+    cidade = pgf_municipio.objects.filter(cd_municipio_semdigito=list_entidade)
+
+    return render(request, 'hemocentros/highchart.html', {'int_cnpj' : int_cnpj, 'acao_detalhe': acao_detalhe, 'cidade' : cidade, 'entidade' : entidade, 'view_teste' : view_teste})

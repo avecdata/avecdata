@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^metas/(?P<cnpj>.+)/$', views.metas, name='metas'),
     url(r'^gestao/(?P<cnpj>.+)/$', views.gestao, name='gestao'),
     url(r'^morbidade/(?P<cnpj>.+)/$', views.morbidade, name='morbidade'),
+    url(r'^highchart/(?P<cnpj>.+)/$', views.highchart, name='highchart'),
 ]

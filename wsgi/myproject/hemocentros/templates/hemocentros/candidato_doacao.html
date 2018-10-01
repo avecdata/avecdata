@@ -59,30 +59,154 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
-<script src="{% static 'js/highcharts/highcharts.js' %}" type="text/javascript"></script>
-<!--<script src="https://code.highcharts.com/highcharts.src.js"></script>-->
-<script src="{% static 'js/highcharts/themes/light.js' %}" type="text/javascript"></script>
 
 
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-{% load chartit %}
-
-<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5690690cf94ece"></script>
-<!--Disqus-->
+<!-- amCharts javascript code -->
 <script type="text/javascript">
-    var disqus_shortname = 'django-chartit'; (function() {
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
 
+var data = [
+{% for row in filter.qs %}
+  {
+    'ANO': "{{ row.ano}}",
+    'Coletas': "{{ row.coletas}}",
+    'Inaptos': "{{ row.inaptos }}",
+    'Variação_total_ano': "{{ row.variação_total_ano }}",
+
+  }{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+console.log(data);
+  AmCharts.makeChart("chartdiv363",
+    {
+      "type": "serial",
+      "categoryField": "ANO",
+      "columnSpacing": 4,
+      "columnSpacing3D": 2,
+      "columnWidth": 0,
+      "sequencedAnimation": false,
+      "backgroundAlpha": 0.8,
+      "creditsPosition": "top-right",
+      "decimalSeparator": ",",
+      "fontFamily": "lato",
+      "fontSize": 13,
+      "thousandsSeparator": ".",
+      "export": {
+        "enabled": true
+      },
+      "categoryAxis": {
+        "gridPosition": "start",
+        "minPeriod": "YYYY",
+        "parseDates": true,
+        "axisColor": "#FFFFFF",
+        "axisThickness": 2,
+        "boldLabels": true,
+        "dashLength": 5
+      },
+      "chartCursor": {
+        "enabled": true,
+        "balloonPointerOrientation": " vertical",
+        "categoryBalloonDateFormat": "YYYY",
+        "categoryBalloonText": "<span style='font-family:lato;font-size:13px;'>[[category]]",
+        "cursorColor": "#3DC1D0",
+        "valueBalloonsEnabled": false
+      },
+      "trendLines": [],
+      "graphs": [
+        {
+          "balloonText": "<span style='font-family:lato;font-size:17px;'><b>[[category]]</b></span style></p><span style='font-family:lato;font-size:13px;'> Nº de Candidatos: </span style><span style='font-family:lato;font-size:19px;'><b>[[value]]</b></span style></br></br><span style='font-family:lato;font-size:13px;'>variação 12 meses:</span style><b><span style='font-family:lato;font-size:15px;'>[[Variação_total_ano]]%",
+          "behindColumns": true,
+          "colorField": "cor",
+          "columnWidth": 0.68,
+          "fillAlphas": 1,
+          "fillColors": "#61788E",
+          "gapPeriod": 4,
+          "id": "AmGraph-1",
+          "lineAlpha": 0,
+          "lineColor": "#61788E",
+          "lineThickness": 0,
+          "minDistance": 0,
+          "showHandOnHover": true,
+          "title": "Candidatos",
+          "type": "column",
+          "valueAxis": "ValueAxis-1",
+          "valueField": "Coletas"
+        },
+        {
+          "balloonText": "<span style='font-family:lato;font-size:13px;'>Taxa de inaptos:</span style><b><span style='font-family:lato;font-size:15px;'> [[value]]%",
+          "bullet": "round",
+          "bulletBorderAlpha": 1,
+          "bulletBorderColor": "#C4CDD5",
+          "bulletColor": "#C4CDD5",
+          "color": "#C4CDD5",
+          "columnWidth": 0.75,
+          "fillColors": "",
+          "hidden": true,
+          "id": "AmGraph-2",
+          "labelPosition": "bottom",
+          "labelText": "",
+          "lineColor": "#C4CDD5",
+          "lineThickness": 3,
+          "showHandOnHover": true,
+          "title": "% Inaptos",
+          "valueAxis": "ValueAxis-3",
+          "valueField": "Inaptos"
+        }
+      ],
+      "guides": [],
+      "valueAxes": [
+        {
+          "id": "ValueAxis-1",
+          "maximumDate": "",
+          "minimum": 20000,
+          "zeroGridAlpha": 0,
+          "axisThickness": 0,
+          "gridThickness": 0,
+          "minorGridAlpha": 0,
+          "title": " ",
+          "titleBold": false
+        },
+        {
+          "id": "ValueAxis-3",
+          "position": "right",
+          "unit": " %",
+          "axisThickness": 0,
+          "gridThickness": 0
+        }
+      ],
+      "allLabels": [],
+      "balloon": {
+        "borderThickness": 0,
+        "color": "#FFFFFF",
+        "cornerRadius": 4,
+        "disableMouseEvents": false,
+        "fillAlpha": 1,
+        "fillColor": "#3DC1D0",
+        "fixedPosition": false,
+        "fontSize": 12,
+        "horizontalPadding": 9,
+        "offsetX": 70,
+        "offsetY": 2,
+        "pointerWidth": 0,
+        "shadowAlpha": 0,
+        "textAlign": "right",
+        "verticalPadding": 3
+      },
+      "legend": {
+        "enabled": true,
+        "align": "center",
+        "fontSize": 14,
+        "markerSize": 18,
+        "position": "top",
+        "spacing": 50,
+        "switchType": "v",
+        "valueText": " "
+      },
+      "titles": [],
+      "dataProvider":  data
+
+    }
+  );
 </script>
-<noscript>
-    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-</noscript>
-
 {% for ent in entidade %}
     <div id="page-wrapper">
 
@@ -115,21 +239,49 @@
               <div class="col-12">
                   <div class="filters">
                       <form method="get" class="form-inline d-flex justify-content-between">
+                          {% for field in filter.form %}
+                         {% if forloop.counter == 1 %}
                           <div class="form-group d-flex date-container">
-                              <label class="col-form-label" for="competencia">Parcela</label>
+
+                              <label class="col-form-label" for="competencia">Ano início</label>
                               <div class="input-group">
-                                {% for field in filter.form %}
 
-                                  {{ filter.form.mes_repasse|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"id:competencia"|attr:"placeholder:Selecione"  }}
 
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-light btn-datepicker" type="button">
-                                                <i class="fa fa-calendar"></i>
-                                            </button>
-                                        </span>
-                                {% endfor %}
+                                      {{ filter.form.anoinicio|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"format: dd/mm/yyyy"|attr:"id:anoinicio"|attr:"placeholder:Selecione"  }}
+
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-light btn-datepicker" type="button">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+
+
+
                               </div>
                           </div>
+                          {% endif %}
+                          {% if forloop.counter == 2 %}
+                          <div class="form-group d-flex date-container">
+
+                              <label class="col-form-label" for="competencia">Ano fim</label>
+                              <div class="input-group">
+
+
+                                {{ filter.form.anofim|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"format: dd/mm/yyyy"|attr:"id:anofim"|attr:"placeholder:Selecione"  }}
+
+                                      <span class="input-group-btn">
+                                          <button class="btn btn-light btn-datepicker" type="button">
+                                              <i class="fa fa-calendar"></i>
+                                          </button>
+                                      </span>
+
+
+                              </div>
+                          </div>
+
+
+                                    {% endif %}
+                                {% endfor %}
                           <div class="form-group d-none d-sm-block">
                               <button type="submit" class="btn btn-primary btn-rounded">
                                   <i class="fa fa-filter d-xl-none"></i>
@@ -192,9 +344,9 @@
                                                   <tbody>
                                                     {% for a in filter.qs %}
                                                     <tr>
-                                                        <td>{{a.nm_acao}}</td>
-                                                        <td>{{a.mes}}</td>
-                                                        <td>R$ {{a.vl_total}}</td>
+                                                        <td>{{a.ano}}</td>
+                                                        <td>{{a.inaptos}}</td>
+                                                        <td>R$ {{a.coletas}}</td>
                                                     </tr>
                                                     {% endfor %}
                                                   </tbody>
@@ -1209,10 +1361,14 @@
 window.onload = function(){
   document.forms['FORM_NAME'].submit()
 }
+
 </script>
 {% for dash in simpledashs %}
+  {% if dash.View_Subject_detail_id != 363 %}
     {% autoescape on %}{{ dash.html|safe }}{% endautoescape %}
+  {%  endif %}
 {% endfor %}
+
 
 <style>
 .chartdiv {

@@ -10,10 +10,33 @@ from django.utils.translation import ugettext_lazy as _
 # Create your models here.
 
 class Hemocentro(models.Model):
-    nm_hemocentro = models.CharField(max_length=200 , null=True)
+    nm_hemocentro = models.CharField(max_length=201 , null=True)
 
     def publish_pgf_entidade(self):
         self.save()
 
     def __str__(self):
         return self.nm_hemocentro
+
+class v_hemocentro_teste(models.Model):
+    periodo = models.IntegerField(blank=True)
+    qtd = models.IntegerField(blank=True, null=True)
+    vlr = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+      managed = False
+
+    def __str__(self):
+        return self.periodo
+
+class v_coleta_anual(models.Model):
+    ano = models.IntegerField(blank=True)
+    coletas = models.IntegerField(blank=True, null=True)
+    inaptos = models.IntegerField(blank=True, null=True)
+    variação_total_ano = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+      managed = False
+
+    def __str__(self):
+        return self.ano
