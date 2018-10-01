@@ -81,6 +81,7 @@ def candidato_doacao(request, cnpj):
     #simpledashs = SimpleDashboard.objects.filter(id__in=["37"]).order_by('-published_date')[:3]
     simpledashs = View_tabSimple.objects.filter()
     view_teste = v_coleta_anual.objects.values().order_by('ano')
+    #acao_filter = AnoFilter(request.GET, queryset=view_teste)
     acao_filter = AnoFilter(request.GET, queryset=view_teste)
 
     return render(request, 'hemocentros/candidato_doacao.html', {'int_cnpj' : int_cnpj, 'cidade' : cidade, 'entidade' : entidade, 'max_repasse' : max_repasse, 'max_producao' : max_producao, 'filter' : acao_filter, 'simpledashs' : simpledashs, 'view_teste' : view_teste})

@@ -75,137 +75,140 @@ var data = [
   }{% if not forloop.last %},{% endif %}
 {% endfor %}
 ];
-console.log(data);
-  AmCharts.makeChart("chartdiv363",
-    {
-      "type": "serial",
-      "categoryField": "ANO",
-      "columnSpacing": 4,
-      "columnSpacing3D": 2,
-      "columnWidth": 0,
-      "sequencedAnimation": false,
-      "backgroundAlpha": 0.8,
-      "creditsPosition": "top-right",
-      "decimalSeparator": ",",
-      "fontFamily": "lato",
-      "fontSize": 13,
-      "thousandsSeparator": ".",
-      "export": {
-        "enabled": true
-      },
-      "categoryAxis": {
-        "gridPosition": "start",
-        "minPeriod": "YYYY",
-        "parseDates": true,
-        "axisColor": "#FFFFFF",
-        "axisThickness": 2,
-        "boldLabels": true,
-        "dashLength": 5
-      },
-      "chartCursor": {
-        "enabled": true,
-        "balloonPointerOrientation": " vertical",
-        "categoryBalloonDateFormat": "YYYY",
-        "categoryBalloonText": "<span style='font-family:lato;font-size:13px;'>[[category]]",
-        "cursorColor": "#3DC1D0",
-        "valueBalloonsEnabled": false
-      },
-      "trendLines": [],
-      "graphs": [
-        {
-          "balloonText": "<span style='font-family:lato;font-size:17px;'><b>[[category]]</b></span style></p><span style='font-family:lato;font-size:13px;'> Nº de Candidatos: </span style><span style='font-family:lato;font-size:19px;'><b>[[value]]</b></span style></br></br><span style='font-family:lato;font-size:13px;'>variação 12 meses:</span style><b><span style='font-family:lato;font-size:15px;'>[[Variação_total_ano]]%",
-          "behindColumns": true,
-          "colorField": "cor",
-          "columnWidth": 0.68,
-          "fillAlphas": 1,
-          "fillColors": "#61788E",
-          "gapPeriod": 4,
-          "id": "AmGraph-1",
-          "lineAlpha": 0,
-          "lineColor": "#61788E",
-          "lineThickness": 0,
-          "minDistance": 0,
-          "showHandOnHover": true,
-          "title": "Candidatos",
-          "type": "column",
-          "valueAxis": "ValueAxis-1",
-          "valueField": "Coletas"
-        },
-        {
-          "balloonText": "<span style='font-family:lato;font-size:13px;'>Taxa de inaptos:</span style><b><span style='font-family:lato;font-size:15px;'> [[value]]%",
-          "bullet": "round",
-          "bulletBorderAlpha": 1,
-          "bulletBorderColor": "#C4CDD5",
-          "bulletColor": "#C4CDD5",
-          "color": "#C4CDD5",
-          "columnWidth": 0.75,
-          "fillColors": "",
-          "hidden": true,
-          "id": "AmGraph-2",
-          "labelPosition": "bottom",
-          "labelText": "",
-          "lineColor": "#C4CDD5",
-          "lineThickness": 3,
-          "showHandOnHover": true,
-          "title": "% Inaptos",
-          "valueAxis": "ValueAxis-3",
-          "valueField": "Inaptos"
-        }
-      ],
-      "guides": [],
-      "valueAxes": [
-        {
-          "id": "ValueAxis-1",
-          "maximumDate": "",
-          "minimum": 20000,
-          "zeroGridAlpha": 0,
-          "axisThickness": 0,
-          "gridThickness": 0,
-          "minorGridAlpha": 0,
-          "title": " ",
-          "titleBold": false
-        },
-        {
-          "id": "ValueAxis-3",
-          "position": "right",
-          "unit": " %",
-          "axisThickness": 0,
-          "gridThickness": 0
-        }
-      ],
-      "allLabels": [],
-      "balloon": {
-        "borderThickness": 0,
-        "color": "#FFFFFF",
-        "cornerRadius": 4,
-        "disableMouseEvents": false,
-        "fillAlpha": 1,
-        "fillColor": "#3DC1D0",
-        "fixedPosition": false,
-        "fontSize": 12,
-        "horizontalPadding": 9,
-        "offsetX": 70,
-        "offsetY": 2,
-        "pointerWidth": 0,
-        "shadowAlpha": 0,
-        "textAlign": "right",
-        "verticalPadding": 3
-      },
-      "legend": {
-        "enabled": true,
-        "align": "center",
-        "fontSize": 14,
-        "markerSize": 18,
-        "position": "top",
-        "spacing": 50,
-        "switchType": "v",
-        "valueText": " "
-      },
-      "titles": [],
-      "dataProvider":  data
 
-    }
-  );
+console.log(data);
+
+
+AmCharts.makeChart("chartdiv363",
+  {
+    "type": "serial",
+    "categoryField": "ANO",
+    "columnSpacing": 4,
+    "columnSpacing3D": 2,
+    "columnWidth": 0,
+    "dataDateFormat": "MM/YYYY",
+    "sequencedAnimation": false,
+    "backgroundAlpha": 0.8,
+    "creditsPosition": "top-right",
+    "decimalSeparator": ",",
+    "fontFamily": "lato",
+    "fontSize": 13,
+    "thousandsSeparator": ".",
+    "export": {
+      "enabled": true
+    },
+    "categoryAxis": {
+      "gridPosition": "start",
+      "minPeriod": "YYYY",
+      "parseDates": true,
+      "axisColor": "#FFFFFF",
+      "axisThickness": 2,
+      "boldLabels": true,
+      "dashLength": 5
+    },
+    "chartCursor": {
+      "enabled": true,
+      "balloonPointerOrientation": " vertical",
+      "categoryBalloonDateFormat": "YYYY",
+      "categoryBalloonText": "<span style='font-family:lato;font-size:13px;'>[[category]]",
+      "cursorColor": "#3DC1D0",
+      "valueBalloonsEnabled": false
+    },
+    "trendLines": [],
+    "graphs": [
+      {
+        "balloonText": "<span style='font-family:lato;font-size:17px;'><b>[[category]]</b></span style></p><span style='font-family:lato;font-size:13px;'> Nº de Candidatos: </span style><span style='font-family:lato;font-size:19px;'><b>[[value]]</b></span style></br></br><span style='font-family:lato;font-size:13px;'>Variação 12 meses:</span style><b><span style='font-family:lato;font-size:15px;'>[[Variação total ano]]%",
+        "behindColumns": true,
+        "colorField": "cor",
+        "columnWidth": 0.68,
+        "fillAlphas": 1,
+        "fillColors": "#61788E",
+        "gapPeriod": 4,
+        "id": "AmGraph-1",
+        "lineAlpha": 0,
+        "lineColor": "#61788E",
+        "lineThickness": 0,
+        "minDistance": 0,
+        "showHandOnHover": true,
+        "title": "Candidatos",
+        "type": "column",
+        "valueAxis": "ValueAxis-1",
+        "valueField": "Coletas"
+      },
+      {
+        "balloonText": "<span style='font-family:lato;font-size:13px;'>Taxa de inaptos:</span style><b><span style='font-family:lato;font-size:15px;'> [[value]]%",
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+        "bulletBorderColor": "#C4CDD5",
+        "bulletColor": "#C4CDD5",
+        "color": "#C4CDD5",
+        "columnWidth": 0.75,
+        "fillColors": "",
+        "hidden": true,
+        "id": "AmGraph-2",
+        "labelPosition": "bottom",
+        "labelText": "",
+        "lineColor": "#C4CDD5",
+        "lineThickness": 3,
+        "showHandOnHover": true,
+        "title": "% Inaptos",
+        "valueAxis": "ValueAxis-3",
+        "valueField": "Inaptos"
+      }
+    ],
+    "guides": [],
+    "valueAxes": [
+      {
+        "id": "ValueAxis-1",
+        "maximumDate": "",
+        "minimum": 20000,
+        "zeroGridAlpha": 0,
+        "axisThickness": 0,
+        "gridThickness": 0,
+        "minorGridAlpha": 0,
+        "title": " ",
+        "titleBold": false
+      },
+      {
+        "id": "ValueAxis-3",
+        "position": "right",
+        "unit": " %",
+        "axisThickness": 0,
+        "gridThickness": 0
+      }
+    ],
+    "allLabels": [],
+    "balloon": {
+      "borderThickness": 0,
+      "color": "#FFFFFF",
+      "cornerRadius": 4,
+      "disableMouseEvents": false,
+      "fillAlpha": 1,
+      "fillColor": "#3DC1D0",
+      "fixedPosition": false,
+      "fontSize": 12,
+      "horizontalPadding": 9,
+      "offsetX": 70,
+      "offsetY": 2,
+      "pointerWidth": 0,
+      "shadowAlpha": 0,
+      "textAlign": "right",
+      "verticalPadding": 3
+    },
+    "legend": {
+      "enabled": true,
+      "align": "center",
+      "fontSize": 14,
+      "markerSize": 18,
+      "position": "top",
+      "spacing": 50,
+      "switchType": "v",
+      "valueText": " "
+    },
+    "titles": [],
+    "dataProvider": data
+  }
+);
 </script>
 {% for ent in entidade %}
     <div id="page-wrapper">
@@ -260,7 +263,7 @@ console.log(data);
                               </div>
                           </div>
                           {% endif %}
-                          {% if forloop.counter == 2 %}
+                          <!--{% if forloop.counter == 2 %}
                           <div class="form-group d-flex date-container">
 
                               <label class="col-form-label" for="competencia">Ano fim</label>
@@ -280,7 +283,7 @@ console.log(data);
                           </div>
 
 
-                                    {% endif %}
+                                    {% endif %}-->
                                 {% endfor %}
                           <div class="form-group d-none d-sm-block">
                               <button type="submit" class="btn btn-primary btn-rounded">
