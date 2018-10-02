@@ -43,7 +43,7 @@ from allauth.socialaccount.adapter import DefaultSocialAccountAdapter, get_adapt
 from allauth.account.utils import perform_login, complete_signup
 from pprint import pprint
 
-from hemocentros.filters import AnoFilter
+from hemocentros.filters import AnoFilter, AcaoFilter
 
 from django.db.models import Sum
 import django.db.models.functions
