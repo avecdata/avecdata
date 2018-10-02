@@ -67,7 +67,7 @@
 var data = [
 {% for row in filter.qs %}
   {
-    'ANO': "{{ row.ano}}",
+    'ANO': "{{ row.ano|date:'Y-m-d'}}",
     'Coletas': "{{ row.coletas}}",
     'Inaptos': "{{ row.inaptos }}",
     'Variação_total_ano': "{{ row.variação_total_ano }}",
@@ -86,7 +86,7 @@ AmCharts.makeChart("chartdiv363",
     "columnSpacing": 4,
     "columnSpacing3D": 2,
     "columnWidth": 0,
-    "dataDateFormat": "MM/YYYY",
+    "dataDateFormat": "YYYY-MM-DD",
     "sequencedAnimation": false,
     "backgroundAlpha": 0.8,
     "creditsPosition": "top-right",
@@ -250,7 +250,7 @@ AmCharts.makeChart("chartdiv363",
                               <div class="input-group">
 
 
-                                      {{ filter.form.anoinicio|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"format: dd/mm/yyyy"|attr:"id:anoinicio"|attr:"placeholder:Selecione"  }}
+                                      {{ filter.form.ano|attr:"type:text"|attr:"readonly:true"|attr:"data-toggle:datepicker"|attr:"class:form-control"|attr:"format: yyyy-mm-dd"|attr:"id:ano"|attr:"placeholder:Selecione"  }}
 
                                             <span class="input-group-btn">
                                                 <button class="btn btn-light btn-datepicker" type="button">
@@ -347,7 +347,7 @@ AmCharts.makeChart("chartdiv363",
                                                   <tbody>
                                                     {% for a in filter.qs %}
                                                     <tr>
-                                                        <td>{{a.ano}}</td>
+                                                        <td>{{a.ano|date:'Y' }}</td>
                                                         <td>{{a.inaptos}}</td>
                                                         <td>R$ {{a.coletas}}</td>
                                                     </tr>

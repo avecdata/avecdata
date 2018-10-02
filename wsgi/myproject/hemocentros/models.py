@@ -30,7 +30,7 @@ class v_hemocentro_teste(models.Model):
         return self.periodo
 
 class v_coleta_anual(models.Model):
-    ano = models.IntegerField(blank=True)
+    ano = models.DateField()
     coletas = models.IntegerField(blank=True, null=True)
     inaptos = models.IntegerField(blank=True, null=True)
     variação_total_ano = models.IntegerField(blank=True, null=True)
@@ -39,4 +39,8 @@ class v_coleta_anual(models.Model):
       managed = False
 
     def __str__(self):
-        return self.ano
+        return self.coletas
+
+class Comment(models.Model):
+    date = models.DateField()
+    time = models.TimeField()
