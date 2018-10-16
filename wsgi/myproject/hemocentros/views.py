@@ -62,10 +62,11 @@ def retrato(request, cd_municipio):
     file_url_response =  open('/var/www/html/avecdata/wsgi/myproject/avec/static/data/cafe.csv')
     pre_reader = csv.reader(file_url_response)
     args['list'] = pre_reader
+    simpledashs = View_tabSimple.objects.filter()
 
     #return render_to_response('hemocentros/index2.html', args)
 
-    return render(request, 'hemocentros/index.html', {'cidade': cidade, 'entidade': entidade, 'hemocentro': hemocentro} )
+    return render(request, 'hemocentros/index.html', {'cidade': cidade, 'entidade': entidade, 'hemocentro': hemocentro, 'simpledashs' : simpledashs} )
 
 def candidato_doacao(request, cnpj):
     int_cnpj = s = str(int(cnpj))

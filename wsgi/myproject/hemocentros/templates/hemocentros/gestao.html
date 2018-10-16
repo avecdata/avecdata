@@ -10,7 +10,7 @@
               <li class="nav-item ">
                   <a href="{% url 'hemocentros:retrato' cd_municipio=ent.cd_municipio %}" class="nav-link d-lg-flex text-center text-lg-left">
                       <i class="icons icon-grid"></i>
-                      <span class="d-none d-lg-block">Dados Gerais</span>
+                      <span class="d-none d-lg-block">Dados do Município</span>
                   </a>
               </li>
               <li class="nav-item ">
@@ -42,11 +42,11 @@
                       <i class="icons icon-compass"></i>
                       <span class="d-none d-lg-block">Metas</span>
                   </a>
-              </li>                 
+              </li>
               <li class="nav-item active">
                   <a href="{% url 'hemocentros:gestao' cnpj=ent.cpf_cnpj %}" class="nav-link d-lg-flex text-center text-lg-left">
                       <i class="icons icon-compass"></i>
-                      <span class="d-none d-lg-block">Gestão</span>
+                      <span class="d-none d-lg-block">Gestão do Plasma</span>
                   </a>
               </li>
                 {% endfor %}
