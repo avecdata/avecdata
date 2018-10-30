@@ -90,15 +90,8 @@
     <div class="row">
         <div class="col">
             <div class="page-heading">
-              {% for hemo in hemocentro %}
-                <h2>Dados Gerais sobre {{hemo.nm_hemocentro}}</h2>
-              {% endfor %}
-              {% for row in list %}
-                <p>
-                    {% for item in row %}
-                        {{ item }}
-                    {% endfor %}
-                </p>
+              {% for ent in entidade %}
+                <h2>{{ent.nm_municipio}}</h2>
               {% endfor %}
             </div>
         </div>
@@ -122,19 +115,19 @@
                             <h3 class="d-none d-sm-block d-xl-none">Rede Assistencial</h3>
                             <dl>
                                 <dt>Hospital Especializado</dt>
-                                <dd>{{cid.populacao_estimada}}</dd>
+                                <dd>10</dd>
 
                                 <dt>Hospital Geral</dt>
-                                <dd>{{cid.area_territorial}}</dd>
+                                <dd>19</dd>
 
                                 <dt>Hospital Dia</dt>
-                                <dd>{{cid.regiao_saude}}</dd>
+                                <dd>5</dd>
 
                                 <dt>Pronto Socorro especializado</dt>
-                                <dd>{{cid.regiao_saude}}</dd>
+                                <dd>3</dd>
 
                                 <dt>Pronto Socorro Geral</dt>
-                                <dd>{{cid.regiao_saude}}</dd>
+                                <dd>1</dd>
                             </dl>
                             <i class="icon icon-options"></i>
                         </div>
@@ -152,19 +145,17 @@
                             <h3 class="d-none d-sm-block d-xl-none">Leitos</h3>
                             <dl>
                                 <dt>Ambulatorio - Leitos de respouso</dt>
-                                <dd>{{cid.pib}}</dd>
+                                <dd>198</dd>
 
                                 <dt>Hospitalar Leitos de Internação</dt>
-                                <dd>Qtde. Disponível {{cid.pib_percapita}} </dd>
-                                <dd>Qtde. SUS {{cid.pib_percapita}} </dd>
-                                <dd>Qtde. não SUS {{cid.pib_percapita}} </dd>
-                                <dd>TOTAL {{cid.pib_percapita}} </dd>
+                                <dd><a class="subtitulo">Qtde. Disponível</a> 6.809 </dd>
+                                <dd><a class="subtitulo">Qtde. SUS</a> 4.100 </dd>
+                                <dd><a class="subtitulo">Qtde. não SUS</a> 2.709 </dd>
 
                                 <dt>Hospitalar - Leitos complementares</dt>
-                                <dd>Qtde. Disponível {{cid.pib_percapita}} </dd>
-                                <dd>Qtde. SUS {{cid.pib_percapita}} </dd>
-                                <dd>Qtde. não SUS {{cid.pib_percapita}} </dd>
-                                <dd>TOTAL {{cid.pib_percapita}} </dd>
+                                <dd><a class="subtitulo">Qtde. Disponível</a> 1.277 </dd>
+                                <dd><a class="subtitulo">Qtde. SUS</a> 798 </dd>
+                                <dd><a class="subtitulo">Qtde. não SUS</a> 479 </dd>
 
                             </dl>
                             <i class="icon icon-options"></i>
@@ -182,18 +173,18 @@
                         <div class="box-content">
                             <h3 class="d-none d-sm-block d-xl-none">Indicadores SUS</h3>
                             <dl>
-                                <dt>% de doadores por mil habitantes</dt>
-                                <dd>{{cid.nascidos_vivos}}</dd>
+                                <dt>Taxa de doadores por mil habitantes</dt>
+                                <dd>50,03</dd>
 
                                 <dt>Coletas de Sangue</dt>
-                                <dd>Sangue Total {{cid.mortalidade_infantil}}</dd>
-                                <dd>Aferese {{cid.mortalidade_infantil}}</dd>
-                                <dd>Total {{cid.mortalidade_infantil}}</dd>
+                                <dd><a class="subtitulo">Sangue Total</a> 71.813</dd>
+                                <dd><a class="subtitulo">Aferese</a> 2.492</dd>
+                                <dd><a class="subtitulo">Total</a> 74.305</dd>
 
                                 <dt>Transfusões de sangue</dt>
-                                <dd>Ambulatorial {{cid.tx_mortalidade_infantil}}</dd>
-                                <dd>Hospitalar {{cid.tx_mortalidade_infantil}}</dd>
-                                <dd>Total {{cid.tx_mortalidade_infantil}}</dd>
+                                <dd><a class="subtitulo">Ambulatorial</a> 8.199</dd>
+                                <dd><a class="subtitulo">Hospitalar</a> 69.491</dd>
+                                <dd><a class="subtitulo">Total</a> 77.690<</dd>
 
                             </dl>
                             <i class="icon icon-options"></i>
@@ -239,6 +230,9 @@ window.onload = function(){
 #chartdiv{
   display: none;
 }
+
+.subtitulo { font-weight:normal; !important; }
+
 </style>
 
 
