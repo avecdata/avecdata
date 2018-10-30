@@ -80,135 +80,172 @@ console.log(data);
 
 
 AmCharts.makeChart("chartdiv363",
-  {
-    "type": "serial",
-    "categoryField": "ANO",
-    "columnSpacing": 4,
-    "columnSpacing3D": 2,
-    "columnWidth": 0,
-    "dataDateFormat": "YYYY-MM-DD",
-    "sequencedAnimation": false,
-    "backgroundAlpha": 0.8,
-    "creditsPosition": "top-right",
-    "decimalSeparator": ",",
-    "fontFamily": "lato",
-    "fontSize": 13,
-    "thousandsSeparator": ".",
-    "export": {
-      "enabled": true
-    },
-    "categoryAxis": {
-      "gridPosition": "start",
-      "minPeriod": "YYYY",
-      "parseDates": true,
-      "axisColor": "#FFFFFF",
-      "axisThickness": 2,
-      "boldLabels": true,
-      "dashLength": 5
-    },
-    "chartCursor": {
-      "enabled": true,
-      "balloonPointerOrientation": " vertical",
-      "categoryBalloonDateFormat": "YYYY",
-      "categoryBalloonText": "<span style='font-family:lato;font-size:13px;'>[[category]]",
-      "cursorColor": "#3DC1D0",
-      "valueBalloonsEnabled": false
-    },
-    "trendLines": [],
-    "graphs": [
       {
-        "balloonText": "<span style='font-family:lato;font-size:17px;'><b>[[category]]</b></span style></p><span style='font-family:lato;font-size:13px;'> Nº de Candidatos: </span style><span style='font-family:lato;font-size:19px;'><b>[[value]]</b></span style></br></br><span style='font-family:lato;font-size:13px;'>Variação 12 meses:</span style><b><span style='font-family:lato;font-size:15px;'>[[Variação total ano]]%",
-        "behindColumns": true,
-        "colorField": "cor",
-        "columnWidth": 0.68,
-        "fillAlphas": 1,
-        "fillColors": "#61788E",
-        "gapPeriod": 4,
-        "id": "AmGraph-1",
-        "lineAlpha": 0,
-        "lineColor": "#61788E",
-        "lineThickness": 0,
-        "minDistance": 0,
-        "showHandOnHover": true,
-        "title": "Candidatos",
-        "type": "column",
-        "valueAxis": "ValueAxis-1",
-        "valueField": "Coletas"
-      },
-      {
-        "balloonText": "<span style='font-family:lato;font-size:13px;'>Taxa de inaptos:</span style><b><span style='font-family:lato;font-size:15px;'> [[value]]%",
-        "bullet": "round",
-        "bulletBorderAlpha": 1,
-        "bulletBorderColor": "#C4CDD5",
-        "bulletColor": "#C4CDD5",
-        "color": "#C4CDD5",
-        "columnWidth": 0.75,
-        "fillColors": "",
-        "hidden": true,
-        "id": "AmGraph-2",
-        "labelPosition": "bottom",
-        "labelText": "",
-        "lineColor": "#C4CDD5",
-        "lineThickness": 3,
-        "showHandOnHover": true,
-        "title": "% Inaptos",
-        "valueAxis": "ValueAxis-3",
-        "valueField": "Inaptos"
+        "type": "serial",
+        "categoryField": "ANO",
+        "columnSpacing": 4,
+        "columnSpacing3D": 2,
+        "columnWidth": 0,
+        "dataDateFormat": "YYYY",
+        "sequencedAnimation": false,
+        "backgroundAlpha": 0.8,
+        "creditsPosition": "top-right",
+        "decimalSeparator": ",",
+        "fontFamily": "lato",
+        "fontSize": 13,
+        "thousandsSeparator": ".",
+        "export": {
+          "enabled": true
+        },
+        "categoryAxis": {
+          "gridPosition": "start",
+          "minPeriod": "YYYY",
+          "parseDates": true,
+          "axisColor": "#FFFFFF",
+          "axisThickness": 2,
+          "boldLabels": true,
+          "dashLength": 5
+        },
+        "chartCursor": {
+          "enabled": true,
+          "balloonPointerOrientation": " vertical",
+          "categoryBalloonDateFormat": "YYYY",
+          "categoryBalloonText": "<span style='font-family:lato;font-size:13px;'>[[category]]",
+          "cursorColor": "#3DC1D0",
+          "valueBalloonsEnabled": false
+        },
+        "trendLines": [],
+        "graphs": [
+          {
+            "balloonText": "<span style='font-family:lato;font-size:17px;'><b>[[category]]</b></span style></p><span style='font-family:lato;font-size:13px;'> Nº de Candidatos: </span style><span style='font-family:lato;font-size:19px;'><b>[[value]]</b></span style></br></br><span style='font-family:lato;font-size:13px;'>Variação 12 meses:</span style><b><span style='font-family:lato;font-size:15px;'>[[Variação total ano]]%",
+            "behindColumns": true,
+            "colorField": "cor",
+            "columnWidth": 0.68,
+            "fillAlphas": 1,
+            "fillColors": "#61788E",
+            "gapPeriod": 4,
+            "id": "AmGraph-1",
+            "lineAlpha": 0,
+            "lineColor": "#61788E",
+            "lineThickness": 0,
+            "minDistance": 0,
+            "showHandOnHover": true,
+            "title": "Candidatos",
+            "type": "column",
+            "valueAxis": "ValueAxis-1",
+            "valueField": "Coletas"
+          },
+          {
+            "balloonText": "<span style='font-family:lato;font-size:13px;'>Taxa de inaptos:</span style><b><span style='font-family:lato;font-size:15px;'> [[value]]%",
+            "bullet": "round",
+            "bulletBorderAlpha": 1,
+            "bulletBorderColor": "#C4CDD5",
+            "bulletColor": "#C4CDD5",
+            "color": "#C4CDD5",
+            "columnWidth": 0.75,
+            "fillColors": "",
+            "hidden": true,
+            "id": "AmGraph-2",
+            "labelPosition": "bottom",
+            "labelText": "",
+            "lineColor": "#C4CDD5",
+            "lineThickness": 3,
+            "showHandOnHover": true,
+            "title": "% Inaptos",
+            "valueAxis": "ValueAxis-3",
+            "valueField": "Inaptos"
+          }
+        ],
+        "guides": [],
+        "valueAxes": [
+          {
+            "id": "ValueAxis-1",
+            "maximumDate": "",
+            "minimum": 20000,
+            "zeroGridAlpha": 0,
+            "axisThickness": 0,
+            "gridThickness": 0,
+            "minorGridAlpha": 0,
+            "title": " ",
+            "titleBold": false
+          },
+          {
+            "id": "ValueAxis-3",
+            "position": "right",
+            "unit": " %",
+            "axisThickness": 0,
+            "gridThickness": 0
+          }
+        ],
+        "allLabels": [],
+        "balloon": {
+          "borderThickness": 0,
+          "color": "#FFFFFF",
+          "cornerRadius": 4,
+          "disableMouseEvents": false,
+          "fillAlpha": 1,
+          "fillColor": "#3DC1D0",
+          "fixedPosition": false,
+          "fontSize": 12,
+          "horizontalPadding": 9,
+          "offsetX": 70,
+          "offsetY": 2,
+          "pointerWidth": 0,
+          "shadowAlpha": 0,
+          "textAlign": "right",
+          "verticalPadding": 3
+        },
+        "legend": {
+          "enabled": true,
+          "align": "center",
+          "fontSize": 14,
+          "markerSize": 18,
+          "position": "top",
+          "spacing": 50,
+          "switchType": "v",
+          "valueText": " "
+        },
+        "titles": [],
+        "dataProvider": [
+          {
+            "ANO": "2012",
+            "Coletas": "31289",
+            "Inaptos": "22.5",
+            "Variação total ano": "--"
+          },
+          {
+            "ANO": "2013",
+            "Coletas": "32786",
+            "Inaptos": "23.5",
+            "Variação total ano": " 4.78 "
+          },
+          {
+            "ANO": "2014",
+            "Coletas": "33178",
+            "Inaptos": "22.9",
+            "Variação total ano": " 1.20 "
+          },
+          {
+            "ANO": "2015",
+            "Coletas": "33567",
+            "Inaptos": "23.8",
+            "Variação total ano": " 1.17 "
+          },
+          {
+            "ANO": "2016",
+            "Coletas": "33480",
+            "Inaptos": "21.4",
+            "Variação total ano": "-0.26 "
+          },
+          {
+            "ANO": "2017",
+            "Coletas": "31433",
+            "Inaptos": "20.9",
+            "Variação total ano": "-6.11 "
+          }
+        ]
       }
-    ],
-    "guides": [],
-    "valueAxes": [
-      {
-        "id": "ValueAxis-1",
-        "maximumDate": "",
-        "minimum": 20000,
-        "zeroGridAlpha": 0,
-        "axisThickness": 0,
-        "gridThickness": 0,
-        "minorGridAlpha": 0,
-        "title": " ",
-        "titleBold": false
-      },
-      {
-        "id": "ValueAxis-3",
-        "position": "right",
-        "unit": " %",
-        "axisThickness": 0,
-        "gridThickness": 0
-      }
-    ],
-    "allLabels": [],
-    "balloon": {
-      "borderThickness": 0,
-      "color": "#FFFFFF",
-      "cornerRadius": 4,
-      "disableMouseEvents": false,
-      "fillAlpha": 1,
-      "fillColor": "#3DC1D0",
-      "fixedPosition": false,
-      "fontSize": 12,
-      "horizontalPadding": 9,
-      "offsetX": 70,
-      "offsetY": 2,
-      "pointerWidth": 0,
-      "shadowAlpha": 0,
-      "textAlign": "right",
-      "verticalPadding": 3
-    },
-    "legend": {
-      "enabled": true,
-      "align": "center",
-      "fontSize": 14,
-      "markerSize": 18,
-      "position": "top",
-      "spacing": 50,
-      "switchType": "v",
-      "valueText": " "
-    },
-    "titles": [],
-    "dataProvider": data
-  }
-);
+    );
 </script>
 {% for ent in entidade %}
     <div id="page-wrapper">
@@ -309,11 +346,9 @@ AmCharts.makeChart("chartdiv363",
                       <dl>
                           <dt class="grid_title">
                               <div class="total_label">
-                                  <span>Bloco/Grupo</span>
+                                  <span>Candidatos à doação</span>
                               </div>
-                              <div>
-                                  <span>Valor</span>
-                              </div>
+
                           </dt>
                           <dd class="grid_content">
 
@@ -323,12 +358,7 @@ AmCharts.makeChart("chartdiv363",
                                           <h5 class="mb-0">
                                               <a data-toggle="collapse" href="#ac_pag_rec_collapse_1" aria-expanded="true" aria-controls="ac_pag_rec_collapse_1" class="grid_title">
                                                   <div class="total_label no-border">
-                                                      <span>Média e Alta complexidade ambulatorial e hospitalar</span>
-                                                  </div>
-                                                  <div class="no-border">
-
-                                                      <span>R$ {{ filter.qs.values | running_total_repasse }}</span>
-
+                                                      <span>Candidatos / Inaptidão </span>
                                                   </div>
                                               </a>
                                           </h5>
@@ -339,17 +369,17 @@ AmCharts.makeChart("chartdiv363",
                                               <table class="table table-hover">
                                                   <thead>
                                                       <tr>
-                                                          <th>Repasse Federal (SUS)</th>
-                                                          <th>Data</th>
-                                                          <th>Valor Total</th>
+                                                          <th>Ano</th>
+                                                          <th>Inaptos</th>
+                                                          <th>Candidatos à doação</th>
                                                       </tr>
                                                   </thead>
                                                   <tbody>
                                                     {% for a in filter.qs %}
                                                     <tr>
-                                                        <td>{{a.ano|date:'Y' }}</td>
+                                                        <td>{{a.ano }}</td>
                                                         <td>{{a.inaptos}}</td>
-                                                        <td>R$ {{a.coletas}}</td>
+                                                        <td> {{a.coletas}}</td>
                                                     </tr>
                                                     {% endfor %}
                                                   </tbody>
@@ -358,42 +388,6 @@ AmCharts.makeChart("chartdiv363",
                                       </div>
                                   </div>
 
-                                  <div class="card">
-                                      <div class="card-header" role="tab" id="ac_pag_rec_head_2">
-                                          <h5 class="mb-0">
-                                              <a data-toggle="collapse" href="#ac_pag_rec_collapse_2" aria-expanded="true" aria-controls="ac_pag_rec_collapse_2" class="grid_title">
-                                                  <div class="total_label no-border">
-                                                      <span>Incremento MAC</span>
-                                                  </div>
-                                                  <div class="no-border">
-                                                      <span>-</span>
-                                                  </div>
-                                              </a>
-                                          </h5>
-                                      </div>
-
-                                      <div id="ac_pag_rec_collapse_2" class="collapse" role="tabpanel" aria-labelledby="ac_pag_rec_head_2" data-parent="#ac_pag_rec">
-                                          <div class="card-body">
-                                              <table class="table table-hover">
-                                                  <thead>
-                                                  <tr>
-                                                      <th>Repasse Federal (SUS)</th>
-                                                      <th>Data</th>
-                                                      <th>Valor Total</th>
-                                                  </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                  <tr>
-                                                      <td>-</td>
-                                                      <td>-</td>
-                                                      <td>-</td>
-                                                  </tr>
-                                                  </tbody>
-                                              </table>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
 
                           </dd>
                       </dl>
